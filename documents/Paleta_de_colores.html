@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paleta de Colores</title>
+
+
+
+<style>
+    
+    :root {
+        --bg: #0F0F0F;
+        --border: #2A2A2A;
+        --text-main: #FDFBF7;
+        --text-sub: #A8B0AB;
+    }
+
+    * { box-sizing: border-box; }
+
+    ::selection {
+        background: #D4AF37;
+        color: #2A2A2A;
+    }
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background-color: var(--bg);
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+
+    .parent {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr 1fr;
+        column-gap: 40px;
+        width: 100%;
+        max-width: 1500px;
+    }
+
+    /* ---------- headers ---------- */
+    .col-title {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin: 0 0 24px 0;
+        grid-column: span 1;
+    }
+
+    /* ---------- Textos Izquierda---------- */
+    .labels {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .labels .col-title { visibility: hidden; height: 22px; margin-bottom: 24px; }
+
+    .label-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .label-row:last-child { border-bottom: none; }
+
+    .icon-box {
+        flex: 0 0 56px;
+        width: 56px;
+        height: 56px;
+        border: 2px solid #FDFBF7;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: #FDFBF7;
+    }
+
+    .icon-box svg { width: 24px; height: 24px; }
+
+    .label-text h2 {
+        margin: 0 0 6px 0;
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+    }
+
+    .label-text p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--text-sub);
+        font-weight: 400;
+    }
+
+    /* ---------- Cards  ---------- */
+    .swatch-card {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .swatch-row {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .swatch-row:last-child { border-bottom: none; }
+
+    .swatch {
+        flex: 0 0 220px;
+        height: 68px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .swatch.outline {
+        border: 1.5px solid #555;
+    }
+
+    .swatch-card.light .swatch.outline {
+        border: 1.5px solid #D8D3C6;
+    }
+
+    .hex {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+
+    @media (max-width: 900px) {
+        .parent { grid-template-columns: 1fr; row-gap: 40px; }
+        .swatch { flex: 0 0 140px; }
+    }
+</style>
+</head>
+<body>
+    <div class="parent">
+
+        <!-- Textos Izquierda -->
+        <div class="labels">
+            <div class="col-title">&nbsp;</div>
+
+            <div class="label-row">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FDFBF7" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/></svg>
+                </div>
+                <div class="label-text">
+                    <h2>FONDO</h2>
+                    <p>Color de fondo principal</p>
+                </div>
+            </div>
+
+            <div class="label-row">
+                <div class="icon-box">T</div>
+                <div class="label-text">
+                    <h2>TEXTO PRINCIPAL</h2>
+                    <p>Para títulos y texto principal</p>
+                </div>
+            </div>
+
+            <div class="label-row">
+                <div class="icon-box" style="border-color:#A8B0AB;color:#A8B0AB;">T</div>
+                <div class="label-text">
+                    <h2>SUBTEXTO</h2>
+                    <p>Para texto secundario y descripciones</p>
+                </div>
+            </div>
+
+            <div class="label-row">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FDFBF7" stroke-width="1.6"><polygon points="12,2.5 15,9 22,10 17,15 18.2,21.5 12,18.3 5.8,21.5 7,15 2,10 9,9"/></svg>
+                </div>
+                <div class="label-text">
+                    <h2>ICONOS</h2>
+                    <p>Para iconos y elementos visuales</p>
+                </div>
+            </div>
+
+            <div class="label-row">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FDFBF7" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+                </div>
+                <div class="label-text">
+                    <h2>BORDES / DIVISORES</h2>
+                    <p>Para bordes, líneas y separadores</p>
+                </div>
+            </div>
+
+            <div class="label-row">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FDFBF7" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3.2" fill="#D4AF37" stroke="none"/></svg>
+                </div>
+                <div class="label-text">
+                    <h2>ACENTO</h2>
+                    <p>Para botones, enlaces y elementos destacados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medio (Fondo Oscuro) -->
+        <div>
+            <h2 class="col-title">SOBRE FONDO OSCURO</h2>
+            <div class="swatch-card dark">
+                <div class="swatch-row"><div class="swatch" style="background:#1B2B24;" onclick="" data-color="#1B2B24"></div><div class="hex">#1B2B24</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#FDFBF7;" data-color="#FDFBF7"></div><div class="hex">#FDFBF7</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#A8B0AB;" data-color="A8B0AB "></div><div class="hex">#A8B0AB</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#C2C9C4;" data-color="C2C9C4 "></div><div class="hex">#C2C9C4</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#314139;" data-color="314139 "></div><div class="hex">#314139</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#D4AF37;" data-color="D4AF37 "></div><div class="hex">#D4AF37</div></div>
+            </div>
+        </div>
+
+        <!-- Derecha (Fondo CLaro) -->
+        <div>
+            <h2 class="col-title">SOBRE FONDO CLARO</h2>
+            <div class="swatch-card light">
+                <div class="swatch-row"><div class="swatch outline" style="background:#FDFBF7;"></div><div class="hex">#FDFBF7</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#1A1A1A;"></div><div class="hex">#1A1A1A</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#6E6E6E;"></div><div class="hex">#6E6E6E</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#4A4A4A;"></div><div class="hex">#4A4A4A</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#EAE5DA;"></div><div class="hex">#EAE5DA</div></div>
+                <div class="swatch-row"><div class="swatch" style="background:#8C6239;"></div><div class="hex">#8C6239</div></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Script: copiar color-->  
+    <script>
+        const swatches = document.querySelectorAll(".swatch");
+        const colors = document.querySelectorAll(".hex");
+
+        swatches.forEach((swatch, index) => {
+            swatch.addEventListener("click", () => {
+                const color = colors[index].textContent;
+
+                navigator.clipboard.writeText(color);
+
+                alert("Copiado al portapapeles");
+            });
+        });
+    </script>
+</body>
+</html>
