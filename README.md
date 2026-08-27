@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+    # Kutrol 
 
-## Getting Started
 
-First, run the development server:
+ ## Requisitos
+    Antes de Iniciar el proyecto debes asegurarte de tener instalado: 
+* [Git](https://git-scm.com/)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+**No es necesario instalar Node.js ni npm**, ya que las dependencias del proyecto se instalan dentro del contenedor de Docker.
+
+## Clonar el proyecto
+
+Clona el repositorio:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone git@github.com:TU-USUARIO/Kutrol.git 
+```
+o 
+
+```bash
+git clone https://github.com/xCr1s12/Kutrol.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Entra al directorio del proyecto:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+cd Kutrol
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Ejecutar con Docker
 
-## Learn More
+La primera vez que ejecutes el proyecto, construye la imagen y levanta el contenedor:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker compose up --build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Docker se encargará de:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Construir el entorno de desarrollo.
+2. Instalar las dependencias de Node.js.
+3. Iniciar el servidor de desarrollo de Next.js.
+4. Exponer la aplicación en el puerto `3000`.
 
-## Deploy on Vercel
+Una vez iniciado, abre en tu navegador:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+http://localhost:3000
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+######
+
+## Comandos Docker
+
+### Iniciar el proyecto
+
+```bash
+docker compose up
+```
+
+### Iniciar y reconstruir
+
+Utiliza este comando cuando hayas realizado cambios en `package.json`, `Dockerfile` o en la configuración de Docker:
+
+```bash
+docker compose up --build
+```
+
+### Detener el proyecto
+
+```bash
+docker compose down
+```
+
+
+
+## Tecnologías Utilizadas
+
+* **Next.js**
+* **React**
+* **JavaScript**
+* **Tailwind CSS**
+* **Docker**
+* **Git / GitHub**
