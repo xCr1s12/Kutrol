@@ -1,4 +1,16 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: bd_grupo1_Kutrol
+      POSTGRES_USER: kutrol
+      POSTGRES_PASSWORD: kutrol123
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/Kutrol.sql:/docker-entrypoint-initdb.d/01-schema.sql
+
   nextjs:
     build:
       context: .
@@ -11,4 +23,10 @@ services:
       - /app/.next
     environment:
       - WATCHPACK_POLLING=true
+      - DATABASE_URL=postgresql://kutrol:kutrol123@postgres:5432/bd_grupo1_Kutrol
+    depends_on:
+      - postgres
     command: npm run dev
+
+volumes:
+  pgdata:
