@@ -1,21 +1,26 @@
 @import "tailwindcss";
 
-
-:root {
-  --background: #ffffff;
-  --foreground: #1B2B24;
-}
-;;::selection{
+::selection {
   background: #D4AF37;
   color: #FDFBF7;
 }
+
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #ffffff;
+  --color-foreground: #1B2B24;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-
+  /* Paleta Kutrol — tokens semánticos */
+  --color-brand: #1B2B24;
+  --color-text: #FDFBF7;
+  --color-subtext: #A8B0AB;
+  --color-icon: #C2C9C4;
+  --color-border: #314139;
+  --color-accent: #D9AC34;
+  --color-accent-dark: #C49A2E;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
