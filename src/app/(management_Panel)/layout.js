@@ -1,7 +1,7 @@
 
 
 import { Geist, Geist_Mono , Big_Shoulders} from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 
 
@@ -28,11 +28,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
+    <div
       lang="es"
       className={`${big_Shoulders.variable} ${geistMono.variable} ${geistSans.variable}  h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+      <main className="min-h-full flex flex-col">{children}</main>
+    </div>
   );
 }

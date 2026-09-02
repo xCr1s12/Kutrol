@@ -66,7 +66,7 @@ export default function Login() {
 
             {/* Acciones */}
             <div className="flex gap-3 pt-5">
-              <Button type="submit" variant="primary" className="flex-1">
+              <Button  href="/dashboard" type="submit" variant="primary" className="flex-1">
                 Ingresar
               </Button>
               <Button variant="secondary" href="/" className="flex-1">

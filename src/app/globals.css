@@ -2,7 +2,7 @@
 
 ::selection {
   background: #D4AF37;
-  color: #FDFBF7;
+  color: #1A1A1A;
 }
 
 @theme inline {
@@ -10,6 +10,7 @@
   --color-foreground: #1B2B24;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-big: var(--font-big-shoulders);
 
   /* Paleta Kutrol — tokens semánticos */
   --color-brand: #1B2B24;
