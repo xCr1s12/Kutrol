@@ -6,6 +6,9 @@ import Image from "next/image";
 import HomeCards from "@/components/home/HomeCards";
 import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
 
+
+ 
+
 {
   /*  Para fase de desarrollo 
   Card Data: datos necesarios para el componente home card

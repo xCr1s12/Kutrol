@@ -1,38 +1,21 @@
+import Sidebar from "@/components/ui/sidebar";
+import Header from "@/components/ui/Header";
 
-
-import { Geist, Geist_Mono , Big_Shoulders} from "next/font/google";
-import "../globals.css";
-
-
-
-const big_Shoulders = Big_Shoulders({
-  subsets: ['latin'],
-  variable: '--font-big-shoulders',
-  fallback: ['sans-serif', 'Arial'],
-});
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata = {
-  title: "KUTROL — Gestión Inteligente de Combustible",
-  description:
-    "Optimiza cada gota. Reduce tu huella. Dashboard de gestión de combustible para flotas de transporte.",
-};
-
-export default function RootLayout({ children }) {
+export default function DashboardLayout({children}) {
   return (
-    <div
-      lang="es"
-      className={`${big_Shoulders.variable} ${geistMono.variable} ${geistSans.variable}  h-full antialiased`}
-    >
-      <main className="min-h-full flex flex-col">{children}</main>
+    <div className="flex w-full min-h-screen bg-[#FDFBF7] overflow-hidden">
+      {/* 1. Sidebar lateral estático */}
+      <Sidebar />
+
+      {/* 2. Contenedor principal derecho */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+        <Header />
+
+        {/* Inyección dinámica del contenido de cada página */}
+        <main className="bg-[#ffffff] w-full flex-1 p-4 sm:p-8">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
