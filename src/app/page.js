@@ -14,6 +14,9 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
+
+ 
+
 {
   /*  Para fase de desarrollo 
   Card Data: datos necesarios para el componente home card

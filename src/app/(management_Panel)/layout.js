@@ -1,38 +1,21 @@
+import Sidebar from "@/components/ui/sidebar";
+import Header from "@/components/ui/Header";
 
-
-import { Geist, Geist_Mono , Big_Shoulders} from "next/font/google";
-import "../globals.css";
-
-
-
-const big_Shoulders = Big_Shoulders({
-  subsets: ['latin'],
-  variable: '--font-big-shoulders',
-  fallback: ['sans-serif', 'Arial'],
-});
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata = {
-  title: "KUTROL — Gestión Inteligente de Combustible",
-  description:
-    "Optimiza cada gota. Reduce tu huella. Dashboard de gestión de combustible para flotas de transporte.",
-};
-
-export default function RootLayout({ children }) {
+export default function DashboardLayout({children}) {
   return (
     <div
       lang="es"
-      className={`${big_Shoulders.variable} ${geistMono.variable} ${geistSans.variable}  h-full antialiased`}
+      className=" flex w-full h-screen bg-[#FDFBF7] overflow-hidden"
     >
-      <main className="min-h-full flex flex-col">{children}</main>
+      <Sidebar />
+
+      <div className="flex-1 flex flex-col h-full overflow-y-auto">
+        <Header />
+
+        <main className="bg-[#F5F5F5] w-full flex-1 p-4 sm:p-8">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
