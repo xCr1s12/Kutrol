@@ -2,9 +2,9 @@ import { Geist, Geist_Mono, Big_Shoulders, Poppins } from "next/font/google";
 import "./globals.css";
 
 const big_Shoulders = Big_Shoulders({
-  subsets: ['latin'],
-  variable: '--font-big-shoulders',
-  fallback: ['sans-serif', 'Arial'],
+  subsets: ["latin"],
+  variable: "--font-big-shoulders",
+  fallback: ["sans-serif", "Arial"],
 });
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata = {

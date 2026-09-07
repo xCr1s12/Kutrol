@@ -4,14 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
+import PieChartIcon from '@mui/icons-material/PieChart';
+import RouteIcon from '@mui/icons-material/Route';
+import FlagIcon from '@mui/icons-material/Flag';
+
 
 export default function Sidebar() {
   // array con con rutas de navegacion
   const NavRoutes = [
-    { name: "Dashboard", path: "/dashboard", icon: HomeIcon },
-    { name: "Estadisticas", path: "/statistic", icon: HomeIcon },
-    { name: "Rutas", path: "/route", icon: HomeIcon },
-    { name: "Alertas", path: "/alerts", icon: HomeIcon },
+    { name: "Dashboard", path: "/dashboard", icon: HomeIcon , aria: "Ir al Dashboard" },
+    { name: "Estadisticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadisticas" },
+    { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
+    { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
   ];
   const PathName = usePathname();
 
@@ -30,20 +34,23 @@ export default function Sidebar() {
     >
       {/* Botón de hamburguesa  */}
       <div className="h-16 flex items-center pl-2.5">
-        <button
+        <div
           onClick={() => {
             ToggleSideBar();
           }}
 
           className="flex items-center gap-3 text-[#A8B0AB] cursor-pointer p-2 rounded transition-colors"
         >
-          <MenuIcon />
+          {!isActive && (
+            <MenuIcon aria-label="Abrir menu" aria-expanded aria-hidden="false" />
+          )}
+          
           {isActive && (
             <span className="whitespace-nowrap overflow-hidden text-sm">
               Cerrar Menu
             </span>
-          )}
-        </button>
+          )}  
+        </div>
       </div>
 
       {/* Navegacion */}
@@ -53,6 +60,7 @@ export default function Sidebar() {
 
           return (
             <Link
+              aria-label={item.aria}
               key={item.path}
               href={item.path}
               className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
@@ -62,6 +70,7 @@ export default function Sidebar() {
             >
               <div className="flex items-center justify-center min-w-[24px]">
                 <item.icon
+                  aria-hidden="false"
                   htmlColor={isCurrentPath ? "#D4AF37" : "#C2C9C4"}
                   fontSize="medium"
                 />

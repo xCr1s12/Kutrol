@@ -1,4 +1,6 @@
+"use client";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DropMenu from "../ui/DropMenu";
 
 // Datos de prueba para las alertas
 const AlertsData = [
@@ -36,9 +38,10 @@ export default function AlertsSection() {
               </p>
             </div>
 
-            <button className="text-[#A8B0AB] hover:text-[#1A1A1A] p-1 rounded transition-colors cursor-pointer">
-              <MoreVertIcon fontSize="small" />
-            </button>
+            <div
+              className="text-[#A8B0AB] hover:text-[#1A1A1A] p-1 rounded transition-colors cursor-pointer">
+              <DropMenu />
+            </div>
           </div>
         ))}
       </div>

@@ -43,9 +43,9 @@ export default function Header() {
 
           {/* Icono de flecha indicadora */}
           {isOpen ? (
-            <KeyboardArrowUpIcon htmlColor="#4A4A4A" />
+            <KeyboardArrowUpIcon htmlColor="#4A4A4A " aria-hidden="false" aria-label="Cerrar Menu" />
           ) : (
-            <KeyboardArrowDownIcon htmlColor="#4A4A4A" />
+            <KeyboardArrowDownIcon htmlColor="#4A4A4A" aria-hidden="false" aria-label="Abrir Menu" />
           )}
         </button>
 
