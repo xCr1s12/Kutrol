@@ -1,17 +1,17 @@
 "use client";
-import {useState} from "react";
+import { useState } from "react";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 
 export default function Sidebar() {
   // array con con rutas de navegacion
   const NavRoutes = [
-    {name: "Dashboard", path: "/dashboard", icon: HomeIcon},
-    {name: "Estadisticas", path: "/statistic", icon: HomeIcon},
-    {name: "Rutas", path: "/route", icon: HomeIcon},
-    {name: "Alertas", path: "/alerts", icon: HomeIcon},
+    { name: "Dashboard", path: "/dashboard", icon: HomeIcon },
+    { name: "Estadisticas", path: "/statistic", icon: HomeIcon },
+    { name: "Rutas", path: "/route", icon: HomeIcon },
+    { name: "Alertas", path: "/alerts", icon: HomeIcon },
   ];
   const PathName = usePathname();
 
@@ -25,23 +25,24 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`h-screen bg-[#1B2B24] flex flex-col transition-all duration-300 ${
-        isActive ? "w-64" : "w-16"
-      }`}
+      className={`h-screen bg-[#1B2B24] flex flex-col transition-all duration-300 ${isActive ? "w-64" : "w-16"
+        }`}
     >
       {/* Botón de hamburguesa  */}
-      <div
-        className={`h-16 flex   ${
-          isActive ? "justify-center" : "justify-center"
-        }`}
-      >
+      <div className="h-16 flex items-center pl-2.5">
         <button
           onClick={() => {
             ToggleSideBar();
           }}
-          className="text-[#A8B0AB] cursor-pointer p-2 rounded transition-colors"
+
+          className="flex items-center gap-3 text-[#A8B0AB] cursor-pointer p-2 rounded transition-colors"
         >
           <MenuIcon />
+          {isActive && (
+            <span className="whitespace-nowrap overflow-hidden text-sm">
+              Cerrar Menu
+            </span>
+          )}
         </button>
       </div>
 
@@ -54,11 +55,10 @@ export default function Sidebar() {
             <Link
               key={item.path}
               href={item.path}
-              className={`flex items-center gap-4 p-3 rounded   transition-colors ${
-                isCurrentPath
+              className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
                   ? " border-l-4 border-[#D4AF37] bg-[#D4AF37]/50"
                   : "border-l-4 border-[#1B2B24] "
-              }`}
+                }`}
             >
               <div className="flex items-center justify-center min-w-[24px]">
                 <item.icon
@@ -69,7 +69,7 @@ export default function Sidebar() {
 
               {isActive && (
                 <span
-                  className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-[#6E6E6E]"}`}
+                  className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-[#A8B0AB]"}`}
                 >
                   {item.name}
                 </span>
