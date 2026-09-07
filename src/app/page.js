@@ -27,25 +27,25 @@ const cardData = [
     title: "Control de Combustible",
     description:
       "Registra cada carga y detecta gastos fuera de lo normal en tiempo real.",
-    icon: <LocalGasStationOutlinedIcon />,
+    icon: <LocalGasStationOutlinedIcon sx={{fontSize: 40}} />,
   },
   {
     title: "Gestión de Flota",
     description:
       "Administra todos tus vehículos desde un solo panel, con su historial completo.",
-    icon: <LocalShippingOutlinedIcon />,
+    icon: <LocalShippingOutlinedIcon sx={{fontSize: 40}} />,
   },
   {
     title: "Reportes y Métricas",
     description:
       "Visualiza estadísticas claras de rendimiento y costos por vehículo.",
-    icon: <ShowChartOutlinedIcon />,
+    icon: <ShowChartOutlinedIcon sx={{fontSize: 40}} />,
   },
   {
     title: "Alertas Inteligentes",
     description:
       "Recibe notificaciones cuando un vehículo necesita mantención o revisión.",
-    icon: <NotificationsActiveOutlinedIcon />,
+    icon: <NotificationsActiveOutlinedIcon sx={{fontSize: 40}}/>,
   },
 ];
 
