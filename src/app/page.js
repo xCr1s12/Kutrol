@@ -4,7 +4,18 @@ import Link from "next/link";
 import {useHookNavigation} from "@/hooks/useAuthRedirect";
 import Image from "next/image";
 import HomeCards from "@/components/home/HomeCards";
-import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheckedOutlined";
+import LocalGasStationOutlinedIcon from "@mui/icons-material/LocalGasStationOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import ShowChartOutlinedIcon from "@mui/icons-material/ShowChartOutlined";
+import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+
+
+ 
 
 {
   /*  Para fase de desarrollo 
@@ -16,24 +27,28 @@ import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheck
 }
 const cardData = [
   {
-    title: " title",
-    description: "descripcion",
-    icon: <RadioButtonCheckedOutlinedIcon />,
+    title: "Control de Combustible",
+    description:
+      "Registra cada carga y detecta gastos fuera de lo normal en tiempo real.",
+    icon: <LocalGasStationOutlinedIcon sx={{fontSize: 40}} />,
   },
   {
-    title: " title",
-    description: "descripcion",
-    icon: <RadioButtonCheckedOutlinedIcon />,
+    title: "Gestión de Flota",
+    description:
+      "Administra todos tus vehículos desde un solo panel, con su historial completo.",
+    icon: <LocalShippingOutlinedIcon sx={{fontSize: 40}} />,
   },
   {
-    title: " title",
-    description: "descripcion",
-    icon: <RadioButtonCheckedOutlinedIcon />,
+    title: "Reportes y Métricas",
+    description:
+      "Visualiza estadísticas claras de rendimiento y costos por vehículo.",
+    icon: <ShowChartOutlinedIcon sx={{fontSize: 40}} />,
   },
   {
-    title: " title",
-    description: "descripcion",
-    icon: <RadioButtonCheckedOutlinedIcon />,
+    title: "Alertas Inteligentes",
+    description:
+      "Recibe notificaciones cuando un vehículo necesita mantención o revisión.",
+    icon: <NotificationsActiveOutlinedIcon sx={{fontSize: 40}}/>,
   },
 ];
 
@@ -123,11 +138,10 @@ export default function Home() {
             Respiro para el <br />
             planeta
           </h1>
-          {/* Falta texto para reemplazar al lorem */}
           <p className="max-w-md text-sm leading-relaxed text-[#A8B0AB] mx-auto lg:mx-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam
-            velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate
-            commodo lectus, ac blandit elit.
+            Kutrol te permite monitorear el gasto de combustible de tu flota
+            en tiempo real, identificar patrones de consumo y tomar
+            decisiones que reducen costos operativos sin complicaciones.
           </p>
         </div>
         {/* Columna derecha Imagenes Superpuestas */}
@@ -288,13 +302,100 @@ export default function Home() {
       </section>
 
       {/* Acerca de Equipo Kutrol (footer) */}
-      <footer className="w-full flex flex-col mt-5 gap-1 pb-4">
-        {/* agregar footer aqui */}
+      <footer className="w-full flex flex-col mt-10 gap-1 pb-4">
+        <div className="w-full h-[2px] bg-gradient-to-r from-[#D4AF37] via-[#314139] to-transparent"></div>
 
-        
+        <div className="w-full bg-[#20332B] rounded-t-2xl">
+          <div className="w-full flex flex-col sm:flex-row justify-between items-center sm:items-start gap-10 px-6 sm:px-16 py-10">
+            {/* Logo y descripción corta */}
+            <div className="flex flex-col gap-3 items-center sm:items-start text-center sm:text-left max-w-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-9 h-9 rounded-full bg-[#D4AF37] flex items-center justify-center text-[#1A1A1A] font-bold text-sm">
+                  K
+                </span>
+                <span className="text-xl font-bold text-[#FDFBF7] tracking-tighter">
+                  Kutrol
+                </span>
+              </div>
+              <p className="text-xs text-[#A8B0AB] leading-relaxed">
+                Gestión inteligente de flota y combustible para tu empresa.
+              </p>
+              <div className="flex gap-3 mt-1">
+                <a
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-[#314139] flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon sx={{fontSize: 16}} />
+                </a>
+                <a
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-[#314139] flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon sx={{fontSize: 16}} />
+                </a>
+                <a
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-[#314139] flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedInIcon sx={{fontSize: 16}} />
+                </a>
+              </div>
+            </div>
+
+            {/* Links rápidos */}
+            <div className="flex flex-col gap-2 items-center sm:items-start">
+              <span className="text-sm font-semibold text-[#FDFBF7]">
+                Navegación
+              </span>
+              <Link
+                className="text-xs text-[#A8B0AB] hover:text-[#FDFBF7]"
+                href={"#Que-Hace-kutrol"}
+              >
+                ¿Qué hace?
+              </Link>
+              <Link
+                className="text-xs text-[#A8B0AB] hover:text-[#FDFBF7]"
+                href={"#Pasos"}
+              >
+                Pasos
+              </Link>
+              <Link
+                className="text-xs text-[#A8B0AB] hover:text-[#FDFBF7]"
+                href={"#Registrate"}
+              >
+                Regístrate
+              </Link>
+            </div>
+
+            {/* Contacto */}
+            <div className="flex flex-col gap-2 items-center sm:items-start">
+              <span className="text-sm font-semibold text-[#FDFBF7]">
+                Contacto
+              </span>
+              <span className="text-xs text-[#A8B0AB] flex items-center gap-1">
+                <MailOutlineIcon sx={{fontSize: 14}} />
+                contacto@kutrol.cl
+              </span>
+              <span className="text-xs text-[#A8B0AB] flex items-center gap-1">
+                <LocationOnOutlinedIcon sx={{fontSize: 14}} />
+                Castro, Chile
+              </span>
+              <Link
+                href="/acerca_de"
+                className="text-xs text-[#D4AF37] hover:text-[#FDFBF7] mt-1 underline underline-offset-2"
+              >
+                Quiénes somos
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/*sub Footer   */}
         <div className="w-full bg-[#314139] h-[4px]"></div>
-        <p className="text-xs sm:text-sm text-[#A8B0AB] px-5 text-center sm:text-left">
+        <p className="text-xs sm:text-sm text-[#A8B0AB] px-5 text-center sm:text-left pt-2">
           {" "}
           Proyecto de Ingenieria Civil en Informatica | Ulagos 2026{" "}
         </p>

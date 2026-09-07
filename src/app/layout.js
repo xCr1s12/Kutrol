@@ -1,14 +1,10 @@
-
-
-import { Geist, Geist_Mono , Big_Shoulders} from "next/font/google";
+import { Geist, Geist_Mono, Big_Shoulders, Poppins } from "next/font/google";
 import "./globals.css";
 
-
-
 const big_Shoulders = Big_Shoulders({
-  subsets: ['latin'],
-  variable: '--font-big-shoulders',
-  fallback: ['sans-serif', 'Arial'],
+  subsets: ["latin"],
+  variable: "--font-big-shoulders",
+  fallback: ["sans-serif", "Arial"],
 });
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata = {
@@ -30,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="es"
-      className={`${big_Shoulders.variable} ${geistMono.variable} ${geistSans.variable}  h-full antialiased`}
+      className={`${big_Shoulders.variable} ${geistMono.variable} ${geistSans.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
