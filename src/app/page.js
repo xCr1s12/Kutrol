@@ -13,7 +13,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-
+import TreeSVG from "@/components/home/TreeSvg";
 
  
 
@@ -30,25 +30,25 @@ const cardData = [
     title: "Control de Combustible",
     description:
       "Registra cada carga y detecta gastos fuera de lo normal en tiempo real.",
-    icon: <LocalGasStationOutlinedIcon sx={{fontSize: 40}} />,
+    icon: <LocalGasStationOutlinedIcon sx={{ fontSize: 52 }} />,
   },
   {
     title: "Gestión de Flota",
     description:
       "Administra todos tus vehículos desde un solo panel, con su historial completo.",
-    icon: <LocalShippingOutlinedIcon sx={{fontSize: 40}} />,
+    icon: <LocalShippingOutlinedIcon sx={{ fontSize: 52 }} />,
   },
   {
     title: "Reportes y Métricas",
     description:
       "Visualiza estadísticas claras de rendimiento y costos por vehículo.",
-    icon: <ShowChartOutlinedIcon sx={{fontSize: 40}} />,
+    icon: <ShowChartOutlinedIcon sx={{ fontSize: 52 }}/>,
   },
   {
     title: "Alertas Inteligentes",
     description:
       "Recibe notificaciones cuando un vehículo necesita mantención o revisión.",
-    icon: <NotificationsActiveOutlinedIcon sx={{fontSize: 40}}/>,
+    icon: <NotificationsActiveOutlinedIcon sx={{ fontSize: 52 }} />,
   },
 ];
 
@@ -77,7 +77,7 @@ export default function Home() {
               {" "}
               <Link
                 className="text-[#A8B0AB] hover:text-[#FDFBF7]"
-                href={"#Que-Hace-kutrol"}
+                href={"#Que-hace-kutrol"}
               >
                 ¿Qué hace?{" "}
               </Link>{" "}
@@ -126,15 +126,21 @@ export default function Home() {
       </header>
 
       {/* Seccion principal Texto e imagenes   */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 w-full min-h-fit lg:min-h-screen items-center px-6 sm:px-8 lg:px-18 gap-8 lg:gap-12 py-12 lg:py-0">
+      <section className="relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 w-full min-h-fit lg:min-h-screen items-center px-6 sm:px-8 lg:px-18 gap-8 lg:gap-12 py-12 lg:py-0">
+     
+        {/* Imagen trasera SVG */}
+        <div className="absolute left-0 bottom-0 z-0 w-full sm:w-[65%] lg:w-[57%] max-h-[90%] flex items-end opacity-10 pointer-events-none -translate-x-2 lg:-translate-x-6 translate-y-2 lg:translate-y-4">
+          <TreeSVG className="w-full h-auto object-contain object-left-bottom" />
+        </div>
+
         {/* Columna izquierda Textos */}
-        <div className="flex flex-col gap-4 items-center text-center lg:items-start lg:text-left">
+        <div className="relative z-10 flex flex-col gap-4 items-center text-center lg:items-start lg:text-left">
           <p className="text-xs sm:text-sm text-[#A8B0AB]">
-            Herramienta de Gestion de Flota y Combustible
+            Herramienta en Gestión de Flota y Combustible
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold uppercase leading-tight text-[#FDFBF7]">
             Rentabilidad <br />
-            Para ti <br />
+            Para ti, <br />
             Respiro para el <br />
             planeta
           </h1>
@@ -144,8 +150,9 @@ export default function Home() {
             decisiones que reducen costos operativos sin complicaciones.
           </p>
         </div>
+
         {/* Columna derecha Imagenes Superpuestas */}
-        <div className="relative w-full max-w-full sm:max-w-[500px] lg:max-w-[650px] h-[260px] sm:h-[380px] lg:h-[480px] flex items-center justify-center mx-auto mt-8 lg:mt-0">
+        <div className="relative z-10 w-full max-w-full sm:max-w-[500px] lg:max-w-[650px] h-[260px] sm:h-[380px] lg:h-[480px] flex items-center justify-center mx-auto mt-8 lg:mt-0">
           <div className="absolute top-0 left-0 w-[82%] rounded-lg overflow-hidden shadow-xl -translate-x-2 -translate-y-2">
             <Image
               src="https://res.cloudinary.com/ur93naqo/image/upload/v1787980331/imagen_2026-08-29_011211191.png"
@@ -168,6 +175,7 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Seccion  "Que hace Kutrol" */}
       <section
         id="Que-hace-kutrol"
@@ -183,7 +191,7 @@ export default function Home() {
 
         {/* Encabezado */}
         <div className="mb-10 text-center md:text-left">
-          <p className="text-sm text-[#A8B0AB] font-semibold"> Qué Hace</p>
+
           <h2 className="font-bold text-2xl md:text-4xl text-[#FDFBF7]">
             {" "}
             ¿Qué puedes hacer con Kutrol?
@@ -216,7 +224,9 @@ export default function Home() {
         </div>
 
         {/* Contenedor de Pasos */}
-        <div className="max-w-4xl mx-auto md:mr-0 md:ml-auto flex flex-col gap-y-8 md:gap-y-12">
+        <div 
+        id="Pasos"
+        className="max-w-4xl mx-auto md:mr-0 md:ml-auto flex flex-col gap-y-8 md:gap-y-12">
           <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-[#314139]">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
               <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-[#314139] text-xl sm:text-3xl font-bold text-[#FDFBF7]">
@@ -271,7 +281,9 @@ export default function Home() {
       </section>
 
       {/* Seccion  Registro */}
-      <section className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-[#1B2B24] text-[#FDFBF7]">
+      <section 
+      id="Registrate"
+      className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-[#1B2B24] text-[#FDFBF7]">
         <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
           <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-[#314139] text-[#A8B0AB] font-semibold text-xl lg:text-2xl shrink-0">
             3
