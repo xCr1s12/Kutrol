@@ -1,5 +1,8 @@
 "use client";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,8 +14,11 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+<<<<<<< HEAD
 import { useContext } from "react";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+=======
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
 
 ChartJS.register(
   CategoryScale,
@@ -25,11 +31,14 @@ ChartJS.register(
 );
 
 export default function ConsumoChart() {
+<<<<<<< HEAD
   const { darkMode } = useContext(darkModeContext);
   const chartColors = darkMode
     ? ["#FDFBF7", "#A8B0AB", "#C2C9C4", "#D4AF37"]
     : ["#1A1A1A", "#6E6E6E", "#A8B0AB", "#D1D5DB"];
 
+=======
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
   const options = {
     responsive: true,
     maintainAspectRatio: false, // Permite que el gráfico llene el contenedor
@@ -43,7 +52,11 @@ export default function ConsumoChart() {
             size: 12,
             family: "system-ui",
           },
+<<<<<<< HEAD
           color: darkMode ? "#A8B0AB" : "#6E6E6E",
+=======
+          color: "#6E6E6E",
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         },
       },
       tooltip: {
@@ -57,7 +70,11 @@ export default function ConsumoChart() {
           display: false,
         },
         ticks: {
+<<<<<<< HEAD
           color: darkMode ? "#C2C9C4" : "#A8B0AB",
+=======
+          color: "#A8B0AB",
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         },
       },
       y: {
@@ -80,32 +97,52 @@ export default function ConsumoChart() {
       {
         label: "Camion 1",
         data: [40, 70, 50, 80, 45],
+<<<<<<< HEAD
         borderColor: chartColors[0],
         backgroundColor: chartColors[0],
+=======
+        borderColor: "#1A1A1A",
+        backgroundColor: "#1A1A1A",
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         tension: 0.4,
         pointRadius: 4,
       },
       {
         label: "Camion 2",
         data: [30, 55, 45, 75, 30],
+<<<<<<< HEAD
         borderColor: chartColors[1],
         backgroundColor: chartColors[1],
+=======
+        borderColor: "#6E6E6E",
+        backgroundColor: "#6E6E6E",
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         tension: 0.4,
         pointRadius: 4,
       },
       {
         label: "Camion 3",
         data: [20, 60, 35, 65, 80],
+<<<<<<< HEAD
         borderColor: chartColors[2],
         backgroundColor: chartColors[2],
+=======
+        borderColor: "#A8B0AB",
+        backgroundColor: "#A8B0AB",
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         tension: 0.4,
         pointRadius: 4,
       },
       {
         label: "Camion 4",
         data: [50, 30, 20, 45, 25],
+<<<<<<< HEAD
         borderColor: chartColors[3],
         backgroundColor: chartColors[3],
+=======
+        borderColor: "#D1D5DB",
+        backgroundColor: "#D1D5DB",
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         tension: 0.4,
         pointRadius: 4,
       },
@@ -113,6 +150,7 @@ export default function ConsumoChart() {
   };
 
   return (
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     <figure className="light:bg-card dark:bg-card m-0 flex w-full flex-col rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
@@ -332,6 +370,14 @@ export default function ConsumoChart() {
           )}
         </div>
       )}
+=======
+    <div className="w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col">
+      <h3 className="text-[#1A1A1A] font-bold text-lg mb-4">Consumo Ultimos 30 Dias</h3>
+      
+      <div className="w-full h-[280px] relative">
+        <Line options={options} data={data} />
+      </div>
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
     </div>
 >>>>>>> 8db7d62 (Creación Funcional de la pestaña dashboard)
   );

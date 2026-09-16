@@ -1,6 +1,9 @@
 "use client";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
 import {useState, useEffect} from "react";
 
 export default function Clock() {
@@ -39,6 +42,7 @@ export default function Clock() {
     <span>
       {Fecha} - {Hora}
     </span>
+<<<<<<< HEAD
 =======
 import { useState, useEffect } from "react";
 
@@ -91,5 +95,7 @@ export default function Clock({ className = "", role }) {
       </span>
     </div>
 >>>>>>> 8db7d62 (Creación Funcional de la pestaña dashboard)
+=======
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
   );
 }

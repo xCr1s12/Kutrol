@@ -1,4 +1,5 @@
 "use client";
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 
 export default function Clock({ className = "", role }) {
@@ -22,6 +23,26 @@ export default function Clock({ className = "", role }) {
       <span
         className={`text-subtext inline-flex items-center text-xs ${className}`}
       >
+=======
+
+import { useState, useEffect } from "react";
+
+export default function Clock({ className = "", role }) {
+  const [time, setTime] = useState(null);
+
+  useEffect(() => {
+    setTime(new Date());
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  if (!time) {
+    return (
+      <span className={`text-xs text-[#4A4A4A] inline-flex items-center ${className}`}>
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
         Cargando hora...
       </span>
     );
@@ -35,12 +56,17 @@ export default function Clock({ className = "", role }) {
   });
 
   // Capitalizamos ÚNICAMENTE la primera letra del día (ej: "Miércoles, 16 de septiembre")
+<<<<<<< HEAD
   const fechaFormatted =
     fechaBruta.charAt(0).toUpperCase() + fechaBruta.slice(1);
+=======
+  const fechaFormatted = fechaBruta.charAt(0).toUpperCase() + fechaBruta.slice(1);
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
 
   const horaFormatted = time.toLocaleTimeString("es-CL", {
     hour: "2-digit",
     minute: "2-digit",
+<<<<<<< HEAD
   });
 
   return (
@@ -48,15 +74,30 @@ export default function Clock({ className = "", role }) {
       className={`text-subtext inline-flex items-center gap-2 whitespace-nowrap text-xs font-medium ${className}`}
       role={role}
     >
+=======
+    second: "2-digit",
+  });
+
+  return (
+    <div className={`inline-flex items-center gap-2 text-xs font-medium text-[#4A4A4A] whitespace-nowrap ${className}`} role={role}>
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
       <span className="flex items-center gap-1">
         <span>📅</span>
         <span>{fechaFormatted}</span>
       </span>
+<<<<<<< HEAD
       <span className="text-border">•</span>
+=======
+      <span className="text-gray-300">•</span>
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
       <span className="flex items-center gap-1">
         <span>🕒</span>
         <span>{horaFormatted}</span>
       </span>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))

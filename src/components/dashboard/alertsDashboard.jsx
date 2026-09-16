@@ -1,5 +1,8 @@
 "use client";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DropMenu from "../ui/DropMenu";
 
@@ -21,6 +24,7 @@ const AlertsData = [
 
 export default function AlertsSection() {
   return (
+<<<<<<< HEAD
     <section
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -54,11 +58,28 @@ export default function AlertsSection() {
                 {alert.title}
               </h3>
               <p className="text-subtext light:text-subtext dark:text-subtext text-xs leading-relaxed">
+=======
+    <div className="w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4">
+      <h2 className="text-[#1A1A1A] font-bold text-lg mb-2">Alertas</h2>
+
+      <div className="flex flex-col gap-y-3">
+        {AlertsData.map((alert) => (
+          <div
+            key={alert.id}
+            className="w-full bg-[#F9F9FB] border border-gray-100 rounded-2xl p-4 shadow-sm flex justify-between items-start"
+          >
+            <div className="flex flex-col gap-y-1 pr-4">
+              <h3 className="text-[#1A1A1A] font-bold text-sm">
+                {alert.title}
+              </h3>
+              <p className="text-[#6E6E6E] text-xs leading-relaxed">
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
                 {alert.description}
               </p>
             </div>
 
             <div
+<<<<<<< HEAD
               className="  light:text-text hover:text-text p-1 rounded transition-colors cursor-pointer  dark:text-icon dark:hover:text-text">
               <DropMenu />
             </div>
@@ -151,6 +172,13 @@ export default function AlertsSection({ alertas = [] }) {
             )}
           </tbody>
         </table>
+=======
+              className="text-[#A8B0AB] hover:text-[#1A1A1A] p-1 rounded transition-colors cursor-pointer">
+              <DropMenu />
+            </div>
+          </div>
+        ))}
+>>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
       </div>
     </div>
 >>>>>>> 8db7d62 (Creación Funcional de la pestaña dashboard)
