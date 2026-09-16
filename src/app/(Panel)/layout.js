@@ -1,3 +1,5 @@
+import 'leaflet/dist/leaflet.css';
+import "../globals.css";
 import Sidebar from "@/components/ui/Sidebar";
 import Header from "@/components/ui/PanelHeader";
 

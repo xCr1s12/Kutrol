@@ -6,11 +6,12 @@ import CardKutrol from "@/components/AboutKutrol/CardKutrol";
 import { motion, AnimatePresence } from "framer-motion";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+
 const Integrantes = [
   { Nombre: "Cristobal Oñate", Rol: "Frontend", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529005/Avatar-1.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el lol :v", ig: "https://www.instagram.com/cristobaal1_/", lk: "https://www.linkedin.com/in/cristobal-o%C3%B1ate-1b7679431/", git: "https://github.com/xCr1s12" },
   { Nombre: "Valentina Calderon", Rol: "UX", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529116/Avatar-3.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
   { Nombre: "Carla Vargas", Rol: "QA", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529052/Avatar-2.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
-  { Nombre: "Claudio Uribe", Rol: "QA", Imagen: "https://res.cloudinary.com/hzpulemv/image/upload/v1789522215/Emo.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
+  { Nombre: "Claudio Uribe", Rol: "UI", Imagen: "https://res.cloudinary.com/hzpulemv/image/upload/v1789522215/Emo.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
 ];
 
 export default function Acerca_de() {
