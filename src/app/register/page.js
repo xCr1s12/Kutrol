@@ -1,11 +1,30 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
+import GoogleIcon from "@/components/ui/GoogleIcon";
+import { validateCompanyRut } from "@/lib/validateCompanyRut";
 
 export default function Register() {
+  const router = useRouter();
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const errs = {};
+    const rut = validateCompanyRut(data.get("reg-rut"));
+    if (rut) errs.rut = rut;
+    if (String(data.get("reg-password") || "").length < 8)
+      errs.password = "Mínimo 8 caracteres";
+    setErrors(errs);
+    if (!Object.keys(errs).length) router.push("/dashboard");
+  };
+
   return (
     <div className="min-h-screen bg-brand flex flex-col">
       {/* Navbar */}
@@ -18,16 +37,16 @@ export default function Register() {
           className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
           aria-label="Ir a la página de inicio de sesión"
         >
-          Iniciar Sesion
+          Iniciar sesión
         </Link>
       </header>
 
       {/* Contenedor centrado */}
       <div className="flex-1 flex items-center justify-center px-4 py-24">
         <Card className="w-full max-w-205 p-10">
-          <h1 className="text-2xl font-bold text-text mb-8">registro</h1>
+          <h1 className="text-2xl font-bold text-text mb-8">Registro</h1>
 
-          <form onSubmit={(e) => e.preventDefault()} noValidate>
+          <form onSubmit={handleSubmit} noValidate>
             <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-10">
               {/* ——— Columna Izquierda: Formulario ——— */}
               <div className="space-y-5">
@@ -37,13 +56,13 @@ export default function Register() {
                     label="Nombre"
                     id="reg-nombre"
                     type="text"
-                    placeholder="Jhon"
+                    placeholder="Juan"
                   />
                   <FormField
                     label="Apellido"
                     id="reg-apellido"
                     type="text"
-                    placeholder="Doe"
+                    placeholder="Pérez"
                   />
                 </div>
 
@@ -53,7 +72,9 @@ export default function Register() {
                     label="Rut"
                     id="reg-rut"
                     type="text"
-                    placeholder="12345678-9"
+                    placeholder="76.123.456-0"
+                    maxLength={12}
+                    error={errors.rut}
                   />
                   <FormField
                     label="Fecha de nacimiento"
@@ -69,23 +90,27 @@ export default function Register() {
                     label="Correo"
                     id="reg-email"
                     type="email"
-                    placeholder="jhon.doe@correo.cl"
+                    placeholder="juan.perez@correo.cl"
                   />
                   <FormField
                     label="Contraseña"
                     id="reg-password"
                     type="password"
                     placeholder="••••••••"
+                    minLength={8}
+                    maxLength={72}
+                    error={errors.password}
                   />
                 </div>
 
-                {/* Fila 4: Información relevante (textarea) */}
+                {/* Fila 4: Descripción de la empresa (textarea) */}
                 <FormField
-                  label="Informacion relevante"
+                  label="Descripción de la empresa"
                   id="reg-info"
                   type="textarea"
-                  placeholder="Type here"
+                  placeholder="Escribe aquí"
                   rows={3}
+                  maxLength={500}
                 />
 
                 {/* Fila 5: SSO */}
@@ -100,15 +125,16 @@ export default function Register() {
                     type="button"
                     variant="ghost"
                     aria-labelledby="reg-sso-label"
-                    className="w-full"
+                    className="w-full flex items-center justify-center gap-2"
                   >
+                    <GoogleIcon />
                     Google
                   </Button>
                 </div>
 
-                {/* Fila 6: Botón Finalizar */}
+                {/* Fila 6: Botón Registrarse */}
                 <Button type="submit" variant="primary" className="w-full">
-                  Finalizar
+                  Registrarse
                 </Button>
               </div>
 
