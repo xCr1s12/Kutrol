@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <div
-      className={` font-big w-full min-h-screen bg-[#1B2B24] overflow-hidden `}
+      className={` w-full min-h-screen overflow-hidden `}
       lang="es"
     >
       {/* encabezado de la pagina principal */}

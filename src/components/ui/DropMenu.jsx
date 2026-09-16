@@ -1,7 +1,6 @@
 "use client";
 
 import { useDropdown } from "@/hooks/clickOutside"; 
-import { ElderlyOutlined } from "@mui/icons-material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const Options = [
@@ -16,7 +15,6 @@ export default function DropMenu({icon: Icon= MoreVertIcon}) {
 
     <div ref={dropdownRef} className="relative inline-block">
       
-      {/* Botón que dispara el evento onClick para abrir/cerrar */}
       <button
         aria-label="Opciones del menu" 
         aria-hidden="true"
