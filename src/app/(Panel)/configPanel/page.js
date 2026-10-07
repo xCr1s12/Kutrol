@@ -44,7 +44,7 @@ const configInicial = {
 };
 
 const coloresEstado = {
-  Leve: "bg-green-100 text-green-800",
+  Leve: "bg-white text-[#1A1A1A]",
   Moderado: "bg-amber-100 text-amber-800",
   Crítico: "bg-red-100 text-red-700",
 };
