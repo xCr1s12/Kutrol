@@ -1,21 +1,24 @@
 "use client";
-import Listitem from "@/components/route/Listitem";
 import { useState } from "react";
-import dynamic from "next/dynamic"; // 1. Importamos dynamic de Next.js
+import dynamic from "next/dynamic";
+import Listitem from "@/components/route/Listitem";
 import InfoCard from "@/components/route/InfoCard";
+import GroupsIcon from "@mui/icons-material/Groups";
+import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import RouteIcon from "@mui/icons-material/Route";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import FormRoute from "@/components/route/FormRoute";
 
-// 2. Importamos el componente MapR dinámicamente apagando el SSR
-const MapR = dynamic(
-  () => import("@/components/route/map"),
-  { 
-    ssr: false, 
-    loading: () => (
-      <div className="flex items-center justify-center h-[400px] text-white">
-        <p>Cargando mapa interactivo...</p>
-      </div>
-    )
-  }
-);
+// Importamos el mapa dinámicamente apagando el SSR
+const MapR = dynamic(() => import("@/components/route/map"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-full min-h-[400px] text-white">
+      <p>Cargando mapa interactivo...</p>
+    </div>
+  ),
+});
 
 const RUTAS = [
   {
@@ -23,25 +26,25 @@ const RUTAS = [
     nombre: "Ancud — Castro",
     coordenadas: [[-41.8683, -73.8282], [-42.4816, -73.7644]],
     viajes: [
-      {conductor: "Juan Díaz", encargado: "M. Soto"},
-      {conductor: "Ana Rojas", encargado: "M. Soto"},
-      {conductor: "Luis Pérez", encargado: "C. Vera"},
-      {conductor: "Marta Silva", encargado: "C. Vera"},
+      { conductor: "Juan Díaz", encargado: "M. Soto" },
+      { conductor: "Ana Rojas", encargado: "M. Soto" },
+      { conductor: "Luis Pérez", encargado: "C. Vera" },
+      { conductor: "Marta Silva", encargado: "C. Vera" },
     ],
-    combustible: {consumo: "8,5 L", rendimiento: "12 km/L", ahorro: "15 %"},
+    combustible: { consumo: "8,5 L", rendimiento: "12 km/L", ahorro: "15 %" },
     tiempoEstimado: "30 min",
     distanciaTotal: "100 km",
   },
   {
     id: "B",
     nombre: "Castro — Dalcahue",
-    coordenadas: [[-42.4816, -73.7644], [-42.3800, -73.6492]],
+    coordenadas: [[-42.4816, -73.7644], [-42.38, -73.6492]],
     viajes: [
-      {conductor: "Pedro Núñez", encargado: "M. Soto"},
-      {conductor: "Sofía Lagos", encargado: "C. Vera"},
-      {conductor: "Diego Ortiz", encargado: "C. Vera"},
+      { conductor: "Pedro Núñez", encargado: "M. Soto" },
+      { conductor: "Sofía Lagos", encargado: "C. Vera" },
+      { conductor: "Diego Ortiz", encargado: "C. Vera" },
     ],
-    combustible: {consumo: "6,2 L", rendimiento: "13,5 km/L", ahorro: "9 %"},
+    combustible: { consumo: "6,2 L", rendimiento: "13,5 km/L", ahorro: "9 %" },
     tiempoEstimado: "22 min",
     distanciaTotal: "68 km",
   },
@@ -50,14 +53,14 @@ const RUTAS = [
     nombre: "Castro — Quellon",
     coordenadas: [[-42.4816, -73.7644], [-43.1189, -73.6139]],
     viajes: [
-      {conductor: "Juan Díaz", encargado: "C. Vera"},
-      {conductor: "Ana Rojas", encargado: "M. Soto"},
-      {conductor: "Luis Pérez", encargado: "M. Soto"},
-      {conductor: "Marta Silva", encargado: "M. Soto"},
-      {conductor: "Pedro Núñez", encargado: "C. Vera"},
-      {conductor: "Sofía Lagos", encargado: "C. Vera"},
+      { conductor: "Juan Díaz", encargado: "C. Vera" },
+      { conductor: "Ana Rojas", encargado: "M. Soto" },
+      { conductor: "Luis Pérez", encargado: "M. Soto" },
+      { conductor: "Marta Silva", encargado: "M. Soto" },
+      { conductor: "Pedro Núñez", encargado: "C. Vera" },
+      { conductor: "Sofía Lagos", encargado: "C. Vera" },
     ],
-    combustible: {consumo: "11,4 L", rendimiento: "9,8 km/L", ahorro: "5 %"},
+    combustible: { consumo: "11,4 L", rendimiento: "9,8 km/L", ahorro: "5 %" },
     tiempoEstimado: "48 min",
     distanciaTotal: "142 km",
   },
@@ -66,10 +69,10 @@ const RUTAS = [
     nombre: "Castro — Chonchi",
     coordenadas: [[-42.4816, -73.7644], [-42.6247, -73.7742]],
     viajes: [
-      {conductor: "Diego Ortiz", encargado: "M. Soto"},
-      {conductor: "Marta Silva", encargado: "C. Vera"},
+      { conductor: "Diego Ortiz", encargado: "M. Soto" },
+      { conductor: "Marta Silva", encargado: "C. Vera" },
     ],
-    combustible: {consumo: "9,1 L", rendimiento: "11 km/L", ahorro: "18 %"},
+    combustible: { consumo: "9,1 L", rendimiento: "11 km/L", ahorro: "18 %" },
     tiempoEstimado: "35 min",
     distanciaTotal: "89 km",
   },
@@ -77,108 +80,178 @@ const RUTAS = [
 
 export default function Route() {
   const [asignado, setAsignado] = useState(null);
+  const [rutas, setRutas] = useState(RUTAS);
+  const [formRutaAbierto, setFormRutaAbierto] = useState(false);
+
+  const agregarRuta = ({ origen, destino, distancia }) => {
+    const nuevaRuta = {
+      id: `N${Date.now()}`,
+      nombre: `${origen.nombre} — ${destino.nombre}`,
+      coordenadas: [],
+      viajes: [],
+      combustible: { consumo: "—", rendimiento: "—", ahorro: "—" },
+      tiempoEstimado: "—",
+      distanciaTotal: `${distancia} km`,
+    };
+
+    setRutas((actuales) => [...actuales, nuevaRuta]);
+    setAsignado(nuevaRuta);
+    setFormRutaAbierto(false);
+  };
 
   return (
-    <div
-      className="flex flex-col w-full bg-[#FDFBF7] overflow-hidden"
-      lang="es"
-    >
-      {/* Lista de rutas y mapas */}
-      <section className="grid grid-cols-2 grid-rows-1 items-center">
-        
-        {/* Lista de rutas */}
-        <div className="mr-10 shadow-2xl border-2 border-[#EAE5DA] w-1/2 h-auto p-10 rounded-xl">
-          <h1 className="font-bold text-[#1A1A1A]">Lista de Rutas</h1>
-          <Listitem 
-            items={RUTAS}
-            onSelect={(data) => setAsignado(data)} 
+    <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl" lang="es">
+      {/* Lista de rutas y mapa */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch ">
+        {/* Lista de rutas: 1/3 */}
+        <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-white dark:bg-background">
+          <h1 className="font-bold text-lg light:text-text dark:text-text">Lista de Rutas</h1>
+          <p className="text-sm light:text-subtext dark:text-subtext">
+            Selecciona una para verla en el mapa
+          </p>
+          <Listitem
+            items={rutas}
+            selectedId={asignado?.id}
+            onSelect={(data) => setAsignado(data)}
           />
         </div>
 
-        {/* Mapa */}
-        <div className="w-full bg-[#6E6E6E]">
-          <h2 className="text-[#FDFBF7] p-2">Mapa</h2>
-          
-          {/* Condición: Si hay una ruta asignada, muestra el mapa. Si no, pide que se seleccione una. */}
-          {asignado ? (
-            <MapR 
-              zoom={40}
-              coordenadas={asignado.coordenadas} 
-              popupText={asignado.nombre} 
-            />
-          ) : (
-            <div className="flex items-center justify-center h-[400px] text-[#FDFBF7]">
-              <p>Selecciona una ruta en la lista para verla en el mapa</p>
-            </div>
-          )}
+        {/* Mapa: 2/3 */}
+        <div className="lg:col-span-2 min-w-0 flex flex-col rounded-2xl overflow-hidden bg-slate">
+          <h2 className="text-cream p-2">Mapa</h2>
+
+          <div className="relative flex-1 min-h-[400px]">
+            {asignado ? (
+              asignado.coordenadas.length > 0 ? (
+                <MapR
+                  coordenadas={asignado.coordenadas}
+                  popupText={asignado.nombre}
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full min-h-[400px] px-6 text-center text-cream">
+                  <p>Esta ruta aún no tiene coordenadas para mostrar en el mapa.</p>
+                </div>
+              )
+            ) : (
+              <div className="flex items-center justify-center h-full min-h-[400px] text-cream">
+                <p>Selecciona una ruta en la lista para verla en el mapa</p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* Cards de información */}
+      {/* Cards de información: una sola fila a todo el ancho */}
       {asignado && (
-        <section className="flex flex-wrap gap-6 px-6 pb-6">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 px-6 pb-8 pt-2 w-full">
           {/* Viajes asignados */}
-          <InfoCard>
-            <h3 className="text-center font-semibold text-[#1A1A1A] mb-4">
-              Viajes asignados a la ruta {asignado.id}
-            </h3>
+          <InfoCard
+            title={`Viajes de la ruta ${asignado.id}`}
+            icon={<GroupsIcon fontSize="small" />}
+            className="min-w-0"
+          >
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-[#6E6E6E]">
-                  <th className="font-normal pb-2">Conductor</th>
-                  <th className="font-normal pb-2">Encargado</th>
+                <tr className="text-left text-xs uppercase tracking-wide  dark:text-subtext light:text-subtext">
+                  <th className="font-medium pb-2">Conductor</th>
+                  <th className="font-medium pb-2">Encargado</th>
                 </tr>
               </thead>
               <tbody>
                 {asignado.viajes.map((v, i) => (
-                  <tr key={i} className="border-t border-[#EAE5DA]">
-                    <td className="py-2 text-[#1A1A1A]">{v.conductor}</td>
-                    <td className="py-2 text-[#1A1A1A]">{v.encargado}</td>
+                  <tr key={i} className="border-t  dark:border-border light:border-border">
+                    <td className="py-2">
+                      <div className="flex items-center gap-2">
+                        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-sand text-xs font-semibold text-ink">
+                          {v.conductor
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </span>
+                        <span className="light:text-text dark:text-text ">{v.conductor}</span>
+                      </div>
+                    </td>
+                    <td className="py-2 light:text-text dark:text-text">{v.encargado}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </InfoCard>
- 
-          {/* Datos de combustible */}
-          <InfoCard>
-            <h3 className="text-center font-semibold text-[#1A1A1A] mb-4">
-              Datos de combustible
-              <br />
-              de la ruta {asignado.id}
-            </h3>
-            <p className="font-medium text-[#1A1A1A] mb-2">Uso de combustible</p>
-            <p className="text-sm text-[#6E6E6E] mb-1">
-              Consumo promedio: {asignado.combustible.consumo}
-            </p>
-            <p className="text-sm text-[#6E6E6E] mb-1">
-              Rendimiento: {asignado.combustible.rendimiento}
-            </p>
-            <p className="text-sm text-[#6E6E6E]">
-              Ahorro: {asignado.combustible.ahorro}
-            </p>
+
+          {/* Combustible */}
+          <InfoCard
+            title="Combustible"
+            icon={<LocalGasStationIcon fontSize="small" />}
+            className="min-w-0"
+          >
+            <dl className="flex flex-col gap-3 text-sm">
+              <div className="flex justify-between">
+                <dt className="light:text-text dark:text-text">Consumo promedio</dt>
+                <dd className="font-semibold light:text-text dark:text-text">
+                  {asignado.combustible.consumo}
+                </dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="light:text-text dark:text-text">Rendimiento</dt>
+                <dd className="font-semibold light:text-text dark:text-text">
+                  {asignado.combustible.rendimiento}
+                </dd>
+              </div>
+              <div className="flex justify-between items-center">
+                <dt className="light:text-text dark:text-text">Ahorro</dt>
+                <dd className="font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
+                  {asignado.combustible.ahorro}
+                </dd>
+              </div>
+            </dl>
           </InfoCard>
- 
+
           {/* Plan de tiempo */}
-          <InfoCard className="flex flex-col items-center justify-center text-center">
-            <h3 className="font-semibold text-[#1A1A1A] mb-4">Plan de tiempo</h3>
-            <p className="text-4xl font-bold text-[#1A1A1A]">
-              {asignado.tiempoEstimado}
-            </p>
-            <p className="text-sm text-[#6E6E6E] mt-1">Tiempo estimado</p>
+          <InfoCard
+            title="Plan de tiempo"
+            icon={<AccessTimeIcon fontSize="small" />}
+            className="min-w-0 text-center"
+          >
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <p className="text-4xl font-bold light:text-text dark:text-text">
+                {asignado.tiempoEstimado}
+              </p>
+              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Tiempo estimado</p>
+            </div>
           </InfoCard>
- 
+
           {/* Métricas de ruta */}
-          <InfoCard className="flex flex-col items-center justify-center text-center">
-            <h3 className="font-semibold text-[#1A1A1A] mb-4">Métricas de ruta</h3>
-            <p className="text-4xl font-bold text-[#1A1A1A]">
-              {asignado.distanciaTotal}
-            </p>
-            <p className="text-sm text-[#6E6E6E] mt-1">Distancia total</p>
+          <InfoCard
+            title="Métricas de ruta"
+            icon={<RouteIcon fontSize="small" />}
+            className="min-w-0 text-center"
+          >
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <p className="text-4xl font-bold light:text-text dark:text-text">
+                {asignado.distanciaTotal}
+              </p>
+              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Distancia total</p>
+            </div>
           </InfoCard>
         </section>
+      )}
+
+      <button
+        type="button"
+        onClick={() => setFormRutaAbierto(true)}
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-bold text-brand light:text-white shadow-lg transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      >
+        <AddRoundedIcon fontSize="small" aria-hidden="true" />
+        Agregar ruta
+      </button>
+
+      {formRutaAbierto && (
+        <FormRoute
+          open={formRutaAbierto}
+          onClose={() => setFormRutaAbierto(false)}
+          onSubmit={agregarRuta}
+        />
       )}
     </div>
   );
 }
- 

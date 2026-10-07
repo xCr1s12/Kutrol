@@ -32,6 +32,10 @@ const Modal = ({
   onAction,
   children,
   footer,
+<<<<<<< HEAD
+=======
+  className = "",
+>>>>>>> FrontEnd
   size = "md",
 }) => {
   const dialogRef = useRef(null);
@@ -62,27 +66,46 @@ const Modal = ({
       onClose={onClose}
       onClick={handleClickFondo}
       aria-labelledby="modal-titulo"
+<<<<<<< HEAD
       className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-['Poppins',sans-serif] text-brand shadow-2xl `}
+=======
+      className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-['Poppins',sans-serif] text-brand shadow-2xl ${className}`}
+>>>>>>> FrontEnd
     >
       {open && (
         <div className="flex max-h-[90vh] flex-col">
           {/* ---------- Cabecera oscura ---------- */}
+<<<<<<< HEAD
           <header className="flex items-center justify-between gap-4 border-b-2 border-accent bg-brand px-6 py-5">
             <div className="flex items-center gap-4">
               {icon && (
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-brand/80 [&_svg]:text-3xl">
+=======
+          <header className="flex items-center justify-between gap-4 border-b-2 border-gold bg-brand px-6 py-5">
+            <div className="flex items-center gap-4">
+              {icon && (
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold text-brand [&_svg]:text-3xl">
+>>>>>>> FrontEnd
                   {icon}
                 </span>
               )}
               <div className="flex flex-col">
                 {eyebrow && (
+<<<<<<< HEAD
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+=======
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+>>>>>>> FrontEnd
                     {eyebrow}
                   </span>
                 )}
                 <h2
                   id="modal-titulo"
+<<<<<<< HEAD
                   className="text-xl font-bold leading-tight text-text"
+=======
+                  className="text-xl font-bold leading-tight text-cream"
+>>>>>>> FrontEnd
                 >
                   {title}
                 </h2>
@@ -93,7 +116,11 @@ const Modal = ({
               type="button"
               onClick={onAction ?? onClose}
               aria-label={onAction ? "Acción" : "Cerrar"}
+<<<<<<< HEAD
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white/5 text-icon transition hover:bg-white/10 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+=======
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-moss bg-deep text-mist hover:bg-moss hover:text-cream focus-visible:outline-gold  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-moss dark:bg-deep dark:text-mist dark:hover:bg-moss dark:hover:text-cream dark:focus-visible:outline-gold"
+>>>>>>> FrontEnd
             >
               {actionIcon ?? <CloseRoundedIcon fontSize="small" />}
             </button>
@@ -129,7 +156,11 @@ export const Seccion = ({ titulo, children, className = "" }) => (
 /** Contenedor gris claro con borde redondeado (para datos, listas, etc.) */
 export const Tarjeta = ({ children, className = "" }) => (
   <div
+<<<<<<< HEAD
     className={`rounded-2xl border border-icon bg-background p-5 ${className}`}
+=======
+    className={`rounded-2xl border border-icon dark:bg-foreground p-5 ${className}`}
+>>>>>>> FrontEnd
   >
     {children}
   </div>
@@ -139,7 +170,11 @@ export const Tarjeta = ({ children, className = "" }) => (
 export const Tabla = ({ columnas, filas }) => (
   <div className="overflow-hidden rounded-2xl border border-icon">
     <table className="w-full text-left text-sm">
+<<<<<<< HEAD
       <thead className="bg-text text-xs font-bold uppercase tracking-wider">
+=======
+      <thead className="light:bg-background dark:bg-foreground text-xs font-bold uppercase tracking-wider">
+>>>>>>> FrontEnd
         <tr>
           {columnas.map((c) => (
             <th key={c.key} className="px-5 py-3">
@@ -148,7 +183,11 @@ export const Tabla = ({ columnas, filas }) => (
           ))}
         </tr>
       </thead>
+<<<<<<< HEAD
       <tbody className="bg-background">
+=======
+      <tbody className="dark:bg-foreground light:bg-background">
+>>>>>>> FrontEnd
         {filas.map((fila, i) => (
           <tr key={i} className="border-t border-icon">
             {columnas.map((c, j) => (
@@ -175,8 +214,13 @@ export const Dato = ({ label, value }) => (
 
 /** Línea de tiempo vertical. items: [{ titulo, detalle, actual }] */
 export const LineaTiempo = ({ items }) => (
+<<<<<<< HEAD
   <Tarjeta className="px-6 py-5">
     <ol className="relative flex flex-col gap-5">
+=======
+  <Tarjeta className="px-6 py-5 dark:bg-foreground">
+    <ol className="relative flex flex-col gap-5 dark:bg-foreground">
+>>>>>>> FrontEnd
       <span className="absolute bottom-2 left-1.25 top-2 w-px bg-icon" />
       {items.map((it, i) => (
         <li key={i} className="relative flex items-center gap-4 pl-6 text-sm">
@@ -184,15 +228,26 @@ export const LineaTiempo = ({ items }) => (
             className={`absolute left-0 rounded-full ${
               it.actual
                 ? "h-3 w-3 bg-accent ring-4 ring-accent/25"
+<<<<<<< HEAD
                 : "ml-0.5 h-2 w-2 bg-subtext"
             }`}
           />
           <span className={`font-semibold ${it.actual ? "text-brand" : "text-brand/70"}`}>
+=======
+                : "ml-0.5 h-2 w-2 dark:bg-foreground light:bg:background"
+            }`}
+          />
+          <span className={`font-semibold ${it.actual ? "light:text-text" : "light:text-text/70"}`}>
+>>>>>>> FrontEnd
             {it.titulo}
           </span>
           <span
             className={`ml-auto ${
+<<<<<<< HEAD
               it.actual ? "font-bold text-accent-dark" : "text-brand/60"
+=======
+              it.actual ? "font-bold text-ochre" : "text-brand/60"
+>>>>>>> FrontEnd
             }`}
           >
             {it.detalle}
@@ -217,11 +272,23 @@ export const Campo = ({ label, id, children }) => (
 export const inputClase =
   "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
+<<<<<<< HEAD
 export const BotonSecundario = ({ children, ...props }) => (
   <button
     type="button"
     {...props}
     className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs hover:bg-text"
+=======
+export const BotonSecundario = ({
+  children,
+  className = "rounded-full border border-icon bg-background px-4 py-1.5 text-xs hover:bg-text",
+  ...props
+}) => (
+  <button
+    type="button"
+    {...props}
+    className={className}
+>>>>>>> FrontEnd
   >
     {children}
   </button>
@@ -230,7 +297,11 @@ export const BotonSecundario = ({ children, ...props }) => (
 export const BotonPrimario = ({ children, ...props }) => (
   <button
     {...props}
+<<<<<<< HEAD
     className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand hover:bg-accent-dark"
+=======
+    className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand light:text-white hover:bg-accent-dark"
+>>>>>>> FrontEnd
   >
     {children}
   </button>

@@ -1,22 +1,28 @@
 import 'leaflet/dist/leaflet.css';
 import "../globals.css";
 import Sidebar from "@/components/ui/Sidebar";
-import Header from "@/components/ui/PanelHeader";
+import PanelHeaderServer from "@/components/ui/panelHeaderServer";
+import { redirect } from 'next/navigation';
+import { getSession } from '@/lib/tokenSession';
 
-export default function DashboardLayout({children}) {
+export default async function DashboardLayout({children}) {
+    const session = await getSession();
+    if (!session) redirect("/login");
+
+
   return (
     <div
       lang="es"
-      className=" flex w-full h-screen bg-[#FDFBF7] overflow-hidden"
+      className="panel-theme flex w-full h-screen overflow-hidden light:bg-background dark:bg-background"
     >
       <Sidebar />
 
       <div className="flex-1 flex flex-col h-full overflow-y-auto">
-        <Header />
-
-        <main className=" font-pop bg-[#F5F5F5] w-full flex-1 p-4 sm:p-8">
+        <PanelHeaderServer />
+        <main className="font-pop w-full flex-1 bg-background p-4 sm:p-8">
           {children}
         </main>
+
       </div>
     </div>
   );

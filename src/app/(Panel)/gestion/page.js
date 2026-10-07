@@ -1,303 +1,136 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
-import Modal from "@/components/ui/Modal";
-import FormularioConductor from "@/components/ux/FormConductores";
-import FormularioVehiculo from "@/components/ux/FormVehiculos";
-import {
-  Card,
-  Estado,
-  FilaTabla,
-  Filtros,
-  Paginacion,
-  PillButton,
-  Tabla,
-  Td,
-  VerHistorial,
-} from "@/components/gestion/FlotaComponents";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import ConductorHistory from "@/components/gestion/ConductorHistory";
-import VehiculoHistory from "@/components/gestion/VehiculoHistory";
 
-const ICONCONDUCTOR = <PermIdentityOutlinedIcon fontSize="large" />;
+import { useState } from "react";
 
-const ICONVEHICULO = <LocalShippingOutlinedIcon fontSize="large" />;
+const ACTIVE_TAB_COLOR = "#1A1A1A";
 
-const PAGE_SIZE = 7;
+const page = () => {
+    const [activeButton, setActiveButton] = useState("Todos");
+    const buttons = [
+        { text: "Todos" },
+        { text: "Activos" },
+        { text: "Mantencion" },
+    ];
 
-const FILTROS = ["Todos", "Activos", "En Mantencion"];
 
-const VEHICULOS = [
-  {
-    patente: "A1",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "A2",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "A3",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "B1",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "B2",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "B3",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "C1",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "C2",
-    rendimiento: "0km/L",
-    estado: "en mantencion",
-    encargado: "Jhon Doe",
-  },
-];
+    const [conductores, setConductores] = useState([
+        { conductor: "Juan Díaz", estado: "activo", vehiculo_cargo: "A1" },
+        { conductor: "Ana Rojas", estado: "activo", vehiculo_cargo: "A2" },
+        { conductor: "Luis Pérez", estado: "inactivo", vehiculo_cargo: "A3" },
+        { conductor: "Marta Silva", estado: "activo", vehiculo_cargo: "A4" },
+    ])
+    const [vehiculos, setVehiculos] = useState([
+        {patente: "A1", rendimiento: "100%", estado: "activo", encargado: "Jhon doe"},
+        {patente: "A2", rendimiento: "50%", estado: "activo", encargado: "Jhon doe"},
+        {patente: "A3", rendimiento: "250%", estado: "activo", encargado: "Jhon doe"},
+        {patente: "A4", rendimiento: "0%", estado: "activo", encargado: "Jhon doe"},
+    ])
 
-const CONDUCTORES = [
-  { conductor: "Jhon Doea", estado: "activo", vehiculo: "A1" },
-  { conductor: "Jhon Doe", estado: "activo", vehiculo: "A2" },
-  { conductor: "Jhon Doe", estado: "sin carga", vehiculo: "A3" },
-];
-
-const ESTADOS = {
-  activo: { label: "Activo", color: "var(--color-brand)" },
-  "sin carga": { label: "Sin Carga", color: "var(--color-accent-dark)" },
-  "en mantencion": { label: "En Mantencion", color: "var(--color-accent-dark)" },
-};
-
-const normalizar = (texto) =>
-  texto
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase();
-
-/* ---------- Página ---------- */
-
-const Flota = () => {
-  const [filtroActivo, setFiltroActivo] = useState("Todos");
-  const [pagina, setPagina] = useState(1);
-
-  const vehiculosFiltrados = useMemo(
-    () =>
-      VEHICULOS.filter((v) => {
-        const estado = normalizar(v.estado);
-        if (filtroActivo === "Activos") return estado === "activo";
-        if (filtroActivo === "En Mantencion")
-          return estado.includes("mantencion");
-        return true;
-      }),
-    [filtroActivo],
-  );
-
-  const totalPaginas = Math.max(
-    1,
-    Math.ceil(vehiculosFiltrados.length / PAGE_SIZE),
-  );
-
-  useEffect(() => {
-    setPagina(1);
-  }, [filtroActivo]);
-
-  const vehiculosPagina = vehiculosFiltrados.slice(
-    (pagina - 1) * PAGE_SIZE,
-    pagina * PAGE_SIZE,
-  );
-  const [modalVehiculo, setModalVehiculo] = useState(false);
-  const handleNuevoVehiculo = (datos) => {
-    console.log(datos);
-    setModalVehiculo(false);
-  };
-
-  const [modalConductor, setModalConductor] = useState(false);
-  const handleNuevoConductor = (datos) => {
-    console.log(datos);
-    setModalConductor(false);
-  };
-
-  const [VEHICULOSELECT, setVEHICULOSELECT] = useState(null);
-  const [CONDUCTORSELECT, setCONDUCTORSELECT] = useState(null);
-  const [modalHistorialC, setModalHistorialC] = useState(false);
-
-  const [modalHistorialV, setModalHistorialV] = useState(false);
-  return (
-    <main
-      lang="es"
-      className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
-    >
-      {/* ---------- Vehiculos ---------- */}
-      <Card>
-        <h2 className="text-base font-bold text-brand">Vehiculos</h2>
-
-        <div className="mb-3 mt-3 flex items-end justify-between gap-4">
-          <Filtros
-            opciones={FILTROS}
-            seleccionado={filtroActivo}
-            onSelect={setFiltroActivo}
-          />
-          <PillButton onClick={() => setModalVehiculo(true)}>
-            Agregar Vehiculo
-          </PillButton>
-        </div>
-
-        <Tabla
-          columnas={[
-            "Vehiculo",
-            "Rendimiento",
-            "Estado",
-            "Encargado",
-            "Historial",
-          ]}
-          anchos={[18, 20, 18, 22, 22]}
+    return (
+        <main
+            className="flex flex-col w-full bg-[#FDFBF7] overflow-hidden"
+            lang="es"
         >
-          {vehiculosPagina.length > 0 ? (
-            vehiculosPagina.map((v) => (
-              <FilaTabla key={v.patente}>
-                <Td>{v.patente}</Td>
-                <Td>{v.rendimiento}</Td>
-                <Td>
-                  <Estado estado={normalizar(v.estado)} estados={ESTADOS} />
-                </Td>
-                <Td>{v.encargado}</Td>
-                <Td>
-                  <VerHistorial
-                    onClick={() => {
-                      setVEHICULOSELECT(v);
-                      setModalHistorialV(true);
-                    }}
-                  />
-                </Td>
-              </FilaTabla>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={5}
-                className="h-15 text-center text-base text-subtext"
-              >
-                No hay vehículos para este filtro.
-              </td>
-            </tr>
-          )}
-        </Tabla>
+            {/* Seccion de Vehiculos */}
+            <section className="flex  p-10 flex-col w-full bg-[#FDFBF7]">
+                <h2 className="text-[#1A1A1A] text-2xl font-bold"> Vehiculos</h2>
+                <ul className="flex flex-row gap-5">
+                    {buttons.map((button) => {
+                        const isActive = activeButton === button.text;
 
-        {/* Paginación */}
-        <Paginacion
-          pagina={pagina}
-          totalPaginas={totalPaginas}
-          onCambiarPagina={setPagina}
-        />
-      </Card>
+                        return (
+                            <li key={button.text}>
+                                <button
+                                    type="button"
+                                    aria-pressed={isActive}
+                                    onClick={() => setActiveButton(button.text)}
+                                    className="px-5 rounded-t-xl pt-2"
+                                    style={{
+                                        backgroundColor: isActive ? ACTIVE_TAB_COLOR : "#D9D6CF",
+                                        color: isActive ? "#FFFFFF" : "#1A1A1A",
+                                    }}
+                                >
+                                    {button.text}
+                                </button>
+                            </li>
+                        );
+                    })}
+                </ul>
+            {/* Tabla de vehiculos*/}
+                <div className="w-5/6 overflow-x-auto">
+                    <table className="w-full border-collapse text-left border-[#EAE5DA]">
+                        <thead>
+                            <tr className="bg-[#F4F5F4] border-b border-[#D9D6CF] text-[#1A1A1A]">
+                                <th className="px-4 py-3">Patente</th>
+                                <th className="px-4 py-3">Rendimiento</th>
+                                <th className="px-4 py-3">Estado</th>
+                                <th className="px-4 py-3">Encargado</th>
+                                <th className="px-4 py-3">Historial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {vehiculos.map((vehiculo, index) => (
+                                <tr
+                                    key={`${vehiculo.patente}-${index}`}
+                                    className="border-b border-[#D9D6CF] text-[#1A1A1A]"
+                                >
+                                    <td className="px-4 py-3">{vehiculo.patente}</td>
+                                    <td className="px-4 py-3">{vehiculo.rendimiento}</td>
+                                    <td className="px-4 py-3">{vehiculo.estado}</td>
+                                    <td className="px-4 py-3">{vehiculo.encargado}</td>
+                                    <td className="px-4 py-3">
+                                        <button
+                                            type="button"
+                                            className="rounded-md bg-[#1A1A1A] px-3 py-2 text-white"
+                                        >
+                                            Ver historial
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-      {/* ---------- Conductores ---------- */}
-      <Card>
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-base font-bold text-brand">Conductores</h2>
-          <PillButton onClick={() => setModalConductor(true)}>
-            Agregar Conductor
-          </PillButton>
-        </div>
+            {/* Seccion de Conductores */}
+            <section className="flex flex-col w-full bg-[#FDFBF7] p-10">
+                <h2 className="text-[#1A1A1A] text-2xl font-bold">Conductores</h2>
+                <div className="w-5/6 overflow-x-auto">
+                    <table className="w-full border-collapse text-left border-[#EAE5DA]">
+                        <thead>
+                            <tr className="bg-[#F4F5F4] border-b border-[#D9D6CF] text-[#1A1A1A]">
+                                <th className="px-4 py-3">Conductor</th>
+                                <th className="px-4 py-3">Estado</th>
+                                <th className="px-4 py-3">Vehículo a cargo</th>
+                                <th className="px-4 py-3">Historial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {conductores.map((conductor, index) => (
+                                <tr
+                                    key={`${conductor.conductor}-${index}`}
+                                    className="border-b border-[#D9D6CF] text-[#1A1A1A]"
+                                >
+                                    <td className="px-4 py-3">{conductor.conductor}</td>
+                                    <td className="px-4 py-3">{conductor.estado}</td>
+                                    <td className="px-4 py-3">{conductor.vehiculo_cargo}</td>
+                                    <td className="px-4 py-3">
+                                        <button
+                                            type="button"
+                                            className="rounded-md bg-[#1A1A1A] px-3 py-2 text-white"
+                                        >
+                                            Ver historial
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    );
+}
 
-        <Tabla
-          columnas={["Conductor", "Estado", "Vehiculo a cargo", "Historial"]}
-          anchos={[23, 20, 27, 30]}
-        >
-          {CONDUCTORES.map((c, i) => (
-            <FilaTabla key={`${c.conductor}-${i}`}>
-              <Td>{c.conductor}</Td>
-              <Td>
-                <Estado estado={normalizar(c.estado)} estados={ESTADOS} />
-              </Td>
-              <Td>{c.vehiculo}</Td>
-              <Td>
-                <VerHistorial
-                  onClick={() => {
-                    setCONDUCTORSELECT(c);
-                    setModalHistorialC(true);
-                  }}
-                />
-              </Td>
-            </FilaTabla>
-          ))}
-        </Tabla>
-      </Card>
-      {/* Modal del Historial del Conductor */}
-      <Modal
-        open={modalHistorialC}
-        onClose={() => setModalHistorialC(false)}
-        size="xl"
-        eyebrow="CONDUCTOR"
-        title={CONDUCTORSELECT?.conductor ?? "Historial del conductor"}
-        icon={ICONCONDUCTOR}
-      >
-        <ConductorHistory conductor={CONDUCTORSELECT ?? undefined} />
-      </Modal>
-
-      {/* Modal Agregar Conductor */}
-      <Modal
-        icon={ICONCONDUCTOR}
-        open={modalConductor}
-        onClose={() => setModalConductor(false)}
-        title="Agregar Conductor"
-        size="lg"
-      >
-        <FormularioConductor
-          onSubmit={handleNuevoConductor}
-          onCancel={() => setModalConductor(false)}
-        />
-      </Modal>
-
-      {/* Modal del Historial del Vehiculo */}
-      <Modal
-        open={modalHistorialV}
-        onClose={() => setModalHistorialV(false)}
-        size="xl"
-        eyebrow="VEHICULO"
-        title={VEHICULOSELECT?.patente ?? "Historial del Vehiculo"}
-        icon={ICONVEHICULO}
-      >
-        <VehiculoHistory vehiculo={VEHICULOSELECT ?? undefined} />
-      </Modal>
-      {/* Modal Agregar Vehiculo */}
-      <Modal
-        icon={ICONVEHICULO}
-        open={modalVehiculo}
-        onClose={() => setModalVehiculo(false)}
-        title="Agregar Vehiculo"
-        size="lg"
-      >
-        <FormularioVehiculo
-          onSubmit={handleNuevoVehiculo}
-          onCancel={() => setModalVehiculo(false)}
-        />
-      </Modal>
-    </main>
-  );
-};
-
-export default Flota;
+export default page;

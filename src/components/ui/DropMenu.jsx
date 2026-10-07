@@ -19,7 +19,7 @@ export default function DropMenu({icon: Icon= MoreVertIcon}) {
         aria-label="Opciones del menu" 
         aria-hidden="true"
         onClick={toggle} 
-        className="flex items-center gap-2 px-4 py-2 bg-[#EAE5DA] rounded hover:bg-[#EAE5DA]/90 transition-colors"
+        className="flex items-center gap-2 px-4 py-2 rounded transition-colors  light:hover:bg-border/70 dark:bg-border dark:hover:bg-border/70"
       >
         <Icon fontSize="small" aria-hidden="false" />
         
@@ -27,11 +27,11 @@ export default function DropMenu({icon: Icon= MoreVertIcon}) {
 
       {/* Contenedor del menu desplegable */}
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-[#FDFBF7] border border-[#EAE5DA] rounded shadow-lg py-1 z-10">
+        <div className="absolute left-0 mt-2 w-48 rounded border shadow-lg py-1 z-10 light:bg-card light:border-border dark:bg-card dark:border-border">
           {Options.map((item) => (
             <span
               key={item.id || item.title}
-              className="block px-4 py-2 text-[#6E6E6E] hover:text-[#FDFBF7] hover:bg-[#6E6E6E]/70 cursor-pointer"
+              className="block px-4 py-2 text-subtext hover:text-text hover:bg-border cursor-pointer light:text-subtext light:hover:text-text dark:text-subtext dark:hover:text-text"
             >
               {item.title}
             </span>

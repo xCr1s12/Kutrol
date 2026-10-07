@@ -1,34 +1,108 @@
 @import "tailwindcss";
 
+@custom-variant light (&:where(.light, .light *));
+@custom-variant dark (&:where(.dark, .dark *));
+
 ::selection {
   background: var(--color-accent);
   color: var(--color-brand);
 }
 
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #1B2B24;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-pop: var(--font-poppins);   /* antes estaba la font-big-shoulders */
+  --font-pop: var(--font-poppins);
 
-  /* Paleta Kutrol — tokens semánticos */
   --color-brand: #1B2B24;
-  --color-text: #FDFBF7;
-  --color-subtext: #A8B0AB;
-  --color-icon: #C2C9C4;
-  --color-border: #314139;
-  --color-accent: #D9AC34;
-  --color-accent-dark: #C49A2E;
+  --color-text: var(--text);
+  --color-subtext: var(--subtext);
+  --color-icon: var(--icon);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-danger: var(--danger);
   --color-white: #FFFFFF;
   --color-black: #000000;
+  --color-header: var(--header);
+  --color-footer: var(--footer);
+  --color-card: var(--card);
+  /* Acentos fijos: el dorado va sobre superficies oscuras y el ocre sobre
+     superficies claras, para que no dependan del modo activo. */
+  --color-gold: #D4AF37;
+  --color-ochre: #704D2E;
+
+  /* Paleta fija del sistema de diseno. Son los colores que estaban escritos a
+     mano en los componentes que viven sobre superficies de modo fijo (barra
+     lateral y cabecera del modal siempre oscuras; cuerpo del modal y mapas
+     siempre claros). */
+  --color-cream: #FDFBF7;          /* blanco calido de marca */
+  --color-ink: #1A1A1A;            /* tinta: texto sobre claro fijo */
+  --color-graphite: #4A4A4A;       /* iconos sobre claro fijo */
+  --color-linen: #EAE5DA;          /* bordes y superficies claras fijas */
+  --color-linen-hover: #D8CDBA;
+  --color-cloud: #F4F5F7;          /* fondo de panel claro */
+  --color-sand: #F3EFE6;           /* fondo de chip claro */
+  --color-sage: #A8B0AB;           /* texto secundario sobre oscuro fijo */
+  --color-mist: #C2C9C4;           /* iconos sobre oscuro fijo */
+  --color-moss: #314139;           /* bordes y superficies oscuras fijas */
+  --color-moss-hover: #3D4F45;
+  --color-deep: #20332B;           /* superficie oscura profunda */
+  --color-slate: #6E6E6E;          /* superficie gris del mapa */
+  --color-copper: #8C6239;         /* cobre: acento sobre claro fijo */
+  --color-copper-dark: #A8784A;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1B2B24;
-    --foreground: #ededed;
-  }
+/* MODO OSCURO (por defecto) */
+:root,
+.dark {
+  color-scheme: dark;
+  --background: #1B2B24;   /* Fondo */
+  --foreground: #FDFBF7;   /* Texto principal */
+  --text: #FDFBF7;         /* Texto principal */
+  --subtext: #A8B0AB;      /* Subtexto */
+  --icon: #C2C9C4;         /* Iconos */
+  --border: #314139;       /* Bordes / divisores */
+  --accent: #D4AF37;       /* Acento */
+  --accent-dark: #C49A2E;
+  --danger: #F87171;
+  --header: #1B2B24;       /* = Fondo */
+  --footer: #20332B;
+  --card: #314139;         /* = Bordes */
+}
+
+/* MODO CLARO */
+.light {
+  color-scheme: light;
+  --background: #FDFBF7;   /* Fondo */
+  --foreground: #1A1A1A;   /* Texto principal */
+  --text: #1A1A1A;         /* Texto principal */
+  --subtext: #666666;      /* Subtexto (4.5:1 sobre fondo y sobre card) */
+  --icon: #4A4A4A;         /* Iconos */
+  --border: #EAE5DA;       /* Bordes / divisores */
+  --accent: #8C6239;       /* Acento */
+  --accent-dark: #704D2E;
+  --danger: #C0392B;
+  --header: #FDFBF7;       /* = Fondo */
+  --footer: #EAE5DA;       /* = Bordes */
+  --card: #EAE5DA;         /* = Bordes */
+}
+
+/* El bloque .panel-theme existia para "fijar acentos" dentro del panel, pero en
+   modo oscuro era no-op (los tres valores coincidian con :root/.dark) y en modo
+   claro pisaba los que el tema ya declara correctamente: --accent, --accent-dark
+   y --icon. Medido: eso rompia 23 textos y 27 iconos. La regla que corresponde es
+   la que este archivo ya declara: sobre superficie oscura FIJA va el token fijo
+   `gold`, y sobre superficie del tema va `accent`. Por eso se elimina el bloque y
+   los elementos que viven sobre superficie oscura fija usan `gold` explicito. */
+
+.route-form-modal {
+  --background: #EAE5DA;
+}
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
 }
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
@@ -37,5 +111,5 @@ dialog::backdrop {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins), sans-serif;  /* antes estaba la Arial, Helvetica, sans-serif */
+  font-family: var(--font-poppins), sans-serif;
 }

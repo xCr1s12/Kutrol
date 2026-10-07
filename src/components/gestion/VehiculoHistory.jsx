@@ -14,10 +14,17 @@ export const VEHICULO_DEMO = {
   revisionTecnica: "XX",
   caracteristicas: ["Pintura Roja", "Carga total 10K...."],
   rutas: [
+<<<<<<< HEAD
     { conductor: "Jhon Doe", ruta: "OSORNO - SANTIAGO" },
     { conductor: "Jhon Doe", ruta: "COIHUE - ÑUÑOA" },
     { conductor: "Jhon Doe", ruta: "TEMUCO - QUELLON" },
     { conductor: "Jhon Doe", ruta: "QUELLON - SANTIAGO" },
+=======
+    { conductor: "Pedro Muñoz", ruta: "OSORNO - SANTIAGO" },
+    { conductor: "Luis Mancilla", ruta: "COIHUE - ÑUÑOA" },
+    { conductor: "María Cárdenas", ruta: "TEMUCO - QUELLON" },
+    { conductor: "Andrés Vera", ruta: "QUELLON - SANTIAGO" },
+>>>>>>> FrontEnd
   ],
   viajes: [
     { titulo: "A1", detalle: "Actual", actual: true },
@@ -57,7 +64,11 @@ const HISTORIALES_VEHICULOS = [
   VEHICULO_DEMO,
   crearHistorial({
     patente: "A2",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "Valentina Núñez",
+>>>>>>> FrontEnd
     anioFabricacion: 2021,
     kilometraje: "24500 KM",
     revisionTecnica: "Vigente",
@@ -67,7 +78,11 @@ const HISTORIALES_VEHICULOS = [
   }),
   crearHistorial({
     patente: "A3",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "Rodrigo Peña",
+>>>>>>> FrontEnd
     anioFabricacion: 2019,
     kilometraje: "58200 KM",
     revisionTecnica: "Vigente",
@@ -77,7 +92,11 @@ const HISTORIALES_VEHICULOS = [
   }),
   crearHistorial({
     patente: "B1",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "Claudia Aguilera",
+>>>>>>> FrontEnd
     anioFabricacion: 2022,
     kilometraje: "18300 KM",
     revisionTecnica: "Vigente",
@@ -87,7 +106,11 @@ const HISTORIALES_VEHICULOS = [
   }),
   crearHistorial({
     patente: "B2",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "Pedro Muñoz",
+>>>>>>> FrontEnd
     anioFabricacion: 2018,
     kilometraje: "74600 KM",
     revisionTecnica: "Vigente",
@@ -97,7 +120,11 @@ const HISTORIALES_VEHICULOS = [
   }),
   crearHistorial({
     patente: "B3",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "Luis Mancilla",
+>>>>>>> FrontEnd
     anioFabricacion: 2023,
     kilometraje: "9600 KM",
     revisionTecnica: "Vigente",
@@ -107,7 +134,11 @@ const HISTORIALES_VEHICULOS = [
   }),
   crearHistorial({
     patente: "C1",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "María Cárdenas",
+>>>>>>> FrontEnd
     anioFabricacion: 2020,
     kilometraje: "39100 KM",
     revisionTecnica: "Vigente",
@@ -117,7 +148,11 @@ const HISTORIALES_VEHICULOS = [
   }),
   crearHistorial({
     patente: "C2",
+<<<<<<< HEAD
     conductor: "Jhon Doe",
+=======
+    conductor: "Andrés Vera",
+>>>>>>> FrontEnd
     anioFabricacion: 2017,
     kilometraje: "91200 KM",
     revisionTecnica: "En mantencion",
@@ -148,11 +183,19 @@ const VehiculoHistory = ({ vehiculo = VEHICULO_DEMO }) => {
           <Tabla columnas={COLUMNAS_RUTAS} filas={historial.rutas} />
         </Seccion>
 
+<<<<<<< HEAD
         <Seccion titulo="Informacion relevante">
           <Tarjeta className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-4">
               <Dato
                 label="Año de Fabricacion"
+=======
+        <Seccion titulo="Información relevante">
+          <Tarjeta className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-4">
+              <Dato
+                label="Año de fabricación"
+>>>>>>> FrontEnd
                 value={historial.anioFabricacion}
               />
               <Dato label="Kilometraje" value={historial.kilometraje} />
@@ -161,11 +204,19 @@ const VehiculoHistory = ({ vehiculo = VEHICULO_DEMO }) => {
 
             <div className="flex flex-col gap-4 border-l border-icon pl-5">
               <Dato
+<<<<<<< HEAD
                 label="Revision Tecnica"
                 value={historial.revisionTecnica}
               />
               <div className="flex flex-col gap-0.5">
                 <p className="text-sm text-brand/70">Caracteristicas:</p>
+=======
+                label="Revisión técnica"
+                value={historial.revisionTecnica}
+              />
+              <div className="flex flex-col gap-0.5">
+                <p className="text-sm text-brand/70">Características:</p>
+>>>>>>> FrontEnd
                 {historial.caracteristicas.map((caracteristica) => (
                   <p
                     key={caracteristica}
