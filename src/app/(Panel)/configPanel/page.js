@@ -27,8 +27,8 @@ const configInicial = {
     { id: 3, nombre: "Jhon Doe", correo: "jhondoe@correo.com", rol: "Usuario", foto: null },
   ],
   alertas: [
-    { id: "consumo", nombre: "Consumo excesivo", activa: true, valor: 40, unidad: "Km/L", correo: true },
-    { id: "robo", nombre: "Robo", activa: true, valor: 40, unidad: "L", correo: true },
+    { id: "consumo", nombre: "Consumo excesivo", estado: "Moderado", activa: true, valor: 40, unidad: "Km/L", correo: true },
+    { id: "robo", nombre: "Robo", estado: "Crítico", activa: true, valor: 40, unidad: "L", correo: true },
   ],
   empresa: {
     logo: null,
@@ -41,6 +41,12 @@ const configInicial = {
     direccion: "",
     descripcion: "",
   },
+};
+
+const coloresEstado = {
+  Leve: "bg-green-100 text-green-800",
+  Moderado: "bg-amber-100 text-amber-800",
+  Crítico: "bg-red-100 text-red-700",
 };
 
 const valores = [10, 20, 30, 40, 50, 60];
@@ -379,7 +385,7 @@ function PestanaGeneral({ config, cambiar }) {
         {config.alertas.map((a) => (
           <div
             key={a.id}
-            className="grid grid-cols-1 md:grid-cols-[1fr_auto_170px_130px] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
+            className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
           >
             <p className="text-sm font-semibold text-[#1A1A1A]">{a.nombre}</p>
 
@@ -405,6 +411,21 @@ function PestanaGeneral({ config, cambiar }) {
               >
                 <option>Km/L</option>
                 <option>L</option>
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-[#4A4A4A]">Estado</span>
+              <select
+                className={`text-xs font-semibold rounded-md px-2 py-1.5 disabled:opacity-50 ${coloresEstado[a.estado]}`}
+                aria-label={`Estado de la alerta ${a.nombre}`}
+                value={a.estado}
+                disabled={!a.activa}
+                onChange={(e) => cambiarAlerta(a.id, "estado", e.target.value)}
+              >
+                {Object.keys(coloresEstado).map((estado) => (
+                  <option key={estado}>{estado}</option>
+                ))}
               </select>
             </div>
 
