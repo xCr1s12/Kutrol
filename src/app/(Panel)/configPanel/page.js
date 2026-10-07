@@ -2,20 +2,11 @@
 
 import { useState } from "react";
 import { regiones } from "./regiones";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
-import PhotoCameraRoundedIcon from "@mui/icons-material/PhotoCameraRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import BusinessRoundedIcon from "@mui/icons-material/BusinessRounded";
-import LocalGasStationRoundedIcon from "@mui/icons-material/LocalGasStationRounded";
-import NatureRoundedIcon from "@mui/icons-material/NatureRounded";
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
+import {
+  KeyboardArrowDownRounded, AddRounded, EditRounded, DeleteRounded, SearchRounded,
+  ImageRounded, PhotoCameraRounded, SettingsRounded, BusinessRounded,
+  LocalGasStationRounded, NatureRounded, EmailRounded, PhoneRounded, LocationOnRounded,
+} from "@mui/icons-material";
 
 // datos de prueba, despues se reemplazan por los del backend
 const configInicial = {
@@ -32,20 +23,20 @@ const configInicial = {
     { id: "robo", nombre: "Robo", estado: "Crítico", activa: true, valor: 40, unidad: "L", correo: true },
   ],
   empresa: {
-    logo: null,
-    nombre: "",
-    rut: "",
-    correo: "",
-    telefono: "",
-    region: "",
-    comuna: "",
-    direccion: "",
-    descripcion: "",
+    logo: null, nombre: "", rut: "", correo: "", telefono: "",
+    region: "", comuna: "", direccion: "", descripcion: "",
   },
 };
 
-const estados = ["Leve", "Moderado", "Crítico"];
+// alertas que se pueden agregar desde el menu, las dos ultimas son de ejemplo
+const tiposAlerta = [
+  { id: "consumo", nombre: "Consumo excesivo", unidad: "Km/L" },
+  { id: "robo", nombre: "Robo", unidad: "L" },
+  { id: "rendimiento", nombre: "Bajo rendimiento", unidad: "Km/L" },
+  { id: "carga", nombre: "Carga sospechosa", unidad: "L" },
+];
 
+const estados = ["Leve", "Moderado", "Crítico"];
 const valores = [10, 20, 30, 40, 50, 60];
 const emisiones = [500, 1000, 1500, 2000];
 
@@ -63,21 +54,20 @@ const botonAmarillo =
 const bordeError = "outline outline-1 outline-red-500";
 const botonIcono = "w-7 h-7 rounded-full bg-[#F4F5F7] hover:bg-[#E9EAED]";
 
+// lee la imagen elegida y se la pasa a la funcion que la guarda
+function elegirImagen(e, guardar) {
+  const archivo = e.target.files[0];
+  if (archivo) guardar(URL.createObjectURL(archivo));
+}
+
 function iniciales(nombre) {
-  return nombre
-    .split(" ")
-    .slice(0, 2)
-    .map((palabra) => palabra[0])
-    .join("")
-    .toUpperCase();
+  return nombre.split(" ").slice(0, 2).map((palabra) => palabra[0]).join("").toUpperCase();
 }
 
 function Interruptor({ activo, onChange, etiqueta, disabled }) {
   return (
     <label
-      className={`flex items-center gap-2 text-xs text-[#1A1A1A] ${
-        disabled ? "opacity-50" : "cursor-pointer"
-      }`}
+      className={`flex items-center gap-2 text-xs text-[#1A1A1A] ${disabled ? "opacity-50" : "cursor-pointer"}`}
     >
       <input
         type="checkbox"
@@ -92,14 +82,27 @@ function Interruptor({ activo, onChange, etiqueta, disabled }) {
   );
 }
 
-function Campo({ titulo, icono, error, className = "", ...props }) {
+// select con sus opciones, "vacio" es el texto de la opcion sin valor
+function Lista({ opciones, vacio, className = "", ...props }) {
+  return (
+    <select className={`${campo} ${className}`} {...props}>
+      {vacio && <option value="">{vacio}</option>}
+      {opciones.map((o) => (
+        <option key={o}>{o}</option>
+      ))}
+    </select>
+  );
+}
+
+// etiqueta + input + error. si recibe children, van en lugar del input
+function Campo({ titulo, icono, error, className = "", children, ...props }) {
   return (
     <label className={`flex flex-col gap-1 text-xs font-semibold text-[#1A1A1A] ${className}`}>
       <span className="flex items-center gap-1">
         {icono}
         {titulo}
       </span>
-      <input className={`${campo} ${error ? bordeError : ""}`} {...props} />
+      {children ?? <input className={`${campo} ${error ? bordeError : ""}`} {...props} />}
       {error && <span className="font-normal text-red-600">{error}</span>}
     </label>
   );
@@ -117,11 +120,6 @@ function ModalUsuario({ usuario, onCerrar, onGuardar }) {
   function enviar(e) {
     e.preventDefault();
     onGuardar({ nombre, correo, rol, foto });
-  }
-
-  function elegirFoto(e) {
-    const archivo = e.target.files[0];
-    if (archivo) setFoto(URL.createObjectURL(archivo));
   }
 
   return (
@@ -157,13 +155,9 @@ function ModalUsuario({ usuario, onCerrar, onGuardar }) {
               onChange={(e) => setCorreo(e.target.value)}
               required
             />
-            <label className="flex flex-col gap-1 text-xs font-semibold text-[#1A1A1A]">
-              Rol
-              <select className={campo} value={rol} onChange={(e) => setRol(e.target.value)}>
-                <option>Usuario</option>
-                <option>Admin</option>
-              </select>
-            </label>
+            <Campo titulo="Rol">
+              <Lista opciones={["Usuario", "Admin"]} value={rol} onChange={(e) => setRol(e.target.value)} />
+            </Campo>
           </div>
 
           <div className="flex flex-col items-center gap-2 shrink-0">
@@ -171,13 +165,13 @@ function ModalUsuario({ usuario, onCerrar, onGuardar }) {
               {foto ? (
                 <img src={foto} alt="Foto del usuario" className="w-full h-full object-cover" />
               ) : (
-                <ImageRoundedIcon htmlColor="#B0B5BD" fontSize="large" aria-hidden="true" />
+                <ImageRounded htmlColor="#B0B5BD" fontSize="large" aria-hidden="true" />
               )}
             </div>
             <label className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A1A1A] bg-[#F4F5F7] rounded-full px-3 py-1.5 cursor-pointer hover:bg-[#E9EAED]">
-              <PhotoCameraRoundedIcon sx={{ fontSize: 14 }} aria-hidden="true" />
+              <PhotoCameraRounded sx={{ fontSize: 14 }} aria-hidden="true" />
               {foto ? "Cambiar imagen" : "Agregar imagen"}
-              <input type="file" accept="image/*" onChange={elegirFoto} hidden />
+              <input type="file" accept="image/*" onChange={(e) => elegirImagen(e, setFoto)} hidden />
             </label>
           </div>
         </div>
@@ -189,7 +183,6 @@ function ModalUsuario({ usuario, onCerrar, onGuardar }) {
     </div>
   );
 }
-
 
 function MenuEstado({ valor, onChange, disabled, etiqueta }) {
   const [abierto, setAbierto] = useState(false);
@@ -215,7 +208,7 @@ function MenuEstado({ valor, onChange, disabled, etiqueta }) {
         className="flex items-center justify-between gap-2 w-28 text-xs font-semibold text-[#1A1A1A] bg-white border border-[#E2E8F0] rounded-md px-2 py-1.5 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-accent"
       >
         {valor}
-        <KeyboardArrowDownRoundedIcon sx={{ fontSize: 16 }} aria-hidden="true" />
+        <KeyboardArrowDownRounded sx={{ fontSize: 16 }} aria-hidden="true" />
       </button>
 
       {abierto && (
@@ -245,41 +238,109 @@ function MenuEstado({ valor, onChange, disabled, etiqueta }) {
   );
 }
 
+// boton con un menu de las alertas que todavia no estan en la lista
+function AgregarAlerta({ disponibles, onAgregar }) {
+  const [abierto, setAbierto] = useState(false);
+
+  return (
+    <div
+      className="relative"
+      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setAbierto(false)}
+      onKeyDown={(e) => e.key === "Escape" && setAbierto(false)}
+    >
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={abierto}
+        disabled={disponibles.length === 0}
+        onClick={() => setAbierto(!abierto)}
+        className={`${botonAmarillo} disabled:opacity-50 disabled:cursor-not-allowed`}
+      >
+        <AddRounded fontSize="small" aria-hidden="true" />
+        Agregar alerta
+      </button>
+
+      {abierto && (
+        <ul
+          role="menu"
+          className="absolute right-0 z-10 mt-1 w-48 bg-white border border-[#E2E8F0] rounded-md shadow-md overflow-hidden"
+        >
+          {disponibles.map((tipo) => (
+            <li key={tipo.id} role="none">
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  onAgregar(tipo);
+                  setAbierto(false);
+                }}
+                className="w-full text-left text-xs text-[#1A1A1A] px-3 py-2 hover:bg-[#F4F5F7] focus:outline-none focus:bg-[#F4F5F7]"
+              >
+                {tipo.nombre}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+// fila de parametros operativos, los selects van como children
+function Parametro({ Icono, titulo, texto, children }) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-[#E2E8F0] last:border-b-0 last:pb-0">
+      <div className="flex items-center gap-3">
+        <span className="w-9 h-9 rounded-full bg-[#F4F5F7] flex items-center justify-center">
+          <Icono htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
+        </span>
+        <div>
+          <p className="text-sm font-semibold text-[#1A1A1A]">{titulo}</p>
+          <p className="text-xs text-[#4A4A4A]">{texto}</p>
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+}
 
 function PestanaGeneral({ config, cambiar }) {
   const [busqueda, setBusqueda] = useState("");
   // null = cerrado, "nuevo" = agregar, o el usuario que se esta editando
   const [modal, setModal] = useState(null);
 
-  const usuariosFiltrados = config.usuarios.filter((u) => {
-    const texto = busqueda.toLowerCase();
-    return u.nombre.toLowerCase().includes(texto) || u.correo.toLowerCase().includes(texto);
-  });
+  const texto = busqueda.toLowerCase();
+  const usuariosFiltrados = config.usuarios.filter(
+    (u) => u.nombre.toLowerCase().includes(texto) || u.correo.toLowerCase().includes(texto)
+  );
 
   function guardarUsuario(datos) {
-    if (modal === "nuevo") {
-      cambiar("usuarios", [...config.usuarios, { id: Date.now(), ...datos }]);
-    } else {
-      cambiar(
-        "usuarios",
-        config.usuarios.map((u) => (u.id === modal.id ? { ...u, ...datos } : u))
-      );
-    }
+    const usuarios =
+      modal === "nuevo"
+        ? [...config.usuarios, { id: Date.now(), ...datos }]
+        : config.usuarios.map((u) => (u.id === modal.id ? { ...u, ...datos } : u));
+    cambiar("usuarios", usuarios);
     setModal(null);
   }
 
   function eliminarUsuario(id) {
-    cambiar(
-      "usuarios",
-      config.usuarios.filter((u) => u.id !== id)
-    );
+    cambiar("usuarios", config.usuarios.filter((u) => u.id !== id));
+  }
+
+  const alertasDisponibles = tiposAlerta.filter((t) => !config.alertas.some((a) => a.id === t.id));
+
+  function agregarAlerta(tipo) {
+    // parte con los mismos valores por defecto que las demas
+    const nueva = { ...tipo, estado: "Moderado", activa: true, valor: 40, correo: true };
+    cambiar("alertas", [...config.alertas, nueva]);
+  }
+
+  function eliminarAlerta(id) {
+    cambiar("alertas", config.alertas.filter((a) => a.id !== id));
   }
 
   function cambiarAlerta(id, dato, valor) {
-    cambiar(
-      "alertas",
-      config.alertas.map((a) => (a.id === id ? { ...a, [dato]: valor } : a))
-    );
+    cambiar("alertas", config.alertas.map((a) => (a.id === id ? { ...a, [dato]: valor } : a)));
   }
 
   return (
@@ -290,73 +351,48 @@ function PestanaGeneral({ config, cambiar }) {
           Define los valores base para calcular desvíos de combustible y metas de huella de carbono.
         </p>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-[#E2E8F0]">
-          <div className="flex items-center gap-3">
-            <span className="w-9 h-9 rounded-full bg-[#F4F5F7] flex items-center justify-center">
-              <LocalGasStationRoundedIcon htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-[#1A1A1A]">Rendimiento esperado</p>
-              <p className="text-xs text-[#4A4A4A]">Rendimiento que debería tener la flota</p>
-            </div>
-          </div>
+        <Parametro
+          Icono={LocalGasStationRounded}
+          titulo="Rendimiento esperado"
+          texto="Rendimiento que debería tener la flota"
+        >
           <div className="flex gap-2">
-            <select
-              className={campo}
+            <Lista
+              opciones={valores}
               aria-label="Rendimiento esperado"
               value={config.rendimiento}
               onChange={(e) => cambiar("rendimiento", Number(e.target.value))}
-            >
-              {valores.map((v) => (
-                <option key={v}>{v}</option>
-              ))}
-            </select>
-            <select
-              className={campo}
+            />
+            <Lista
+              opciones={["Km/L", "L/100Km"]}
               aria-label="Unidad del rendimiento"
               value={config.unidadRendimiento}
               onChange={(e) => cambiar("unidadRendimiento", e.target.value)}
-            >
-              <option>Km/L</option>
-              <option>L/100Km</option>
-            </select>
+            />
           </div>
-        </div>
+        </Parametro>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3">
-          <div className="flex items-center gap-3">
-            <span className="w-9 h-9 rounded-full bg-[#F4F5F7] flex items-center justify-center">
-              <NatureRoundedIcon htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-[#1A1A1A]">Emisiones esperadas</p>
-              <p className="text-xs text-[#4A4A4A]">Meta de emisiones de la flota</p>
-            </div>
-          </div>
-          <select
-            className={campo}
+        <Parametro Icono={NatureRounded} titulo="Emisiones esperadas" texto="Meta de emisiones de la flota">
+          <Lista
+            opciones={emisiones}
             aria-label="Emisiones esperadas"
             value={config.emisiones}
             onChange={(e) => cambiar("emisiones", Number(e.target.value))}
-          >
-            {emisiones.map((v) => (
-              <option key={v}>{v}</option>
-            ))}
-          </select>
-        </div>
+          />
+        </Parametro>
       </section>
 
       <section className={tarjeta} aria-label="Gestión de usuarios">
         <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
           <h2 className="text-[#1A1A1A] font-bold text-lg">Gestión de usuarios</h2>
           <button className={botonAmarillo} onClick={() => setModal("nuevo")}>
-            <AddRoundedIcon fontSize="small" aria-hidden="true" />
+            <AddRounded fontSize="small" aria-hidden="true" />
             Agregar usuario
           </button>
         </div>
 
         <div className="flex items-center gap-2 w-full max-w-56 border border-[#E2E8F0] rounded-md px-2 py-1 mb-3">
-          <SearchRoundedIcon htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
+          <SearchRounded htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
           <input
             type="search"
             className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
@@ -371,9 +407,9 @@ function PestanaGeneral({ config, cambiar }) {
           <table className="w-full text-xs text-left text-[#1A1A1A]">
             <thead>
               <tr className="bg-[#F4F5F7]">
-                <th className="px-4 py-2 font-semibold">Usuario</th>
-                <th className="px-4 py-2 font-semibold">Correo electrónico</th>
-                <th className="px-4 py-2 font-semibold">Rol</th>
+                {["Usuario", "Correo electrónico", "Rol"].map((t) => (
+                  <th key={t} className="px-4 py-2 font-semibold">{t}</th>
+                ))}
                 <th className="px-4 py-2 font-semibold text-right">Acciones</th>
               </tr>
             </thead>
@@ -403,19 +439,15 @@ function PestanaGeneral({ config, cambiar }) {
                   </td>
                   <td className="px-4 py-2">
                     <div className="flex justify-end gap-2">
-                      <button
-                        className={botonIcono}
-                        aria-label={`Editar a ${u.nombre}`}
-                        onClick={() => setModal(u)}
-                      >
-                        <EditRoundedIcon htmlColor="#4A4A4A" sx={{ fontSize: 14 }} aria-hidden="true" />
+                      <button className={botonIcono} aria-label={`Editar a ${u.nombre}`} onClick={() => setModal(u)}>
+                        <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 14 }} aria-hidden="true" />
                       </button>
                       <button
                         className={botonIcono}
                         aria-label={`Eliminar a ${u.nombre}`}
                         onClick={() => eliminarUsuario(u.id)}
                       >
-                        <DeleteRoundedIcon htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
+                        <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
                       </button>
                     </div>
                   </td>
@@ -434,37 +466,36 @@ function PestanaGeneral({ config, cambiar }) {
       </section>
 
       <section className={tarjeta} aria-label="Alertas y notificaciones">
-        <h2 className="text-[#1A1A1A] font-bold text-lg mb-2">Alertas y notificaciones</h2>
+        <div className="flex flex-wrap justify-between items-center gap-3 mb-2">
+          <h2 className="text-[#1A1A1A] font-bold text-lg">Alertas y notificaciones</h2>
+          <AgregarAlerta disponibles={alertasDisponibles} onAgregar={agregarAlerta} />
+        </div>
+        {config.alertas.length === 0 && (
+          <p className="py-6 text-center text-xs text-[#4A4A4A]">No hay alertas configuradas</p>
+        )}
         {config.alertas.map((a) => (
           <div
             key={a.id}
-            className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
+            className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
           >
             <p className="text-sm font-semibold text-[#1A1A1A]">{a.nombre}</p>
 
             <div className="flex items-center gap-2">
               <span className="text-xs text-[#4A4A4A]">Umbral</span>
-              <select
-                className={campo}
+              <Lista
+                opciones={valores}
                 aria-label={`Umbral de la alerta ${a.nombre}`}
                 value={a.valor}
                 disabled={!a.activa}
                 onChange={(e) => cambiarAlerta(a.id, "valor", Number(e.target.value))}
-              >
-                {valores.map((v) => (
-                  <option key={v}>{v}</option>
-                ))}
-              </select>
-              <select
-                className={campo}
+              />
+              <Lista
+                opciones={["Km/L", "L"]}
                 aria-label={`Unidad de la alerta ${a.nombre}`}
                 value={a.unidad}
                 disabled={!a.activa}
                 onChange={(e) => cambiarAlerta(a.id, "unidad", e.target.value)}
-              >
-                <option>Km/L</option>
-                <option>L</option>
-              </select>
+              />
             </div>
 
             <div className="flex items-center gap-2">
@@ -488,6 +519,13 @@ function PestanaGeneral({ config, cambiar }) {
               onChange={(v) => cambiarAlerta(a.id, "activa", v)}
               etiqueta="Activar alerta"
             />
+            <button
+              className={`${botonIcono} justify-self-start md:justify-self-end`}
+              aria-label={`Eliminar la alerta ${a.nombre}`}
+              onClick={() => eliminarAlerta(a.id)}
+            >
+              <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
+            </button>
           </div>
         ))}
       </section>
@@ -537,35 +575,21 @@ function rutValido(rut) {
 // solo marca error en los campos que ya tienen algo escrito
 function validarEmpresa(empresa) {
   const errores = {};
-  if (empresa.rut && !rutValido(empresa.rut)) {
-    errores.rut = "El RUT no es válido";
-  }
-  if (empresa.correo && !correoValido.test(empresa.correo)) {
+  if (empresa.rut && !rutValido(empresa.rut)) errores.rut = "El RUT no es válido";
+  if (empresa.correo && !correoValido.test(empresa.correo))
     errores.correo = "Escribe un correo válido, como nombre@empresa.cl";
-  }
-  if (empresa.telefono && empresa.telefono.length !== 9) {
+  if (empresa.telefono && empresa.telefono.length !== 9)
     errores.telefono = "El teléfono debe tener 9 dígitos";
-  }
-  if (empresa.region && !empresa.comuna) {
-    errores.comuna = "Elige una comuna";
-  }
+  if (empresa.region && !empresa.comuna) errores.comuna = "Elige una comuna";
   return errores;
 }
 
 function PestanaEmpresa({ empresa, errores, cambiar }) {
-  const etiqueta = "flex flex-col gap-1 text-xs font-semibold text-[#1A1A1A]";
-  const textoError = "font-normal text-red-600";
   const icono = { sx: { fontSize: 14 }, htmlColor: "#4A4A4A", "aria-hidden": "true" };
-
   const comunas = regiones.find((r) => r.nombre === empresa.region)?.comunas ?? [];
 
   function poner(dato, valor) {
     cambiar("empresa", { ...empresa, [dato]: valor });
-  }
-
-  function elegirLogo(e) {
-    const archivo = e.target.files[0];
-    if (archivo) poner("logo", URL.createObjectURL(archivo));
   }
 
   function elegirRegion(e) {
@@ -582,14 +606,19 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
           {empresa.logo ? (
             <img src={empresa.logo} alt="Logo de la empresa" className="w-full h-full object-cover" />
           ) : (
-            <BusinessRoundedIcon htmlColor="#B0B5BD" sx={{ fontSize: 48 }} aria-hidden="true" />
+            <BusinessRounded htmlColor="#B0B5BD" sx={{ fontSize: 48 }} aria-hidden="true" />
           )}
         </div>
         <div className="flex flex-col items-start gap-2">
           <label className={`${botonAmarillo} cursor-pointer`}>
-            <PhotoCameraRoundedIcon fontSize="small" aria-hidden="true" />
+            <PhotoCameraRounded fontSize="small" aria-hidden="true" />
             {empresa.logo ? "Cambiar logo" : "Subir logo"}
-            <input type="file" accept="image/png, image/jpeg" onChange={elegirLogo} hidden />
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={(e) => elegirImagen(e, (url) => poner("logo", url))}
+              hidden
+            />
           </label>
           <p className="text-xs text-[#4A4A4A]">Recomendado: PNG o JPG transparente de 500x500px</p>
         </div>
@@ -598,7 +627,7 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Campo
           titulo="Nombre de la empresa"
-          icono={<BusinessRoundedIcon {...icono} />}
+          icono={<BusinessRounded {...icono} />}
           type="text"
           maxLength={80}
           placeholder="Transportes Chiloé SpA"
@@ -615,7 +644,7 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
         />
         <Campo
           titulo="Correo de contacto"
-          icono={<EmailRoundedIcon {...icono} />}
+          icono={<EmailRounded {...icono} />}
           type="email"
           placeholder="contacto@empresa.cl"
           value={empresa.correo}
@@ -623,11 +652,7 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
           onChange={(e) => poner("correo", e.target.value.trim())}
         />
 
-        <label className={etiqueta}>
-          <span className="flex items-center gap-1">
-            <PhoneRoundedIcon {...icono} />
-            Teléfono
-          </span>
+        <Campo titulo="Teléfono" icono={<PhoneRounded {...icono} />} error={errores.telefono}>
           <div className="flex">
             <span className="text-xs font-normal text-[#4A4A4A] bg-[#F4F5F7] border border-r-0 border-[#E2E8F0] rounded-l-md px-3 py-2">
               +56
@@ -642,41 +667,32 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
               onChange={(e) => poner("telefono", e.target.value.replace(/\D/g, ""))}
             />
           </div>
-          {errores.telefono && <span className={textoError}>{errores.telefono}</span>}
-        </label>
+        </Campo>
 
-        <label className={etiqueta}>
-          Región
-          <select className={campo} value={empresa.region} onChange={elegirRegion}>
-            <option value="">Selecciona una región</option>
-            {regiones.map((r) => (
-              <option key={r.nombre}>{r.nombre}</option>
-            ))}
-          </select>
-        </label>
+        <Campo titulo="Región">
+          <Lista
+            opciones={regiones.map((r) => r.nombre)}
+            vacio="Selecciona una región"
+            value={empresa.region}
+            onChange={elegirRegion}
+          />
+        </Campo>
 
-        <label className={etiqueta}>
-          Comuna
-          <select
-            className={`${campo} ${errores.comuna ? bordeError : ""}`}
+        <Campo titulo="Comuna" error={errores.comuna}>
+          <Lista
+            opciones={comunas}
+            vacio={empresa.region ? "Selecciona una comuna" : "Primero elige una región"}
+            className={errores.comuna ? bordeError : ""}
             value={empresa.comuna}
             disabled={!empresa.region}
             onChange={(e) => poner("comuna", e.target.value)}
-          >
-            <option value="">
-              {empresa.region ? "Selecciona una comuna" : "Primero elige una región"}
-            </option>
-            {comunas.map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-          {errores.comuna && <span className={textoError}>{errores.comuna}</span>}
-        </label>
+          />
+        </Campo>
 
         <Campo
           className="md:col-span-2"
           titulo="Dirección"
-          icono={<LocationOnRoundedIcon {...icono} />}
+          icono={<LocationOnRounded {...icono} />}
           type="text"
           maxLength={120}
           placeholder="Calle 123, oficina 4"
@@ -684,8 +700,7 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
           onChange={(e) => poner("direccion", e.target.value)}
         />
 
-        <label className={`${etiqueta} md:col-span-2`}>
-          Descripción de la empresa
+        <Campo className="md:col-span-2" titulo="Descripción de la empresa">
           <textarea
             rows={4}
             maxLength={limiteDescripcion}
@@ -697,15 +712,15 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
           <span className="self-end font-normal text-[#4A4A4A]">
             {empresa.descripcion.length}/{limiteDescripcion}
           </span>
-        </label>
+        </Campo>
       </div>
     </section>
   );
 }
 
 const pestanas = [
-  { id: "general", nombre: "General", Icono: SettingsRoundedIcon },
-  { id: "empresa", nombre: "Empresa", Icono: BusinessRoundedIcon },
+  { id: "general", nombre: "General", Icono: SettingsRounded },
+  { id: "empresa", nombre: "Empresa", Icono: BusinessRounded },
 ];
 
 export default function Configuracion() {
@@ -765,9 +780,7 @@ export default function Configuracion() {
           className="sticky bottom-4 flex flex-wrap items-center justify-between gap-3 bg-brand text-text rounded-xl px-5 py-3 shadow-lg"
         >
           <span className="text-sm">
-            {hayErrores
-              ? "Corrige los datos de la empresa antes de guardar"
-              : "Tienes cambios sin guardar"}
+            {hayErrores ? "Corrige los datos de la empresa antes de guardar" : "Tienes cambios sin guardar"}
           </span>
           <div className="flex gap-2">
             <button
