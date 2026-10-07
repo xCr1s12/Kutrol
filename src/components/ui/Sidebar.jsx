@@ -7,6 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PieChartIcon from '@mui/icons-material/PieChart';
 import RouteIcon from '@mui/icons-material/Route';
 import FlagIcon from '@mui/icons-material/Flag';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 
 
 export default function Sidebar() {
@@ -16,6 +17,7 @@ export default function Sidebar() {
     { name: "Estadisticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadisticas" },
     { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
     { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
+    { name: "Gestion", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestion"  }
   ];
   const PathName = usePathname();
 
