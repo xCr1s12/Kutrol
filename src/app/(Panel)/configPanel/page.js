@@ -424,8 +424,10 @@ function PestanaGeneral({ config, cambiar }) {
                 onChange={(e) => cambiarAlerta(a.id, "estado", e.target.value)}
               >
                 {Object.keys(coloresEstado).map((estado) => (
-                  <option key={estado}>{estado}</option>
-                ))}
+                  <option key={estado}className={coloresEstado[estado]}>
+                  {estado}
+                </option>
+              ))}
               </select>
             </div>
 
