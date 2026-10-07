@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { regiones } from "./regiones";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
@@ -43,11 +44,7 @@ const configInicial = {
   },
 };
 
-const coloresEstado = {
-  Leve: "bg-white text-[#1A1A1A]",
-  Moderado: "bg-amber-100 text-amber-800",
-  Crítico: "bg-red-100 text-red-700",
-};
+const estados = ["Leve", "Moderado", "Crítico"];
 
 const valores = [10, 20, 30, 40, 50, 60];
 const emisiones = [500, 1000, 1500, 2000];
@@ -192,6 +189,62 @@ function ModalUsuario({ usuario, onCerrar, onGuardar }) {
     </div>
   );
 }
+
+
+function MenuEstado({ valor, onChange, disabled, etiqueta }) {
+  const [abierto, setAbierto] = useState(false);
+
+  function cerrarSiSale(e) {
+    // se cierra cuando el foco sale del menu
+    if (!e.currentTarget.contains(e.relatedTarget)) setAbierto(false);
+  }
+
+  return (
+    <div
+      className="relative"
+      onBlur={cerrarSiSale}
+      onKeyDown={(e) => e.key === "Escape" && setAbierto(false)}
+    >
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={abierto}
+        aria-label={etiqueta}
+        disabled={disabled}
+        onClick={() => setAbierto(!abierto)}
+        className="flex items-center justify-between gap-2 w-28 text-xs font-semibold text-[#1A1A1A] bg-white border border-[#E2E8F0] rounded-md px-2 py-1.5 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-accent"
+      >
+        {valor}
+        <KeyboardArrowDownRoundedIcon sx={{ fontSize: 16 }} aria-hidden="true" />
+      </button>
+
+      {abierto && (
+        <ul
+          role="listbox"
+          className="absolute z-10 mt-1 w-full bg-white border border-[#E2E8F0] rounded-md shadow-md overflow-hidden"
+        >
+          {estados.map((estado) => (
+            <li key={estado} role="option" aria-selected={estado === valor}>
+              <button
+                type="button"
+                onClick={() => {
+                  onChange(estado);
+                  setAbierto(false);
+                }}
+                className={`w-full text-left text-xs text-[#1A1A1A] px-2 py-1.5 hover:bg-[#F4F5F7] focus:outline-none focus:bg-[#F4F5F7] ${
+                  estado === valor ? "font-semibold bg-accent/20" : ""
+                }`}
+              >
+                {estado}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 
 function PestanaGeneral({ config, cambiar }) {
   const [busqueda, setBusqueda] = useState("");
@@ -416,19 +469,12 @@ function PestanaGeneral({ config, cambiar }) {
 
             <div className="flex items-center gap-2">
               <span className="text-xs text-[#4A4A4A]">Estado</span>
-              <select
-                className={`text-xs font-semibold rounded-md px-2 py-1.5 disabled:opacity-50 ${coloresEstado[a.estado]}`}
-                aria-label={`Estado de la alerta ${a.nombre}`}
-                value={a.estado}
+              <MenuEstado
+                valor={a.estado}
                 disabled={!a.activa}
-                onChange={(e) => cambiarAlerta(a.id, "estado", e.target.value)}
-              >
-                {Object.keys(coloresEstado).map((estado) => (
-                  <option key={estado}className={coloresEstado[estado]}>
-                  {estado}
-                </option>
-              ))}
-              </select>
+                etiqueta={`Estado de la alerta ${a.nombre}`}
+                onChange={(estado) => cambiarAlerta(a.id, "estado", estado)}
+              />
             </div>
 
             <Interruptor
