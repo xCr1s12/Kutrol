@@ -1,7 +1,7 @@
 export const GOLD = "var(--color-accent)";
 
 export const Card = ({ children }) => (
-  <section className="flex h-110 shrink-0 flex-col rounded-2xl border border-border-muted bg-white px-5 pb-4 pt-5 shadow-card p-10">
+  <section className="flex h-110 shrink-0 flex-col rounded-2xl border border-icon bg-background px-5 pb-4 pt-5 shadow-sm p-10">
     {children}
   </section>
 );
@@ -10,7 +10,7 @@ export const PillButton = ({ children, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="rounded-full border border-border-muted bg-background px-3.5 py-1.5 text-xs text-brand transition-colors hover:bg-surface-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    className="rounded-full border border-icon bg-background px-3.5 py-1.5 text-xs text-brand transition-colors hover:bg-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
   >
     {children}
   </button>
@@ -24,11 +24,25 @@ export const Th = ({ children }) => (
 
 export const Td = ({ children, style }) => (
   <td
-    className="h-7.5 border-b border-border-subtle px-3.75 text-left align-middle text-base text-brand"
+    className="h-7 px-3.75 py-1 text-left align-middle text-base text-brand"
     style={style}
   >
     {children}
   </td>
+);
+
+export const FilaTabla = ({ children }) => (
+  <tr
+    style={{
+      backgroundImage:
+        "linear-gradient(var(--color-icon), var(--color-icon))",
+      backgroundPosition: "15px 100%",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "calc(90% - 15px) 1px",
+    }}
+  >
+    {children}
+  </tr>
 );
 
 export const Estado = ({ estado, estados }) => {
@@ -80,7 +94,7 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               activo
                 ? "border-transparent font-bold text-brand"
-                : "border-border-muted bg-background text-subtext hover:bg-surface-subtle"
+                : "border-icon bg-background text-subtext hover:bg-text"
             }`}
             style={activo ? { backgroundColor: GOLD } : undefined}
           >
@@ -103,7 +117,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página anterior"
         disabled={pagina === 1}
         onClick={() => onCambiarPagina(pagina - 1)}
-        className="h-6 w-6 rounded-md border border-border-muted bg-white text-xs text-subtext disabled:opacity-50"
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50"
       >
         ‹
       </button>
@@ -116,7 +130,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
           className={`h-6 w-6 rounded-md border text-xs font-bold ${
             numero === pagina
               ? "border-transparent text-brand"
-              : "border-border-muted bg-white text-subtext"
+              : "border-icon bg-background text-subtext"
           }`}
           style={numero === pagina ? { backgroundColor: GOLD } : undefined}
         >
@@ -128,7 +142,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página siguiente"
         disabled={pagina === totalPaginas}
         onClick={() => onCambiarPagina(pagina + 1)}
-        className="h-6 w-6 rounded-md border border-border-muted bg-white text-xs text-subtext disabled:opacity-50"
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50"
       >
         ›
       </button>

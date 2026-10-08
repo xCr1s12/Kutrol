@@ -159,7 +159,7 @@ const VehiculoHistory = ({ vehiculo = VEHICULO_DEMO }) => {
               <Dato label="Patente" value={historial.patente} />
             </div>
 
-            <div className="flex flex-col gap-4 border-l border-border-muted pl-5">
+            <div className="flex flex-col gap-4 border-l border-icon pl-5">
               <Dato
                 label="Revision Tecnica"
                 value={historial.revisionTecnica}
