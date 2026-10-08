@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 ::selection {
-  background: #D4AF37;
-  color: #1A1A1A;
+  background: var(--color-accent);
+  color: var(--color-brand);
 }
 
 @theme inline {
