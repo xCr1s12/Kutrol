@@ -16,6 +16,7 @@ import {
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import ConductorHistory from "@/components/gestion/ConductorHistory";
+import VehiculoHistory from "@/components/gestion/VehiculoHistory";
 
 const ICONCONDUCTOR = <PermIdentityOutlinedIcon fontSize="large" />;
 
@@ -138,9 +139,11 @@ const Flota = () => {
     setModalConductor(false);
   };
 
+  const [VEHICULOSELECT, setVEHICULOSELECT] = useState(null);
   const [CONDUCTORSELECT, setCONDUCTORSELECT] = useState(null);
   const [modalHistorialC, setModalHistorialC] = useState(false);
 
+  const [modalHistorialV, setModalHistorialV] = useState(false);
   return (
     <main
       lang="es"
@@ -181,7 +184,12 @@ const Flota = () => {
                 </Td>
                 <Td>{v.encargado}</Td>
                 <Td>
-                  <VerHistorial />
+                  <VerHistorial
+                    onClick={() => {
+                      setVEHICULOSELECT(v);
+                      setModalHistorialV(true);
+                    }}
+                  />
                 </Td>
               </tr>
             ))
@@ -246,7 +254,7 @@ const Flota = () => {
         title={CONDUCTORSELECT?.conductor ?? "Historial del conductor"}
         icon={ICONCONDUCTOR}
       >
-        <ConductorHistory />
+        <ConductorHistory conductor={CONDUCTORSELECT ?? undefined} />
       </Modal>
 
       {/* Modal Agregar Conductor */}
@@ -263,16 +271,16 @@ const Flota = () => {
         />
       </Modal>
 
-      {/* Modal del Historial del Conductor */}
+      {/* Modal del Historial del Vehiculo */}
       <Modal
         open={modalHistorialV}
         onClose={() => setModalHistorialV(false)}
         size="xl"
-        eyebrow="CONDUCTOR"
+        eyebrow="VEHICULO"
         title={VEHICULOSELECT?.patente ?? "Historial del Vehiculo"}
         icon={ICONVEHICULO}
       >
-        <VehiculoHistory />
+        <VehiculoHistory vehiculo={VEHICULOSELECT ?? undefined} />
       </Modal>
       {/* Modal Agregar Vehiculo */}
       <Modal
