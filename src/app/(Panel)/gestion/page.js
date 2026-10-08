@@ -6,6 +6,7 @@ import FormularioVehiculo from "@/components/ux/FormVehiculos";
 import {
   Card,
   Estado,
+  FilaTabla,
   Filtros,
   Paginacion,
   PillButton,
@@ -84,9 +85,9 @@ const CONDUCTORES = [
 ];
 
 const ESTADOS = {
-  activo: { label: "Activo", color: "var(--color-success)" },
+  activo: { label: "Activo", color: "var(--color-brand)" },
   "sin carga": { label: "Sin Carga", color: "var(--color-accent-dark)" },
-  "en mantencion": { label: "En Mantencion", color: "var(--color-warning)" },
+  "en mantencion": { label: "En Mantencion", color: "var(--color-accent-dark)" },
 };
 
 const normalizar = (texto) =>
@@ -176,7 +177,7 @@ const Flota = () => {
         >
           {vehiculosPagina.length > 0 ? (
             vehiculosPagina.map((v) => (
-              <tr key={v.patente}>
+              <FilaTabla key={v.patente}>
                 <Td>{v.patente}</Td>
                 <Td>{v.rendimiento}</Td>
                 <Td>
@@ -191,7 +192,7 @@ const Flota = () => {
                     }}
                   />
                 </Td>
-              </tr>
+              </FilaTabla>
             ))
           ) : (
             <tr>
@@ -227,7 +228,7 @@ const Flota = () => {
           anchos={[23, 20, 27, 30]}
         >
           {CONDUCTORES.map((c, i) => (
-            <tr key={`${c.conductor}-${i}`}>
+            <FilaTabla key={`${c.conductor}-${i}`}>
               <Td>{c.conductor}</Td>
               <Td>
                 <Estado estado={normalizar(c.estado)} estados={ESTADOS} />
@@ -241,7 +242,7 @@ const Flota = () => {
                   }}
                 />
               </Td>
-            </tr>
+            </FilaTabla>
           ))}
         </Tabla>
       </Card>

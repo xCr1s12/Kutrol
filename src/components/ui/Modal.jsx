@@ -103,7 +103,7 @@ const Modal = ({
           <div className="overflow-y-auto px-6 py-6">{children}</div>
 
           {footer && (
-            <footer className="flex justify-end gap-2 border-t border-border-muted px-6 py-4">
+            <footer className="flex justify-end gap-2 border-t border-icon px-6 py-4">
               {footer}
             </footer>
           )}
@@ -129,7 +129,7 @@ export const Seccion = ({ titulo, children, className = "" }) => (
 /** Contenedor gris claro con borde redondeado (para datos, listas, etc.) */
 export const Tarjeta = ({ children, className = "" }) => (
   <div
-    className={`rounded-2xl border border-border-muted bg-surface-muted p-5 ${className}`}
+    className={`rounded-2xl border border-icon bg-background p-5 ${className}`}
   >
     {children}
   </div>
@@ -137,9 +137,9 @@ export const Tarjeta = ({ children, className = "" }) => (
 
 /** Tabla con cabecera gris. columnas: [{ key, label }], filas: [{...}] */
 export const Tabla = ({ columnas, filas }) => (
-  <div className="overflow-hidden rounded-2xl border border-border-muted">
+  <div className="overflow-hidden rounded-2xl border border-icon">
     <table className="w-full text-left text-sm">
-      <thead className="bg-surface-subtle text-xs font-bold uppercase tracking-wider">
+      <thead className="bg-text text-xs font-bold uppercase tracking-wider">
         <tr>
           {columnas.map((c) => (
             <th key={c.key} className="px-5 py-3">
@@ -148,9 +148,9 @@ export const Tabla = ({ columnas, filas }) => (
           ))}
         </tr>
       </thead>
-      <tbody className="bg-surface-muted">
+      <tbody className="bg-background">
         {filas.map((fila, i) => (
-          <tr key={i} className="border-t border-border-muted">
+          <tr key={i} className="border-t border-icon">
             {columnas.map((c, j) => (
               <td
                 key={c.key}
@@ -177,7 +177,7 @@ export const Dato = ({ label, value }) => (
 export const LineaTiempo = ({ items }) => (
   <Tarjeta className="px-6 py-5">
     <ol className="relative flex flex-col gap-5">
-      <span className="absolute bottom-2 left-1.25 top-2 w-px bg-line-muted" />
+      <span className="absolute bottom-2 left-1.25 top-2 w-px bg-icon" />
       {items.map((it, i) => (
         <li key={i} className="relative flex items-center gap-4 pl-6 text-sm">
           <span
@@ -215,13 +215,13 @@ export const Campo = ({ label, id, children }) => (
 );
 
 export const inputClase =
-  "rounded-lg border border-border-muted bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
+  "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 export const BotonSecundario = ({ children, ...props }) => (
   <button
     type="button"
     {...props}
-    className="rounded-full border border-border-muted bg-background px-4 py-1.5 text-xs hover:bg-surface-subtle"
+    className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs hover:bg-text"
   >
     {children}
   </button>

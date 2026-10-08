@@ -22,17 +22,6 @@
   --color-accent-dark: #C49A2E;
   --color-white: #FFFFFF;
   --color-black: #000000;
-  --color-surface-muted: #F7F7F7;
-  --color-surface-subtle: #E8EAE9;
-  --color-border-muted: #E6E6E6;
-  --color-border-subtle: #EDEDED;
-  --color-line-muted: #D5D9D7;
-  --color-control-muted: #E5E5E7;
-  --color-control-hover: #DADADD;
-  --color-success: #2E8B57;
-  --color-warning: #C2410C;
-  --color-error: #F87171;
-  --shadow-card: 0 1px 2px color-mix(in srgb, var(--color-brand) 3%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,8 +31,7 @@
   }
 }
 dialog::backdrop {
-  background: var(--color-black);
-  opacity: 0.5;
+  background: rgb(0 0 0 / 0.5);
 }
 
 body {

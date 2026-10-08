@@ -1,7 +1,7 @@
 import FormField from "@/components/ui/FormField";
 
 const inputClase =
-  "w-full rounded-md border border-border-muted bg-white px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
+  "w-full rounded-md border border-icon bg-background px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 const CamposFormularioConductor = () => (
   <div className="grid grid-cols-2 gap-4">

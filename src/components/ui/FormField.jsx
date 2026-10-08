@@ -44,7 +44,7 @@ export default function FormField({
         {...inputProps}
       />
       {error && (
-        <p id={`${id}-error`} className="text-xs text-error">
+        <p id={`${id}-error`} className="text-xs text-accent-dark">
           {error}
         </p>
       )}
