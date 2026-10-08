@@ -1,7 +1,7 @@
 export const GOLD = "var(--color-accent)";
 
 export const Card = ({ children }) => (
-  <section className="flex h-[440px] shrink-0 flex-col rounded-2xl border border-[#E6E6E6] bg-white px-5 pb-4 pt-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+  <section className="flex h-[440px] shrink-0 flex-col rounded-2xl border border-[#E6E6E6] bg-white px-5 pb-4 pt-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-10">
     {children}
   </section>
 );

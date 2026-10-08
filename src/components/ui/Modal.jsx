@@ -52,7 +52,7 @@ const Modal = ({ open, onClose, title, children, footer, size = "md" }) => {
     >
       {/* Se renderiza solo abierto, así el formulario se reinicia cada vez */}
       {open && (
-        <div className="flex max-h-[85vh] flex-col">
+        <div className="flex max-h-11/12 w-auto flex-col">
           <header className="flex items-center justify-between px-5 pb-3 pt-5">
             <h2 id="modal-titulo" className="text-[15px] font-bold">
               {title}
@@ -67,7 +67,7 @@ const Modal = ({ open, onClose, title, children, footer, size = "md" }) => {
             </button>
           </header>
 
-          <div className="overflow-y-auto px-5 py-2">{children}</div>
+          <div className="overflow-y-auto px-10 py-10">{children}</div>
 
           {footer && (
             <footer className="flex justify-end gap-2 px-5 pb-5 pt-4">{footer}</footer>

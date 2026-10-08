@@ -11,7 +11,7 @@ import {
   Tabla,
   Td,
   VerHistorial,
-} from "@/components/ux/FlotaComponents";
+} from "@/components/gestion/FlotaComponents";
 
 const PAGE_SIZE = 7;
 
@@ -75,10 +75,10 @@ const Flota = () => {
     pagina * PAGE_SIZE
   );
   const [abierto, setAbierto] = useState(false);
-    const handleNuevoVehiculo = (datos) => {
-     console.log(datos); // { modelo, patente, combustible }
-     setModalVehiculo(false);
-    };
+  const handleNuevoVehiculo = (datos) => {
+    console.log(datos);
+    setModalVehiculo(false);
+  };
   const [modalVehiculo, setModalVehiculo] = useState(false);
   return (
     <main
@@ -147,7 +147,7 @@ const Flota = () => {
 
       {/* ---------- Conductores ---------- */}
       <Card>
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3 flex items-center justify-between bg-">
           <h2 className="text-[15px] font-bold text-brand">Conductores</h2>
           <PillButton onClick={() => {setAbierto(true)}}>Agregar Conductor</PillButton>
         </div> 
