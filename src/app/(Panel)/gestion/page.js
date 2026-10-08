@@ -1,7 +1,8 @@
 "use client"
 import   { useEffect ,useState ,  useMemo} from "react";
 import Modal from "@/components/ui/Modal";
-import FormularioVehiculo from "@/components/ux/FormularioVehiculos";
+import FormularioConductor from "@/components/ux/FormConductores";
+import FormularioVehiculo from "@/components/ux/FormVehiculos";
 import {
   Card,
   Estado,
@@ -12,6 +13,8 @@ import {
   Td,
   VerHistorial,
 } from "@/components/gestion/FlotaComponents";
+
+
 
 const PAGE_SIZE = 7;
 
@@ -74,12 +77,17 @@ const Flota = () => {
     (pagina - 1) * PAGE_SIZE,
     pagina * PAGE_SIZE
   );
-  const [abierto, setAbierto] = useState(false);
+  const [modalVehiculo, setModalVehiculo] = useState(false);
   const handleNuevoVehiculo = (datos) => {
     console.log(datos);
     setModalVehiculo(false);
   };
-  const [modalVehiculo, setModalVehiculo] = useState(false);
+  
+  const [modalConductor, setModalConductor] = useState(false);
+  const handleNuevoConductor = (datos) => {
+    console.log(datos);
+    setModalConductor(false);
+  };
   return (
     <main
       lang="es"
@@ -147,18 +155,21 @@ const Flota = () => {
 
       {/* ---------- Conductores ---------- */}
       <Card>
-        <div className="mb-3 flex items-center justify-between bg-">
+        <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[15px] font-bold text-brand">Conductores</h2>
-          <PillButton onClick={() => {setAbierto(true)}}>Agregar Conductor</PillButton>
+          <PillButton onClick={() => setModalConductor(true)}>Agregar Conductor</PillButton>
         </div> 
         <Modal
-            open={abierto}
-            onClose={() => setAbierto(false)}
-            title="Mi modal"
-            footer={<button onClick={() => setAbierto(false)}>Cerrar</button>}
-            >
-            <p>Contenido del modal</p>
-            </Modal>
+          open={modalConductor}
+          onClose={() => setModalConductor(false)}
+          title="Agregar Conductor"
+          size="lg"
+        >
+            <FormularioConductor
+                onSubmit={handleNuevoConductor}
+                onCancel={() => setModalConductor(false)}
+            />
+        </Modal>
 
 
         <Tabla

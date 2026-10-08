@@ -1,33 +1,30 @@
-import CamposFormularioVehiculo from "@/components/gestion/CamposFormularioVehiculo";
-
+import CamposFormularioConductor from "../gestion/FormFieldsConductores";
 /**
  * Props:
- * - onSubmit(datos): recibe { patente, marca, modelo, ano, combustible, capacidad_carga, estado }
+ * - onSubmit(datos): recibe { nombre, run, licencia_num, email, telefono }
  * - onCancel(): se llama al presionar "Cancelar"
  */
-const FormularioVehiculo = ({ onSubmit, onCancel }) => {
+const FormularioConductor = ({ onSubmit, onCancel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const datos = {
-      patente: formData.get("patente").trim(),
-      marca: formData.get("marca").trim(),
-      modelo: formData.get("modelo").trim(),
-      ano: Number(formData.get("ano")),
-      combustible: formData.get("combustible"),
-      capacidad_carga: Number(formData.get("capacidad_carga")),
-      estado: formData.get("estado").trim(),
+      nombre: formData.get("nombre").trim(),
+      run: formData.get("run").trim(),
+      licencia_num: formData.get("licencia_num").trim(),
+      telefono: formData.get("telefono").trim(),
+      email: formData.get("email").trim(),
     };
     onSubmit(datos);
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      {/* Columna izquierda: campos */}
+      {/* Campos */}
       <div className="flex flex-col gap-4">
         <h3 className="text-sm font-bold text-brand">Detalles</h3>
 
-        <CamposFormularioVehiculo />
+        <CamposFormularioConductores />
 
         <div className="mt-2 flex gap-3">
           <button
@@ -46,9 +43,8 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
           </button>
         </div>
       </div>
-
     </form>
   );
 };
 
-export default FormularioVehiculo;
+export default FormularioConductor;
