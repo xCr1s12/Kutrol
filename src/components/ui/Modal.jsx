@@ -70,13 +70,13 @@ const Modal = ({
           <header className="flex items-center justify-between gap-4 border-b-2 border-accent bg-brand px-6 py-5">
             <div className="flex items-center gap-4">
               {icon && (
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-[#4A4A4A] [&_svg]:text-[30px]">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-brand/80 [&_svg]:text-3xl">
                   {icon}
                 </span>
               )}
               <div className="flex flex-col">
                 {eyebrow && (
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                     {eyebrow}
                   </span>
                 )}
@@ -103,7 +103,7 @@ const Modal = ({
           <div className="overflow-y-auto px-6 py-6">{children}</div>
 
           {footer && (
-            <footer className="flex justify-end gap-2 border-t border-[#EEEEEE] px-6 py-4">
+            <footer className="flex justify-end gap-2 border-t border-border-muted px-6 py-4">
               {footer}
             </footer>
           )}
@@ -118,8 +118,8 @@ const Modal = ({
 /** Título de sección con barrita dorada a la izquierda */
 export const Seccion = ({ titulo, children, className = "" }) => (
   <section className={`flex flex-col gap-3 ${className}`}>
-    <h3 className="flex items-center gap-2 text-[13px] font-semibold text-brand">
-      <span className="h-4 w-[3px] rounded-full bg-accent" />
+    <h3 className="flex items-center gap-2 text-sm font-semibold text-brand">
+      <span className="h-4 w-0.75 rounded-full bg-accent" />
       {titulo}
     </h3>
     {children}
@@ -129,7 +129,7 @@ export const Seccion = ({ titulo, children, className = "" }) => (
 /** Contenedor gris claro con borde redondeado (para datos, listas, etc.) */
 export const Tarjeta = ({ children, className = "" }) => (
   <div
-    className={`rounded-2xl border border-[#E6E6E6] bg-[#F7F7F7] p-5 ${className}`}
+    className={`rounded-2xl border border-border-muted bg-surface-muted p-5 ${className}`}
   >
     {children}
   </div>
@@ -137,9 +137,9 @@ export const Tarjeta = ({ children, className = "" }) => (
 
 /** Tabla con cabecera gris. columnas: [{ key, label }], filas: [{...}] */
 export const Tabla = ({ columnas, filas }) => (
-  <div className="overflow-hidden rounded-2xl border border-[#E6E6E6]">
-    <table className="w-full text-left text-[13px]">
-      <thead className="bg-[#E8EAE9] text-[11px] font-bold uppercase tracking-wider">
+  <div className="overflow-hidden rounded-2xl border border-border-muted">
+    <table className="w-full text-left text-sm">
+      <thead className="bg-surface-subtle text-xs font-bold uppercase tracking-wider">
         <tr>
           {columnas.map((c) => (
             <th key={c.key} className="px-5 py-3">
@@ -148,9 +148,9 @@ export const Tabla = ({ columnas, filas }) => (
           ))}
         </tr>
       </thead>
-      <tbody className="bg-[#F7F7F7]">
+      <tbody className="bg-surface-muted">
         {filas.map((fila, i) => (
-          <tr key={i} className="border-t border-[#E6E6E6]">
+          <tr key={i} className="border-t border-border-muted">
             {columnas.map((c, j) => (
               <td
                 key={c.key}
@@ -168,7 +168,7 @@ export const Tabla = ({ columnas, filas }) => (
 
 /** Dato "Etiqueta: valor" */
 export const Dato = ({ label, value }) => (
-  <p className="text-[13px] text-brand/70">
+  <p className="text-sm text-brand/70">
     {label}: <strong className="font-bold text-brand">{value}</strong>
   </p>
 );
@@ -177,14 +177,14 @@ export const Dato = ({ label, value }) => (
 export const LineaTiempo = ({ items }) => (
   <Tarjeta className="px-6 py-5">
     <ol className="relative flex flex-col gap-5">
-      <span className="absolute bottom-2 left-[5px] top-2 w-px bg-[#D5D9D7]" />
+      <span className="absolute bottom-2 left-1.25 top-2 w-px bg-line-muted" />
       {items.map((it, i) => (
-        <li key={i} className="relative flex items-center gap-4 pl-6 text-[13px]">
+        <li key={i} className="relative flex items-center gap-4 pl-6 text-sm">
           <span
             className={`absolute left-0 rounded-full ${
               it.actual
                 ? "h-3 w-3 bg-accent ring-4 ring-accent/25"
-                : "ml-[2px] h-2 w-2 bg-subtext"
+                : "ml-0.5 h-2 w-2 bg-subtext"
             }`}
           />
           <span className={`font-semibold ${it.actual ? "text-brand" : "text-brand/70"}`}>
@@ -207,7 +207,7 @@ export const LineaTiempo = ({ items }) => (
 
 export const Campo = ({ label, id, children }) => (
   <div className="mb-3 flex flex-col gap-1">
-    <label htmlFor={id} className="text-[11px] font-semibold">
+    <label htmlFor={id} className="text-xs font-semibold">
       {label}
     </label>
     {children}
@@ -215,13 +215,13 @@ export const Campo = ({ label, id, children }) => (
 );
 
 export const inputClase =
-  "rounded-lg border border-[#E3E3E3] bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
+  "rounded-lg border border-border-muted bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 export const BotonSecundario = ({ children, ...props }) => (
   <button
     type="button"
     {...props}
-    className="rounded-full border border-[#E3E3E3] bg-background px-4 py-1.5 text-[11px] hover:bg-[#EDEDED]"
+    className="rounded-full border border-border-muted bg-background px-4 py-1.5 text-xs hover:bg-surface-subtle"
   >
     {children}
   </button>
@@ -230,7 +230,7 @@ export const BotonSecundario = ({ children, ...props }) => (
 export const BotonPrimario = ({ children, ...props }) => (
   <button
     {...props}
-    className="rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold text-brand hover:bg-accent-dark"
+    className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand hover:bg-accent-dark"
   >
     {children}
   </button>

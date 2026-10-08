@@ -12,7 +12,7 @@ export default function FormField({
   if (children) {
     return (
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={id} className="text-[11px] font-semibold text-brand">
+        <label htmlFor={id} className="text-xs font-semibold text-brand">
           {label}
         </label>
         {children}
@@ -44,7 +44,7 @@ export default function FormField({
         {...inputProps}
       />
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-400">
+        <p id={`${id}-error`} className="text-xs text-error">
           {error}
         </p>
       )}
