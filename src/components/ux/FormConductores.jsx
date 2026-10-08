@@ -24,7 +24,7 @@ const FormularioConductor = ({ onSubmit, onCancel }) => {
       <div className="flex flex-col gap-4">
         <h3 className="text-sm font-bold text-brand">Detalles</h3>
 
-        <CamposFormularioConductores />
+        <CamposFormularioConductor />
 
         <div className="mt-2 flex gap-3">
           <button

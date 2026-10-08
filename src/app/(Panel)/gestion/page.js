@@ -1,5 +1,5 @@
-"use client"
-import   { useEffect ,useState ,  useMemo} from "react";
+"use client";
+import { useEffect, useState, useMemo } from "react";
 import Modal from "@/components/ui/Modal";
 import FormularioConductor from "@/components/ux/FormConductores";
 import FormularioVehiculo from "@/components/ux/FormVehiculos";
@@ -13,26 +13,71 @@ import {
   Td,
   VerHistorial,
 } from "@/components/gestion/FlotaComponents";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import ConductorHistory from "@/components/gestion/ConductorHistory";
 
+const ICONCONDUCTOR = <PermIdentityOutlinedIcon fontSize="large" />;
 
+const ICONVEHICULO = <LocalShippingOutlinedIcon fontSize="large" />;
 
 const PAGE_SIZE = 7;
 
 const FILTROS = ["Todos", "Activos", "En Mantencion"];
 
 const VEHICULOS = [
-  { patente: "A1", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "A2", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "A3", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "B1", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "B2", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "B3", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "C1", rendimiento: "100km/L", estado: "activo", encargado: "Jhon Doe" },
-  { patente: "C2", rendimiento: "0km/L", estado: "en mantencion", encargado: "Jhon Doe" },
+  {
+    patente: "A1",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "A2",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "A3",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "B1",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "B2",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "B3",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "C1",
+    rendimiento: "100km/L",
+    estado: "activo",
+    encargado: "Jhon Doe",
+  },
+  {
+    patente: "C2",
+    rendimiento: "0km/L",
+    estado: "en mantencion",
+    encargado: "Jhon Doe",
+  },
 ];
 
 const CONDUCTORES = [
-  { conductor: "Jhon Doe", estado: "activo", vehiculo: "A1" },
+  { conductor: "Jhon Doea", estado: "activo", vehiculo: "A1" },
   { conductor: "Jhon Doe", estado: "activo", vehiculo: "A2" },
   { conductor: "Jhon Doe", estado: "sin carga", vehiculo: "A3" },
 ];
@@ -61,13 +106,17 @@ const Flota = () => {
       VEHICULOS.filter((v) => {
         const estado = normalizar(v.estado);
         if (filtroActivo === "Activos") return estado === "activo";
-        if (filtroActivo === "En Mantencion") return estado.includes("mantencion");
+        if (filtroActivo === "En Mantencion")
+          return estado.includes("mantencion");
         return true;
       }),
-    [filtroActivo]
+    [filtroActivo],
   );
 
-  const totalPaginas = Math.max(1, Math.ceil(vehiculosFiltrados.length / PAGE_SIZE));
+  const totalPaginas = Math.max(
+    1,
+    Math.ceil(vehiculosFiltrados.length / PAGE_SIZE),
+  );
 
   useEffect(() => {
     setPagina(1);
@@ -75,19 +124,23 @@ const Flota = () => {
 
   const vehiculosPagina = vehiculosFiltrados.slice(
     (pagina - 1) * PAGE_SIZE,
-    pagina * PAGE_SIZE
+    pagina * PAGE_SIZE,
   );
   const [modalVehiculo, setModalVehiculo] = useState(false);
   const handleNuevoVehiculo = (datos) => {
     console.log(datos);
     setModalVehiculo(false);
   };
-  
+
   const [modalConductor, setModalConductor] = useState(false);
   const handleNuevoConductor = (datos) => {
     console.log(datos);
     setModalConductor(false);
   };
+
+  const [CONDUCTORSELECT, setCONDUCTORSELECT] = useState(null);
+  const [modalHistorialC, setModalHistorialC] = useState(false);
+
   return (
     <main
       lang="es"
@@ -103,23 +156,19 @@ const Flota = () => {
             seleccionado={filtroActivo}
             onSelect={setFiltroActivo}
           />
-            <PillButton onClick={() => setModalVehiculo(true)}>Agregar Vehiculo</PillButton>
-            <Modal
-                open={modalVehiculo}
-                onClose={() => setModalVehiculo(false)}
-                title="Agregar Vehiculo"
-                size="lg"
-            >
-            <FormularioVehiculo
-                onSubmit={handleNuevoVehiculo}
-                onCancel={() => setModalVehiculo(false)}
-            />
-            </Modal>
-
+          <PillButton onClick={() => setModalVehiculo(true)}>
+            Agregar Vehiculo
+          </PillButton>
         </div>
 
         <Tabla
-          columnas={["Vehiculo", "Rendimiento", "Estado", "Encargado", "Historial"]}
+          columnas={[
+            "Vehiculo",
+            "Rendimiento",
+            "Estado",
+            "Encargado",
+            "Historial",
+          ]}
           anchos={[18, 20, 18, 22, 22]}
         >
           {vehiculosPagina.length > 0 ? (
@@ -138,7 +187,10 @@ const Flota = () => {
             ))
           ) : (
             <tr>
-              <td colSpan={5} className="h-[60px] text-center text-base text-subtext">
+              <td
+                colSpan={5}
+                className="h-[60px] text-center text-base text-subtext"
+              >
                 No hay vehículos para este filtro.
               </td>
             </tr>
@@ -157,20 +209,10 @@ const Flota = () => {
       <Card>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[15px] font-bold text-brand">Conductores</h2>
-          <PillButton onClick={() => setModalConductor(true)}>Agregar Conductor</PillButton>
-        </div> 
-        <Modal
-          open={modalConductor}
-          onClose={() => setModalConductor(false)}
-          title="Agregar Conductor"
-          size="lg"
-        >
-            <FormularioConductor
-                onSubmit={handleNuevoConductor}
-                onCancel={() => setModalConductor(false)}
-            />
-        </Modal>
-
+          <PillButton onClick={() => setModalConductor(true)}>
+            Agregar Conductor
+          </PillButton>
+        </div>
 
         <Tabla
           columnas={["Conductor", "Estado", "Vehiculo a cargo", "Historial"]}
@@ -184,13 +226,67 @@ const Flota = () => {
               </Td>
               <Td>{c.vehiculo}</Td>
               <Td>
-                <VerHistorial />
+                <VerHistorial
+                  onClick={() => {
+                    setCONDUCTORSELECT(c);
+                    setModalHistorialC(true);
+                  }}
+                />
               </Td>
             </tr>
           ))}
         </Tabla>
-
       </Card>
+      {/* Modal del Historial del Conductor */}
+      <Modal
+        open={modalHistorialC}
+        onClose={() => setModalHistorialC(false)}
+        size="xl"
+        eyebrow="CONDUCTOR"
+        title={CONDUCTORSELECT?.conductor ?? "Historial del conductor"}
+        icon={ICONCONDUCTOR}
+      >
+        <ConductorHistory />
+      </Modal>
+
+      {/* Modal Agregar Conductor */}
+      <Modal
+        icon={ICONCONDUCTOR}
+        open={modalConductor}
+        onClose={() => setModalConductor(false)}
+        title="Agregar Conductor"
+        size="lg"
+      >
+        <FormularioConductor
+          onSubmit={handleNuevoConductor}
+          onCancel={() => setModalConductor(false)}
+        />
+      </Modal>
+
+      {/* Modal del Historial del Conductor */}
+      <Modal
+        open={modalHistorialV}
+        onClose={() => setModalHistorialV(false)}
+        size="xl"
+        eyebrow="CONDUCTOR"
+        title={VEHICULOSELECT?.patente ?? "Historial del Vehiculo"}
+        icon={ICONVEHICULO}
+      >
+        <VehiculoHistory />
+      </Modal>
+      {/* Modal Agregar Vehiculo */}
+      <Modal
+        icon={ICONVEHICULO}
+        open={modalVehiculo}
+        onClose={() => setModalVehiculo(false)}
+        title="Agregar Vehiculo"
+        size="lg"
+      >
+        <FormularioVehiculo
+          onSubmit={handleNuevoVehiculo}
+          onCancel={() => setModalVehiculo(false)}
+        />
+      </Modal>
     </main>
   );
 };
