@@ -81,7 +81,7 @@ const HISTORIALES_CONDUCTORES = [
 ];
 
 const PillTiempo = ({ dias }) => (
-  <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-[10px] font-bold uppercase text-accent-dark">
+  <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-xs font-bold uppercase text-accent-dark">
     {dias} {dias === 1 ? "día" : "días"}
   </span>
 );
@@ -122,7 +122,7 @@ const ConductorHistory = ({ conductor = CONDUCTOR_DEMO }) => {
               <Dato label="Nº Licencia" value={historial.licencia} />
               <Dato label="RUN" value={historial.run} />
             </div>
-            <div className="flex flex-col gap-4 border-l border-[#E0E0E0] pl-5">
+            <div className="flex flex-col gap-4 border-l border-border-muted pl-5">
               <Dato label="Edad" value={historial.edad} />
               <Dato label="Año de Contrata" value={historial.anioContrata} />
             </div>

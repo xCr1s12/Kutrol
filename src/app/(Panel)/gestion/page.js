@@ -84,9 +84,9 @@ const CONDUCTORES = [
 ];
 
 const ESTADOS = {
-  activo: { label: "Activo", color: "#2E8B57" },
+  activo: { label: "Activo", color: "var(--color-success)" },
   "sin carga": { label: "Sin Carga", color: "var(--color-accent-dark)" },
-  "en mantencion": { label: "En Mantencion", color: "#C2410C" },
+  "en mantencion": { label: "En Mantencion", color: "var(--color-warning)" },
 };
 
 const normalizar = (texto) =>
@@ -147,11 +147,11 @@ const Flota = () => {
   return (
     <main
       lang="es"
-      className="flex min-h-screen w-full flex-col gap-4 bg-background p-[18px] font-['Poppins',sans-serif]"
+      className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
     >
       {/* ---------- Vehiculos ---------- */}
       <Card>
-        <h2 className="text-[15px] font-bold text-brand">Vehiculos</h2>
+        <h2 className="text-base font-bold text-brand">Vehiculos</h2>
 
         <div className="mb-3 mt-3 flex items-end justify-between gap-4">
           <Filtros
@@ -197,7 +197,7 @@ const Flota = () => {
             <tr>
               <td
                 colSpan={5}
-                className="h-[60px] text-center text-base text-subtext"
+                className="h-15 text-center text-base text-subtext"
               >
                 No hay vehículos para este filtro.
               </td>
@@ -216,7 +216,7 @@ const Flota = () => {
       {/* ---------- Conductores ---------- */}
       <Card>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-[15px] font-bold text-brand">Conductores</h2>
+          <h2 className="text-base font-bold text-brand">Conductores</h2>
           <PillButton onClick={() => setModalConductor(true)}>
             Agregar Conductor
           </PillButton>

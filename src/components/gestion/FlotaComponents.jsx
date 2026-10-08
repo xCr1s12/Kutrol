@@ -1,7 +1,7 @@
 export const GOLD = "var(--color-accent)";
 
 export const Card = ({ children }) => (
-  <section className="flex h-[440px] shrink-0 flex-col rounded-2xl border border-[#E6E6E6] bg-white px-5 pb-4 pt-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-10">
+  <section className="flex h-110 shrink-0 flex-col rounded-2xl border border-border-muted bg-white px-5 pb-4 pt-5 shadow-card p-10">
     {children}
   </section>
 );
@@ -10,21 +10,21 @@ export const PillButton = ({ children, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="rounded-full border border-[#E3E3E3] bg-background px-3.5 py-1.5 text-[11px] text-brand transition-colors hover:bg-[#EDEDED] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    className="rounded-full border border-border-muted bg-background px-3.5 py-1.5 text-xs text-brand transition-colors hover:bg-surface-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
   >
     {children}
   </button>
 );
 
 export const Th = ({ children }) => (
-  <th className="px-[15px] py-3 text-left text-base font-semibold text-brand">
+  <th className="px-3.75 py-3 text-left text-base font-semibold text-brand">
     {children}
   </th>
 );
 
 export const Td = ({ children, style }) => (
   <td
-    className="h-[30px] border-b border-[#EDEDED] px-[15px] text-left align-middle text-base text-brand"
+    className="h-7.5 border-b border-border-subtle px-3.75 text-left align-middle text-base text-brand"
     style={style}
   >
     {children}
@@ -49,7 +49,7 @@ export const VerHistorial = ({ onClick }) => (
 
 export const Tabla = ({ columnas, anchos, children }) => (
   <div className="overflow-x-auto">
-    <table className="w-full min-w-[640px] table-fixed border-collapse">
+    <table className="w-full min-w-160 table-fixed border-collapse">
       <colgroup>
         {anchos.map((ancho, index) => (
           <col key={index} style={{ width: `${ancho}%` }} />
@@ -77,10 +77,10 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             type="button"
             aria-pressed={activo}
             onClick={() => onSelect(opcion)}
-            className={`rounded-full border px-4 py-1.5 text-[10px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+            className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               activo
                 ? "border-transparent font-bold text-brand"
-                : "border-[#E3E3E3] bg-background text-subtext hover:bg-[#EDEDED]"
+                : "border-border-muted bg-background text-subtext hover:bg-surface-subtle"
             }`}
             style={activo ? { backgroundColor: GOLD } : undefined}
           >
@@ -93,8 +93,8 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
 );
 
 export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
-  <div className="mt-auto flex items-center justify-between px-[15px] pt-2">
-    <span className="text-[10px] text-subtext">
+  <div className="mt-auto flex items-center justify-between px-3.75 pt-2">
+    <span className="text-xs text-subtext">
       Mostrando Pag {pagina} de {totalPaginas}
     </span>
     <nav aria-label="Paginación" className="flex items-center gap-1.5">
@@ -103,7 +103,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página anterior"
         disabled={pagina === 1}
         onClick={() => onCambiarPagina(pagina - 1)}
-        className="h-6 w-6 rounded-md border border-[#E3E3E3] bg-white text-[11px] text-subtext disabled:opacity-50"
+        className="h-6 w-6 rounded-md border border-border-muted bg-white text-xs text-subtext disabled:opacity-50"
       >
         ‹
       </button>
@@ -113,10 +113,10 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
           type="button"
           aria-current={numero === pagina ? "page" : undefined}
           onClick={() => onCambiarPagina(numero)}
-          className={`h-6 w-6 rounded-md border text-[10px] font-bold ${
+          className={`h-6 w-6 rounded-md border text-xs font-bold ${
             numero === pagina
               ? "border-transparent text-brand"
-              : "border-[#E3E3E3] bg-white text-subtext"
+              : "border-border-muted bg-white text-subtext"
           }`}
           style={numero === pagina ? { backgroundColor: GOLD } : undefined}
         >
@@ -128,7 +128,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página siguiente"
         disabled={pagina === totalPaginas}
         onClick={() => onCambiarPagina(pagina + 1)}
-        className="h-6 w-6 rounded-md border border-[#E3E3E3] bg-white text-[11px] text-subtext disabled:opacity-50"
+        className="h-6 w-6 rounded-md border border-border-muted bg-white text-xs text-subtext disabled:opacity-50"
       >
         ›
       </button>

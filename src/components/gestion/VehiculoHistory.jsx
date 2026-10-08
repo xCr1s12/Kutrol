@@ -159,17 +159,17 @@ const VehiculoHistory = ({ vehiculo = VEHICULO_DEMO }) => {
               <Dato label="Patente" value={historial.patente} />
             </div>
 
-            <div className="flex flex-col gap-4 border-l border-[#E0E0E0] pl-5">
+            <div className="flex flex-col gap-4 border-l border-border-muted pl-5">
               <Dato
                 label="Revision Tecnica"
                 value={historial.revisionTecnica}
               />
               <div className="flex flex-col gap-0.5">
-                <p className="text-[13px] text-brand/70">Caracteristicas:</p>
+                <p className="text-sm text-brand/70">Caracteristicas:</p>
                 {historial.caracteristicas.map((caracteristica) => (
                   <p
                     key={caracteristica}
-                    className="text-[13px] font-bold text-brand"
+                    className="text-base font-bold text-brand"
                   >
                     {caracteristica}
                   </p>
