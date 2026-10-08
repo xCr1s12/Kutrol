@@ -1,18 +1,11 @@
+import FormField from "@/components/ui/FormField";
+
 const inputClase =
   "w-full rounded-md border border-[#E3E3E3] bg-white px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
-export const CampoFormulario = ({ label, id, children }) => (
-  <div className="flex flex-col gap-1.5">
-    <label htmlFor={id} className="text-[11px] font-semibold text-brand">
-      {label}
-    </label>
-    {children}
-  </div>
-);
-
 const CamposFormularioVehiculo = () => (
   <div className="grid grid-cols-2 gap-4">
-    <CampoFormulario label="Patente" id="patente">
+    <FormField label="Patente" id="patente">
       <input
         id="patente"
         name="patente"
@@ -20,8 +13,8 @@ const CamposFormularioVehiculo = () => (
         placeholder="M20500STK"
         className={inputClase}
       />
-    </CampoFormulario>
-    <CampoFormulario label="Marca" id="marca">
+    </FormField>
+    <FormField label="Marca" id="marca">
       <input
         id="marca"
         name="marca"
@@ -29,8 +22,8 @@ const CamposFormularioVehiculo = () => (
         placeholder="Toyota"
         className={inputClase}
       />
-    </CampoFormulario>
-    <CampoFormulario label="Modelo" id="modelo">
+    </FormField>
+    <FormField label="Modelo" id="modelo">
       <input
         id="modelo"
         name="modelo"
@@ -38,8 +31,8 @@ const CamposFormularioVehiculo = () => (
         placeholder="Hilux"
         className={inputClase}
       />
-    </CampoFormulario>
-    <CampoFormulario label="Año" id="ano">
+    </FormField>
+    <FormField label="Año" id="ano">
       <input
         id="ano"
         name="ano"
@@ -51,8 +44,8 @@ const CamposFormularioVehiculo = () => (
         placeholder="2024"
         className={inputClase}
       />
-    </CampoFormulario>
-    <CampoFormulario label="Tipo de combustible" id="combustible">
+    </FormField>
+    <FormField label="Tipo de combustible" id="combustible">
       <select
         id="combustible"
         name="combustible"
@@ -67,8 +60,8 @@ const CamposFormularioVehiculo = () => (
         <option value="gas">Gas</option>
         <option value="petroleo">Petroleo</option>
       </select>
-    </CampoFormulario>
-    <CampoFormulario label="Capacidad de carga" id="capacidad_carga">
+    </FormField>
+    <FormField label="Capacidad de carga" id="capacidad_carga">
       <input
         id="capacidad_carga"
         name="capacidad_carga"
@@ -80,8 +73,8 @@ const CamposFormularioVehiculo = () => (
         placeholder="1000"
         className={inputClase}
       />
-    </CampoFormulario>
-    <CampoFormulario label="Estado" id="estado">
+    </FormField>
+    <FormField label="Estado" id="estado">
       <select
         id="estado"
         name="estado"
@@ -96,7 +89,7 @@ const CamposFormularioVehiculo = () => (
         <option value="En mantencion">En mantencion</option>
         <option value="por definir">Por definir</option>
       </select>
-    </CampoFormulario>
+    </FormField>
   </div>
 );
 
