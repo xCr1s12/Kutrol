@@ -23,6 +23,7 @@ INSERT INTO TIPO_MEDICION (codigo, nombre, categoria, unidad, valor_min_fisico, 
 ('VOLTAJE_BATERIA',     'Voltaje de batería',            'ELECTRICO',   'V',     0,    36,      22,   30,   3),
 ('PESO_CARGA',          'Peso de carga a bordo',         'CARGA',       'kg',    0,    60000,   NULL, NULL, 3);
 
+<<<<<<< HEAD
 INSERT INTO REGION (id_region, nombre, numero_romano)
 OVERRIDING SYSTEM VALUE
 VALUES
@@ -486,6 +487,8 @@ JOIN (VALUES
 
 
 
+=======
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 -- ==============================================================================
 -- 20. search_path de la base (para que triggers y funciones encuentren el esquema kutrol
 --     desde cualquier conexión nueva)
@@ -494,7 +497,10 @@ DO $$
 BEGIN
     EXECUTE format('ALTER DATABASE %I SET search_path = kutrol, public', current_database());
 END $$;
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 export class AppError extends Error {
   constructor(message, status = 500) {
     super(message);
@@ -11,6 +12,8 @@ import { ZodError } from "zod";
 /* Errores propios de la aplicación                                    */
 /* ------------------------------------------------------------------ */
 
+=======
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 export class AppError extends Error {
   constructor(message, status = 500, code = "INTERNAL_ERROR", details = null) {
     super(message);
@@ -27,6 +30,7 @@ export class ValidationError extends AppError {
   }
 }
 
+<<<<<<< HEAD
 export class UnauthorizedError extends AppError {
   constructor(message = "Debes iniciar sesión") {
     super(message, 401, "UNAUTHORIZED");
@@ -45,12 +49,15 @@ export class NotFoundError extends AppError {
   }
 }
 
+=======
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 export class ConflictError extends AppError {
   constructor(message = "El recurso ya existe") {
     super(message, 409, "CONFLICT");
   }
 }
 
+<<<<<<< HEAD
 const UNIQUE_MESSAGES = [
   ["rut", "El RUT de la empresa ya está registrado"],
   ["email", "El correo ya está registrado"],
@@ -154,4 +161,25 @@ export function toErrorResponse(err) {
     },
   };
 >>>>>>> FrontEnd
+=======
+// 
+export function toErrorResponse(err) {
+  if (err instanceof AppError) {
+    return {
+      status: err.status,
+      body: { error: { code: err.code, message: err.message, details: err.details } },
+    };
+  }
+  if (err instanceof SyntaxError) {
+    return {
+      status: 400,
+      body: { error: { code: "INVALID_JSON", message: "El cuerpo no es JSON válido" } },
+    };
+  }
+  console.error(err); // error inesperado: se loguea, NO se expone al cliente
+  return {
+    status: 500,
+    body: { error: { code: "INTERNAL_ERROR", message: "Error interno del servidor" } },
+  };
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 }

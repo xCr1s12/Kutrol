@@ -1,5 +1,6 @@
 import pool from "@/lib/db";
 
+<<<<<<< HEAD
 
 // Create funcion para crear los encargados
 export async function create(data, db = pool) {
@@ -10,10 +11,21 @@ export async function create(data, db = pool) {
      RETURNING id_encargado, id_empresa, usuario, primer_nombre, apellidos, email, cargo`,
     [
       data.idEmpresa, data.idNivelJerarquico, data.primer_nombre,
+=======
+export async function create(data, db = pool) {
+  const { rows } = await db.query(
+    `INSERT INTO encargado_empresa
+       (id_empresa, id_nivel_jerarquico, usuario, primer_nombre, apellidos, email, cargo, password_hash)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+     RETURNING id, id_empresa, usuario, primer_nombre, apellidos, email, cargo`,
+    [
+      data.idEmpresa, data.idNivelJerarquico, data.usuario, data.primer_nombre,
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
       data.apellidos, data.email, data.cargo, data.passwordHash,
     ],
   );
   return rows[0];
+<<<<<<< HEAD
 }
 
 // Funcion para buscar a los encargados por email
@@ -41,3 +53,6 @@ export async function findByUsuario(usuario, db = pool) {
   const result = await db.query("SELECT * FROM encargado_empresa WHERE usuario = $1", [usuario]);
   return result.rows[0];
 } 
+=======
+}
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)

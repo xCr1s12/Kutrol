@@ -1,4 +1,5 @@
 import { z } from "zod";
+<<<<<<< HEAD
 import { telefonoSchema, emailSchema } from "@/schema/comunicacion.schema";
 import { validateCompanyRut } from "@/lib/validateCompanyRut";
 
@@ -25,6 +26,21 @@ const EmpresaSchema = z.object({
     .min(1, "Ingresa al menos un teléfono")
     .max(5),
   emails: z.array(emailSchema).min(1, "Ingresa al menos un email").max(5),
+=======
+import { validateEmpresaRut } from "@/lib/validateEmpresaRut";
+
+const EmpresaSchema = z.object({
+  nombre: z.string().trim().min(2, "El nombre de la empresa es obligatorio"),
+  rut: z.string().trim().superRefine((val, ctx) => {
+    const errorMsg = validateEmpresaRut(val);
+    if (errorMsg !== "") {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: errorMsg });
+    }
+  }),
+  direccion: z.string().trim().min(5, "La dirección es obligatoria"),
+  descripcion: z.string().trim().optional(),
+  url_imagen: z.string().url("Debe ser una URL válida").optional().or(z.literal("")),
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
   id_comuna: z.coerce
     .number({ invalid_type_error: "Selecciona una comuna" })
     .int()
@@ -32,16 +48,25 @@ const EmpresaSchema = z.object({
 });
 
 const EncargadoSchema = z.object({
+<<<<<<< HEAD
+=======
+  usuario: z.string().trim().min(3, "El usuario debe tener al menos 3 caracteres"),
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
   primer_nombre: z.string().trim().min(2, "El primer nombre es obligatorio"),
   apellidos: z.string().trim().min(2, "Los apellidos son obligatorios"),
   email: z.string().trim().toLowerCase().email("Email inválido"),
   cargo: z.string().trim().min(2, "El cargo es obligatorio"),
   password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres"),
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 });
 
 export const registerEmpresaAndEncargadoSchema = z.object({
   Encargado: EncargadoSchema,
   Empresa: EmpresaSchema,
+<<<<<<< HEAD
 });
 
 export const flotaIdSchema = z.coerce
@@ -61,3 +86,6 @@ export const loginSchema = z.object({
     .min(1, "La contraseña es obligatoria")
     .max(72, "Contraseña demasiado larga"),
 });
+=======
+});
+>>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
