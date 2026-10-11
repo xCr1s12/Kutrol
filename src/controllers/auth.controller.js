@@ -1,14 +1,20 @@
+<<<<<<< HEAD
 import { CreateEmpresaWithEncargado, logoutService } from "@/services/server/auth.service";
 import { toErrorResponse } from "@/utils/errors";
 import { createSession } from "@/lib/tokenSession"; 
 import { getSession } from "@/lib/tokenSession";
 
+=======
+import { CreateEmpresaWithEncargado } from "@/services/server/auth.service";
+import { toErrorResponse } from "@/utils/errors";
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 
 export async function register(request) {
   try {
     const registration = await request.json();
     const result = await CreateEmpresaWithEncargado(registration);
 
+<<<<<<< HEAD
     
     const {password_hash, ...encargado} = result.encargado;
 
@@ -24,6 +30,12 @@ export async function register(request) {
       {
         message: "Registro completado correctamente",
         data: { encargado, empresa},
+=======
+    return Response.json(
+      {
+        message: "Registro completado correctamente",
+        data: result,
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
       },
       { status: 201 },
     );
@@ -32,6 +44,7 @@ export async function register(request) {
     return Response.json(body, { status });
   }
 }
+<<<<<<< HEAD
 
 
 
@@ -67,3 +80,5 @@ export async function logoutController() {
     );
   }
 }
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)

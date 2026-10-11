@@ -24,6 +24,9 @@ INSERT INTO TIPO_MEDICION (codigo, nombre, categoria, unidad, valor_min_fisico, 
 ('PESO_CARGA',          'Peso de carga a bordo',         'CARGA',       'kg',    0,    60000,   NULL, NULL, 3);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 INSERT INTO REGION (id_region, nombre, numero_romano)
 OVERRIDING SYSTEM VALUE
 VALUES
@@ -186,6 +189,7 @@ INSERT INTO COMUNA (id_region, nombre) VALUES
 
 
 
+<<<<<<< HEAD
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 
@@ -482,13 +486,18 @@ JOIN (VALUES
     ('LRTS45', '2026-08-14 10:00:00-04', 'CORRECTIVA', 'Cambio de pastillas de freno delanteras', 420000.00),
     ('KDPX82', '2026-09-20 09:00:00-03', 'PREVENTIVA', 'Cambio de aceite y filtros (revisión 30.000 km)', 185000.00)
 ) AS x(patente, fecha, tipo, descripcion, costo) ON x.patente = c.patente;
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 
 
 
 
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 -- ==============================================================================
 -- 20. search_path de la base (para que triggers y funciones encuentren el esquema kutrol
 --     desde cualquier conexión nueva)
@@ -498,9 +507,15 @@ BEGIN
     EXECUTE format('ALTER DATABASE %I SET search_path = kutrol, public', current_database());
 END $$;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 
 
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)

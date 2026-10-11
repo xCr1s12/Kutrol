@@ -58,6 +58,7 @@ export class ConflictError extends AppError {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const UNIQUE_MESSAGES = [
   ["rut", "El RUT de la empresa ya está registrado"],
   ["email", "El correo ya está registrado"],
@@ -66,10 +67,13 @@ const UNIQUE_MESSAGES = [
   ["dispositivo", "Ese dispositivo ya está asignado"],
 ];
 
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 export function toConflictError(error) {
   if (error?.code !== "23505") return error;
 
   const constraint = error.constraint ?? "";
+<<<<<<< HEAD
   const match = UNIQUE_MESSAGES.find(([key]) => constraint.includes(key));
 
   return new ConflictError(
@@ -163,6 +167,20 @@ export function toErrorResponse(err) {
 >>>>>>> FrontEnd
 =======
 // 
+=======
+  if (constraint.includes("rut")) {
+    return new ConflictError("El RUT de la empresa ya está registrado");
+  }
+  if (constraint.includes("email")) {
+    return new ConflictError("El correo ya está registrado");
+  }
+  if (constraint.includes("usuario")) {
+    return new ConflictError("El nombre de usuario ya existe");
+  }
+  return new ConflictError("Ya existe un registro con esos datos");
+}
+
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 export function toErrorResponse(err) {
   if (err instanceof AppError) {
     return {

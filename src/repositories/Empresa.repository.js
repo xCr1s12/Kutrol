@@ -1,10 +1,14 @@
 import pool from "@/lib/db";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 export async function create(
     { id_comuna, nombre, rut, direccion, descripcion, url_imagen },
     db = pool
 ) {
+<<<<<<< HEAD
     const { rows } = await db.query(
         `INSERT INTO empresa (id_comuna, nombre, rut, direccion, descripcion, url_imagen)
          VALUES ($1, $2, $3, $4, $5, $6)
@@ -55,10 +59,12 @@ export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
     return rows[0]?.url_imagen ?? null;
 =======
 export async function create({ id_comuna,nombre, rut, direccion, descripcion, url_imagen }, db = pool) {
+=======
+>>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
     const { rows } = await db.query(
         `INSERT INTO empresa (id_comuna, nombre, rut, direccion, descripcion, url_imagen)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING id, id_comuna, nombre, rut, direccion`,
+         VALUES ($1, $2, $3, $4, $5, $6)
+         RETURNING id_empresa, id_comuna, nombre, rut, direccion, descripcion, url_imagen, created_at`,
         [id_comuna, nombre, rut, direccion, descripcion || null, url_imagen || null],
     );
     return rows[0];
