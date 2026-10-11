@@ -9,7 +9,8 @@ services:
       POSTGRES_PASSWORD: kutrol123
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./database/Kutrol.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/sql:/sql:ro
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
 
   nextjs:
     build:
