@@ -60,9 +60,12 @@ const EmpresaSchema = z.object({
 
 const EncargadoSchema = z.object({
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   usuario: z.string().trim().min(3, "El usuario debe tener al menos 3 caracteres"),
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
   primer_nombre: z.string().trim().min(2, "El primer nombre es obligatorio"),
   apellidos: z.string().trim().min(2, "Los apellidos son obligatorios"),
   email: z.string().trim().toLowerCase().email("Email inválido"),

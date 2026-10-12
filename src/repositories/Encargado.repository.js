@@ -9,6 +9,7 @@ export async function create(data, db = pool) {
     `INSERT INTO encargado_empresa
        (id_empresa, id_nivel_jerarquico, primer_nombre, apellidos, email, cargo, password_hash)
      VALUES ($1, $2, $3, $4, $5, $6, $7)
+<<<<<<< HEAD
      RETURNING id_encargado, id_empresa, usuario, primer_nombre, apellidos, email, cargo`,
     [
       data.idEmpresa, data.idNivelJerarquico, data.primer_nombre,
@@ -26,6 +27,11 @@ export async function create(data, db = pool) {
     [
       data.idEmpresa, data.idNivelJerarquico, data.usuario, data.primer_nombre,
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+     RETURNING id_encargado, id_empresa, usuario, primer_nombre, apellidos, email, cargo`,
+    [
+      data.idEmpresa, data.idNivelJerarquico, data.primer_nombre,
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
       data.apellidos, data.email, data.cargo, data.passwordHash,
     ],
   );

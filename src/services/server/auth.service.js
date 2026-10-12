@@ -324,7 +324,6 @@ function normalizeRegistration(registration) {
   }
 
   const encargadoNormalizado = {
-    usuario: requiredString(encargado.usuario, "encargado.usuario", "El usuario", 3, 100),
     primer_nombre: requiredString(encargado.primer_nombre, "encargado.primer_nombre", "El primer nombre", 2, 50),
     apellidos: requiredString(encargado.apellidos, "encargado.apellidos", "Los apellidos", 2, 100),
     email: requiredString(encargado.email, "encargado.email", "El email", 1, 100).toLowerCase(),
@@ -332,9 +331,6 @@ function normalizeRegistration(registration) {
     password,
   };
 
-  if (!/^[a-z0-9]+(_[a-z0-9]+)*$/.test(encargadoNormalizado.usuario)) {
-    errors["encargado.usuario"] = "El usuario solo puede contener minúsculas, números y guiones bajos";
-  }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(encargadoNormalizado.email)) {
     errors["encargado.email"] = "Email inválido";
   }

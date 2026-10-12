@@ -1,5 +1,8 @@
 import { getCloudinary } from "@/lib/cloudinary";
+<<<<<<< HEAD
 import * as EmpresaRepo from "@/repositories/Empresa.repository";
+=======
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
 
 const FORMATOS = ["image/jpeg", "image/png", "image/webp"];
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
@@ -37,6 +40,7 @@ export async function subirImagen(file) {
   return { url: r.secure_url, public_id: r.public_id, width: r.width, height: r.height };
 }
 
+<<<<<<< HEAD
 function publicIdFromCloudinaryUrl(imageUrl) {
   try {
     const url = new URL(imageUrl);
@@ -60,6 +64,12 @@ export async function eliminarImagen(publicId, idEmpresa) {
   if (!imageUrl || publicIdFromCloudinaryUrl(imageUrl) !== publicId) {
     return false;
   }
+=======
+export async function eliminarImagen(publicId) {
+  if (typeof publicId !== "string" || !publicId.trim()) {
+    throw new UploadValidationError("Falta public_id.");
+  }
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
 
   const cloudinary = await getCloudinary();
   const r = await cloudinary.uploader.destroy(publicId);

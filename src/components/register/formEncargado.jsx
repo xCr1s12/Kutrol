@@ -22,7 +22,11 @@ const FormEncargado = ({ Submit, errors = {}, onGoogle }) => {
       <button
         type="button"
         onClick={onGoogle}
+<<<<<<< HEAD
         className="flex w-full items-center justify-center gap-2.5 rounded-[10px] border border-border light:bg-background px-4 py-3 text-sm font-medium text-text transition-colors hover:bg-border light:hover:bg-card focus-visible:outline-2 focus-visible:outline-accent"
+=======
+        className="flex w-full items-center justify-center gap-2.5 rounded-[10px] border border-border px-4 py-3 text-sm font-medium text-text transition-colors hover:bg-brand/40 focus-visible:outline-2 focus-visible:outline-accent"
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
       >
         <GoogleIcon />
         Continuar con Google
@@ -31,7 +35,11 @@ const FormEncargado = ({ Submit, errors = {}, onGoogle }) => {
       {/* Divisor */}
       <div className="flex items-center gap-3" role="separator">
         <span className="h-px flex-1 bg-border" />
+<<<<<<< HEAD
         <span className="text-xs text-subtext light:text-icon">o con tu correo</span>
+=======
+        <span className="text-xs text-subtext/70">o con tu correo</span>
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
         <span className="h-px flex-1 bg-border" />
       </div>
 
@@ -94,7 +102,11 @@ const FormEncargado = ({ Submit, errors = {}, onGoogle }) => {
           </Button>
           <Link
             href="/login"
+<<<<<<< HEAD
             className="rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-border light:hover:bg-background focus-visible:outline-2 focus-visible:outline-accent"
+=======
+            className="rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-brand/40 focus-visible:outline-2 focus-visible:outline-accent"
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
           >
             Cancelar
           </Link>

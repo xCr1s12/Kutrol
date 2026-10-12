@@ -16,6 +16,7 @@ export async function registrarEmpresaYEncargado(registration) {
 
   return result.data;
 }
+<<<<<<< HEAD
 
 export async function iniciarSesion(usuario, password) {
   const response = await fetch("/api/auth/login", {
@@ -40,3 +41,5 @@ export async function logout() {
   if (!res.ok) throw new Error("No se pudo cerrar sesión");
   return res.json();
 }
+=======
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)

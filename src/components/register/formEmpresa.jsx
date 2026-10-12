@@ -13,7 +13,11 @@ import {
 } from "@/services/client/ubicacion.service";
 
 const INPUT_CLASS =
+<<<<<<< HEAD
   "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
+=======
+  "h-11 w-full rounded-[10px] border border-border bg-brand px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
 
 function SelectField({ label, id, value, onChange, options, placeholder, disabled }) {
   return (
@@ -37,7 +41,11 @@ function SelectField({ label, id, value, onChange, options, placeholder, disable
             {placeholder}
           </option>
           {options.map((option) => (
+<<<<<<< HEAD
             <option key={option.id} value={option.id} className="text-text bg-background">
+=======
+            <option key={option.id} value={option.id} className="text-text bg-brand">
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
               {option.nombre}
             </option>
           ))}
@@ -199,7 +207,11 @@ const FormEmpresa = ({
           <span className="text-xs font-medium text-subtext">Imagen</span>
           <label
             htmlFor="image"
+<<<<<<< HEAD
             className="group flex size-[130px] cursor-pointer flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-dashed border-border bg-background text-xs text-subtext transition-colors hover:border-accent focus-within:border-accent"
+=======
+            className="group flex size-[130px] cursor-pointer flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-dashed border-border bg-brand text-xs text-subtext transition-colors hover:border-accent focus-within:border-accent"
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
           >
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -315,7 +327,11 @@ const FormEmpresa = ({
           type="button"
           onClick={onBack}
           disabled={submitting}
+<<<<<<< HEAD
           className="flex items-center gap-2 rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-border focus-visible:outline-2 focus-visible:outline-accent"
+=======
+          className="flex items-center gap-2 rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-brand/40 focus-visible:outline-2 focus-visible:outline-accent"
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
         >
           <ArrowBackRoundedIcon aria-hidden="true" sx={{ fontSize: 18 }} />
           Atrás

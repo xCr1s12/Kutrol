@@ -7,18 +7,26 @@ import Card from "@/components/ui/Card";
 import FormEncargado from "@/components/register/formEncargado"; // Con mayúscula
 import FormEmpresa from "@/components/register/formEmpresa";
 import { registrarEmpresaYEncargado } from "@/services/client/auth.service";
+<<<<<<< HEAD
 import Logo from "@/components/ui/Logo";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+=======
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
 
 export default function Register() {
   const { darkMode, toggleDarkMode } = useContext(darkModeContext);
   const router = useRouter();
   const [formularioActivo, setFormularioActivo] = useState(true);
   const [paso] = useState([
+<<<<<<< HEAD
     {numero :1 , titulo: "Datos del Encargado", subtext: "Registra tus datos como encargado primero"},
     {numero: 2, titulo: "Datos de la Empresa", subtext: "Registra los datos de la empresa"}
+=======
+    {numero :1 , titulo: "Datos del Encargado", subtext: "Registra tus datos como encargado Primero"},
+    {numero: 2, titulo: "Datos de la Empresa", subtext: "Registra los datos de la Empresa"}
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
   ]);
   const [errors, setErrors] = useState({});
   const [index , setIndex] = useState(0);
@@ -109,7 +117,11 @@ export default function Register() {
       </header>
 
       {/* Contenedor centrado */}
+<<<<<<< HEAD
       <main className="flex-1 flex items-center justify-center px-4 py-24">
+=======
+      <div className="flex-1 flex items-center justify-center px-4 py-24">
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
         <Card className="w-140 max-w-205 p-10">
           <div id="lineas-identificadoras" className="grid grid-cols-2 gap-0">
             <div
@@ -117,18 +129,30 @@ export default function Register() {
               className={`w-full h-1 border-2 rounded-2xl ${
                 formularioActivo
                   ? "bg-accent border-accent"
+<<<<<<< HEAD
                   : "bg-border border-border"
+=======
+                  : "bg-brand border-accent/20"
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
               }`}
             ></div>
             <div
               id="linea-empresa"
               className={`w-full h-1  border-2 rounded-2xl ${
                 formularioActivo
+<<<<<<< HEAD
                   ? "bg-border border-border"
                   : "bg-accent border-accent"
               }`}
             ></div>
             <p className="text-accent light:text-accent-dark my-2"> Paso {paso[index].numero} de 2</p>
+=======
+                  ? "bg-brand border-accent/20"
+                  : "bg-accent border-accent"
+              }`}
+            ></div>
+            <p className="text-accent my-2"> Paso {paso[index].numero} de 2</p>
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
           </div>
           <div id="contenedor-formulario-encargado">
             <h1 className=" text-text text-3xl font-bold">{paso[index].titulo}</h1>

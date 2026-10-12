@@ -4,7 +4,10 @@ import {
   subirImagen,
   UploadValidationError,
 } from "@/services/server/upload.service";
+<<<<<<< HEAD
 import { getSession } from "@/lib/tokenSession";
+=======
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
 
 export async function postUpload(request) {
   if (!request.headers.get("content-type")?.includes("multipart/form-data")) {
@@ -46,6 +49,7 @@ export async function postUpload(request) {
 }
 
 export async function deleteUpload(request) {
+<<<<<<< HEAD
   const session = await getSession();
   if (!session?.id_empresa) {
     return NextResponse.json(
@@ -54,6 +58,8 @@ export async function deleteUpload(request) {
     );
   }
 
+=======
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
   let body;
   try {
     body = await request.json();
@@ -65,7 +71,11 @@ export async function deleteUpload(request) {
   }
 
   try {
+<<<<<<< HEAD
     const ok = await eliminarImagen(body?.public_id, session.id_empresa);
+=======
+    const ok = await eliminarImagen(body?.public_id);
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
     if (!ok) return NextResponse.json({ ok: false, error: "No encontrada." }, { status: 404 });
     return NextResponse.json({ ok: true });
   } catch (error) {

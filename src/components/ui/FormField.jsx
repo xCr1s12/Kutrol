@@ -8,9 +8,13 @@ export default function FormField({
   minLength,
   error,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   required,
 >>>>>>> FrontEnd
+=======
+  required,
+>>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
   children,
 }) {
   if (children) {
