@@ -23,7 +23,6 @@ const EmpresaSchema = z.object({
 });
 
 const EncargadoSchema = z.object({
-  usuario: z.string().trim().min(3, "El usuario debe tener al menos 3 caracteres"),
   primer_nombre: z.string().trim().min(2, "El primer nombre es obligatorio"),
   apellidos: z.string().trim().min(2, "Los apellidos son obligatorios"),
   email: z.string().trim().toLowerCase().email("Email inválido"),
