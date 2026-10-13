@@ -64,9 +64,9 @@ export default function Home() {
       lang="es"
     >
       {/* encabezado de la pagina principal */}
-      <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#314139] border-b-2 flex-wrap gap-2">
+      <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
         {/* Logo Kutrol y Nombre */}
-        <span className=" text-xl sm:text-2xl font-bold text-[#FDFBF7] tracking-tighter">
+        <span className=" text-xl sm:text-2xl font-bold text-text tracking-tighter">
           Kutrol
         </span>
 
@@ -76,7 +76,7 @@ export default function Home() {
             <li>
               {" "}
               <Link
-                className="text-[#A8B0AB] hover:text-[#FDFBF7]"
+                className="text-subtext hover:text-text"
                 href={"#Que-hace-kutrol"}
               >
                 ¿Qué hace?{" "}
@@ -85,7 +85,7 @@ export default function Home() {
             <li>
               {" "}
               <Link
-                className="text-[#A8B0AB] hover:text-[#FDFBF7]"
+                className="text-subtext hover:text-text"
                 href={"#Pasos"}
               >
                 Pasos{" "}
@@ -94,7 +94,7 @@ export default function Home() {
             <li>
               {" "}
               <Link
-                className="text-[#A8B0AB] hover:text-[#FDFBF7]"
+                className="text-subtext hover:text-text"
                 href={"#Registrate"}
               >
                 Registrate{" "}
@@ -109,7 +109,7 @@ export default function Home() {
             onClick={() => {
               handleRedirect("/login");
             }}
-            className="text-xs sm:text-sm font-medium text-[#A8B0AB] transition-colors hover:text-[#FDFBF7] px-2 sm:px-4 py-1 sm:py-2"
+            className="text-xs sm:text-sm font-medium text-subtext transition-colors hover:text-text px-2 sm:px-4 py-1 sm:py-2"
           >
             Iniciar Sesion
           </button>
@@ -130,21 +130,21 @@ export default function Home() {
      
         {/* Imagen trasera SVG */}
         <div className="absolute left-0 bottom-0 z-0 w-full sm:w-[65%] lg:w-[57%] max-h-[90%] flex items-end opacity-10 pointer-events-none -translate-x-2 lg:-translate-x-6 translate-y-2 lg:translate-y-4">
-          <TreeSVG className="w-full h-auto object-contain object-left-bottom" />
+          <TreeSVG className="w-full h-auto object-contain object-bottom-left" />
         </div>
 
         {/* Columna izquierda Textos */}
         <div className="relative z-10 flex flex-col gap-4 items-center text-center lg:items-start lg:text-left">
-          <p className="text-xs sm:text-sm text-[#A8B0AB]">
+          <p className="text-xs sm:text-sm text-subtext">
             Herramienta en Gestión de Flota y Combustible
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold uppercase leading-tight text-[#FDFBF7]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold uppercase leading-tight text-text">
             Rentabilidad <br />
             Para ti, <br />
             Respiro para el <br />
             planeta
           </h1>
-          <p className="max-w-md text-sm leading-relaxed text-[#A8B0AB] mx-auto lg:mx-0">
+          <p className="max-w-md text-sm leading-relaxed text-subtext mx-auto lg:mx-0">
             Kutrol te permite monitorear el gasto de combustible de tu flota
             en tiempo real, identificar patrones de consumo y tomar
             decisiones que reducen costos operativos sin complicaciones.
@@ -152,7 +152,7 @@ export default function Home() {
         </div>
 
         {/* Columna derecha Imagenes Superpuestas */}
-        <div className="relative z-10 w-full max-w-full sm:max-w-[500px] lg:max-w-[650px] h-[260px] sm:h-[380px] lg:h-[480px] flex items-center justify-center mx-auto mt-8 lg:mt-0">
+        <div className="relative z-10 w-full max-w-full sm:max-w-125 lg:max-w-162.5 h-65 sm:h-95 lg:h-120 flex items-center justify-center mx-auto mt-8 lg:mt-0">
           <div className="absolute top-0 left-0 w-[82%] rounded-lg overflow-hidden shadow-xl -translate-x-2 -translate-y-2">
             <Image
               src="https://res.cloudinary.com/ur93naqo/image/upload/v1787980331/imagen_2026-08-29_011211191.png"
@@ -170,6 +170,7 @@ export default function Home() {
               width={400}
               height={400}
               className="w-full h-auto object-cover"
+              priority
             />
           </div>
         </div>
@@ -183,16 +184,16 @@ export default function Home() {
       >
         {/* Linea vertical y circulo con Numero 1 */}
         <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
-          <div className="text-xl lg:text-2xl flex h-10 w-10 lg:h-12 lg:w-12 bg-[#314139] justify-center rounded-full text-[#A8B0AB] font-semibold shrink-0 items-center">
+          <div className="text-xl lg:text-2xl flex h-10 w-10 lg:h-12 lg:w-12 bg-border justify-center rounded-full text-subtext font-semibold shrink-0 items-center">
             1
           </div>
-          <div className="w-[3px] flex-1 bg-[#314139] mt-2"></div>
+          <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
         {/* Encabezado */}
         <div className="mb-10 text-center md:text-left">
 
-          <h2 className="font-bold text-2xl md:text-4xl text-[#FDFBF7]">
+          <h2 className="font-bold text-2xl md:text-4xl text-text">
             {" "}
             ¿Qué puedes hacer con Kutrol?
           </h2>
@@ -214,29 +215,29 @@ export default function Home() {
       </section>
 
       {/* Seccion Pasos Para iniciar */}
-      <section className="relative w-full mt-8 md:mt-15 px-6 md:px-16 py-12 md:py-16 md:pr-32 bg-[#1B2B24] text-[#FDFBF7]">
+      <section className="relative w-full mt-8 md:mt-15 px-6 md:px-16 py-12 md:py-16 md:pr-32 bg-[#1B2B24] text-text">
         {/* Linea vertical derecha y circulo con numero 2 */}
         <div className="hidden md:flex absolute right-8 lg:right-16 top-16 bottom-16 flex-col items-center">
-          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-[#314139] text-[#A8B0AB] font-semibold text-xl lg:text-2xl shrink-0">
+          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border text-subtext font-semibold text-xl lg:text-2xl shrink-0">
             2
           </div>
-          <div className="w-[3px] flex-1 bg-[#314139] mt-2"></div>
+          <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
         {/* Contenedor de Pasos */}
         <div 
         id="Pasos"
         className="max-w-4xl mx-auto md:mr-0 md:ml-auto flex flex-col gap-y-8 md:gap-y-12">
-          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-[#314139]">
+          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
-              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-[#314139] text-xl sm:text-3xl font-bold text-[#FDFBF7]">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border text-xl sm:text-3xl font-bold text-text">
                 1
               </div>
               <div className="flex flex-col gap-y-1">
                 <h3 className="text-lg sm:text-2xl font-bold">
                   Registra tus Vehículos
                 </h3>
-                <p className="text-sm text-[#A8B0AB]">
+                <p className="text-sm text-subtext">
                   Suma cada unidad de tu flota con sus datos básicos y
                   documentos.
                 </p>
@@ -244,16 +245,16 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-[#314139]">
+          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
-              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-[#314139] text-xl sm:text-3xl font-bold text-[#FDFBF7]">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border text-xl sm:text-3xl font-bold text-text">
                 2
               </div>
               <div className="flex flex-col gap-y-1">
                 <h3 className="text-lg sm:text-2xl font-bold">
                   Registra Tus Datos
                 </h3>
-                <p className="text-sm text-[#A8B0AB]">
+                <p className="text-sm text-subtext">
                   Cada carga de combustible y cada viaje queda guardado
                   automáticamente.
                 </p>
@@ -261,16 +262,16 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-[#314139]">
+          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
-              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-[#314139] text-xl sm:text-3xl font-bold text-[#FDFBF7]">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border text-xl sm:text-3xl font-bold text-text">
                 3
               </div>
               <div className="flex flex-col gap-y-1">
                 <h3 className="text-lg sm:text-2xl font-bold">
                   Vizualiza y Optimiza
                 </h3>
-                <p className="text-sm text-[#A8B0AB]">
+                <p className="text-sm text-subtext">
                   El panel te muestra dónde estás gastando de más y qué
                   vehículos necesitan atención.
                 </p>
@@ -283,21 +284,21 @@ export default function Home() {
       {/* Seccion  Registro */}
       <section 
       id="Registrate"
-      className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-[#1B2B24] text-[#FDFBF7]">
+      className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-[#1B2B24] text-text">
         <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
-          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-[#314139] text-[#A8B0AB] font-semibold text-xl lg:text-2xl shrink-0">
+          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border text-subtext font-semibold text-xl lg:text-2xl shrink-0">
             3
           </div>
-          <div className="w-[3px] flex-1 bg-[#314139] mt-2"></div>
+          <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
         <div className="max-w-6xl w-full">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-2xl bg-[#314139] p-6 sm:p-10 gap-y-4 sm:gap-y-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-2xl bg-border p-6 sm:p-10 gap-y-4 sm:gap-y-0">
             <div className="flex flex-col gap-y-2 pb-0 sm:pb-4">
-              <h2 className="text-2xl sm:text-4xl font-bold text-[#FDFBF7]">
+              <h2 className="text-2xl sm:text-4xl font-bold text-text">
                 Regístrate
               </h2>
-              <p className="text-sm text-[#A8B0AB]">
+              <p className="text-sm text-subtext">
                 Crea una cuenta y registra tu primer vehículo en minutos.
               </p>
             </div>
@@ -315,7 +316,7 @@ export default function Home() {
 
       {/* Acerca de Equipo Kutrol (footer) */}
       <footer className="w-full flex flex-col mt-10 gap-1 pb-4">
-        <div className="w-full h-[2px] bg-gradient-to-r from-[#D4AF37] via-[#314139] to-transparent"></div>
+        <div className="w-full h-0.5 bg-linear-to-r from-[#D4AF37] via-border to-transparent"></div>
 
         <div className="w-full bg-[#20332B] rounded-t-2xl">
           <div className="w-full flex flex-col sm:flex-row justify-between items-center sm:items-start gap-10 px-6 sm:px-16 py-10">
@@ -325,31 +326,31 @@ export default function Home() {
                 <span className="w-9 h-9 rounded-full bg-[#D4AF37] flex items-center justify-center text-[#1A1A1A] font-bold text-sm">
                   K
                 </span>
-                <span className="text-xl font-bold text-[#FDFBF7] tracking-tighter">
+                <span className="text-xl font-bold text-text tracking-tighter">
                   Kutrol
                 </span>
               </div>
-              <p className="text-xs text-[#A8B0AB] leading-relaxed">
+              <p className="text-xs text-subtext leading-relaxed">
                 Gestión inteligente de flota y combustible para tu empresa.
               </p>
               <div className="flex gap-3 mt-1">
                 <a
                   href="#"
-                  className="w-8 h-8 rounded-full bg-[#314139] flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+                  className="w-8 h-8 rounded-full bg-border flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
                   aria-label="Facebook"
                 >
                   <FacebookIcon sx={{fontSize: 16}} />
                 </a>
                 <a
                   href="#"
-                  className="w-8 h-8 rounded-full bg-[#314139] flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+                  className="w-8 h-8 rounded-full bg-border flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
                   aria-label="Instagram"
                 >
                   <InstagramIcon sx={{fontSize: 16}} />
                 </a>
                 <a
                   href="#"
-                  className="w-8 h-8 rounded-full bg-[#314139] flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+                  className="w-8 h-8 rounded-full bg-border flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
                   aria-label="LinkedIn"
                 >
                   <LinkedInIcon sx={{fontSize: 16}} />
@@ -359,23 +360,23 @@ export default function Home() {
 
             {/* Links rápidos */}
             <div className="flex flex-col gap-2 items-center sm:items-start">
-              <span className="text-sm font-semibold text-[#FDFBF7]">
+              <span className="text-sm font-semibold text-text">
                 Navegación
               </span>
               <Link
-                className="text-xs text-[#A8B0AB] hover:text-[#FDFBF7]"
+                className="text-xs text-subtext hover:text-text"
                 href={"#Que-Hace-kutrol"}
               >
                 ¿Qué hace?
               </Link>
               <Link
-                className="text-xs text-[#A8B0AB] hover:text-[#FDFBF7]"
+                className="text-xs text-subtext hover:text-text"
                 href={"#Pasos"}
               >
                 Pasos
               </Link>
               <Link
-                className="text-xs text-[#A8B0AB] hover:text-[#FDFBF7]"
+                className="text-xs text-subtext hover:text-text"
                 href={"#Registrate"}
               >
                 Regístrate
@@ -384,20 +385,20 @@ export default function Home() {
 
             {/* Contacto */}
             <div className="flex flex-col gap-2 items-center sm:items-start">
-              <span className="text-sm font-semibold text-[#FDFBF7]">
+              <span className="text-sm font-semibold text-text">
                 Contacto
               </span>
-              <span className="text-xs text-[#A8B0AB] flex items-center gap-1">
+              <span className="text-xs text-subtext flex items-center gap-1">
                 <MailOutlineIcon sx={{fontSize: 14}} />
                 contacto@kutrol.cl
               </span>
-              <span className="text-xs text-[#A8B0AB] flex items-center gap-1">
+              <span className="text-xs text-subtext flex items-center gap-1">
                 <LocationOnOutlinedIcon sx={{fontSize: 14}} />
                 Castro, Chile
               </span>
               <Link
                 href="/acerca_de"
-                className="text-xs text-[#D4AF37] hover:text-[#FDFBF7] mt-1 underline underline-offset-2"
+                className="text-xs text-[#D4AF37] hover:text-text mt-1 underline underline-offset-2"
               >
                 Quiénes somos
               </Link>
@@ -406,8 +407,8 @@ export default function Home() {
         </div>
 
         {/*sub Footer   */}
-        <div className="w-full bg-[#314139] h-[4px]"></div>
-        <p className="text-xs sm:text-sm text-[#A8B0AB] px-5 text-center sm:text-left pt-2">
+        <div className="w-full bg-border h-1"></div>
+        <p className="text-xs sm:text-sm text-subtext px-5 text-center sm:text-left pt-2">
           {" "}
           Proyecto de Ingenieria Civil en Informatica | Ulagos 2026{" "}
         </p>

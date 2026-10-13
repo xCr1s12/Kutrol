@@ -22,6 +22,13 @@ export async function findByEmail(email, db = pool) {
   return result.rows[0];
 } 
 
+// Funcion para buscar a los encargados por id
+export async function findByID(id_encargado, db = pool) {
+  const result = await db.query("SELECT * FROM encargado_empresa as c WHERE c.id_encargado = $1", [id_encargado]);
+  return result.rows[0];
+} 
+
+
 
 export async function findexist(email, db = pool) {
   const result = await db.query("SELECT 1 FROM encargado_empresa WHERE email = $1", [email]);

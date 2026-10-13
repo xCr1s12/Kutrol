@@ -12,3 +12,33 @@ export async function create(
     );
     return rows[0];
 }
+
+
+export async function findByIdEmpresa(id_empresa, db = pool) {
+    const { rows } = await db.query(
+        `SELECT
+            e.id_empresa,
+            e.nombre,
+            e.rut,
+            e.direccion,
+            e.descripcion,
+            e.url_imagen,
+            COALESCE(
+                (SELECT array_agg(ee.email ORDER BY ee.email)
+                 FROM empresa_email ee
+                 WHERE ee.id_empresa = e.id_empresa),
+                '{}'
+            ) AS emails,
+            COALESCE(
+                (SELECT array_agg(et.telefono ORDER BY et.telefono)
+                 FROM empresa_telefono et
+                 WHERE et.id_empresa = e.id_empresa),
+                '{}'
+            ) AS telefonos
+         FROM empresa e
+         WHERE e.id_empresa = $1
+           AND e.deleted_at IS NULL`,
+        [id_empresa],
+    );
+    return rows[0] || null;
+}

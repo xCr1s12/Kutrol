@@ -18,6 +18,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     volumes:
       - .:/app
       - /app/node_modules
@@ -28,6 +30,5 @@ services:
     depends_on:
       - postgres
     command: npm run dev
-
 volumes:
   pgdata:
