@@ -138,8 +138,9 @@ const normalizar = (texto) =>
 
 const Flota = () => {
   const [modalVehiculo, setModalVehiculo] = useState(false);
-  const handleNuevoVehiculo = (datos) => {
-    console.log(datos);
+  const [versionVehiculos, setVersionVehiculos] = useState(0);
+  const handleNuevoVehiculo = () => {
+    setVersionVehiculos((version) => version + 1);
     setModalVehiculo(false);
   };
 
@@ -148,7 +149,7 @@ const Flota = () => {
     console.log(datos);
     setModalConductor(false);
   };
-
+  
   const [VEHICULOSELECT, setVEHICULOSELECT] = useState(null);
   const [CONDUCTORSELECT, setCONDUCTORSELECT] = useState(null);
   const [modalHistorialC, setModalHistorialC] = useState(false);
@@ -164,6 +165,7 @@ const Flota = () => {
         <h2 className="text-base font-bold text-brand">Vehiculos</h2>
 
         <TablaCamiones
+          key={versionVehiculos}
           flotaId={1}
           onVerHistorial={(vehiculo) => {
             setVEHICULOSELECT(vehiculo);

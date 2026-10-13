@@ -1,6 +1,7 @@
-import { getVehiculosByEmpresa } from "@/controllers/vehiculos.controller";
+import {
+  getVehiculosByEmpresa,
+  createVehiculo,
+} from "@/controllers/vehiculos.controller";
 
-
-export async function GET(request) {
-  return getVehiculosByEmpresa(request);
-}
+export const GET = getVehiculosByEmpresa;
+export const POST = createVehiculo;

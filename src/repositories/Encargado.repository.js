@@ -64,6 +64,7 @@ export async function findexist(email, db = pool) {
   return result.length > 0;
 } 
 <<<<<<< HEAD
+<<<<<<< HEAD
  
 
 // Funcion para buscar a los encargados por usuario
@@ -76,3 +77,6 @@ export async function findByUsuario(usuario, db = pool) {
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 =======
 >>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
+=======
+ 
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)

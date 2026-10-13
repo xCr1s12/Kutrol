@@ -1,8 +1,12 @@
 import CamposFormularioVehiculo from "@/components/gestion/FormFieldVehiculo";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { useState } from "react";
 >>>>>>> FrontEnd
+=======
+import { useState } from "react";
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
 
 /**
  * Props:
@@ -11,18 +15,55 @@ import { useState } from "react";
  */
 const FormularioVehiculo = ({ onSubmit, onCancel }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const handleSubmit = (e) => {
+=======
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const formatearDetallesError = (details) => {
+    if (!Array.isArray(details)) return "";
+
+    const etiquetas = {
+      id_flota: "Flota",
+      patente: "Patente",
+      codigo_dispositivo: "Código del dispositivo",
+      marca: "Marca",
+      modelo: "Modelo",
+      ano: "Año",
+      capacidad_carga_kg: "Capacidad de carga",
+      capacidad_estanque_l: "Capacidad del estanque",
+      tipo_combustible: "Tipo de combustible",
+      estado: "Estado",
+    };
+
+    return details
+      .map(({ campo, mensaje }) =>
+        mensaje ? `${etiquetas[campo] ?? campo}: ${mensaje}` : "",
+      )
+      .filter(Boolean)
+      .join(" ");
+  };
+
+  const handleSubmit = async (e) => {
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
     e.preventDefault();
+    if (submitting) return;
+
     const formData = new FormData(e.currentTarget);
     const datos = {
+      id_flota: Number(formData.get("id_flota")),
       patente: formData.get("patente").trim(),
+      codigo_dispositivo: formData.get("codigo_dispositivo").trim(),
       marca: formData.get("marca").trim(),
       modelo: formData.get("modelo").trim(),
       ano: Number(formData.get("ano")),
-      combustible: formData.get("combustible"),
-      capacidad_carga: Number(formData.get("capacidad_carga")),
-      estado: formData.get("estado").trim(),
+      capacidad_carga_kg: Number(formData.get("capacidad_carga_kg")),
+      capacidad_estanque_l: Number(formData.get("capacidad_estanque_l")),
+      tipo_combustible: formData.get("tipo_combustible"),
+      estado: formData.get("estado"),
     };
+<<<<<<< HEAD
     onSubmit(datos);
 =======
   const [submitting, setSubmitting] = useState(false);
@@ -69,12 +110,18 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
       tipo_combustible: formData.get("tipo_combustible"),
       estado: formData.get("estado"),
     };
+=======
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
 
     setSubmitting(true);
     setError("");
 
     try {
+<<<<<<< HEAD
       const response = await fetch("/api/data/vehiculos", {
+=======
+      const response = await fetch("/api/vehiculos", {
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datos),
@@ -88,8 +135,12 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
             result.error?.message ||
             result.mensaje ||
             "No fue posible registrar el vehículo.",
+<<<<<<< HEAD
           );
 
+=======
+        );
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
       }
 
       await onSubmit(datos);
@@ -102,7 +153,10 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
     } finally {
       setSubmitting(false);
     }
+<<<<<<< HEAD
 >>>>>>> FrontEnd
+=======
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
   };
 
   return (
@@ -114,12 +168,20 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
 
         <CamposFormularioVehiculo />
 
+        {error && (
+          <p role="alert" className="text-sm text-accent-dark">
+            {error}
+          </p>
+        )}
+
         <div className="mt-2 flex gap-3">
           <button
             type="submit"
-            className="rounded-md px-6 py-2.5 text-xs font-semibold text-brand transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            disabled={submitting}
+            className="rounded-md px-6 py-2.5 text-xs font-semibold text-brand transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             style={{ backgroundColor: "var(--color-accent)" }}
           >
+<<<<<<< HEAD
             Finalizar
 =======
         <h3 className="text-sm font-bold text-text dark:text-ink">
@@ -142,11 +204,18 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
           >
             {submitting ? "Guardando..." : "Finalizar"}
 >>>>>>> FrontEnd
+=======
+            {submitting ? "Guardando..." : "Finalizar"}
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
           </button>
           <button
             type="button"
             onClick={onCancel}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            disabled={submitting}
+>>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
             className="rounded-md bg-text px-6 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-icon"
 =======
             disabled={submitting}
