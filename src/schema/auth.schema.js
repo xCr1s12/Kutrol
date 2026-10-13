@@ -81,11 +81,15 @@ export const registerEmpresaAndEncargadoSchema = z.object({
   Encargado: EncargadoSchema,
   Empresa: EmpresaSchema,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 });
 
 export const flotaIdSchema = z.coerce
   .number({ invalid_type_error: "flota_id debe ser un número" })
   .int()
+<<<<<<< HEAD
   .positive("flota_id debe ser un entero positivo");
 
 export const loginSchema = z.object({
@@ -103,3 +107,6 @@ export const loginSchema = z.object({
 =======
 });
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+  .positive("flota_id debe ser un entero positivo");
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)

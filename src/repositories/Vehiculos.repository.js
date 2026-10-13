@@ -1,5 +1,6 @@
 import pool from "@/lib/db";
 
+<<<<<<< HEAD
 export async function CreateVehiculo(data, db = pool) {
   const { rows } = await db.query(
     `
@@ -27,6 +28,9 @@ export async function CreateVehiculo(data, db = pool) {
 }
 
 export async function findVehiculosByFlota(id_flota, db = pool) {
+=======
+export async function findVehiculosByEmpresa(id_empresa, db = pool) {
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
   const { rows } = await db.query(
     `SELECT c.id_camion, c.patente, c.codigo_dispositivo, c.marca, c.modelo,
             c.ano, c.capacidad_carga_kg, c.capacidad_estanque_l,
@@ -34,6 +38,7 @@ export async function findVehiculosByFlota(id_flota, db = pool) {
             f.id_flota, f.nombre AS flota
      FROM camion c
      JOIN flota f ON f.id_flota = c.id_flota
+<<<<<<< HEAD
      WHERE f.id_flota = $1
        AND c.deleted_at IS NULL
        AND f.deleted_at IS NULL
@@ -111,4 +116,13 @@ export async function CombustibleYRendimiento(id_empresa, db = pool) {
     [id_empresa],
   );
   return rows[0];
+=======
+     WHERE f.id_empresa = $1
+       AND c.deleted_at IS NULL
+       AND f.deleted_at IS NULL
+     ORDER BY c.patente`,
+    [id_empresa],
+  );
+  return rows;
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 }

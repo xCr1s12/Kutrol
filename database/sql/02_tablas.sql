@@ -181,10 +181,14 @@ CREATE TABLE CAMION (
     id_camion                 INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_flota                  INTEGER       NOT NULL,
 <<<<<<< HEAD
+<<<<<<< HEAD
     patente                   VARCHAR(10)   NOT NULL,
 =======
     patente                   VARCHAR(10)   NOT NULL,   -- formato: se valida en el backend
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+    patente                   VARCHAR(10)   NOT NULL,
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
     codigo_dispositivo        VARCHAR(50)   NOT NULL,
     marca                     VARCHAR(50)   NOT NULL,
     modelo                    VARCHAR(50)   NOT NULL,
@@ -193,9 +197,12 @@ CREATE TABLE CAMION (
     capacidad_estanque_l      NUMERIC(7,2)  NOT NULL,
     tipo_combustible          VARCHAR(15)   NOT NULL DEFAULT 'DIESEL',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     rendimiento_esperado_kml  NUMERIC(5,2)  NOT NULL,   -- km por litro esperados (referencia para detectar mermas)
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
     estado                    VARCHAR(20)   NOT NULL DEFAULT 'DISPONIBLE',
     created_at                TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at                TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -204,6 +211,7 @@ CREATE TABLE CAMION (
     CONSTRAINT uq_camion_codigo_dispositivo UNIQUE (codigo_dispositivo),
     CONSTRAINT fk_camion_flota FOREIGN KEY (id_flota)
         REFERENCES FLOTA(id_flota) ON DELETE RESTRICT,
+<<<<<<< HEAD
 <<<<<<< HEAD
     CONSTRAINT chk_camion_ano CHECK (ano BETWEEN 1990 AND 2100),
     CONSTRAINT chk_camion_capacidad_carga_kg CHECK (capacidad_carga_kg > 0),
@@ -215,6 +223,11 @@ CREATE TABLE CAMION (
     CONSTRAINT chk_camion_capacidad_estanque_l CHECK (capacidad_estanque_l > 0),
     CONSTRAINT chk_camion_rendimiento_esperado_kml CHECK (rendimiento_esperado_kml > 0),
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+    CONSTRAINT chk_camion_ano CHECK (ano BETWEEN 1990 AND 2100),
+    CONSTRAINT chk_camion_capacidad_carga_kg CHECK (capacidad_carga_kg > 0),
+    CONSTRAINT chk_camion_capacidad_estanque_l CHECK (capacidad_estanque_l > 0),
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
     CONSTRAINT chk_camion_tipo_combustible CHECK (tipo_combustible IN ('DIESEL','GASOLINA','GNC','GLP','ELECTRICO')),
     CONSTRAINT chk_camion_estado CHECK (estado IN ('DISPONIBLE','EN_RUTA','MANTENCION','FUERA_DE_SERVICIO'))
 );

@@ -22,12 +22,21 @@ const FILTROS = [
 ];
 
 const ESTADOS = {
+<<<<<<< HEAD
   disponible: { label: "DISPONIBLE", color: "var(--color-text)" },
   en_ruta: { label: "EN RUTA", color: "var(--color-accent)" },
   mantencion: { label: "MANTENCION", color: "var(--color-accent-dark)" },
   fuera_de_servicio: {
     label: "FUERA DE SERVICIO",
     color: "var(--color-red)",
+=======
+  disponible: { label: "DISPONIBLE", color: "var(--color-brand)" },
+  en_ruta: { label: "EN RUTA", color: "var(--color-accent-dark)" },
+  mantencion: { label: "MANTENCION", color: "var(--color-accent-dark)" },
+  fuera_de_servicio: {
+    label: "FUERA DE SERVICIO",
+    color: "var(--color-accent-dark)",
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
   },
 };
 
@@ -59,18 +68,26 @@ export default function TablaCamiones({
         setError(null);
 
         const res = await fetch(
+<<<<<<< HEAD
           `/api/data/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
+=======
+          `/api/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
           { signal: controller.signal },
         );
         const json = await res.json();
 
         if (!res.ok) {
           throw new Error(
+<<<<<<< HEAD
             json.error?.message ||
               json.message ||
               json.mensaje ||
               (typeof json.error === "string" ? json.error : null) ||
               "Error al cargar vehículos",
+=======
+            json.message || json.error || "Error al cargar vehículos",
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
           );
         }
         if (!Array.isArray(json.data)) {
@@ -113,12 +130,22 @@ export default function TablaCamiones({
     paginaActual * PAGE_SIZE,
   );
 
+<<<<<<< HEAD
   // Al cambiar el filtro se vuelve a la primera pagina (antes vivia en un
   // useEffect que provocaba un render en cascada).
   const cambiarFiltro = (filtro) => {
     setFiltroActivo(filtro);
     setPagina(1);
   };
+=======
+  useEffect(() => {
+    setPagina(1);
+  }, [filtroActivo]);
+
+  useEffect(() => {
+    if (pagina > totalPaginas) setPagina(totalPaginas);
+  }, [pagina, totalPaginas]);
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 
   return (
     <>
@@ -126,14 +153,22 @@ export default function TablaCamiones({
         <Filtros
           opciones={FILTROS}
           seleccionado={filtroActivo}
+<<<<<<< HEAD
           onSelect={cambiarFiltro}
+=======
+          onSelect={setFiltroActivo}
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
         />
         {acciones}
       </div>
 
       <Tabla
         columnas={[
+<<<<<<< HEAD
           "Vehículo",
+=======
+          "Vehiculo",
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
           "Marca / modelo",
           "Estado",
           "Capacidad carga",
@@ -143,7 +178,11 @@ export default function TablaCamiones({
       >
         {cargando ? (
           <tr>
+<<<<<<< HEAD
             <td colSpan={5} className="h-15 text-center text-text">
+=======
+            <td colSpan={5} className="h-15 text-center text-base text-subtext">
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
               Cargando vehículos...
             </td>
           </tr>

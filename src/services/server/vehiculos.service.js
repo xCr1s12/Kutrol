@@ -1,4 +1,5 @@
 import * as repoVehiculos from "@/repositories/Vehiculos.repository"
+<<<<<<< HEAD
 import { camionFormSchema } from "@/schema/vehiculo.schema";
 import { ZodError } from "zod";
 
@@ -36,4 +37,14 @@ export async function createVehiculo (data) {
         }
         throw new Error(err)
     }
+=======
+
+export async function getVehiculosByEmpresa(id_flota) {
+    const Vehiculos = repoVehiculos.findVehiculosByEmpresa(id_flota);
+    
+    if (Vehiculos.length == 0) {
+        throw new Error("Esta empresa no tiene camiones registrados");
+    }
+    return Vehiculos
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 }

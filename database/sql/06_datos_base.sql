@@ -190,6 +190,9 @@ INSERT INTO COMUNA (id_region, nombre) VALUES
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 
@@ -486,8 +489,12 @@ JOIN (VALUES
     ('LRTS45', '2026-08-14 10:00:00-04', 'CORRECTIVA', 'Cambio de pastillas de freno delanteras', 420000.00),
     ('KDPX82', '2026-09-20 09:00:00-03', 'PREVENTIVA', 'Cambio de aceite y filtros (revisión 30.000 km)', 185000.00)
 ) AS x(patente, fecha, tipo, descripcion, costo) ON x.patente = c.patente;
+<<<<<<< HEAD
 =======
 >>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
+=======
+
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 
 
 

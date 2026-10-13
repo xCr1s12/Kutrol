@@ -1,9 +1,31 @@
 "use client";
+<<<<<<< HEAD
+=======
+import { useState } from "react";
+import Modal from "@/components/ui/Modal";
+import FormularioConductor from "@/components/ux/FormConductores";
+import FormularioVehiculo from "@/components/ux/FormVehiculos";
+import {
+  Card,
+  Estado,
+  FilaTabla,
+  PillButton,
+  Tabla,
+  Td,
+  VerHistorial,
+} from "@/components/gestion/FlotaComponents";
+import TablaCamiones from "@/components/tablaCamiones";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import ConductorHistory from "@/components/gestion/ConductorHistory";
+import VehiculoHistory from "@/components/gestion/VehiculoHistory";
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 
 import { useState } from "react";
 
 const ACTIVE_TAB_COLOR = "#1A1A1A";
 
+<<<<<<< HEAD
 const page = () => {
     const [activeButton, setActiveButton] = useState("Todos");
     const buttons = [
@@ -92,6 +114,69 @@ const page = () => {
                     </table>
                 </div>
             </section>
+=======
+const CONDUCTORES = [
+  { conductor: "Jhon Doea", estado: "activo", vehiculo: "A1" },
+  { conductor: "Jhon Doe", estado: "activo", vehiculo: "A2" },
+  { conductor: "Jhon Doe", estado: "sin carga", vehiculo: "A3" },
+];
+
+const ESTADOS = {
+  activo: { label: "Activo", color: "var(--color-brand)" },
+  "sin carga": { label: "Sin Carga", color: "var(--color-accent-dark)" },
+  "en mantencion": { label: "En Mantencion", color: "var(--color-accent-dark)" },
+};
+
+const normalizar = (texto) =>
+  texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+
+/* ---------- Página ---------- */
+
+const Flota = () => {
+  const [modalVehiculo, setModalVehiculo] = useState(false);
+  const handleNuevoVehiculo = (datos) => {
+    console.log(datos);
+    setModalVehiculo(false);
+  };
+
+  const [modalConductor, setModalConductor] = useState(false);
+  const handleNuevoConductor = (datos) => {
+    console.log(datos);
+    setModalConductor(false);
+  };
+
+  const [VEHICULOSELECT, setVEHICULOSELECT] = useState(null);
+  const [CONDUCTORSELECT, setCONDUCTORSELECT] = useState(null);
+  const [modalHistorialC, setModalHistorialC] = useState(false);
+
+  const [modalHistorialV, setModalHistorialV] = useState(false);
+  return (
+    <main
+      lang="es"
+      className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
+    >
+      {/* ---------- Vehiculos ---------- */}
+      <Card>
+        <h2 className="text-base font-bold text-brand">Vehiculos</h2>
+
+        <TablaCamiones
+          flotaId={1}
+          onVerHistorial={(vehiculo) => {
+            setVEHICULOSELECT(vehiculo);
+            setModalHistorialV(true);
+          }}
+          acciones={
+            <PillButton onClick={() => setModalVehiculo(true)}>
+              Agregar Vehiculo
+            </PillButton>
+          }
+        />
+      </Card>
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 
             {/* Seccion de Conductores */}
             <section className="flex flex-col w-full bg-[#FDFBF7] p-10">

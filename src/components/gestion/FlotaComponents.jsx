@@ -138,7 +138,7 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               activo
                 ? "border-transparent font-bold text-brand"
-                : "border-icon bg-background text-subtext hover:bg-text"
+                : "border-icon bg-background text-brand hover:bg-text"
             }`}
             style={activo ? { backgroundColor: GOLD } : undefined}
 =======

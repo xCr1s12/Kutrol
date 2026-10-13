@@ -45,6 +45,7 @@ export async function register(request) {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -82,3 +83,6 @@ export async function logoutController() {
 }
 =======
 >>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
+=======
+
+>>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
