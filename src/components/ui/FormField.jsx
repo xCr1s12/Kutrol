@@ -7,7 +7,19 @@ export default function FormField({
   maxLength,
   minLength,
   error,
+  children,
 }) {
+  if (children) {
+    return (
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor={id} className="text-xs font-semibold text-brand">
+          {label}
+        </label>
+        {children}
+      </div>
+    );
+  }
+
   const isTextarea = type === "textarea";
   const Tag = isTextarea ? "textarea" : "input";
   const inputProps = isTextarea ? { rows: rows ?? 3 } : { type };
@@ -32,7 +44,7 @@ export default function FormField({
         {...inputProps}
       />
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-400">
+        <p id={`${id}-error`} className="text-xs text-accent-dark">
           {error}
         </p>
       )}
