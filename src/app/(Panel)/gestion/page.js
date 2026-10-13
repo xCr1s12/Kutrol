@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
+import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import FormularioConductor from "@/components/ux/FormConductores";
 import FormularioVehiculo from "@/components/ux/FormVehiculos";
@@ -7,13 +7,12 @@ import {
   Card,
   Estado,
   FilaTabla,
-  Filtros,
-  Paginacion,
   PillButton,
   Tabla,
   Td,
   VerHistorial,
 } from "@/components/gestion/FlotaComponents";
+import TablaCamiones from "@/components/tablaCamiones";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import ConductorHistory from "@/components/gestion/ConductorHistory";
@@ -22,61 +21,6 @@ import VehiculoHistory from "@/components/gestion/VehiculoHistory";
 const ICONCONDUCTOR = <PermIdentityOutlinedIcon fontSize="large" />;
 
 const ICONVEHICULO = <LocalShippingOutlinedIcon fontSize="large" />;
-
-const PAGE_SIZE = 7;
-
-const FILTROS = ["Todos", "Activos", "En Mantencion"];
-
-const VEHICULOS = [
-  {
-    patente: "A1",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "A2",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "A3",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "B1",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "B2",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "B3",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "C1",
-    rendimiento: "100km/L",
-    estado: "activo",
-    encargado: "Jhon Doe",
-  },
-  {
-    patente: "C2",
-    rendimiento: "0km/L",
-    estado: "en mantencion",
-    encargado: "Jhon Doe",
-  },
-];
 
 const CONDUCTORES = [
   { conductor: "Jhon Doea", estado: "activo", vehiculo: "A1" },
@@ -100,37 +44,10 @@ const normalizar = (texto) =>
 /* ---------- Página ---------- */
 
 const Flota = () => {
-  const [filtroActivo, setFiltroActivo] = useState("Todos");
-  const [pagina, setPagina] = useState(1);
-
-  const vehiculosFiltrados = useMemo(
-    () =>
-      VEHICULOS.filter((v) => {
-        const estado = normalizar(v.estado);
-        if (filtroActivo === "Activos") return estado === "activo";
-        if (filtroActivo === "En Mantencion")
-          return estado.includes("mantencion");
-        return true;
-      }),
-    [filtroActivo],
-  );
-
-  const totalPaginas = Math.max(
-    1,
-    Math.ceil(vehiculosFiltrados.length / PAGE_SIZE),
-  );
-
-  useEffect(() => {
-    setPagina(1);
-  }, [filtroActivo]);
-
-  const vehiculosPagina = vehiculosFiltrados.slice(
-    (pagina - 1) * PAGE_SIZE,
-    pagina * PAGE_SIZE,
-  );
   const [modalVehiculo, setModalVehiculo] = useState(false);
-  const handleNuevoVehiculo = (datos) => {
-    console.log(datos);
+  const [versionVehiculos, setVersionVehiculos] = useState(0);
+  const handleNuevoVehiculo = () => {
+    setVersionVehiculos((version) => version + 1);
     setModalVehiculo(false);
   };
 
@@ -139,7 +56,7 @@ const Flota = () => {
     console.log(datos);
     setModalConductor(false);
   };
-
+  
   const [VEHICULOSELECT, setVEHICULOSELECT] = useState(null);
   const [CONDUCTORSELECT, setCONDUCTORSELECT] = useState(null);
   const [modalHistorialC, setModalHistorialC] = useState(false);
@@ -154,63 +71,18 @@ const Flota = () => {
       <Card>
         <h2 className="text-base font-bold text-brand">Vehiculos</h2>
 
-        <div className="mb-3 mt-3 flex items-end justify-between gap-4">
-          <Filtros
-            opciones={FILTROS}
-            seleccionado={filtroActivo}
-            onSelect={setFiltroActivo}
-          />
-          <PillButton onClick={() => setModalVehiculo(true)}>
-            Agregar Vehiculo
-          </PillButton>
-        </div>
-
-        <Tabla
-          columnas={[
-            "Vehiculo",
-            "Rendimiento",
-            "Estado",
-            "Encargado",
-            "Historial",
-          ]}
-          anchos={[18, 20, 18, 22, 22]}
-        >
-          {vehiculosPagina.length > 0 ? (
-            vehiculosPagina.map((v) => (
-              <FilaTabla key={v.patente}>
-                <Td>{v.patente}</Td>
-                <Td>{v.rendimiento}</Td>
-                <Td>
-                  <Estado estado={normalizar(v.estado)} estados={ESTADOS} />
-                </Td>
-                <Td>{v.encargado}</Td>
-                <Td>
-                  <VerHistorial
-                    onClick={() => {
-                      setVEHICULOSELECT(v);
-                      setModalHistorialV(true);
-                    }}
-                  />
-                </Td>
-              </FilaTabla>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={5}
-                className="h-15 text-center text-base text-subtext"
-              >
-                No hay vehículos para este filtro.
-              </td>
-            </tr>
-          )}
-        </Tabla>
-
-        {/* Paginación */}
-        <Paginacion
-          pagina={pagina}
-          totalPaginas={totalPaginas}
-          onCambiarPagina={setPagina}
+        <TablaCamiones
+          key={versionVehiculos}
+          flotaId={1}
+          onVerHistorial={(vehiculo) => {
+            setVEHICULOSELECT(vehiculo);
+            setModalHistorialV(true);
+          }}
+          acciones={
+            <PillButton onClick={() => setModalVehiculo(true)}>
+              Agregar Vehiculo
+            </PillButton>
+          }
         />
       </Card>
 

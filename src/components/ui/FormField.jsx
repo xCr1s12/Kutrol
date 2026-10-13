@@ -7,6 +7,7 @@ export default function FormField({
   maxLength,
   minLength,
   error,
+  required,
   children,
 }) {
   if (children) {
@@ -38,6 +39,7 @@ export default function FormField({
         placeholder={placeholder}
         maxLength={maxLength}
         minLength={minLength}
+        required={required}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
         className="w-full bg-brand border border-border text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
