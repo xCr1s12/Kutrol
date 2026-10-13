@@ -185,6 +185,303 @@ INSERT INTO COMUNA (id_region, nombre) VALUES
 
 
 
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+
+-- ==============================================================================
+-- 1. Tipos de flota y empresa
+-- ==============================================================================
+INSERT INTO TIPO_FLOTA (nombre, descripcion) VALUES
+    ('CARGA_GENERAL', 'Transporte de carga seca y paletizada'),
+    ('REFRIGERADA',   'Transporte con cadena de frío'),
+    ('GRANELES',      'Transporte de graneles sólidos o líquidos');
+
+INSERT INTO EMPRESA (id_comuna, nombre, rut, direccion, descripcion)
+VALUES (
+    (SELECT id_comuna FROM COMUNA WHERE nombre = 'Puerto Montt'),
+    'Transportes del Sur SpA',
+    '76.123.456-0',
+    'Av. Presidente Ibáñez 1500, Puerto Montt',
+    'Empresa de transporte de carga de la zona sur (datos de prueba)'
+);
+
+INSERT INTO EMPRESA_EMAIL (id_empresa, email)
+SELECT id_empresa, 'contacto@transportesdelsur.cl' FROM EMPRESA WHERE rut = '76.123.456-0';
+
+INSERT INTO EMPRESA_TELEFONO (id_empresa, telefono)
+SELECT id_empresa, t FROM EMPRESA, (VALUES ('+56652123456'), ('+56987654321')) AS x(t)
+WHERE rut = '76.123.456-0';
+
+-- ==============================================================================
+-- 2. Usuario administrador  (usuario: admin / contraseña: admin)
+--    Nivel 1 = DUEÑO. El hash es bcrypt generado con pgcrypto ($2a$, compatible
+--    con bcrypt/bcryptjs de Node).
+-- ==============================================================================
+INSERT INTO ENCARGADO_EMPRESA
+    (id_empresa, id_nivel_jerarquico, usuario, primer_nombre, apellidos, email, cargo, password_hash)
+VALUES (
+    (SELECT id_empresa FROM EMPRESA WHERE rut = '76.123.456-0'),
+    1,
+    'admin',
+    'Admin',
+    'Sistema',
+    'admin@kutrol.cl',
+    'Administrador del sistema',
+    crypt('admin', gen_salt('bf', 10))
+);
+
+-- Si existe un trigger que genera "usuario" (<nombre>_<apellido>_<empresa>) y lo
+-- sobrescribe, esto lo deja en 'admin'. Si no lo sobrescribe, no cambia nada.
+UPDATE ENCARGADO_EMPRESA SET usuario = 'admin' WHERE email = 'admin@kutrol.cl';
+
+-- ==============================================================================
+-- 3. Conductores
+-- ==============================================================================
+INSERT INTO CONDUCTOR (id_empresa, primer_nombre, apellidos, run, licencia, fecha_venc_licencia, estado)
+SELECT e.id_empresa, d.nombre, d.apellidos, d.run, d.licencia, d.venc::date, d.estado
+FROM EMPRESA e
+CROSS JOIN (VALUES
+    ('Juan',  'Pérez Soto',    '12.345.678-5', 'A5-100234', '2028-05-30', 'EN_RUTA'),
+    ('María', 'González Rojas','9.876.543-3',  'A5-100871', '2028-11-15', 'ACTIVO'),
+    ('Pedro', 'Muñoz Vera',    '15.432.109-8', 'A4-200456', '2027-09-01', 'ACTIVO')
+) AS d(nombre, apellidos, run, licencia, venc, estado)
+WHERE e.rut = '76.123.456-0';
+
+INSERT INTO CONDUCTOR_TELEFONO (id_conductor, telefono)
+SELECT c.id_conductor, d.tel
+FROM CONDUCTOR c
+JOIN (VALUES ('12.345.678-5', '+56911111111'),
+             ('9.876.543-3',  '+56922222222'),
+             ('15.432.109-8', '+56933333333')) AS d(run, tel) ON d.run = c.run;
+
+INSERT INTO CONDUCTOR_EMAIL (id_conductor, email)
+SELECT c.id_conductor, d.mail
+FROM CONDUCTOR c
+JOIN (VALUES ('12.345.678-5', 'juan.perez@transportesdelsur.cl'),
+             ('9.876.543-3',  'maria.gonzalez@transportesdelsur.cl'),
+             ('15.432.109-8', 'pedro.munoz@transportesdelsur.cl')) AS d(run, mail) ON d.run = c.run;
+
+-- ==============================================================================
+-- 4. Flotas y camiones
+-- ==============================================================================
+INSERT INTO FLOTA (id_empresa, id_tipo_flota, nombre, descripcion)
+SELECT e.id_empresa, tf.id_tipo_flota, d.nombre, d.descripcion
+FROM EMPRESA e
+JOIN (VALUES ('Flota Sur',  'CARGA_GENERAL', 'Camiones de carga general'),
+             ('Flota Frío', 'REFRIGERADA',   'Camiones con equipo de frío')) AS d(nombre, tipo, descripcion) ON TRUE
+JOIN TIPO_FLOTA tf ON tf.nombre = d.tipo
+WHERE e.rut = '76.123.456-0';
+
+INSERT INTO CAMION
+    (id_flota, patente, codigo_dispositivo, marca, modelo, ano,
+     capacidad_carga_kg, capacidad_estanque_l, tipo_combustible, estado)
+VALUES
+    ((SELECT id_flota FROM FLOTA WHERE nombre = 'Flota Sur'),
+     'LRTS45', 'KT-0042', 'Volvo', 'FH 460', 2021, 12000.00, 400.00, 'DIESEL', 'EN_RUTA'),
+    ((SELECT id_flota FROM FLOTA WHERE nombre = 'Flota Frío'),
+     'KDPX82', 'KT-0043', 'Mercedes-Benz', 'Actros 2645', 2022, 15000.00, 450.00, 'DIESEL', 'DISPONIBLE');
+
+-- ==============================================================================
+-- 5. Sensores: el mismo set estándar para cada camión (se crean ANTES de la telemetría)
+-- ==============================================================================
+INSERT INTO SENSOR (id_camion, id_tipo_medicion, ubicacion)
+SELECT c.id_camion, tm.id_tipo_medicion, d.ubicacion
+FROM CAMION c
+CROSS JOIN (VALUES
+    ('NIVEL_COMBUSTIBLE', 'ESTANQUE'),
+    ('TEMP_MOTOR',        'MOTOR'),
+    ('PRESION_ACEITE',    'MOTOR'),
+    ('RPM_MOTOR',         'MOTOR'),
+    ('PRESION_NEUMATICO', 'DELANTERO_IZQ'),
+    ('PRESION_NEUMATICO', 'DELANTERO_DER'),
+    ('PRESION_NEUMATICO', 'TRASERO_IZQ'),
+    ('PRESION_NEUMATICO', 'TRASERO_DER'),
+    ('VOLTAJE_BATERIA',   'BATERIA'),
+    ('PESO_CARGA',        'CARROCERIA')
+) AS d(codigo, ubicacion)
+JOIN TIPO_MEDICION tm ON tm.codigo = d.codigo
+WHERE c.patente IN ('LRTS45', 'KDPX82');
+
+-- ==============================================================================
+-- 6. Rutas y puntos de control
+-- ==============================================================================
+INSERT INTO RUTA (id_comuna_origen, id_comuna_destino, distancia_km)
+SELECT o.id_comuna, d.id_comuna, x.km
+FROM (VALUES ('Puerto Montt', 'Osorno',       112.00),
+             ('Osorno',       'Puerto Montt', 112.00),
+             ('Puerto Montt', 'Temuco',       375.00)) AS x(origen, destino, km)
+JOIN COMUNA o ON o.nombre = x.origen
+JOIN COMUNA d ON d.nombre = x.destino;
+
+INSERT INTO PUNTO_CONTROL (id_ruta, nombre, latitud, longitud, orden)
+SELECT r.id_ruta, p.nombre, p.lat, p.lng, p.orden
+FROM RUTA r
+JOIN COMUNA o ON o.id_comuna = r.id_comuna_origen  AND o.nombre = 'Puerto Montt'
+JOIN COMUNA d ON d.id_comuna = r.id_comuna_destino AND d.nombre = 'Osorno'
+CROSS JOIN (VALUES
+    ('Puerto Varas',  -41.31900000, -72.98500000, 1),
+    ('Frutillar',     -41.12600000, -73.06000000, 2),
+    ('Entrada Osorno',-40.57400000, -73.13400000, 3)
+) AS p(nombre, lat, lng, orden);
+
+-- ==============================================================================
+-- 7. Viajes (uno completado, uno en curso, uno programado), cargas y asignaciones
+-- ==============================================================================
+INSERT INTO VIAJE (id_camion, id_ruta, id_empresa, fecha_inicio, fecha_fin_estimada, fecha_fin, estado)
+SELECT c.id_camion, r.id_ruta, e.id_empresa, v.inicio::timestamptz, v.fin_est::timestamptz, v.fin::timestamptz, v.estado
+FROM EMPRESA e
+JOIN (VALUES
+    -- completado: Osorno -> Puerto Montt
+    ('LRTS45', 'Osorno',       'Puerto Montt', '2026-10-08 07:00:00-03', '2026-10-08 11:00:00-03', '2026-10-08 10:30:00-03', 'COMPLETADO'),
+    -- en curso: Puerto Montt -> Osorno
+    ('LRTS45', 'Puerto Montt', 'Osorno',       '2026-10-12 08:00:00-03', '2026-10-12 12:00:00-03', NULL,                     'EN_CURSO'),
+    -- programado: Puerto Montt -> Temuco
+    ('KDPX82', 'Puerto Montt', 'Temuco',       '2026-10-15 06:00:00-03', '2026-10-15 18:00:00-03', NULL,                     'PROGRAMADO')
+) AS v(patente, origen, destino, inicio, fin_est, fin, estado) ON TRUE
+JOIN CAMION c ON c.patente = v.patente
+JOIN COMUNA o ON o.nombre = v.origen
+JOIN COMUNA d ON d.nombre = v.destino
+JOIN RUTA   r ON r.id_comuna_origen = o.id_comuna AND r.id_comuna_destino = d.id_comuna
+WHERE e.rut = '76.123.456-0';
+
+INSERT INTO CARGA (id_viaje, tipo_carga, peso_kg, descripcion)
+SELECT v.id_viaje, x.tipo, x.peso, x.descripcion
+FROM VIAJE v
+JOIN CAMION c ON c.id_camion = v.id_camion
+JOIN (VALUES
+    ('LRTS45', 'COMPLETADO',  'Alimentos secos',      6200.00, 'Cajas paletizadas'),
+    ('LRTS45', 'EN_CURSO',    'Materiales de construcción', 5000.00, 'Sacos de cemento'),
+    ('LRTS45', 'EN_CURSO',    'Ferretería',           3450.00, 'Herramientas y fijaciones'),
+    ('KDPX82', 'PROGRAMADO',  'Productos del mar congelados', 9800.00, 'Cámara de frío a -18 °C')
+) AS x(patente, estado, tipo, peso, descripcion) ON x.patente = c.patente AND x.estado = v.estado;
+
+-- capacidad_utilizada_kg y las fechas copiadas normalmente las mantiene un trigger;
+-- se envían igualmente para que el INSERT sea válido sin él.
+INSERT INTO ASIGNACION (id_conductor, id_viaje, estado, capacidad_utilizada_kg, fecha_inicio_viaje, fecha_fin_viaje)
+SELECT cd.id_conductor, v.id_viaje, x.estado_asig,
+       COALESCE((SELECT SUM(peso_kg) FROM CARGA WHERE id_viaje = v.id_viaje), 0),
+       v.fecha_inicio,
+       COALESCE(v.fecha_fin, v.fecha_fin_estimada)
+FROM VIAJE v
+JOIN CAMION c ON c.id_camion = v.id_camion
+JOIN (VALUES
+    ('12.345.678-5', 'LRTS45', 'COMPLETADO', 'COMPLETADA'),
+    ('12.345.678-5', 'LRTS45', 'EN_CURSO',   'ACTIVA'),
+    ('9.876.543-3',  'KDPX82', 'PROGRAMADO', 'ACTIVA')
+) AS x(run, patente, estado_viaje, estado_asig) ON x.patente = c.patente AND x.estado_viaje = v.estado
+JOIN CONDUCTOR cd ON cd.run = x.run;
+
+-- ==============================================================================
+-- 8. Telemetría + lecturas del viaje en curso (camión LRTS45)
+--    Cada paquete = 1 INSERT en TELEMETRIA + varias filas en LECTURA.
+--    El último paquete trae la presión del neumático delantero izquierdo bajo
+--    el umbral mínimo (95 psi) para probar anomalías y alertas.
+-- ==============================================================================
+DO $$
+DECLARE
+    v_camion  INTEGER;
+    v_viaje   INTEGER;
+    v_tel     BIGINT;
+    p         RECORD;
+BEGIN
+    SELECT id_camion INTO v_camion FROM CAMION WHERE patente = 'LRTS45';
+    SELECT id_viaje  INTO v_viaje  FROM VIAJE  WHERE id_camion = v_camion AND estado = 'EN_CURSO';
+
+    FOR p IN
+        SELECT * FROM (VALUES
+          (timestamptz '2026-10-12 08:30:00-03', 62.0::numeric, -41.31900000::numeric, -72.98500000::numeric,
+           62.4::numeric, 88.0::numeric, 310.0::numeric, 1450::numeric, 106.2::numeric, 105.8::numeric, 108.0::numeric, 107.6::numeric, 24.1::numeric, 8450.0::numeric),
+          (timestamptz '2026-10-12 09:00:00-03', 78.5, -41.12600000, -73.06000000,
+           61.1, 90.5, 305.0, 1520, 106.0, 105.7, 107.9, 107.5, 24.1, 8450.0),
+          (timestamptz '2026-10-12 09:30:00-03', 80.2, -40.93500000, -73.09000000,
+           59.8, 91.5, 308.0, 1480, 105.8, 105.6, 107.8, 107.4, 24.0, 8450.0),
+          (timestamptz '2026-10-12 10:00:00-03', 74.9, -40.74000000, -73.12000000,
+           58.3, 92.0, 300.0, 1500,  88.5, 105.4, 107.6, 107.3, 24.0, 8450.0)
+        ) AS t(ts, vel, lat, lng, fuel, temp, oil, rpm, tfl, tfr, trl, trr, volt, peso)
+    LOOP
+        INSERT INTO TELEMETRIA (fecha_hora, id_camion, id_viaje, velocidad, latitud, longitud)
+        VALUES (p.ts, v_camion, v_viaje, p.vel, p.lat, p.lng)
+        RETURNING id_telemetria INTO v_tel;
+
+        INSERT INTO LECTURA (fecha_hora, id_telemetria, id_sensor, valor)
+        SELECT p.ts, v_tel, s.id_sensor, m.valor
+        FROM (VALUES
+            ('NIVEL_COMBUSTIBLE', 'ESTANQUE',      p.fuel),
+            ('TEMP_MOTOR',        'MOTOR',         p.temp),
+            ('PRESION_ACEITE',    'MOTOR',         p.oil),
+            ('RPM_MOTOR',         'MOTOR',         p.rpm),
+            ('PRESION_NEUMATICO', 'DELANTERO_IZQ', p.tfl),
+            ('PRESION_NEUMATICO', 'DELANTERO_DER', p.tfr),
+            ('PRESION_NEUMATICO', 'TRASERO_IZQ',   p.trl),
+            ('PRESION_NEUMATICO', 'TRASERO_DER',   p.trr),
+            ('VOLTAJE_BATERIA',   'BATERIA',       p.volt),
+            ('PESO_CARGA',        'CARROCERIA',    p.peso)
+        ) AS m(codigo, ubicacion, valor)
+        JOIN TIPO_MEDICION tm ON tm.codigo = m.codigo
+        JOIN SENSOR s ON s.id_tipo_medicion = tm.id_tipo_medicion
+                     AND s.id_camion = v_camion
+                     AND s.ubicacion = m.ubicacion;
+    END LOOP;
+END $$;
+
+-- ==============================================================================
+-- 9. Abastecimientos
+-- ==============================================================================
+INSERT INTO ABASTECIMIENTO
+    (id_camion, id_conductor, id_viaje, fecha, litros, precio_litro, costo, odometro_km, estanque_lleno, estacion)
+SELECT c.id_camion,
+       (SELECT id_conductor FROM CONDUCTOR WHERE run = '12.345.678-5'),
+       NULL,
+       x.fecha::timestamptz, x.litros, x.precio, x.litros * x.precio, x.odo, TRUE, x.estacion
+FROM CAMION c
+JOIN (VALUES
+    ('LRTS45', '2026-10-08 06:15:00-03', 180.00, 1050.00, 152300.0, 'Copec Ruta 5 Sur, Puerto Montt'),
+    ('LRTS45', '2026-10-12 06:30:00-03', 165.00, 1060.00, 152760.0, 'Shell Av. Salvador, Puerto Montt')
+) AS x(patente, fecha, litros, precio, odo, estacion) ON x.patente = c.patente;
+
+-- ==============================================================================
+-- 10. Anomalía y alerta de ejemplo (neumático con presión baja)
+--     Con NOT EXISTS por si tus triggers ya las generan al insertar la lectura.
+-- ==============================================================================
+INSERT INTO ANOMALIA (id_telemetria, fecha_hora_telemetria, id_lectura, id_severidad, tipo, descripcion)
+SELECT l.id_telemetria, l.fecha_hora, l.id_lectura, tm.id_severidad, 'UMBRAL_MINIMO',
+       'Presión del neumático delantero izquierdo bajo el umbral mínimo'
+FROM LECTURA l
+JOIN SENSOR s         ON s.id_sensor = l.id_sensor
+JOIN TIPO_MEDICION tm ON tm.id_tipo_medicion = s.id_tipo_medicion
+JOIN CAMION c         ON c.id_camion = s.id_camion
+WHERE c.patente = 'LRTS45'
+  AND tm.codigo = 'PRESION_NEUMATICO'
+  AND s.ubicacion = 'DELANTERO_IZQ'
+  AND l.valor < tm.umbral_min
+  AND NOT EXISTS (SELECT 1 FROM ANOMALIA a
+                  WHERE a.id_lectura = l.id_lectura AND a.fecha_hora_telemetria = l.fecha_hora);
+
+INSERT INTO ALERTA (id_anomalia, id_conductor, tipo, estado, mensaje)
+SELECT a.id_anomalia,
+       (SELECT id_conductor FROM CONDUCTOR WHERE run = '12.345.678-5'),
+       'NEUMATICO', 'GENERADA',
+       'Presión baja (88.5 psi) en neumático delantero izquierdo del camión LRTS45'
+FROM ANOMALIA a
+JOIN LECTURA l ON l.id_lectura = a.id_lectura AND l.fecha_hora = a.fecha_hora_telemetria
+JOIN SENSOR s  ON s.id_sensor = l.id_sensor
+JOIN CAMION c  ON c.id_camion = s.id_camion
+WHERE c.patente = 'LRTS45'
+  AND s.ubicacion = 'DELANTERO_IZQ'
+  AND a.tipo = 'UMBRAL_MINIMO'
+  AND NOT EXISTS (SELECT 1 FROM ALERTA al WHERE al.id_anomalia = a.id_anomalia);
+
+-- ==============================================================================
+-- 11. Mantenciones
+-- ==============================================================================
+INSERT INTO MANTENCION (id_camion, fecha, tipo, descripcion, costo)
+SELECT c.id_camion, x.fecha::timestamptz, x.tipo, x.descripcion, x.costo
+FROM CAMION c
+JOIN (VALUES
+    ('LRTS45', '2026-08-14 10:00:00-04', 'CORRECTIVA', 'Cambio de pastillas de freno delanteras', 420000.00),
+    ('KDPX82', '2026-09-20 09:00:00-03', 'PREVENTIVA', 'Cambio de aceite y filtros (revisión 30.000 km)', 185000.00)
+) AS x(patente, fecha, tipo, descripcion, costo) ON x.patente = c.patente;
+
 
 
 

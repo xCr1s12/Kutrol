@@ -18,3 +18,4 @@ export async function register(request) {
     return Response.json(body, { status });
   }
 }
+

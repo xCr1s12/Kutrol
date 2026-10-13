@@ -35,3 +35,8 @@ export const registerEmpresaAndEncargadoSchema = z.object({
   Encargado: EncargadoSchema,
   Empresa: EmpresaSchema,
 });
+
+export const flotaIdSchema = z.coerce
+  .number({ invalid_type_error: "flota_id debe ser un número" })
+  .int()
+  .positive("flota_id debe ser un entero positivo");

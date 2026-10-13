@@ -38,10 +38,10 @@
 -- 0. ESQUEMA Y EXTENSIONES
 -- ==============================================================================
 CREATE SCHEMA kutrol;
+CREATE SCHEMA IF NOT EXISTS public;          -- <-- nueva
 SET search_path TO kutrol, public;
 
 CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA public;
-
 -- ==============================================================================
 -- 1. FUNCIONES GENÉRICAS
 -- ==============================================================================
