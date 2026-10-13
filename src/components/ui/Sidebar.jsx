@@ -41,7 +41,11 @@ export default function Sidebar() {
             ToggleSideBar();
           }}
 
+<<<<<<< HEAD
           className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
+=======
+          className="flex items-center gap-3 text-subtext cursor-pointer p-2 rounded transition-colors"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
         >
           {!isActive && (
             <MenuIcon aria-label="Abrir menú" aria-expanded={false} aria-hidden="false" />
@@ -72,7 +76,11 @@ export default function Sidebar() {
                 }`}
             >
               <div className="flex items-center justify-center min-w-6">
+<<<<<<< HEAD
                 <IconComponent
+=======
+                <item.icon
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                   aria-hidden="false"
                   className={isCurrentPath ? "text-gold" : "text-mist"}
                   fontSize="medium"
@@ -81,7 +89,11 @@ export default function Sidebar() {
 
               {isActive && (
                 <span
+<<<<<<< HEAD
                   className={`truncate text-sm font-bold ${isCurrentPath ? "text-cream" : "text-sage"}`}
+=======
+                  className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-subtext"}`}
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 >
                   {item.name}
                 </span>

@@ -59,9 +59,18 @@ export default function Home() {
       lang="es"
     >
       {/* encabezado de la pagina principal */}
+<<<<<<< HEAD
       <header className="w-full bg-header flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
         {/* Logo Kutrol y Nombre */}
         <Logo fondo={darkMode ? "oscuro" : "claro"} />
+=======
+      <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
+        {/* Logo Kutrol y Nombre */}
+        <span className=" text-xl sm:text-2xl font-bold text-text tracking-tighter">
+          Kutrol
+        </span>
+
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
         {/* barra de navegacion */}
         <nav className="items-center px-4 py-2">
           <ul className="flex flex-row justify-between gap-3 items-center">
@@ -74,14 +83,27 @@ export default function Home() {
               </Link>
             </li>
             <li>
+<<<<<<< HEAD
               <Link className="text-subtext hover:text-text" href={"#Pasos"}>
                 Pasos
+=======
+              {" "}
+              <Link
+                className="text-subtext hover:text-text"
+                href={"#Pasos"}
+              >
+                Pasos{" "}
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
               </Link>
             </li>
             <li>
               <Link
                 className="text-subtext hover:text-text"
+<<<<<<< HEAD
                 href={"/acerca_de"}
+=======
+                href={"#Registrate"}
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
               >
                 Quienes Somos
               </Link>
@@ -140,9 +162,15 @@ export default function Home() {
             planeta
           </h1>
           <p className="max-w-md text-sm leading-relaxed text-subtext mx-auto lg:mx-0">
+<<<<<<< HEAD
             Kutrol te permite monitorear el gasto de combustible de tu flota en
             tiempo real, identificar patrones de consumo y tomar decisiones que
             reducen costos operativos sin complicaciones.
+=======
+            Kutrol te permite monitorear el gasto de combustible de tu flota
+            en tiempo real, identificar patrones de consumo y tomar
+            decisiones que reducen costos operativos sin complicaciones.
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
           </p>
         </div>
 
@@ -178,7 +206,11 @@ export default function Home() {
       >
         {/* Linea vertical y circulo con Numero 1 */}
         <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
+<<<<<<< HEAD
           <div className="text-xl lg:text-2xl flex h-10 w-10 lg:h-12 lg:w-12 bg-border light:bg-card justify-center rounded-full text-subtext light:text-icon font-semibold shrink-0 items-center">
+=======
+          <div className="text-xl lg:text-2xl flex h-10 w-10 lg:h-12 lg:w-12 bg-border justify-center rounded-full text-subtext font-semibold shrink-0 items-center">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
             1
           </div>
           <div className="w-0.75 flex-1 bg-border mt-2"></div>
@@ -186,7 +218,13 @@ export default function Home() {
 
         {/* Encabezado */}
         <div className="mb-10 text-center md:text-left">
+<<<<<<< HEAD
           <h2 className="font-bold text-2xl md:text-4xl text-text">
+=======
+
+          <h2 className="font-bold text-2xl md:text-4xl text-text">
+            {" "}
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
             ¿Qué puedes hacer con Kutrol?
           </h2>
         </div>
@@ -207,16 +245,24 @@ export default function Home() {
       </section>
 
       {/* Seccion Pasos Para iniciar */}
+<<<<<<< HEAD
       <section className="relative w-full mt-8 md:mt-15 px-6 md:px-16 py-12 md:py-16 md:pr-32 bg-header text-text">
         {/* Linea vertical derecha y circulo con numero 2 */}
         <div className="hidden md:flex absolute right-8 lg:right-16 top-16 bottom-16 flex-col items-center">
           <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border light:bg-card text-subtext light:text-icon font-semibold text-xl lg:text-2xl shrink-0">
+=======
+      <section className="relative w-full mt-8 md:mt-15 px-6 md:px-16 py-12 md:py-16 md:pr-32 bg-[#1B2B24] text-text">
+        {/* Linea vertical derecha y circulo con numero 2 */}
+        <div className="hidden md:flex absolute right-8 lg:right-16 top-16 bottom-16 flex-col items-center">
+          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border text-subtext font-semibold text-xl lg:text-2xl shrink-0">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
             2
           </div>
           <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
         {/* Contenedor de Pasos */}
+<<<<<<< HEAD
         <div
           id="Pasos"
           className="max-w-4xl mx-auto md:mr-0 md:ml-auto flex flex-col gap-y-8 md:gap-y-12"
@@ -224,6 +270,14 @@ export default function Home() {
           <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
               <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border light:bg-card text-xl sm:text-3xl font-bold text-text">
+=======
+        <div 
+        id="Pasos"
+        className="max-w-4xl mx-auto md:mr-0 md:ml-auto flex flex-col gap-y-8 md:gap-y-12">
+          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border text-xl sm:text-3xl font-bold text-text">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 1
               </div>
               <div className="flex flex-col gap-y-1">
@@ -240,7 +294,11 @@ export default function Home() {
 
           <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
+<<<<<<< HEAD
               <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border light:bg-card text-xl sm:text-3xl font-bold text-text">
+=======
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border text-xl sm:text-3xl font-bold text-text">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 2
               </div>
               <div className="flex flex-col gap-y-1">
@@ -257,7 +315,11 @@ export default function Home() {
 
           <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
+<<<<<<< HEAD
               <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border light:bg-card text-xl sm:text-3xl font-bold text-text">
+=======
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border text-xl sm:text-3xl font-bold text-text">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 3
               </div>
               <div className="flex flex-col gap-y-1">
@@ -275,24 +337,40 @@ export default function Home() {
       </section>
 
       {/* Seccion  Registro */}
+<<<<<<< HEAD
       <section
         id="Registrate"
         className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-header text-text"
       >
         <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
           <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border light:bg-card text-subtext light:text-icon font-semibold text-xl lg:text-2xl shrink-0">
+=======
+      <section 
+      id="Registrate"
+      className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-[#1B2B24] text-text">
+        <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
+          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border text-subtext font-semibold text-xl lg:text-2xl shrink-0">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
             3
           </div>
           <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
         <div className="max-w-6xl w-full">
+<<<<<<< HEAD
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-2xl bg-border light:bg-card p-6 sm:p-10 gap-y-4 sm:gap-y-0">
+=======
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-2xl bg-border p-6 sm:p-10 gap-y-4 sm:gap-y-0">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
             <div className="flex flex-col gap-y-2 pb-0 sm:pb-4">
               <h2 className="text-2xl sm:text-4xl font-bold text-text">
                 Regístrate
               </h2>
+<<<<<<< HEAD
               <p className="text-sm text-subtext light:text-icon">
+=======
+              <p className="text-sm text-subtext">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 Crea una cuenta y registra tu primer vehículo en minutos.
               </p>
             </div>
@@ -311,7 +389,11 @@ export default function Home() {
 
       {/* Acerca de Equipo Kutrol (footer) */}
       <footer className="w-full flex flex-col mt-10 gap-1 pb-4">
+<<<<<<< HEAD
         <div className="w-full h-0.5 bg-linear-to-r from-gold light:from-accent via-border to-transparent"></div>
+=======
+        <div className="w-full h-0.5 bg-linear-to-r from-[#D4AF37] via-border to-transparent"></div>
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
 
         <div className="w-full bg-footer rounded-t-2xl">
           <div className="w-full flex flex-col sm:flex-row justify-between items-center sm:items-start gap-10 px-6 sm:px-16 py-10">
@@ -325,27 +407,43 @@ export default function Home() {
                   Kutrol
                 </span>
               </div>
+<<<<<<< HEAD
               <p className="text-xs text-subtext light:text-icon leading-relaxed">
+=======
+              <p className="text-xs text-subtext leading-relaxed">
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 Gestión inteligente de flota y combustible para tu empresa.
               </p>
               <div className="flex gap-3 mt-1">
                 <a
                   href="#"
+<<<<<<< HEAD
                   className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-gold light:text-accent transition-opacity hover:opacity-80"
+=======
+                  className="w-8 h-8 rounded-full bg-border flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                   aria-label="Facebook"
                 >
                   <FacebookIcon sx={{ fontSize: 16 }} />
                 </a>
                 <a
                   href="#"
+<<<<<<< HEAD
                   className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-gold light:text-accent transition-opacity hover:opacity-80"
+=======
+                  className="w-8 h-8 rounded-full bg-border flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                   aria-label="Instagram"
                 >
                   <InstagramIcon sx={{ fontSize: 16 }} />
                 </a>
                 <a
                   href="#"
+<<<<<<< HEAD
                   className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-gold light:text-accent transition-opacity hover:opacity-80"
+=======
+                  className="w-8 h-8 rounded-full bg-border flex items-center justify-center text-[#D4AF37] hover:bg-[#3d4f45] transition-colors"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                   aria-label="LinkedIn"
                 >
                   <LinkedInIcon sx={{ fontSize: 16 }} />
@@ -359,19 +457,32 @@ export default function Home() {
                 Navegación
               </span>
               <Link
+<<<<<<< HEAD
                 className="text-xs text-subtext light:text-icon hover:text-text"
                 href={"#Que-hace-kutrol"}
+=======
+                className="text-xs text-subtext hover:text-text"
+                href={"#Que-Hace-kutrol"}
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
               >
                 ¿Qué hace?
               </Link>
               <Link
+<<<<<<< HEAD
                 className="text-xs text-subtext light:text-icon hover:text-text"
+=======
+                className="text-xs text-subtext hover:text-text"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 href={"#Pasos"}
               >
                 Pasos
               </Link>
               <Link
+<<<<<<< HEAD
                 className="text-xs text-subtext light:text-icon hover:text-text"
+=======
+                className="text-xs text-subtext hover:text-text"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 href={"#Registrate"}
               >
                 Regístrate
@@ -380,6 +491,7 @@ export default function Home() {
 
             {/* Contacto */}
             <div className="flex flex-col gap-2 items-center sm:items-start">
+<<<<<<< HEAD
               <span className="text-sm font-semibold text-text">Contacto</span>
               <span className="text-xs text-subtext light:text-icon flex items-center gap-1">
                 <MailOutlineIcon className="text-icon" sx={{ fontSize: 14 }} />
@@ -390,11 +502,26 @@ export default function Home() {
                   className="text-icon"
                   sx={{ fontSize: 14 }}
                 />
+=======
+              <span className="text-sm font-semibold text-text">
+                Contacto
+              </span>
+              <span className="text-xs text-subtext flex items-center gap-1">
+                <MailOutlineIcon sx={{fontSize: 14}} />
+                contacto@kutrol.cl
+              </span>
+              <span className="text-xs text-subtext flex items-center gap-1">
+                <LocationOnOutlinedIcon sx={{fontSize: 14}} />
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 Castro, Chile
               </span>
               <Link
                 href="/acerca_de"
+<<<<<<< HEAD
                 className="text-xs text-gold light:text-text light:decoration-accent hover:text-text mt-1 underline underline-offset-2"
+=======
+                className="text-xs text-[#D4AF37] hover:text-text mt-1 underline underline-offset-2"
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
               >
                 Quiénes somos
               </Link>
@@ -405,7 +532,12 @@ export default function Home() {
         {/*sub Footer   */}
         <div className="w-full bg-border h-1"></div>
         <p className="text-xs sm:text-sm text-subtext px-5 text-center sm:text-left pt-2">
+<<<<<<< HEAD
           Proyecto de Ingenieria Civil en Informatica | Ulagos 2026
+=======
+          {" "}
+          Proyecto de Ingenieria Civil en Informatica | Ulagos 2026{" "}
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
         </p>
       </footer>
     </div>

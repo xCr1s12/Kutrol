@@ -46,6 +46,7 @@ export async function findByIdEmpresa(id_empresa, db = pool) {
         [id_empresa],
     );
     return rows[0] || null;
+<<<<<<< HEAD
 }
 
 export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
@@ -69,4 +70,6 @@ export async function create({ id_comuna,nombre, rut, direccion, descripcion, ur
     );
     return rows[0];
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+>>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
 }
