@@ -27,3 +27,4 @@ export async function findexist(email, db = pool) {
   const result = await db.query("SELECT 1 FROM encargado_empresa WHERE email = $1", [email]);
   return result.length > 0;
 } 
+ 

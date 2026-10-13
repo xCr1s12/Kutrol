@@ -1,4 +1,29 @@
-import pool from "@/lib/db";
+import pool, { query } from "@/lib/db";
+
+export async function CreateVehiculo(data, db = pool) {
+  const { rows } = await db.query(
+    `
+      INSERT INTO kutrol.camion
+      (id_flota, patente, codigo_dispositivo, marca, modelo, ano,
+      capacidad_carga_kg, capacidad_estanque_l, tipo_combustible, estado)
+      VALUES
+          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      RETURNING *;    
+    `,
+    [
+      data.id_flota,
+      data.patente,
+      data.codigo_dispositivo,
+      data.marca,
+      data.modelo,
+      data.ano,
+      data.capacidad_carga_kg,
+      data.capacidad_estanque_l,
+      data.tipo_combustible,
+      data.estado,
+    ],
+  ); return rows[0]
+}
 
 export async function findVehiculosByEmpresa(id_empresa, db = pool) {
   const { rows } = await db.query(
