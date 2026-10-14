@@ -1,6 +1,9 @@
 import {
   ArrowBackRounded, PhotoCameraRounded, BusinessRounded, EmailRounded, PhoneRounded, LocationOnRounded,
+<<<<<<< HEAD
   MapRounded, LocationCityRounded,
+=======
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
 } from "@mui/icons-material";
 import { regiones } from "./regiones";
 import { tarjeta, campo, bordeError, botonAmarillo, botonIcono, elegirImagen } from "./comun";
@@ -10,7 +13,11 @@ import { formatearRut } from "./validarEmpresa";
 
 const limiteDescripcion = 300;
 
+<<<<<<< HEAD
 export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver }) {
+=======
+export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, onVolver }) {
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
   const comunas = regiones.find((r) => r.nombre === empresa.region)?.comunas ?? [];
 
   function poner(dato, valor) {
@@ -26,9 +33,15 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
     <section className={tarjeta} aria-label="Perfil de la empresa">
       <div className="flex items-center gap-3 mb-4">
         <button className={botonIcono} aria-label="Volver al perfil" onClick={onVolver}>
+<<<<<<< HEAD
           <ArrowBackRounded className="text-icon" sx={{ fontSize: 20 }} aria-hidden="true" />
         </button>
         <h2 className="text-text font-bold text-lg">Editar empresa</h2>
+=======
+          <ArrowBackRounded htmlColor="#4A4A4A" sx={{ fontSize: 16 }} aria-hidden="true" />
+        </button>
+        <h2 className="text-[#1A1A1A] font-bold text-lg">{nueva ? "Registrar empresa" : "Editar empresa"}</h2>
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
       </div>
 
       <div className="flex items-center gap-4 mb-6">
@@ -44,7 +57,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
               hidden
             />
           </label>
+<<<<<<< HEAD
           <p className="text-xs text-subtext">Recomendado: PNG o JPG transparente de 500x500px</p>
+=======
+          <p className="text-xs text-[#4A4A4A]">Recomendado: PNG o JPG transparente de 500x500px</p>
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
         </div>
       </div>
 
@@ -79,7 +96,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
 
         <Campo titulo="Teléfono" icono={<PhoneRounded {...icono} />} error={errores.telefono}>
           <div className="flex">
+<<<<<<< HEAD
             <span className="text-xs font-normal text-subtext bg-background border border-r-0 border-border rounded-l-md px-3 py-2">
+=======
+            <span className="text-xs font-normal text-[#4A4A4A] bg-[#F4F5F7] border border-r-0 border-[#E2E8F0] rounded-l-md px-3 py-2">
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
               +56
             </span>
             <input
@@ -94,7 +115,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
           </div>
         </Campo>
 
+<<<<<<< HEAD
         <Campo titulo="Región" icono={<MapRounded {...icono} />}>
+=======
+        <Campo titulo="Región">
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
           <Lista
             opciones={regiones.map((r) => r.nombre)}
             vacio="Selecciona una región"
@@ -103,7 +128,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
           />
         </Campo>
 
+<<<<<<< HEAD
         <Campo titulo="Comuna" icono={<LocationCityRounded {...icono} />} error={errores.comuna}>
+=======
+        <Campo titulo="Comuna" error={errores.comuna}>
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
           <Lista
             opciones={comunas}
             vacio={empresa.region ? "Selecciona una comuna" : "Primero elige una región"}
@@ -134,11 +163,19 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
             value={empresa.descripcion}
             onChange={(e) => poner("descripcion", e.target.value)}
           />
+<<<<<<< HEAD
           <span className="self-end font-normal text-subtext">
+=======
+          <span className="self-end font-normal text-[#4A4A4A]">
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
             {empresa.descripcion.length}/{limiteDescripcion}
           </span>
         </Campo>
       </div>
     </section>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")

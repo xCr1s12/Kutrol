@@ -1,5 +1,9 @@
 import { DeleteRounded } from "@mui/icons-material";
+<<<<<<< HEAD
 import { tarjeta, titulo, botonIcono, valores } from "./comun";
+=======
+import { tarjeta, botonIcono, valores } from "./comun";
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
 import { Interruptor, Lista, MenuEstado, AgregarAlerta } from "./Controles";
 
 // alertas que se pueden agregar desde el menu, las dos ultimas son de ejemplo
@@ -30,21 +34,38 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
   return (
     <section className={tarjeta} aria-label="Alertas y notificaciones">
       <div className="flex flex-wrap justify-between items-center gap-3 mb-2">
+<<<<<<< HEAD
         <h2 className={titulo}>Alertas y notificaciones</h2>
         <AgregarAlerta disponibles={disponibles} onAgregar={agregarAlerta} />
       </div>
       {alertas.length === 0 && (
         <p className="py-6 text-center text-xs text-subtext">No hay alertas configuradas</p>
+=======
+        <h2 className="text-[#1A1A1A] font-bold text-lg">Alertas y notificaciones</h2>
+        <AgregarAlerta disponibles={disponibles} onAgregar={agregarAlerta} />
+      </div>
+      {alertas.length === 0 && (
+        <p className="py-6 text-center text-xs text-[#4A4A4A]">No hay alertas configuradas</p>
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
       )}
       {alertas.map((a) => (
         <div
           key={a.id}
+<<<<<<< HEAD
           className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-border last:border-b-0"
         >
           <p className="text-sm font-semibold text-text">{a.nombre}</p>
 
           <div className="flex items-center gap-2">
             <span className="text-xs text-subtext">Umbral</span>
+=======
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
+        >
+          <p className="text-sm font-semibold text-[#1A1A1A]">{a.nombre}</p>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-[#4A4A4A]">Umbral</span>
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
             <Lista
               opciones={valores}
               aria-label={`Umbral de la alerta ${a.nombre}`}
@@ -62,7 +83,11 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
           </div>
 
           <div className="flex items-center gap-2">
+<<<<<<< HEAD
             <span className="text-xs text-subtext">Estado</span>
+=======
+            <span className="text-xs text-[#4A4A4A]">Estado</span>
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
             <MenuEstado
               valor={a.estado}
               disabled={!a.activa}
@@ -87,10 +112,18 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
             aria-label={`Eliminar la alerta ${a.nombre}`}
             onClick={() => eliminarAlerta(a.id)}
           >
+<<<<<<< HEAD
             <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
+=======
+            <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
           </button>
         </div>
       ))}
     </section>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
