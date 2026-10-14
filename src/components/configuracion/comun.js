@@ -5,7 +5,10 @@ export const campo =
 export const botonAmarillo =
   "inline-flex items-center justify-center gap-1 bg-accent text-[#1A1A1A] text-sm font-semibold rounded-lg px-4 py-2 hover:bg-accent-dark";
 export const bordeError = "outline outline-1 outline-red-500";
-export const botonIcono = "w-7 h-7 rounded-full bg-[#F4F5F7] hover:bg-[#E9EAED]";
+export const botonIcono = "w-9 h-9 shrink-0 rounded-full bg-[#F4F5F7] hover:bg-[#E9EAED]";
+// titulo de cada tarjeta con una rayita amarilla al lado, como en la pagina de inicio
+export const titulo =
+  "flex items-center gap-2 text-[#1A1A1A] font-bold text-lg before:content-[''] before:w-1 before:h-5 before:rounded-full before:bg-accent";
 
 // valores de los umbrales y del rendimiento
 export const valores = [10, 20, 30, 40, 50, 60];
