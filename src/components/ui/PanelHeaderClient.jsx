@@ -47,6 +47,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 export default function PanelHeaderClient({ Encargado, Empresa }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [imagenRota, setImagenRota] = useState(false);
   const dropdownRef = useRef(null);
 
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
@@ -103,9 +104,10 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
           className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-[#EAE5DA]/50 transition-colors cursor-pointer focus:outline-none"
         >
           <img
-            src={Empresa.url_imagen}
-            alt="Avatar de usuario"
+            src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}
+            alt="Logo de la empresa"
             className="w-8 h-8 rounded-full object-cover"
+            onError={() => setImagenRota(true)}
           />
 
           <span className="hidden sm:inline-block text-sm font-medium text-[#1A1A1A]">
