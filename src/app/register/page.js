@@ -7,6 +7,7 @@ import Card from "@/components/ui/Card";
 import FormEncargado from "@/components/register/formEncargado"; // Con mayúscula
 import FormEmpresa from "@/components/register/formEmpresa";
 import { registrarEmpresaYEncargado } from "@/services/client/auth.service";
+import Logo from "@/components/ui/Logo";
 
 export default function Register() {
   const router = useRouter();
@@ -78,9 +79,11 @@ export default function Register() {
     <div className="min-h-screen bg-brand flex flex-col">
       {/* Navbar */}
       <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
-        <span className="text-lg font-bold text-text tracking-tight">
-          Registro
-        </span>
+        <div className="flex items-center gap-4">
+          <Logo />
+          <span className="h-6 w-px bg-border" aria-hidden="true" />
+          <span className="text-lg font-bold text-text tracking-tight">Registro</span>
+        </div>
         <Link
           href="/login"
           className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
