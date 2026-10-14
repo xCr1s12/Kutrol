@@ -24,9 +24,17 @@ const configInicial = {
     { id: "consumo", nombre: "Consumo excesivo", estado: "Moderado", activa: true, valor: 40, unidad: "Km/L", correo: true },
     { id: "robo", nombre: "Robo", estado: "Crítico", activa: true, valor: 40, unidad: "L", correo: true },
   ],
+  // empresa de ejemplo, se reemplaza por la que llega de la base de datos
   empresa: {
-    logo: null, nombre: "", rut: "", correo: "", telefono: "",
-    region: "", comuna: "", direccion: "", descripcion: "",
+    logo: null,
+    nombre: "Transportes Chiloé SpA",
+    rut: "76.123.456-0",
+    correo: "contacto@transporteschiloe.cl",
+    telefono: "912345678",
+    region: "Los Lagos",
+    comuna: "Castro",
+    direccion: "Calle 123, oficina 4",
+    descripcion: "Empresa de transporte de carga en la isla de Chiloé.",
   },
 };
 
@@ -897,7 +905,8 @@ export default function Configuracion() {
                 : "border-transparent text-[#4A4A4A] hover:text-[#1A1A1A]"
             }`}
           >
-            <Icono fontSize="small" aria-hidden="true" />
+            {/* la pestana abierta lleva el icono dorado */}
+            <Icono fontSize="small" className={pestana === id ? "text-accent-dark" : ""} aria-hidden="true" />
             {nombre}
           </button>
         ))}
@@ -914,7 +923,6 @@ export default function Configuracion() {
           empresa={config.empresa}
           errores={errores}
           cambiar={cambiar}
-          nueva={!guardado.empresa.nombre}
           onVolver={cerrarFormulario}
         />
       ) : (
