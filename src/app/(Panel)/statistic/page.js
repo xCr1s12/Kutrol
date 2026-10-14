@@ -10,96 +10,13 @@ import LocalGasStationRoundedIcon from "@mui/icons-material/LocalGasStationRound
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import MetricasDashboard from "@/components/dashboard/MetricasDashboard";
+
+
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  // Obtener datos desde la API Route de consumo
-  useEffect(() => {
-    async function fetchDashboardData() {
-      try {
-        // Hacemos la consulta a ambos endpoints en paralelo
-        const [resEstadisticas, resConsumo] = await Promise.all([
-          fetch("/api/estadisticas"),
-          fetch("/api/consumo")
-        ]);
-
-        const jsonEstadisticas = await resEstadisticas.json();
-        const jsonConsumo = await resConsumo.json();
-
-        // Combinamos la información de ambas APIs
-        const dataCombinada = {
-          ...(jsonEstadisticas.data || jsonEstadisticas),
-          graficoConsumo: jsonConsumo
-        };
-
-        setData(dataCombinada);
-      } catch (err) {
-        console.error("Error al cargar dashboard:", err);
-        setError("Error de conexión con las APIs");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchDashboardData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex w-full h-screen justify-center items-center bg-[#F4F5F7]">
-        <p className="text-[#4A4A4A] font-semibold animate-pulse">
-          Cargando datos del sistema Kutrol...
-        </p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex w-full h-screen justify-center items-center bg-[#F4F5F7]">
-        <p className="text-red-600 font-semibold">Error: {error}</p>
-      </div>
-    );
-  }
-
-  // Formateador para moneda CLP
-  const formatCLP = (monto) =>
-    new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(monto);
-
-  // Preparar datos dinámicos de las Tarjetas KPI
-  const CardsData = [
-    {
-      Title: "Vehículos Operativos",
-      text: `Activos: ${data?.vehiculos?.en_ruta || 0}/${data?.vehiculos?.total || 0}`,
-      SubText: `Mantenimiento: ${data?.vehiculos?.mantencion || 0} | Disponibles: ${data?.vehiculos?.disponibles || 0}`,
-      icon: <LocalShippingRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
-      ariaLabel: "Tarjeta de flota de vehículos",
-    },
-    {
-      Title: "Gasto Total Vehicular",
-      text: formatCLP(data?.combustible?.gasto_total || 0),
-      SubText: "Costos de combustible acumulados",
-      icon: <MonetizationOnRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
-      ariaLabel: "Tarjeta de gasto total",
-    },
-    {
-      Title: "Combustible Utilizado",
-      text: `${Number(data?.combustible?.litros_totales || 0).toLocaleString("es-CL")} L`,
-      SubText: "Volumen total cargado",
-      icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
-      ariaLabel: "Tarjeta de combustible utilizado",
-    },
-    {
-      Title: "KPI Rendimiento",
-      text: `${data?.rendimiento || 0} Km/L`,
-      SubText: "Promedio global de la flota",
-      icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
-      ariaLabel: "Tarjeta de rendimiento promedio en kilómetros por litro",
-    },
-  ];
 
   return (
     <div className="flex flex-col w-full bg-[#F4F5F7] p-6 min-h-screen">
@@ -129,16 +46,7 @@ export default function Dashboard() {
 
       {/* Contenedor Tarjetas KPI */}
       <section aria-label="Métricas principales" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-4">
-        {CardsData.map((card, index) => (
-          <StatisticCard
-            key={index}
-            Title={card.Title}
-            text={card.text}
-            SubText={card.SubText}
-            icon={card.icon}
-            aria={card.ariaLabel}
-          />
-        ))}
+      <MetricasDashboard/>      
       </section>
 
       {/* Estadística y Ranking */}
