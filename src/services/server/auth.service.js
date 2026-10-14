@@ -11,6 +11,9 @@ import * as comunicacionRepository from "@/repositories/communicacion.repository
 import { validateCompanyRut } from "@/lib/validateCompanyRut";
 import { toConflictError, ValidationError } from "@/utils/errors";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 import { UnauthorizedError } from "@/utils/errors";
 
 const SALT_ROUNDS = 10;
@@ -402,6 +405,7 @@ export async function login(user, password) {
     id_nivel_jerarquico: encargado.id_nivel_jerarquico,
     usuario: encargado.usuario,
   };
+<<<<<<< HEAD
 }
 
 import { deleteSession } from "@/lib/tokenSession";
@@ -444,3 +448,6 @@ export async function logoutService() {
 =======
 }
 >>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
+=======
+}
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)

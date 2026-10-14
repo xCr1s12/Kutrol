@@ -15,6 +15,7 @@ const EmpresaSchema = z.object({
         ctx.addIssue({ code: z.ZodIssueCode.custom, message: errorMsg });
       }
     }),
+<<<<<<< HEAD
   direccion: z.string().trim().min(5, "La dirección es obligatoria"),
   descripcion: z.string().trim().optional(),
   url_imagen: z
@@ -49,13 +50,25 @@ const EmpresaSchema = z.object({
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 =======
   telefonos: z.array(telefonoSchema).min(1, "Ingresa al menos un teléfono").max(5),
+=======
+  direccion: z.string().trim().min(5, "La dirección es obligatoria"),
+  descripcion: z.string().trim().optional(),
+  url_imagen: z
+    .string()
+    .url("Debe ser una URL válida")
+    .optional()
+    .or(z.literal("")),
+  telefonos: z
+    .array(telefonoSchema)
+    .min(1, "Ingresa al menos un teléfono")
+    .max(5),
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
   emails: z.array(emailSchema).min(1, "Ingresa al menos un email").max(5),
 >>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
   id_comuna: z.coerce
     .number({ invalid_type_error: "Selecciona una comuna" })
     .int()
     .positive("Selecciona una comuna"),
-
 });
 
 const EncargadoSchema = z.object({
@@ -72,9 +85,12 @@ const EncargadoSchema = z.object({
   cargo: z.string().trim().min(2, "El cargo es obligatorio"),
   password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres"),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 });
 
 export const registerEmpresaAndEncargadoSchema = z.object({
@@ -90,6 +106,9 @@ export const flotaIdSchema = z.coerce
   .number({ invalid_type_error: "flota_id debe ser un número" })
   .int()
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
   .positive("flota_id debe ser un entero positivo");
 
 export const loginSchema = z.object({
@@ -104,9 +123,12 @@ export const loginSchema = z.object({
     .min(1, "La contraseña es obligatoria")
     .max(72, "Contraseña demasiado larga"),
 });
+<<<<<<< HEAD
 =======
 });
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 =======
   .positive("flota_id debe ser un entero positivo");
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)

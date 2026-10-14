@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import "server-only";
 
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 import {
   VehiculosDataQuery,
   GastoTotalDinero,

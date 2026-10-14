@@ -118,10 +118,14 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
 
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
       const response = await fetch("/api/data/vehiculos", {
 =======
       const response = await fetch("/api/vehiculos", {
 >>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
+=======
+      const response = await fetch("/api/data/vehiculos", {
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datos),

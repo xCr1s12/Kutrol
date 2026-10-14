@@ -13,6 +13,7 @@ import { flotaIdSchema } from "@/schema/auth.schema";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export async function getVehiculosByFlota(request) {
   try {
 
@@ -71,8 +72,11 @@ export async function createVehiculo(request) {
 =======
 
 >>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 export async function getVehiculosByEmpresa(request) {
   try {
+
     //Leer y validar el id de empresa
     const flotaId = flotaIdSchema.parse(
       new URL(request.url).searchParams.get("flota_id"),
@@ -95,8 +99,14 @@ export async function createVehiculo(request) {
     const body = await request.json();
 
     const camposObligatorios = [
-      "id_flota", "patente", "codigo_dispositivo", "marca",
-      "modelo", "ano", "capacidad_carga_kg", "capacidad_estanque_l",
+      "id_flota",
+      "patente",
+      "codigo_dispositivo",
+      "marca",
+      "modelo",
+      "ano",
+      "capacidad_carga_kg",
+      "capacidad_estanque_l",
     ];
 
     for (const campo of camposObligatorios) {
@@ -122,4 +132,7 @@ export async function createVehiculo(request) {
     return NextResponse.json(body, { status });
   }
 }
+<<<<<<< HEAD
 >>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)

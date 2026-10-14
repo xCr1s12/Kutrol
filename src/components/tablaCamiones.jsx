@@ -69,10 +69,14 @@ export default function TablaCamiones({
 
         const res = await fetch(
 <<<<<<< HEAD
+<<<<<<< HEAD
           `/api/data/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
 =======
           `/api/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+          `/api/data/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
           { signal: controller.signal },
         );
         const json = await res.json();

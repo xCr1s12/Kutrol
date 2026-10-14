@@ -71,6 +71,9 @@ export async function findexist(email, db = pool) {
 } 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
  
 
 // Funcion para buscar a los encargados por usuario
@@ -78,6 +81,7 @@ export async function findByUsuario(usuario, db = pool) {
   const result = await db.query("SELECT * FROM encargado_empresa WHERE usuario = $1", [usuario]);
   return result.rows[0];
 } 
+<<<<<<< HEAD
 =======
 }
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
@@ -86,3 +90,5 @@ export async function findByUsuario(usuario, db = pool) {
 =======
  
 >>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)

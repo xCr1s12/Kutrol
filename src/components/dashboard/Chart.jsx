@@ -112,6 +112,7 @@ export default function ConsumoChart() {
   };
 
   return (
+<<<<<<< HEAD
     <figure className="light:bg-card dark:bg-card m-0 flex w-full flex-col rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
       <figcaption>
         <h3 className="text-text mb-4 text-lg font-bold light:text-text dark:text-text">
@@ -119,6 +120,15 @@ export default function ConsumoChart() {
         </h3>
       </figcaption>
 
+=======
+    <figure className="m-0 w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col">
+      <figcaption>
+        <h3 className="text-[#1A1A1A] font-bold text-lg mb-4">
+          Consumo Ultimos 30 Dias
+        </h3>
+      </figcaption>
+      
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
       <div className="w-full h-[280px] relative">
         <Line options={options} data={data} />
       </div>

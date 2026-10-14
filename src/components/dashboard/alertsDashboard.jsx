@@ -21,10 +21,17 @@ const AlertsData = [
 export default function AlertsSection() {
   return (
     <section
+<<<<<<< HEAD
       className="light:bg-card dark:bg-card w-full rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4"
       aria-labelledby="alerts-title"
     >
       <h2 id="alerts-title" className="text-text font-bold text-lg mb-2 light:text-text dark:text-text">
+=======
+      className="w-full mt-10 bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4"
+      aria-labelledby="alerts-title"
+    >
+      <h2 id="alerts-title" className="text-[#1A1A1A] font-bold text-lg mb-2">
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
         Alertas
       </h2>
 

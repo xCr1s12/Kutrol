@@ -17,6 +17,9 @@ export async function registrarEmpresaYEncargado(registration) {
   return result.data;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 
 export async function iniciarSesion(usuario, password) {
   const response = await fetch("/api/auth/login", {
@@ -34,6 +37,7 @@ export async function iniciarSesion(usuario, password) {
 
   return result.data;
 }
+<<<<<<< HEAD
 
 
 export async function logout() {
@@ -43,3 +47,5 @@ export async function logout() {
 }
 =======
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)

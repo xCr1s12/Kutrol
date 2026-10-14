@@ -7,12 +7,15 @@ import Card from "@/components/ui/Card";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import GoogleIcon from "@/components/ui/GoogleIcon";
+<<<<<<< HEAD
 import Logo from "@/components/ui/Logo";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+=======
+>>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 import { iniciarSesion } from "@/services/client/auth.service";
 
 export default function Login() {
