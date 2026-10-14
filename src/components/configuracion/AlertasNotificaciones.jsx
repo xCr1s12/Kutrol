@@ -1,5 +1,5 @@
 import { DeleteRounded } from "@mui/icons-material";
-import { tarjeta, botonIcono, valores } from "./comun";
+import { tarjeta, titulo, botonIcono, valores } from "./comun";
 import { Interruptor, Lista, MenuEstado, AgregarAlerta } from "./Controles";
 
 // alertas que se pueden agregar desde el menu, las dos ultimas son de ejemplo
@@ -30,7 +30,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
   return (
     <section className={tarjeta} aria-label="Alertas y notificaciones">
       <div className="flex flex-wrap justify-between items-center gap-3 mb-2">
-        <h2 className="text-[#1A1A1A] font-bold text-lg">Alertas y notificaciones</h2>
+        <h2 className={titulo}>Alertas y notificaciones</h2>
         <AgregarAlerta disponibles={disponibles} onAgregar={agregarAlerta} />
       </div>
       {alertas.length === 0 && (
@@ -87,7 +87,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
             aria-label={`Eliminar la alerta ${a.nombre}`}
             onClick={() => eliminarAlerta(a.id)}
           >
-            <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
+            <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
           </button>
         </div>
       ))}

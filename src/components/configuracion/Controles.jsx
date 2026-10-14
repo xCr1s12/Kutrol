@@ -7,7 +7,7 @@ const estados = ["Leve", "Moderado", "Crítico"];
 export function Interruptor({ activo, onChange, etiqueta, disabled }) {
   return (
     <label
-      className={`flex items-center gap-2 text-xs text-[#1A1A1A] ${disabled ? "opacity-50" : "cursor-pointer"}`}
+      className={`relative flex items-center gap-2 text-xs text-[#1A1A1A] ${disabled ? "opacity-50" : "cursor-pointer"}`}
     >
       <input
         type="checkbox"

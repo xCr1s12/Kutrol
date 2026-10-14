@@ -1,5 +1,6 @@
 import {
   ArrowBackRounded, PhotoCameraRounded, BusinessRounded, EmailRounded, PhoneRounded, LocationOnRounded,
+  MapRounded, LocationCityRounded,
 } from "@mui/icons-material";
 import { regiones } from "./regiones";
 import { tarjeta, campo, bordeError, botonAmarillo, botonIcono, elegirImagen } from "./comun";
@@ -9,7 +10,7 @@ import { formatearRut } from "./validarEmpresa";
 
 const limiteDescripcion = 300;
 
-export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, onVolver }) {
+export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver }) {
   const comunas = regiones.find((r) => r.nombre === empresa.region)?.comunas ?? [];
 
   function poner(dato, valor) {
@@ -25,9 +26,9 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
     <section className={tarjeta} aria-label="Perfil de la empresa">
       <div className="flex items-center gap-3 mb-4">
         <button className={botonIcono} aria-label="Volver al perfil" onClick={onVolver}>
-          <ArrowBackRounded htmlColor="#4A4A4A" sx={{ fontSize: 16 }} aria-hidden="true" />
+          <ArrowBackRounded htmlColor="#4A4A4A" sx={{ fontSize: 20 }} aria-hidden="true" />
         </button>
-        <h2 className="text-[#1A1A1A] font-bold text-lg">{nueva ? "Registrar empresa" : "Editar empresa"}</h2>
+        <h2 className="text-[#1A1A1A] font-bold text-lg">Editar empresa</h2>
       </div>
 
       <div className="flex items-center gap-4 mb-6">
@@ -93,7 +94,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
           </div>
         </Campo>
 
-        <Campo titulo="Región">
+        <Campo titulo="Región" icono={<MapRounded {...icono} />}>
           <Lista
             opciones={regiones.map((r) => r.nombre)}
             vacio="Selecciona una región"
@@ -102,7 +103,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
           />
         </Campo>
 
-        <Campo titulo="Comuna" error={errores.comuna}>
+        <Campo titulo="Comuna" icono={<LocationCityRounded {...icono} />} error={errores.comuna}>
           <Lista
             opciones={comunas}
             vacio={empresa.region ? "Selecciona una comuna" : "Primero elige una región"}

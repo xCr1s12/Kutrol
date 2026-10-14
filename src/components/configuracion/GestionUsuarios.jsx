@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AddRounded, EditRounded, DeleteRounded, SearchRounded } from "@mui/icons-material";
-import { tarjeta, botonAmarillo, botonIcono } from "./comun";
+import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
 import ModalUsuario from "./ModalUsuario";
 
 const coloresRol = {
@@ -38,7 +38,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
   return (
     <section className={tarjeta} aria-label="Gestión de usuarios">
       <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
-        <h2 className="text-[#1A1A1A] font-bold text-lg">Gestión de usuarios</h2>
+        <h2 className={titulo}>Gestión de usuarios</h2>
         <button className={botonAmarillo} onClick={() => setModal("nuevo")}>
           <AddRounded fontSize="small" aria-hidden="true" />
           Agregar usuario
@@ -76,7 +76,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                       <img src={u.foto} alt="" className="w-7 h-7 rounded-full object-cover" />
                     ) : (
                       <span
-                        className="w-7 h-7 rounded-full bg-[#4A4A4A] flex items-center justify-center text-[10px] font-bold text-[#FDFBF7]"
+                        className="w-7 h-7 rounded-full bg-brand ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}
@@ -92,14 +92,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                 <td className="px-4 py-2">
                   <div className="flex justify-end gap-2">
                     <button className={botonIcono} aria-label={`Editar a ${u.nombre}`} onClick={() => setModal(u)}>
-                      <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 14 }} aria-hidden="true" />
+                      <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 18 }} aria-hidden="true" />
                     </button>
                     <button
                       className={botonIcono}
                       aria-label={`Eliminar a ${u.nombre}`}
                       onClick={() => eliminarUsuario(u.id)}
                     >
-                      <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
+                      <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
                     </button>
                   </div>
                 </td>
