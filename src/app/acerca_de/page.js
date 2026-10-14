@@ -8,10 +8,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 const Integrantes = [
-  { Nombre: "Cristobal Oñate", Rol: "Frontend", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529005/Avatar-1.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el lol :v", ig: "https://www.instagram.com/cristobaal1_/", lk: "https://www.linkedin.com/in/cristobal-o%C3%B1ate-1b7679431/", git: "https://github.com/xCr1s12" },
-  { Nombre: "Valentina Calderon", Rol: "UX", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529116/Avatar-3.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
-  { Nombre: "Carla Vargas", Rol: "QA", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529052/Avatar-2.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
-  { Nombre: "Claudio Uribe", Rol: "UI", Imagen: "https://res.cloudinary.com/hzpulemv/image/upload/v1789522215/Emo.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica, amo el Core Keeper", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/LizzIna" },
+  { Nombre: "Cristobal Oñate", Rol: "Frontend", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529005/Avatar-1.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica", ig: "https://www.instagram.com/cristobaal1_/", lk: "https://www.linkedin.com/in/cristobal-o%C3%B1ate-1b7679431/", git: "https://github.com/xCr1s12" },
+  { Nombre: "Valentina Calderon", Rol: "UX", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529116/Avatar-3.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica.", ig: "https://www.instagram.com/valentina_calderon.cl", lk: "https://www.linkedin.com/in/valentina-antonia-calder%C3%B3n-torres-a19a41249/", git: "https://github.com/Ina7dev" },
+  { Nombre: "Carla Vargas", Rol: "QA", Imagen: "https://res.cloudinary.com/l8olp2ix/image/upload/v1789529052/Avatar-2.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica,", ig: "", lk: "", git: "https://github.com/carlabelen-cl" },
+  { Nombre: "Claudio Uribe", Rol: "UI", Imagen: "https://res.cloudinary.com/hzpulemv/image/upload/v1789522215/Emo.jpg", Descripcion: "Estudiante de Ingenieria Civil en Informatica.", ig: "", lk: "", git: "https://github.com/PeepoClown04" },
 ];
 
 export default function Acerca_de() {
@@ -48,7 +48,9 @@ export default function Acerca_de() {
       <HomeHeader />
 
       <section className="w-full h-full flex flex-col items-center justify-center py-24">
-        <div className="relative w-full flex flex-row items-center justify-center gap-6 sm:gap-10 mt-10 min-h-[450px]">
+        
+        <span className="text-7xl text-text font-bold mb-5"> Equipo Kutrolin</span>
+        <div className="relative w-full flex flex-row items-center mt-16 justify-center gap-6 sm:gap-10 mt-10 min-h-[450px]">
 
           <button
             onClick={handlePrev}
@@ -103,6 +105,7 @@ export default function Acerca_de() {
           </AnimatePresence>
 
         </div>
+        <span className="text-subtext text-xl font-semibold font-pop"> Los Kutrolines</span>
       </section>
     </div>
   );
