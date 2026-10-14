@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Logo from "@/components/ui/Logo";
 
 export default function PanelHeaderClient({ Encargado, Empresa }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [imagenRota, setImagenRota] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -20,10 +22,8 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
   }, []);
 
   return (
-    <header className="w-full bg-text flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
-      <span className="text-xl sm:text-2xl font-bold text-[#1A1A1A] tracking-tighter">
-        Kutrol
-      </span>
+      <header className="w-full bg-text flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
+      <Logo fondo="claro" href="/dashboard" className="h-12" />
 
       <div className="relative" ref={dropdownRef}>
         <button
@@ -31,9 +31,10 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
           className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-[#EAE5DA]/50 transition-colors cursor-pointer focus:outline-none"
         >
           <img
-            src={Empresa.url_imagen}
-            alt="Avatar de usuario"
+            src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}
+            alt="Logo de la empresa"
             className="w-8 h-8 rounded-full object-cover"
+            onError={() => setImagenRota(true)}
           />
 
           <span className="hidden sm:inline-block text-sm font-medium text-[#1A1A1A]">

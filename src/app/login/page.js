@@ -7,6 +7,9 @@ import Card from "@/components/ui/Card";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import GoogleIcon from "@/components/ui/GoogleIcon";
+import Logo from "@/components/ui/Logo";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 import { iniciarSesion } from "@/services/client/auth.service";
 
 export default function Login() {
@@ -47,9 +50,7 @@ export default function Login() {
     <div className="min-h-screen bg-brand flex flex-col">
       {/* Navbar */}
       <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
-        <span className="text-lg font-bold text-text tracking-tight">
-          Inicio de sesión
-        </span>
+        <Logo />
         <Link
           href="/register"
           className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
