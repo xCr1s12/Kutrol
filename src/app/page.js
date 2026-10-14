@@ -15,17 +15,16 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import TreeSVG from "@/components/home/TreeSvg";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import Logo from "@/components/ui/Logo";
 
- 
 
-{
-  /*  Para fase de desarrollo 
-  Card Data: datos necesarios para el componente home card
-      titulo: titulo superior de la card 
-      descripcion : texto inferior
-      icon: svg, componente o texto que servira de icono en las esquinas de la card
+/*
+  Card Data: datos necesarios para el componente HomeCards
+    title: título superior de la card
+    description: texto inferior
+    icon: svg, componente o texto que servirá de icono en las esquinas de la card
 */
 const cardData = [
   {
@@ -58,7 +57,7 @@ const cardData = [
 const navLinks = [
   { label: "¿Qué hace?", href: "#Que-hace-kutrol" },
   { label: "Pasos", href: "#Pasos" },
-  { label: "Quienes Somos", href: "/acerca_de" },
+  { label: "Regístrate", href: "#Registrate" },
 ];
 
 /* Pasos para iniciar */
@@ -97,47 +96,80 @@ export default function Home() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <div
-      className={` w-full min-h-screen overflow-hidden `}
-      lang="es"
-    >
-      {/* encabezado de la pagina principal */}
-      <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
-        {/* Logo Kutrol y Nombre */}
-          <Logo />
+    <div className="min-h-screen w-full overflow-hidden" lang="es">
+      {/* ───────────── Encabezado ───────────── */}
+      <header className="relative w-full border-b-2 border-border bg-[#1B2B24]">
+        <div className="flex items-center justify-between px-4 py-3 md:px-8 md:py-4">
+          {/* Logo Kutrol (izquierda) */}
+          <Logo/>
 
-        {/* barra de navegacion */}
-        <nav className="items-center px-4 py-2">
-          <ul className="flex flex-row ustify-between gap-3 items-center   ">
-            <li>
-              {" "}
-              <Link
-                className="text-subtext hover:text-text"
-                href={"#Que-hace-kutrol"}
-              >
-                ¿Qué hace?{" "}
-              </Link>{" "}
-            </li>
-            <li>
-              {" "}
-              <Link
-                className="text-subtext hover:text-text"
-                href={"#Pasos"}
-              >
-                Pasos{" "}
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link
-                className="text-subtext hover:text-text"
-                href={"#Registrate"}
-              >
-                Registrate{" "}
-              </Link>
-            </li>
-          </ul>
-        </nav>
+          {/* Navegación desktop (oculta en móvil) */}
+          <nav className="hidden md:block" aria-label="Navegación principal">
+            <ul className="flex flex-row items-center justify-between gap-6">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    className="text-subtext hover:text-text"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Botones desktop (ocultos en móvil) */}
+          <div className="hidden items-center gap-4 md:flex">
+            <button
+              onClick={() => handleRedirect("/login")}
+              className={ghostButton}
+            >
+              Iniciar Sesión
+            </button>
+            <button
+              onClick={() => handleRedirect("/register")}
+              className={primaryButton}
+            >
+              Registrarse
+            </button>
+          </div>
+
+          {/* Botón hamburguesa (derecha, solo móvil) */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="rounded-md p-1 text-text transition-colors hover:bg-border md:hidden"
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={menuOpen}
+            aria-controls="menu-movil"
+          >
+            {menuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+
+        {/* Menú desplegable móvil */}
+        {menuOpen && (
+          <div
+            id="menu-movil"
+            className="absolute inset-x-0 top-full z-50 flex flex-col gap-4 border-b-2 border-border bg-[#1B2B24] px-4 py-4 shadow-xl md:hidden"
+          >
+            <nav aria-label="Navegación móvil">
+              {/* Lista en columna */}
+              <ul className="flex flex-col gap-1">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={closeMenu}
+                      className="block rounded-md px-2 py-2 text-subtext hover:bg-border hover:text-text"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
             <div className="flex flex-col gap-2 border-t-2 border-border pt-4">
               <button
@@ -319,9 +351,16 @@ export default function Home() {
           {/* Columna alineada a la izquierda en móvil, fila desde md */}
           <div className="flex w-full flex-col items-start gap-10 px-6 py-10 sm:px-16 md:flex-row md:justify-between">
             {/* Logo y descripción corta */}
-            <div className="flex flex-col gap-3 items-center sm:items-start text-center sm:text-left max-w-xs">
-                            <Logo className="h-14" />
-              <p className="text-xs text-subtext leading-relaxed">
+            <div className="flex max-w-xs flex-col items-start gap-3 text-left">
+              <div className="flex items-center gap-2">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-sm font-bold text-[#1A1A1A]">
+                  K
+                </span>
+                <span className="text-xl font-bold tracking-tighter text-text">
+                  Kutrol
+                </span>
+              </div>
+              <p className="text-xs leading-relaxed text-subtext">
                 Gestión inteligente de flota y combustible para tu empresa.
               </p>
               <div className="mt-1 flex gap-3">
