@@ -20,7 +20,12 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import TreeSVG from "@/components/home/TreeSvg";
+=======
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+>>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
 import Logo from "@/components/ui/Logo";
 <<<<<<< HEAD
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -31,10 +36,13 @@ import { darkModeContext } from "@/components/ui/DarkModeProvider";
 >>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
 
 
+<<<<<<< HEAD
 =======
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
+=======
+>>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
 /*
   Card Data: datos necesarios para el componente HomeCards
     title: título superior de la card
@@ -161,7 +169,7 @@ export default function Home() {
 const navLinks = [
   { label: "¿Qué hace?", href: "#Que-hace-kutrol" },
   { label: "Pasos", href: "#Pasos" },
-  { label: "Quienes Somos", href: "/acerca_de" },
+  { label: "Regístrate", href: "#Registrate" },
 ];
 
 /* Pasos para iniciar */
@@ -203,6 +211,7 @@ export default function Home() {
     <div className="min-h-screen w-full overflow-hidden" lang="es">
       {/* ───────────── Encabezado ───────────── */}
       <header className="relative w-full border-b-2 border-border bg-[#1B2B24]">
+<<<<<<< HEAD
         <div className="flex items-center justify-between px-4 py-3 md:grid md:grid-cols-[1fr_auto_1fr] md:px-8 md:py-4">
           {/* Logo Kutrol (izquierda) */}
           <Link
@@ -218,6 +227,14 @@ export default function Home() {
             aria-label="Navegación principal"
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
           >
+=======
+        <div className="flex items-center justify-between px-4 py-3 md:px-8 md:py-4">
+          {/* Logo Kutrol (izquierda) */}
+          <Logo/>
+
+          {/* Navegación desktop (oculta en móvil) */}
+          <nav className="hidden md:block" aria-label="Navegación principal">
+>>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
             <ul className="flex flex-row items-center justify-between gap-6">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -233,7 +250,11 @@ export default function Home() {
           </nav>
 
           {/* Botones desktop (ocultos en móvil) */}
+<<<<<<< HEAD
           <div className="hidden items-center gap-4 md:flex md:justify-self-end">
+=======
+          <div className="hidden items-center gap-4 md:flex">
+>>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
             <button
               onClick={() => handleRedirect("/login")}
               className={ghostButton}
@@ -656,6 +677,7 @@ export default function Home() {
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
             {/* Logo y descripción corta */}
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className="flex max-w-xs flex-col items-start gap-3 text-left">
               <div className="flex items-center gap-2">
 <<<<<<< HEAD
@@ -663,12 +685,18 @@ export default function Home() {
 =======
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-sm font-bold text-[#1A1A1A]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+            <div className="flex max-w-xs flex-col items-start gap-3 text-left">
+              <div className="flex items-center gap-2">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-sm font-bold text-[#1A1A1A]">
+>>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
                   K
                 </span>
                 <span className="text-xl font-bold tracking-tighter text-text">
                   Kutrol
                 </span>
               </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
               <p className="text-xs text-subtext light:text-icon leading-relaxed">
@@ -714,6 +742,8 @@ export default function Home() {
                   aria-label="LinkedIn"
                 >
 =======
+=======
+>>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
               <p className="text-xs leading-relaxed text-subtext">
                 Gestión inteligente de flota y combustible para tu empresa.
               </p>
