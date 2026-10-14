@@ -1,11 +1,79 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
-import FormField from "@/components/ui/FormField";
-import Button from "@/components/ui/Button";
+import FormEncargado from "@/components/register/formEncargado"; // Con mayúscula
+import FormEmpresa from "@/components/register/formEmpresa";
+import { registrarEmpresaYEncargado } from "@/services/client/auth.service";
 
 export default function Register() {
+  const router = useRouter();
+  const [formularioActivo, setFormularioActivo] = useState(true);
+  const [paso] = useState([
+    {numero :1 , titulo: "Datos del Encargado", subtext: "Registra tus datos como encargado Primero"},
+    {numero: 2, titulo: "Datos de la Empresa", subtext: "Registra los datos de la Empresa"}
+  ]);
+  const [errors, setErrors] = useState({});
+  const [index , setIndex] = useState(0);
+  const [encargado, setEncargado] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleEncargadoSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const errs = {};
+
+    const password = String(data.get("password") || "");
+    const repeatPassword = String(data.get("repeat-password") || "");
+    if (password.length < 8) {
+      errs.password = "Mínimo 8 caracteres";
+    }
+    if (password !== repeatPassword) {
+      errs.repeatPassword = "Las contraseñas no coinciden";
+    }
+
+    setErrors(errs);
+    if (Object.keys(errs).length) return;
+    setEncargado({
+      primer_nombre: String(data.get("firstName") || "").trim(),
+      apellidos: String(data.get("lastName") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      cargo: String(data.get("position") || "").trim(),
+      password,
+    });
+    setFormularioActivo(false);
+    setIndex(1);
+  };
+
+  const handleEmpresaSubmit = async (empresa) => {
+    setSubmitting(true);
+    setErrors({});
+
+    try {
+      await registrarEmpresaYEncargado({
+        Encargado: encargado,
+        Empresa: empresa,
+      });
+      router.push("/dashboard");
+    } catch (error) {
+      const details = error.details || {};
+      const detailMessages = Object.values(details).filter(
+        (message) => typeof message === "string",
+      );
+      setErrors({
+        password: details["encargado.password"],
+        rut: details["empresa.rut"],
+        form: detailMessages.length
+          ? `${error.message}: ${detailMessages.join(". ")}`
+          : error.message,
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-brand flex flex-col">
       {/* Navbar */}
@@ -18,119 +86,48 @@ export default function Register() {
           className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
           aria-label="Ir a la página de inicio de sesión"
         >
-          Iniciar Sesion
+          Iniciar sesión
         </Link>
       </header>
 
       {/* Contenedor centrado */}
       <div className="flex-1 flex items-center justify-center px-4 py-24">
-        <Card className="w-full max-w-205 p-10">
-          <h1 className="text-2xl font-bold text-text mb-8">registro</h1>
+        <Card className="w-140 max-w-205 p-10">
+          <div id="lineas-identificadoras" className="grid grid-cols-2 gap-0">
+            <div
+              id="linea-encargado"
+              className={`w-full h-1 border-2 rounded-2xl ${
+                formularioActivo
+                  ? "bg-accent border-accent"
+                  : "bg-brand border-accent/20"
+              }`}
+            ></div>
+            <div
+              id="linea-empresa"
+              className={`w-full h-1  border-2 rounded-2xl ${
+                formularioActivo
+                  ? "bg-brand border-accent/20"
+                  : "bg-accent border-accent"
+              }`}
+            ></div>
+            <p className="text-accent my-2"> Paso {paso[index].numero} de 2</p>
+          </div>
+          <div id="contenedor-formulario-encargado">
+            <h1 className=" text-text text-3xl font-bold">{paso[index].titulo}</h1>
+            <span className="text-sm text-subtext font-semibold" >{paso[index].subtext}</span>
 
-          <form onSubmit={(e) => e.preventDefault()} noValidate>
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-10">
-              {/* ——— Columna Izquierda: Formulario ——— */}
-              <div className="space-y-5">
-                {/* Fila 1: Nombre + Apellido */}
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField
-                    label="Nombre"
-                    id="reg-nombre"
-                    type="text"
-                    placeholder="Jhon"
-                  />
-                  <FormField
-                    label="Apellido"
-                    id="reg-apellido"
-                    type="text"
-                    placeholder="Doe"
-                  />
-                </div>
-
-                {/* Fila 2: Rut + Fecha de nacimiento */}
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField
-                    label="Rut"
-                    id="reg-rut"
-                    type="text"
-                    placeholder="12345678-9"
-                  />
-                  <FormField
-                    label="Fecha de nacimiento"
-                    id="reg-fecha-nac"
-                    type="text"
-                    placeholder="1/1/2000"
-                  />
-                </div>
-
-                {/* Fila 3: Correo + Contraseña */}
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField
-                    label="Correo"
-                    id="reg-email"
-                    type="email"
-                    placeholder="jhon.doe@correo.cl"
-                  />
-                  <FormField
-                    label="Contraseña"
-                    id="reg-password"
-                    type="password"
-                    placeholder="••••••••"
-                  />
-                </div>
-
-                {/* Fila 4: Información relevante (textarea) */}
-                <FormField
-                  label="Informacion relevante"
-                  id="reg-info"
-                  type="textarea"
-                  placeholder="Type here"
-                  rows={3}
-                />
-
-                {/* Fila 5: SSO */}
-                <div className="space-y-3 pt-2">
-                  <p
-                    className="text-xs text-subtext text-center"
-                    id="reg-sso-label"
-                  >
-                    Continuar con Google
-                  </p>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    aria-labelledby="reg-sso-label"
-                    className="w-full"
-                  >
-                    Google
-                  </Button>
-                </div>
-
-                {/* Fila 6: Botón Finalizar */}
-                <Button type="submit" variant="primary" className="w-full">
-                  Finalizar
-                </Button>
-              </div>
-
-              {/* ——— Columna Derecha: Avatar / Imagen ——— */}
-              <div className="flex flex-col items-center justify-center gap-4">
-                <div className="w-full aspect-square border border-border rounded-2xl flex items-center justify-center bg-brand">
-                  <span className="text-icon text-sm" aria-hidden="true">
-                    Sin imagen
-                  </span>
-                </div>
-
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="w-full"
-                  aria-label="Agregar imagen de perfil"
-                >
-                  Agregar imagen
-                </Button>
-              </div>
-            </div>
-          </form>
+            {formularioActivo ? (
+              <FormEncargado
+                Submit={handleEncargadoSubmit}
+                errors={errors}
+              />
+            ) : (
+              <FormEmpresa onBack={( ) => {
+                setIndex(0)
+                setFormularioActivo(true)
+              }} onSubmit={handleEmpresaSubmit} errors={errors} submitting={submitting} />
+            )}
+          </div>
         </Card>
       </div>
     </div>

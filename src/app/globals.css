@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 ::selection {
-  background: #D4AF37;
-  color: #1A1A1A;
+  background: var(--color-accent);
+  color: var(--color-brand);
 }
 
 @theme inline {
@@ -29,6 +29,9 @@
     --background: #1B2B24;
     --foreground: #ededed;
   }
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
 }
 
 body {

@@ -2,6 +2,7 @@
   "name": "kutrol-temp",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,16 +14,24 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.4.0",
     "@mui/material": "^9.4.0",
+    "bcryptjs": "^3.0.3",
     "chart.js": "^4.5.1",
+    "cloudinary": "^2.11.0",
     "framer-motion": "^13.3.0",
+    "jose": "^6.2.12",
+    "leaflet": "^1.9.4",
     "next": "16.3.3",
     "pg": "^8.23.0",
     "react": "19.2.8",
     "react-chartjs-2": "^5.3.1",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-leaflet": "^5.0.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/leaflet": "^1.9.22",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
     "tailwindcss": "^4"

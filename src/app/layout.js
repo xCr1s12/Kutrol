@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 

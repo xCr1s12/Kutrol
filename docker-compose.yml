@@ -9,7 +9,8 @@ services:
       POSTGRES_PASSWORD: kutrol123
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./database/Kutrol.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/sql:/sql:ro
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
 
   nextjs:
     build:
@@ -17,6 +18,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     volumes:
       - .:/app
       - /app/node_modules
@@ -27,6 +30,5 @@ services:
     depends_on:
       - postgres
     command: npm run dev
-
 volumes:
   pgdata:

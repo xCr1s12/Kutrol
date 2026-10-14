@@ -7,6 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PieChartIcon from '@mui/icons-material/PieChart';
 import RouteIcon from '@mui/icons-material/Route';
 import FlagIcon from '@mui/icons-material/Flag';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 
 
 export default function Sidebar() {
@@ -16,6 +17,7 @@ export default function Sidebar() {
     { name: "Estadisticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadisticas" },
     { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
     { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
+    { name: "Gestion", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestion"  }
   ];
   const PathName = usePathname();
 
@@ -39,7 +41,7 @@ export default function Sidebar() {
             ToggleSideBar();
           }}
 
-          className="flex items-center gap-3 text-[#A8B0AB] cursor-pointer p-2 rounded transition-colors"
+          className="flex items-center gap-3 text-subtext cursor-pointer p-2 rounded transition-colors"
         >
           {!isActive && (
             <MenuIcon aria-label="Abrir menu" aria-expanded aria-hidden="false" />
@@ -68,7 +70,7 @@ export default function Sidebar() {
                   : "border-l-4 border-[#1B2B24] "
                 }`}
             >
-              <div className="flex items-center justify-center min-w-[24px]">
+              <div className="flex items-center justify-center min-w-6">
                 <item.icon
                   aria-hidden="false"
                   htmlColor={isCurrentPath ? "#D4AF37" : "#C2C9C4"}
@@ -78,7 +80,7 @@ export default function Sidebar() {
 
               {isActive && (
                 <span
-                  className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-[#A8B0AB]"}`}
+                  className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-subtext"}`}
                 >
                   {item.name}
                 </span>
