@@ -189,19 +189,26 @@ export default function FormRoute({ open, onClose, onSubmit }) {
     <Modal
       open={open}
       onClose={onClose}
+<<<<<<< HEAD
       className="route-form-modal"
+=======
+>>>>>>> 7f07cba (feat: add route management and refactor home page layout)
       title="Agregar ruta"
       eyebrow="RUTAS"
       icon={<AddRoadRoundedIcon />}
       size="lg"
       footer={
         <>
+<<<<<<< HEAD
           <BotonSecundario
             onClick={onClose}
             className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-brand hover:brightness-95"
           >
             Cancelar
           </BotonSecundario>
+=======
+          <BotonSecundario onClick={onClose}>Cancelar</BotonSecundario>
+>>>>>>> 7f07cba (feat: add route management and refactor home page layout)
           <BotonPrimario type="submit" form="form-ruta">
             Agregar ruta
           </BotonPrimario>
