@@ -56,7 +56,7 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
     setError("");
 
     try {
-      const response = await fetch("/api/vehiculos", {
+      const response = await fetch("/api/data/vehiculos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datos),

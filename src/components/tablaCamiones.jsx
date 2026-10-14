@@ -59,7 +59,7 @@ export default function TablaCamiones({
         setError(null);
 
         const res = await fetch(
-          `/api/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
+          `/api/data/vehiculos?flota_id=${encodeURIComponent(flotaId)}`,
           { signal: controller.signal },
         );
         const json = await res.json();

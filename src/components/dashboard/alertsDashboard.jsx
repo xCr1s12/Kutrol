@@ -20,12 +20,17 @@ const AlertsData = [
 
 export default function AlertsSection() {
   return (
-    <div className="w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4">
-      <h2 className="text-[#1A1A1A] font-bold text-lg mb-2">Alertas</h2>
+    <section
+      className="w-full mt-10 bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4"
+      aria-labelledby="alerts-title"
+    >
+      <h2 id="alerts-title" className="text-[#1A1A1A] font-bold text-lg mb-2">
+        Alertas
+      </h2>
 
-      <div className="flex flex-col gap-y-3">
+      <ul className="flex flex-col gap-y-3 m-0 p-0 list-none">
         {AlertsData.map((alert) => (
-          <div
+          <li
             key={alert.id}
             className="w-full bg-[#F9F9FB] border border-gray-100 rounded-2xl p-4 shadow-sm flex justify-between items-start"
           >
@@ -42,9 +47,9 @@ export default function AlertsSection() {
               className="text-[#A8B0AB] hover:text-[#1A1A1A] p-1 rounded transition-colors cursor-pointer">
               <DropMenu />
             </div>
-          </div>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }
