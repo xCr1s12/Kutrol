@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Logo from "@/components/ui/Logo";
 
 export default function PanelHeaderClient({ Encargado, Empresa }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +23,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
 
   return (
       <header className="w-full bg-text flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
-      <a href="/dashboard" className="flex items-center">
-        <img src="/images/logo-kutrol-completo.svg" alt="Kutrol" className="h-12 w-auto" />
-      </a>
+      <Logo fondo="claro" href="/dashboard" className="h-12" />
 
       <div className="relative" ref={dropdownRef}>
         <button

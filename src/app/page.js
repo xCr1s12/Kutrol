@@ -14,6 +14,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TreeSVG from "@/components/home/TreeSvg";
+import Logo from "@/components/ui/Logo";
 
  
 
@@ -66,9 +67,7 @@ export default function Home() {
       {/* encabezado de la pagina principal */}
       <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
         {/* Logo Kutrol y Nombre */}
-        <span className=" text-xl sm:text-2xl font-bold text-text tracking-tighter">
-          Kutrol
-        </span>
+          <Logo />
 
         {/* barra de navegacion */}
         <nav className="items-center px-4 py-2">
@@ -322,14 +321,7 @@ export default function Home() {
           <div className="w-full flex flex-col sm:flex-row justify-between items-center sm:items-start gap-10 px-6 sm:px-16 py-10">
             {/* Logo y descripción corta */}
             <div className="flex flex-col gap-3 items-center sm:items-start text-center sm:text-left max-w-xs">
-              <div className="flex items-center gap-2">
-                <span className="w-9 h-9 rounded-full bg-[#D4AF37] flex items-center justify-center text-[#1A1A1A] font-bold text-sm">
-                  K
-                </span>
-                <span className="text-xl font-bold text-text tracking-tighter">
-                  Kutrol
-                </span>
-              </div>
+                            <Logo className="h-14" />
               <p className="text-xs text-subtext leading-relaxed">
                 Gestión inteligente de flota y combustible para tu empresa.
               </p>
