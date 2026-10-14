@@ -64,6 +64,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
       <header className="w-full flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-2 flex-wrap gap-2 light:bg-header light:border-border dark:bg-header dark:border-border">
       <Logo fondo={darkMode ? "oscuro" : "claro"} href="/dashboard" className="h-12" />
 
@@ -97,6 +98,12 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
       <span className="text-xl sm:text-2xl font-bold text-[#1A1A1A] tracking-tighter">
         Kutrol
       </span>
+=======
+      <header className="w-full bg-text flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
+      <a href="/dashboard" className="flex items-center">
+        <img src="/images/logo-kutrol-completo.svg" alt="Kutrol" className="h-12 w-auto" />
+      </a>
+>>>>>>> c4576a2 (Subiendo logos y agregandolo a panel)
 
       <div className="relative" ref={dropdownRef}>
         <button
