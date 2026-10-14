@@ -6,6 +6,7 @@ import * as encargadoRepository from "@/repositories/Encargado.repository";
 import * as comunicacionRepository from "@/repositories/communicacion.repository";
 import { validateCompanyRut } from "@/lib/validateCompanyRut";
 import { toConflictError, ValidationError } from "@/utils/errors";
+import { UnauthorizedError } from "@/utils/errors";
 
 const SALT_ROUNDS = 10;
 const NIVEL_JERARQUICO_DUENO = 1;
@@ -198,4 +199,24 @@ export async function CreateEmpresaWithEncargado(registration) {
   } catch (error) {
     throw toConflictError(error);
   }
+}
+
+
+
+export async function login(user, password) {
+  const encargado = await encargadoRepository.findByUsuario(user);
+  const hashValido = encargado
+    ? await bcrypt.compare(password, encargado.password_hash)
+    : false;
+
+  if (!hashValido) {
+    throw new UnauthorizedError("Usuario o contraseña incorrectos");
+  }
+
+  return {
+    id_encargado: encargado.id_encargado,
+    id_empresa: encargado.id_empresa,
+    id_nivel_jerarquico: encargado.id_nivel_jerarquico,
+    usuario: encargado.usuario,
+  };
 }

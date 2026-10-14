@@ -35,3 +35,9 @@ export async function findexist(email, db = pool) {
   return result.length > 0;
 } 
  
+
+// Funcion para buscar a los encargados por usuario
+export async function findByUsuario(usuario, db = pool) {
+  const result = await db.query("SELECT * FROM encargado_empresa WHERE usuario = $1", [usuario]);
+  return result.rows[0];
+} 

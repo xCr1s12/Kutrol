@@ -7,26 +7,40 @@ import Card from "@/components/ui/Card";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import GoogleIcon from "@/components/ui/GoogleIcon";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { iniciarSesion } from "@/services/client/auth.service";
 
 export default function Login() {
   const router = useRouter();
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const errs = {};
-    const email = String(data.get("login-email") || "").trim();
+    const usuario = String(data.get("login-usuario") || "").trim();
     const password = String(data.get("login-password") || "");
 
-    if (!email) errs.email = "Ingresa tu correo";
-    else if (!EMAIL_RE.test(email)) errs.email = "Ingresa un correo válido";
+    if (!usuario) errs.usuario = "Ingresa tu usuario";
     if (!password) errs.password = "La contraseña es obligatoria";
 
     setErrors(errs);
-    if (!Object.keys(errs).length) router.push("/dashboard");
+    if (Object.keys(errs).length) return;
+
+    setSubmitting(true);
+    try {
+      await iniciarSesion(usuario, password);
+      router.push("/dashboard");
+    } catch (error) {
+      setErrors({
+        form:
+          error instanceof Error
+            ? error.message
+            : "No se pudo iniciar sesión.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -56,11 +70,10 @@ export default function Login() {
             {/* Campos */}
             <div className="space-y-5">
               <FormField
-                label="Correo"
-                id="login-email"
-                type="email"
-                placeholder="correo@ejemplo.cl"
-                error={errors.email}
+                label="Usuario"
+                id="login-usuario"
+                placeholder="nombre_apellido_empresa"
+                error={errors.usuario}
               />
               <FormField
                 label="Contraseña"
@@ -92,13 +105,23 @@ export default function Login() {
 
             {/* Acciones */}
             <div className="flex gap-3 pt-5">
-              <Button type="submit" variant="primary" className="flex-1">
-                Ingresar
+              <Button
+                type="submit"
+                variant="primary"
+                className="flex-1"
+                disabled={submitting}
+              >
+                {submitting ? "Ingresando..." : "Ingresar"}
               </Button>
               <Button variant="secondary" href="/" className="flex-1">
                 Cancelar
               </Button>
             </div>
+            {errors.form && (
+              <p role="alert" className="mt-3 text-sm text-accent-dark">
+                {errors.form}
+              </p>
+            )}
           </form>
         </Card>
       </div>

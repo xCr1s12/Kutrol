@@ -16,3 +16,20 @@ export async function registrarEmpresaYEncargado(registration) {
 
   return result.data;
 }
+
+export async function iniciarSesion(usuario, password) {
+  const response = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ usuario, password }),
+  });
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(
+      result.error?.message || result.mensaje || "No se pudo iniciar sesión.",
+    );
+  }
+
+  return result.data;
+}

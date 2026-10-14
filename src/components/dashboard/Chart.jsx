@@ -105,12 +105,16 @@ export default function ConsumoChart() {
   };
 
   return (
-    <div className="w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col">
-      <h3 className="text-[#1A1A1A] font-bold text-lg mb-4">Consumo Ultimos 30 Dias</h3>
+    <figure className="m-0 w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col">
+      <figcaption>
+        <h3 className="text-[#1A1A1A] font-bold text-lg mb-4">
+          Consumo Ultimos 30 Dias
+        </h3>
+      </figcaption>
       
       <div className="w-full h-[280px] relative">
         <Line options={options} data={data} />
       </div>
-    </div>
+    </figure>
   );
 }

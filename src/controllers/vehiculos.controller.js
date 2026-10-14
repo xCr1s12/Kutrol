@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 import { toErrorResponse } from "@/utils/errors";
 import { flotaIdSchema } from "@/schema/auth.schema";
 
-
 export async function getVehiculosByEmpresa(request) {
   try {
+
     //Leer y validar el id de empresa
     const flotaId = flotaIdSchema.parse(
       new URL(request.url).searchParams.get("flota_id"),
@@ -28,8 +28,14 @@ export async function createVehiculo(request) {
     const body = await request.json();
 
     const camposObligatorios = [
-      "id_flota", "patente", "codigo_dispositivo", "marca",
-      "modelo", "ano", "capacidad_carga_kg", "capacidad_estanque_l",
+      "id_flota",
+      "patente",
+      "codigo_dispositivo",
+      "marca",
+      "modelo",
+      "ano",
+      "capacidad_carga_kg",
+      "capacidad_estanque_l",
     ];
 
     for (const campo of camposObligatorios) {
