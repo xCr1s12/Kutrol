@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { regiones } from "./regiones";
-import {
-  KeyboardArrowDownRounded, AddRounded, EditRounded, DeleteRounded, SearchRounded,
-  ImageRounded, PhotoCameraRounded, SettingsRounded, BusinessRounded,
-  LocalGasStationRounded, NatureRounded, EmailRounded, PhoneRounded, LocationOnRounded,
-} from "@mui/icons-material";
+import { useState, useEffect } from "react";
+import { SettingsRounded, BusinessRounded } from "@mui/icons-material";
+import { botonAmarillo } from "@/components/configuracion/comun";
+import ParametrosOperativos from "@/components/configuracion/ParametrosOperativos";
+import GestionUsuarios from "@/components/configuracion/GestionUsuarios";
+import AlertasNotificaciones from "@/components/configuracion/AlertasNotificaciones";
+import VistaEmpresa from "@/components/configuracion/VistaEmpresa";
+import FormularioEmpresa from "@/components/configuracion/FormularioEmpresa";
+import { validarEmpresa } from "@/components/configuracion/validarEmpresa";
 
 // datos de prueba, despues se reemplazan por los del backend
 const configInicial = {
@@ -28,6 +30,7 @@ const configInicial = {
   },
 };
 
+<<<<<<< HEAD
 // alertas que se pueden agregar desde el menu, las dos ultimas son de ejemplo
 const tiposAlerta = [
   { id: "consumo", nombre: "Consumo excesivo", unidad: "Km/L" },
@@ -821,6 +824,8 @@ function PestanaEmpresa({ empresa, errores, cambiar }) {
   );
 }
 
+=======
+>>>>>>> 053304d (agregando boton para editar datos)
 const pestanas = [
   { id: "general", nombre: "General", Icono: SettingsRounded },
   { id: "empresa", nombre: "Empresa", Icono: BusinessRounded },
@@ -831,9 +836,24 @@ export default function Configuracion() {
   // guardado = lo ultimo que se guardo, config = lo que se esta editando
   const [guardado, setGuardado] = useState(configInicial);
   const [config, setConfig] = useState(configInicial);
+  const [editandoEmpresa, setEditandoEmpresa] = useState(false);
+
+  // trae los datos de la empresa desde la base de datos al abrir la pagina
+  useEffect(() => {
+    fetch("/api/empresa") // cambiar por la ruta real del backend
+      .then((res) => (res.ok ? res.json() : null))
+      .then((empresa) => {
+        if (!empresa) return;
+        const datos = { ...configInicial, empresa: { ...configInicial.empresa, ...empresa } };
+        setGuardado(datos);
+        setConfig(datos);
+      })
+      .catch((error) => console.error("no se pudo cargar la empresa", error));
+  }, []);
 
   const hayCambios = JSON.stringify(config) !== JSON.stringify(guardado);
-  const errores = validarEmpresa(config.empresa);
+  // la empresa solo se valida mientras el formulario esta abierto
+  const errores = editandoEmpresa ? validarEmpresa(config.empresa) : {};
   const hayErrores = Object.keys(errores).length > 0;
 
   function cambiar(dato, valor) {
@@ -841,9 +861,21 @@ export default function Configuracion() {
   }
 
   function guardarCambios() {
-    // aca va la llamada al backend cuando exista
+    // aca va la llamada al backend para guardar
     console.log(config);
     setGuardado(config);
+    setEditandoEmpresa(false);
+  }
+
+  function cancelarCambios() {
+    setConfig(guardado);
+    setEditandoEmpresa(false);
+  }
+
+  // al volver se descartan los cambios de la empresa que no se guardaron
+  function cerrarFormulario() {
+    setConfig({ ...config, empresa: guardado.empresa });
+    setEditandoEmpresa(false);
   }
 
   return (
@@ -872,9 +904,21 @@ export default function Configuracion() {
       </div>
 
       {pestana === "general" ? (
-        <PestanaGeneral config={config} cambiar={cambiar} />
+        <div className="flex flex-col gap-5">
+          <ParametrosOperativos config={config} cambiar={cambiar} />
+          <GestionUsuarios usuarios={config.usuarios} cambiar={cambiar} />
+          <AlertasNotificaciones alertas={config.alertas} cambiar={cambiar} />
+        </div>
+      ) : editandoEmpresa ? (
+        <FormularioEmpresa
+          empresa={config.empresa}
+          errores={errores}
+          cambiar={cambiar}
+          nueva={!guardado.empresa.nombre}
+          onVolver={cerrarFormulario}
+        />
       ) : (
-        <PestanaEmpresa empresa={config.empresa} errores={errores} cambiar={cambiar} />
+        <VistaEmpresa empresa={guardado.empresa} onEditar={() => setEditandoEmpresa(true)} />
       )}
 
       {hayCambios && (
@@ -888,7 +932,7 @@ export default function Configuracion() {
           <div className="flex gap-2">
             <button
               className="text-sm rounded-lg px-4 py-2 border border-border hover:bg-white/10"
-              onClick={() => setConfig(guardado)}
+              onClick={cancelarCambios}
             >
               Cancelar
             </button>
