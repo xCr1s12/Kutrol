@@ -21,10 +21,10 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
   }, []);
 
   return (
-    <header className="w-full bg-text flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
-      <span className="text-xl sm:text-2xl font-bold text-[#1A1A1A] tracking-tighter">
-        Kutrol
-      </span>
+      <header className="w-full bg-text flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
+      <a href="/dashboard" className="flex items-center">
+        <img src="/images/logo-kutrol-completo.svg" alt="Kutrol" className="h-12 w-auto" />
+      </a>
 
       <div className="relative" ref={dropdownRef}>
         <button
