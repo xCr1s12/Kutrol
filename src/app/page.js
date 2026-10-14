@@ -22,10 +22,13 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 <<<<<<< HEAD
 import TreeSVG from "@/components/home/TreeSvg";
 import Logo from "@/components/ui/Logo";
+<<<<<<< HEAD
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { useContext } from "react";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+=======
+>>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
 
 
 =======
@@ -85,9 +88,7 @@ export default function Home() {
 =======
       <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
         {/* Logo Kutrol y Nombre */}
-        <span className=" text-xl sm:text-2xl font-bold text-text tracking-tighter">
-          Kutrol
-        </span>
+          <Logo />
 
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
         {/* barra de navegacion */}
@@ -654,6 +655,7 @@ export default function Home() {
           <div className="flex w-full flex-col items-start gap-10 px-6 py-10 sm:px-16 md:flex-row md:justify-between">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
             {/* Logo y descripción corta */}
+<<<<<<< HEAD
             <div className="flex max-w-xs flex-col items-start gap-3 text-left">
               <div className="flex items-center gap-2">
 <<<<<<< HEAD
@@ -671,6 +673,10 @@ export default function Home() {
 <<<<<<< HEAD
               <p className="text-xs text-subtext light:text-icon leading-relaxed">
 =======
+=======
+            <div className="flex flex-col gap-3 items-center sm:items-start text-center sm:text-left max-w-xs">
+                            <Logo className="h-14" />
+>>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
               <p className="text-xs text-subtext leading-relaxed">
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                 Gestión inteligente de flota y combustible para tu empresa.

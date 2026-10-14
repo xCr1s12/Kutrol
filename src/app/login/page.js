@@ -8,10 +8,14 @@ import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import GoogleIcon from "@/components/ui/GoogleIcon";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Logo from "@/components/ui/Logo";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+=======
+import Logo from "@/components/ui/Logo";
+>>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 =======
@@ -57,6 +61,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-background text-text flex flex-col">
       {/* Navbar */}
+<<<<<<< HEAD
       <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
         <Logo fondo={darkMode ? "oscuro" : "claro"} />
 
@@ -79,6 +84,17 @@ export default function Login() {
             Registrarse
           </Link>
         </div>
+=======
+      <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
+        <Logo />
+        <Link
+          href="/register"
+          className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
+          aria-label="Ir a la página de registro"
+        >
+          Registrarse
+        </Link>
+>>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
       </header>
 
       {/* Contenedor centrado */}

@@ -8,12 +8,16 @@ import FormEncargado from "@/components/register/formEncargado"; // Con mayúscu
 import FormEmpresa from "@/components/register/formEmpresa";
 import { registrarEmpresaYEncargado } from "@/services/client/auth.service";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Logo from "@/components/ui/Logo";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
 =======
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+import Logo from "@/components/ui/Logo";
+>>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
 
 export default function Register() {
   const { darkMode, toggleDarkMode } = useContext(darkModeContext);
@@ -90,6 +94,7 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-background text-text flex flex-col">
       {/* Navbar */}
+<<<<<<< HEAD
       <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
         <div className="flex items-center gap-4">
           <Logo fondo={darkMode ? "oscuro" : "claro"} />
@@ -114,6 +119,21 @@ export default function Register() {
             Iniciar sesión
           </Link>
         </div>
+=======
+      <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
+        <div className="flex items-center gap-4">
+          <Logo />
+          <span className="h-6 w-px bg-border" aria-hidden="true" />
+          <span className="text-lg font-bold text-text tracking-tight">Registro</span>
+        </div>
+        <Link
+          href="/login"
+          className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
+          aria-label="Ir a la página de inicio de sesión"
+        >
+          Iniciar sesión
+        </Link>
+>>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
       </header>
 
       {/* Contenedor centrado */}
