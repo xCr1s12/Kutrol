@@ -1,9 +1,13 @@
 import { LocalGasStationRounded, NatureRounded } from "@mui/icons-material";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { tarjeta, titulo, valores } from "./comun";
 =======
 import { tarjeta, valores } from "./comun";
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+import { tarjeta, titulo, valores } from "./comun";
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
 import { Lista } from "./Controles";
 
 const emisiones = [500, 1000, 1500, 2000];
@@ -23,8 +27,8 @@ function Parametro({ Icono, titulo, texto, children }) {
 =======
     <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-[#E2E8F0] last:border-b-0 last:pb-0">
       <div className="flex items-center gap-3">
-        <span className="w-9 h-9 rounded-full bg-[#F4F5F7] flex items-center justify-center">
-          <Icono htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
+        <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
+          <Icono className="text-accent" sx={{ fontSize: 26 }} aria-hidden="true" />
         </span>
         <div>
           <p className="text-sm font-semibold text-[#1A1A1A]">{titulo}</p>
@@ -41,10 +45,14 @@ export default function ParametrosOperativos({ config, cambiar }) {
   return (
     <section className={tarjeta} aria-label="Parámetros operativos">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <h2 className={titulo}>Parámetros operativos</h2>
       <p className="text-sm text-subtext mb-2">
 =======
       <h2 className="text-[#1A1A1A] font-bold text-lg">Parámetros operativos</h2>
+=======
+      <h2 className={titulo}>Parámetros operativos</h2>
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
       <p className="text-sm text-[#4A4A4A] mb-2">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
         Define los valores base para calcular desvíos de combustible y metas de huella de carbono.
@@ -82,7 +90,11 @@ export default function ParametrosOperativos({ config, cambiar }) {
     </section>
   );
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+}
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)

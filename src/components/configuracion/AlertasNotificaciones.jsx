@@ -1,9 +1,13 @@
 import { DeleteRounded } from "@mui/icons-material";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { tarjeta, titulo, botonIcono, valores } from "./comun";
 =======
 import { tarjeta, botonIcono, valores } from "./comun";
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+import { tarjeta, titulo, botonIcono, valores } from "./comun";
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
 import { Interruptor, Lista, MenuEstado, AgregarAlerta } from "./Controles";
 
 // alertas que se pueden agregar desde el menu, las dos ultimas son de ejemplo
@@ -35,6 +39,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
     <section className={tarjeta} aria-label="Alertas y notificaciones">
       <div className="flex flex-wrap justify-between items-center gap-3 mb-2">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <h2 className={titulo}>Alertas y notificaciones</h2>
         <AgregarAlerta disponibles={disponibles} onAgregar={agregarAlerta} />
       </div>
@@ -42,6 +47,9 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
         <p className="py-6 text-center text-xs text-subtext">No hay alertas configuradas</p>
 =======
         <h2 className="text-[#1A1A1A] font-bold text-lg">Alertas y notificaciones</h2>
+=======
+        <h2 className={titulo}>Alertas y notificaciones</h2>
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
         <AgregarAlerta disponibles={disponibles} onAgregar={agregarAlerta} />
       </div>
       {alertas.length === 0 && (
@@ -113,17 +121,25 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
             onClick={() => eliminarAlerta(a.id)}
           >
 <<<<<<< HEAD
+<<<<<<< HEAD
             <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
 =======
             <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+            <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
           </button>
         </div>
       ))}
     </section>
   );
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+}
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)

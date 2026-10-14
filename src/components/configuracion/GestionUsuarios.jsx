@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { AddRounded, EditRounded, DeleteRounded, SearchRounded } from "@mui/icons-material";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
 import ModalUsuario from "./ModalUsuario";
 
 const coloresRol = "bg-accent/20 text-text";
 =======
 import { tarjeta, botonAmarillo, botonIcono } from "./comun";
+=======
+import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
 import ModalUsuario from "./ModalUsuario";
 
 const coloresRol = {
@@ -46,10 +50,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
     <section className={tarjeta} aria-label="Gestión de usuarios">
       <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <h2 className={titulo}>Gestión de usuarios</h2>
 =======
         <h2 className="text-[#1A1A1A] font-bold text-lg">Gestión de usuarios</h2>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+        <h2 className={titulo}>Gestión de usuarios</h2>
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
         <button className={botonAmarillo} onClick={() => setModal("nuevo")}>
           <AddRounded fontSize="small" aria-hidden="true" />
           Agregar usuario
@@ -106,10 +114,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                     ) : (
                       <span
 <<<<<<< HEAD
+<<<<<<< HEAD
                         className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
 =======
                         className="w-7 h-7 rounded-full bg-[#4A4A4A] flex items-center justify-center text-[10px] font-bold text-[#FDFBF7]"
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+                        className="w-7 h-7 rounded-full bg-brand ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}
@@ -130,10 +142,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                   <div className="flex justify-end gap-2">
                     <button className={botonIcono} aria-label={`Editar a ${u.nombre}`} onClick={() => setModal(u)}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <EditRounded className="text-icon" sx={{ fontSize: 18 }} aria-hidden="true" />
 =======
                       <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 14 }} aria-hidden="true" />
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+                      <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 18 }} aria-hidden="true" />
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
                     </button>
                     <button
                       className={botonIcono}
@@ -141,10 +157,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                       onClick={() => eliminarUsuario(u.id)}
                     >
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
 =======
                       <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+                      <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
                     </button>
                   </div>
                 </td>
@@ -175,7 +195,11 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
     </section>
   );
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+}
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)

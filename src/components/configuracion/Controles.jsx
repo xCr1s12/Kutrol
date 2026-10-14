@@ -8,10 +8,14 @@ export function Interruptor({ activo, onChange, etiqueta, disabled }) {
   return (
     <label
 <<<<<<< HEAD
+<<<<<<< HEAD
       className={`relative flex items-center gap-2 text-xs text-text ${disabled ? "opacity-50" : "cursor-pointer"}`}
 =======
       className={`flex items-center gap-2 text-xs text-[#1A1A1A] ${disabled ? "opacity-50" : "cursor-pointer"}`}
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+      className={`relative flex items-center gap-2 text-xs text-[#1A1A1A] ${disabled ? "opacity-50" : "cursor-pointer"}`}
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
     >
       <input
         type="checkbox"

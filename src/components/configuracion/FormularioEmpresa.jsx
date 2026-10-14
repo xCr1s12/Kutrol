@@ -1,9 +1,13 @@
 import {
   ArrowBackRounded, PhotoCameraRounded, BusinessRounded, EmailRounded, PhoneRounded, LocationOnRounded,
 <<<<<<< HEAD
+<<<<<<< HEAD
   MapRounded, LocationCityRounded,
 =======
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+  MapRounded, LocationCityRounded,
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
 } from "@mui/icons-material";
 import { regiones } from "./regiones";
 import { tarjeta, campo, bordeError, botonAmarillo, botonIcono, elegirImagen } from "./comun";
@@ -14,10 +18,14 @@ import { formatearRut } from "./validarEmpresa";
 const limiteDescripcion = 300;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver }) {
 =======
 export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, onVolver }) {
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver }) {
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
   const comunas = regiones.find((r) => r.nombre === empresa.region)?.comunas ?? [];
 
   function poner(dato, valor) {
@@ -34,6 +42,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
       <div className="flex items-center gap-3 mb-4">
         <button className={botonIcono} aria-label="Volver al perfil" onClick={onVolver}>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <ArrowBackRounded className="text-icon" sx={{ fontSize: 20 }} aria-hidden="true" />
         </button>
         <h2 className="text-text font-bold text-lg">Editar empresa</h2>
@@ -42,6 +51,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
         </button>
         <h2 className="text-[#1A1A1A] font-bold text-lg">{nueva ? "Registrar empresa" : "Editar empresa"}</h2>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+          <ArrowBackRounded htmlColor="#4A4A4A" sx={{ fontSize: 20 }} aria-hidden="true" />
+        </button>
+        <h2 className="text-[#1A1A1A] font-bold text-lg">Editar empresa</h2>
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
       </div>
 
       <div className="flex items-center gap-4 mb-6">
@@ -116,10 +130,14 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
         </Campo>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Campo titulo="Región" icono={<MapRounded {...icono} />}>
 =======
         <Campo titulo="Región">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+        <Campo titulo="Región" icono={<MapRounded {...icono} />}>
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
           <Lista
             opciones={regiones.map((r) => r.nombre)}
             vacio="Selecciona una región"
@@ -129,10 +147,14 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
         </Campo>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Campo titulo="Comuna" icono={<LocationCityRounded {...icono} />} error={errores.comuna}>
 =======
         <Campo titulo="Comuna" error={errores.comuna}>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+        <Campo titulo="Comuna" icono={<LocationCityRounded {...icono} />} error={errores.comuna}>
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
           <Lista
             opciones={comunas}
             vacio={empresa.region ? "Selecciona una comuna" : "Primero elige una región"}
@@ -175,7 +197,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, nueva, on
     </section>
   );
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+}
+>>>>>>> e612c5b (Agregando iconos dorados y verdes)
