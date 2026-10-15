@@ -12,7 +12,7 @@ export default async function StatisticPage() {
   const metricas = await obtenerMetricasDashboard(session.id_empresa);
 
   return (
-    <main
+    <div
       id="estadisticas-avanzadas"
       className="flex min-h-screen w-full flex-col bg-background p-6 text-text"
     >
@@ -39,6 +39,6 @@ export default async function StatisticPage() {
       <section id="estadisticas-alertas" className="mt-8" aria-label="Sección de alertas">
         <AlertsSection />
       </section>
-    </main>
+    </div>
   );
 }

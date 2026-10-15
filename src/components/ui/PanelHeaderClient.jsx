@@ -2,10 +2,13 @@
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import Logo from "@/components/ui/Logo";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
 import { logout } from "@/services/client/auth.service";
@@ -104,12 +107,13 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
             </div>
 
             <div className="py-1">
-              <a
+              <Link
                 href="/configPanel"
-                className="block px-4 py-2 text-sm hover:bg-border transition-colors"
+                className="flex items-center gap-2.5 px-4 py-2 text-sm hover:bg-border transition-colors"
               >
+                <SettingsOutlinedIcon fontSize="small" className="text-icon" aria-hidden="true" />
                 Configuración
-              </a>
+              </Link>
             </div>
 
             <div className="border-t border-border pt-1">
@@ -122,8 +126,9 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
                 type="button"
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer"
+                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer flex items-center gap-2.5"
               >
+                <LogoutRoundedIcon fontSize="small" aria-hidden="true" />
                 {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
               </button>
             </div>

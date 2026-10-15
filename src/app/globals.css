@@ -28,6 +28,30 @@
   --color-header: var(--header);
   --color-footer: var(--footer);
   --color-card: var(--card);
+  /* Acentos fijos: el dorado va sobre superficies oscuras y el ocre sobre
+     superficies claras, para que no dependan del modo activo. */
+  --color-gold: #D4AF37;
+  --color-ochre: #704D2E;
+
+  /* Paleta fija del sistema de diseno. Son los colores que estaban escritos a
+     mano en los componentes que viven sobre superficies de modo fijo (barra
+     lateral y cabecera del modal siempre oscuras; cuerpo del modal y mapas
+     siempre claros). */
+  --color-cream: #FDFBF7;          /* blanco calido de marca */
+  --color-ink: #1A1A1A;            /* tinta: texto sobre claro fijo */
+  --color-graphite: #4A4A4A;       /* iconos sobre claro fijo */
+  --color-linen: #EAE5DA;          /* bordes y superficies claras fijas */
+  --color-linen-hover: #D8CDBA;
+  --color-cloud: #F4F5F7;          /* fondo de panel claro */
+  --color-sand: #F3EFE6;           /* fondo de chip claro */
+  --color-sage: #A8B0AB;           /* texto secundario sobre oscuro fijo */
+  --color-mist: #C2C9C4;           /* iconos sobre oscuro fijo */
+  --color-moss: #314139;           /* bordes y superficies oscuras fijas */
+  --color-moss-hover: #3D4F45;
+  --color-deep: #20332B;           /* superficie oscura profunda */
+  --color-slate: #6E6E6E;          /* superficie gris del mapa */
+  --color-copper: #8C6239;         /* cobre: acento sobre claro fijo */
+  --color-copper-dark: #A8784A;
 }
 
 /* MODO OSCURO (por defecto) */
@@ -54,7 +78,7 @@
   --background: #FDFBF7;   /* Fondo */
   --foreground: #1A1A1A;   /* Texto principal */
   --text: #1A1A1A;         /* Texto principal */
-  --subtext: #6E6E6E;      /* Subtexto */
+  --subtext: #666666;      /* Subtexto (4.5:1 sobre fondo y sobre card) */
   --icon: #4A4A4A;         /* Iconos */
   --border: #EAE5DA;       /* Bordes / divisores */
   --accent: #8C6239;       /* Acento */

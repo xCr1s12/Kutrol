@@ -43,36 +43,36 @@ export default function MapaCalorAmbiente() {
   const getStyleByLevel = (nivel) => {
     switch (nivel) {
       case 2:
-        return "bg-[#8C6239] dark:bg-orange-400";
+        return "bg-copper"; // Acento Oscuro / Cobre Kutrol (#8C6239)
       case 1:
-        return "bg-[#D4AF37]";
+        return "bg-gold"; // Dorado Acento Kutrol (#D4AF37)
       case 0:
       default:
-        return "bg-[#1B2B24] dark:bg-emerald-500";
+        return "bg-brand"; // Verde Oscuro Fondo Kutrol (#1B2B24)
     }
   };
 
   return (
-    <div className="w-full rounded-xl border border-border bg-card p-6 text-text shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+    <div className="w-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] border border-linen">
       {/* Encabezado y Selector de Tabs */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-lg font-bold">
+          <h2 className="text-ink font-bold text-lg">
             Análisis de Impacto Ambiental y Emisiones
           </h2>
-          <p className="mt-0.5 text-xs text-subtext">
+          <p className="text-xs text-graphite mt-0.5">
             Monitoreo de la huella de carbono de la flota según franja y ruta
           </p>
         </div>
 
         {/* Tabs de Selección */}
-        <div className="flex self-start rounded-lg border border-border bg-background p-1 md:self-auto">
+        <div className="flex bg-linen/50 p-1 rounded-lg border border-linen self-start md:self-auto">
           <button
             onClick={() => setTabActiva("horario")}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
               tabActiva === "horario"
-                ? "bg-text text-background"
-                : "text-subtext hover:text-text"
+                ? "bg-ink text-cream"
+                : "text-graphite hover:text-ink"
             }`}
           >
             <AccessTimeRoundedIcon fontSize="small" />
@@ -83,8 +83,8 @@ export default function MapaCalorAmbiente() {
             onClick={() => setTabActiva("geografico")}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
               tabActiva === "geografico"
-                ? "bg-text text-background"
-                : "text-subtext hover:text-text"
+                ? "bg-ink text-cream"
+                : "text-graphite hover:text-ink"
             }`}
           >
             <MapIcon fontSize="small" />
@@ -95,8 +95,8 @@ export default function MapaCalorAmbiente() {
             onClick={() => setTabActiva("camiones")}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
               tabActiva === "camiones"
-                ? "bg-text text-background"
-                : "text-subtext hover:text-text"
+                ? "bg-ink text-cream"
+                : "text-graphite hover:text-ink"
             }`}
           >
             <LocalShippingRoundedIcon fontSize="small" />
@@ -106,19 +106,19 @@ export default function MapaCalorAmbiente() {
       </div>
 
       {/* Leyenda de Colores */}
-      <div className="mb-4 flex items-center gap-4 border-b border-border pb-3 text-xs">
-        <span className="font-semibold text-subtext">Nivel de CO₂:</span>
+      <div className="flex items-center gap-4 text-xs mb-4 pb-3 border-b border-linen">
+        <span className="text-graphite font-semibold">Nivel de CO₂:</span>
         <span className="flex items-center gap-1.5">
-          <span className={`inline-block h-3.5 w-3.5 rounded ${getStyleByLevel(0)}`} />
-          <span className="text-text">Bajo / Eficiente</span>
+          <span className="w-3.5 h-3.5 rounded bg-brand inline-block" />
+          <span className="text-ink">Bajo / Eficiente</span>
         </span>
         <span className="flex items-center gap-1.5">
-          <span className={`inline-block h-3.5 w-3.5 rounded ${getStyleByLevel(1)}`} />
-          <span className="text-text">Moderado</span>
+          <span className="w-3.5 h-3.5 rounded bg-gold inline-block" />
+          <span className="text-ink">Moderado</span>
         </span>
         <span className="flex items-center gap-1.5">
-          <span className={`inline-block h-3.5 w-3.5 rounded ${getStyleByLevel(2)}`} />
-          <span className="text-text">Crítico / Elevado</span>
+          <span className="w-3.5 h-3.5 rounded bg-copper inline-block" />
+          <span className="text-ink">Crítico / Elevado</span>
         </span>
       </div>
 
@@ -126,7 +126,7 @@ export default function MapaCalorAmbiente() {
       {tabActiva === "horario" && (
         <div className="overflow-x-auto pt-2">
           <div className="min-w-[500px]">
-            <div className="mb-2 grid grid-cols-7 gap-2 text-center text-xs font-bold text-subtext">
+            <div className="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-bold text-graphite">
               <span className="text-left">Día / Hora</span>
               {horas.map((h) => (
                 <span key={h}>{h}</span>
@@ -134,8 +134,8 @@ export default function MapaCalorAmbiente() {
             </div>
 
             {dias.map((dia, fIdx) => (
-              <div key={dia} className="mb-2 grid grid-cols-7 items-center gap-2">
-                <span className="text-xs font-bold text-text">{dia}</span>
+              <div key={dia} className="grid grid-cols-7 gap-2 mb-2 items-center">
+                <span className="text-xs font-bold text-ink">{dia}</span>
                 {matrizHoraria[fIdx].map((val, cIdx) => (
                   <div
                     key={cIdx}
@@ -157,12 +157,12 @@ export default function MapaCalorAmbiente() {
           {zonas.map((zona, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between rounded-lg border border-border bg-background p-4"
+              className="p-4 rounded-lg border border-linen flex items-center justify-between bg-cream"
             >
               <div>
-                <h3 className="text-sm font-bold text-text">{zona.comuna}</h3>
-                <p className="text-xs text-subtext">{zona.descripcion}</p>
-                <span className="mt-1 inline-block text-xs font-medium text-accent">
+                <h3 className="font-bold text-sm text-ink">{zona.comuna}</h3>
+                <p className="text-xs text-graphite">{zona.descripcion}</p>
+                <span className="text-xs text-copper font-medium mt-1 inline-block">
                   Huella registrada: {zona.co2}
                 </span>
               </div>
@@ -181,7 +181,7 @@ export default function MapaCalorAmbiente() {
       {tabActiva === "camiones" && (
         <div className="overflow-x-auto pt-2">
           <div className="min-w-[550px]">
-            <div className="mb-2 grid grid-cols-5 gap-2 text-center text-xs font-bold text-subtext">
+            <div className="grid grid-cols-5 gap-2 mb-2 text-center text-xs font-bold text-graphite">
               <span className="text-left">Patente / Ruta</span>
               {rutas.map((r) => (
                 <span key={r} className="truncate">{r}</span>
@@ -189,8 +189,8 @@ export default function MapaCalorAmbiente() {
             </div>
 
             {camiones.map((patente, fIdx) => (
-              <div key={patente} className="mb-2 grid grid-cols-5 items-center gap-2">
-                <span className="truncate text-xs font-bold text-text">
+              <div key={patente} className="grid grid-cols-5 gap-2 mb-2 items-center">
+                <span className="text-xs font-bold text-ink truncate">
                   {patente}
                 </span>
                 {matrizCamiones[fIdx].map((val, cIdx) => (

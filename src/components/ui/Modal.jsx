@@ -68,22 +68,22 @@ const Modal = ({
       {open && (
         <div className="flex max-h-[90vh] flex-col">
           {/* ---------- Cabecera oscura ---------- */}
-          <header className="flex items-center justify-between gap-4 border-b-2 border-accent bg-brand px-6 py-5">
+          <header className="flex items-center justify-between gap-4 border-b-2 border-gold bg-brand px-6 py-5">
             <div className="flex items-center gap-4">
               {icon && (
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-brand/80 [&_svg]:text-3xl dark:bg-[#D4AF37] dark:text-[#1B2B24]">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold text-brand [&_svg]:text-3xl">
                   {icon}
                 </span>
               )}
               <div className="flex flex-col">
                 {eyebrow && (
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
                     {eyebrow}
                   </span>
                 )}
                 <h2
                   id="modal-titulo"
-                  className="text-xl font-bold leading-tight text-[#FDFBF7]"
+                  className="text-xl font-bold leading-tight text-cream"
                 >
                   {title}
                 </h2>
@@ -94,7 +94,7 @@ const Modal = ({
               type="button"
               onClick={onAction ?? onClose}
               aria-label={onAction ? "Acción" : "Cerrar"}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-[#314139] bg-[#20332B] text-[#C2C9C4] hover:bg-[#314139] hover:text-[#FDFBF7] focus-visible:outline-[#D4AF37]  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-[#314139] dark:bg-[#20332B] dark:text-[#C2C9C4] dark:hover:bg-[#314139] dark:hover:text-[#FDFBF7] dark:focus-visible:outline-[#D4AF37]"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-moss bg-deep text-mist hover:bg-moss hover:text-cream focus-visible:outline-gold  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-moss dark:bg-deep dark:text-mist dark:hover:bg-moss dark:hover:text-cream dark:focus-visible:outline-gold"
             >
               {actionIcon ?? <CloseRoundedIcon fontSize="small" />}
             </button>
@@ -193,7 +193,7 @@ export const LineaTiempo = ({ items }) => (
           </span>
           <span
             className={`ml-auto ${
-              it.actual ? "font-bold text-accent-dark" : "text-brand/60"
+              it.actual ? "font-bold text-ochre" : "text-brand/60"
             }`}
           >
             {it.detalle}
@@ -235,7 +235,7 @@ export const BotonSecundario = ({
 export const BotonPrimario = ({ children, ...props }) => (
   <button
     {...props}
-    className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand hover:bg-accent-dark"
+    className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand light:text-white hover:bg-accent-dark"
   >
     {children}
   </button>

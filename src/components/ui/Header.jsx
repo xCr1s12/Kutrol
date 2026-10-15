@@ -20,9 +20,9 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="w-full bg-[#FDFBF7] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#EAE5DA] border-b-2 flex-wrap gap-2">
+    <header className="w-full bg-cream flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-linen border-b-2 flex-wrap gap-2">
       {/* Logo Kutrol y Nombre */}
-      <span className="text-xl sm:text-2xl font-bold text-[#1A1A1A] tracking-tighter">
+      <span className="text-xl sm:text-2xl font-bold text-ink tracking-tighter">
         Kutrol
       </span>
 
@@ -30,14 +30,14 @@ export default function Header() {
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-[#EAE5DA]/50 transition-colors cursor-pointer focus:outline-none"
+          className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-linen/50 transition-colors cursor-pointer focus:outline-none"
         >
           {/* Avatar */}
-          <div className="w-8 h-8 rounded-full bg-[#1A1A1A] text-[#FDFBF7] flex items-center justify-center font-bold text-xs">
+          <div className="w-8 h-8 rounded-full bg-ink text-cream flex items-center justify-center font-bold text-xs">
             JD
           </div>
 
-          <span className="hidden sm:inline-block text-sm font-medium text-[#1A1A1A]">
+          <span className="hidden sm:inline-block text-sm font-medium text-ink">
             Jhon doe
           </span>
 
@@ -51,11 +51,11 @@ export default function Header() {
 
         {/* Menú Desplegable */}
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-56 bg-white border border-[#EAE5DA] rounded-xl shadow-lg py-2 z-50 text-[#1A1A1A]">
+          <div className="absolute right-0 mt-2 w-56 bg-white border border-linen rounded-xl shadow-lg py-2 z-50 text-ink">
             {/* Información del usuario */}
-            <div className="px-4 py-2 border-b border-[#EAE5DA]">
-              <p className="text-sm font-semibold text-[#1A1A1A]">Jhon Doe</p>
-              <p className="text-xs text-[#A8B0AB] truncate">
+            <div className="px-4 py-2 border-b border-linen">
+              <p className="text-sm font-semibold text-ink">Jhon Doe</p>
+              <p className="text-xs text-sage truncate">
                 jhoncito@kutrol.cl
               </p>
             </div>
@@ -64,14 +64,14 @@ export default function Header() {
             <div className="py-1">
               <a
                 href="/configPanel"
-                className="block px-4 py-2 text-sm hover:bg-[#FDFBF7] transition-colors"
+                className="block px-4 py-2 text-sm hover:bg-cream transition-colors"
               >
                 Configuración
               </a>
             </div>
 
             {/* Opción de cerrar sesión */}
-            <div className="border-t border-[#EAE5DA] pt-1">
+            <div className="border-t border-linen pt-1">
               <button
                 onClick={() => {
                   // Lógica de cierre de sesión

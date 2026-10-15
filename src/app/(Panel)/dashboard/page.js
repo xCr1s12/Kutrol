@@ -12,7 +12,7 @@ export default async function Dashboard() {
   const empresa = await findByIdEmpresa(session.id_empresa);
 
   return (
-    <main
+    <div
       id="dashboard-resumen"
       className="flex w-full flex-col bg-background p-6 light:bg-background dark:bg-background"
     >
@@ -93,13 +93,13 @@ export default async function Dashboard() {
                 >
                   <div className="flex items-center gap-3">
                     <span
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-[#314139] text-xs font-bold text-[#FDFBF7]"
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-moss text-xs font-bold text-cream"
                       aria-hidden="true"
                     >
-                      JD
+                      PM
                     </span>
                     <span className="text-text font-medium light:text-text dark:text-text">
-                      Jhon Doe
+                      Pedro Muñoz
                     </span>
                   </div>
                   <span className="text-subtext text-sm font-semibold light:text-subtext dark:text-subtext">
@@ -115,6 +115,6 @@ export default async function Dashboard() {
       <section id="dashboard-alertas" aria-label="Sección de alertas" className="mt-4">
         <AlertsSection />
       </section>
-    </main>
+    </div>
   );
 }

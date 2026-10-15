@@ -113,13 +113,12 @@ export default function TablaCamiones({
     paginaActual * PAGE_SIZE,
   );
 
-  useEffect(() => {
+  // Al cambiar el filtro se vuelve a la primera pagina (antes vivia en un
+  // useEffect que provocaba un render en cascada).
+  const cambiarFiltro = (filtro) => {
+    setFiltroActivo(filtro);
     setPagina(1);
-  }, [filtroActivo]);
-
-  useEffect(() => {
-    if (pagina > totalPaginas) setPagina(totalPaginas);
-  }, [pagina, totalPaginas]);
+  };
 
   return (
     <>
@@ -127,14 +126,14 @@ export default function TablaCamiones({
         <Filtros
           opciones={FILTROS}
           seleccionado={filtroActivo}
-          onSelect={setFiltroActivo}
+          onSelect={cambiarFiltro}
         />
         {acciones}
       </div>
 
       <Tabla
         columnas={[
-          "Vehiculo",
+          "Vehículo",
           "Marca / modelo",
           "Estado",
           "Capacidad carga",

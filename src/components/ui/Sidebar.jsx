@@ -14,10 +14,10 @@ export default function Sidebar() {
   // array con rutas de navegación
   const NavRoutes = [
     { name: "Dashboard", path: "/dashboard", icon: HomeIcon, aria: "Ir al Dashboard" },
-    { name: "Estadisticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadisticas" },
+    { name: "Estadísticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadísticas" },
     { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
     { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
-    { name: "Gestion", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestion" },
+    { name: "Gestión", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestión" },
     { name: "Ambiente", path: "/ambiente", icon: LanguageRoundedIcon, aria: "ir a Ambiente y sostenibilidad" },
   ];
 
@@ -41,15 +41,15 @@ export default function Sidebar() {
             ToggleSideBar();
           }}
 
-          className="flex items-center gap-3 cursor-pointer p-2 rounded text-[#A8B0AB] transition-colors"
+          className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
         >
           {!isActive && (
-            <MenuIcon aria-label="Abrir menu" aria-expanded={false} aria-hidden="false" />
+            <MenuIcon aria-label="Abrir menú" aria-expanded={false} aria-hidden="false" />
           )}
           
           {isActive && (
-            <span className="whitespace-nowrap overflow-hidden text-sm text-[#C2C9C4]">
-              Cerrar Menu
+            <span className="whitespace-nowrap overflow-hidden text-sm text-mist">
+              Cerrar menú
             </span>
           )}  
         </div>
@@ -67,21 +67,21 @@ export default function Sidebar() {
               key={item.path}
               href={item.path}
               className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
-                  ? "border-l-4 border-[#D4AF37] bg-[#D4AF37]/20"
+                  ? "border-l-4 border-gold bg-gold/20"
                   : "border-l-4 border-transparent"
                 }`}
             >
               <div className="flex items-center justify-center min-w-6">
                 <IconComponent
                   aria-hidden="false"
-                  className={isCurrentPath ? "text-[#D4AF37]" : "text-[#C2C9C4]"}
+                  className={isCurrentPath ? "text-gold" : "text-mist"}
                   fontSize="medium"
                 />
               </div>
 
               {isActive && (
                 <span
-                  className={`truncate text-sm font-bold ${isCurrentPath ? "text-[#FDFBF7]" : "text-[#A8B0AB]"}`}
+                  className={`truncate text-sm font-bold ${isCurrentPath ? "text-cream" : "text-sage"}`}
                 >
                   {item.name}
                 </span>
