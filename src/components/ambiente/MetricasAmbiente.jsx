@@ -32,10 +32,14 @@ export default function MetricasAmbiente() {
   if (loading) {
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div className="col-span-full py-8 text-center text-graphite animate-pulse font-medium">
 =======
       <div className="col-span-full py-8 text-center text-[#4A4A4A] animate-pulse font-medium">
 >>>>>>> 61b19f7 (alimentación de página ambiente)
+=======
+      <div className="col-span-full animate-pulse py-8 text-center font-medium text-subtext">
+>>>>>>> f577f5f (minor changes)
         Cargando métricas de sostenibilidad...
       </div>
     );
@@ -74,10 +78,14 @@ export default function MetricasAmbiente() {
         text={`${co2EvitadoKg.toLocaleString("es-CL")} kg`}
         SubText={`Equivale a ~${arbolesEquivalentes} árboles absorbentes/año`}
 <<<<<<< HEAD
+<<<<<<< HEAD
         icon={<ParkRoundedIcon className="text-icon" aria-hidden="true" />}
 =======
         icon={<ParkRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />}
 >>>>>>> 61b19f7 (alimentación de página ambiente)
+=======
+        icon={<ParkRoundedIcon className="text-icon" aria-hidden="true" />}
+>>>>>>> f577f5f (minor changes)
         aria="Tarjeta de CO2 Evitado"
       />
       <StatisticCard
@@ -85,10 +93,14 @@ export default function MetricasAmbiente() {
         text={`${emisionesCO2Ton} Ton`}
         SubText={`Huella por ${litrosTotales.toLocaleString("es-CL")} Litros cargados`}
 <<<<<<< HEAD
+<<<<<<< HEAD
         icon={<CloudRoundedIcon className="text-icon" aria-hidden="true" />}
 =======
         icon={<CloudRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />}
 >>>>>>> 61b19f7 (alimentación de página ambiente)
+=======
+        icon={<CloudRoundedIcon className="text-icon" aria-hidden="true" />}
+>>>>>>> f577f5f (minor changes)
         aria="Tarjeta de Emisiones CO2"
       />
       <StatisticCard
@@ -96,10 +108,14 @@ export default function MetricasAmbiente() {
         text={`${rendimientoPromedio} Km/L`}
         SubText="Promedio global de rendimiento"
 <<<<<<< HEAD
+<<<<<<< HEAD
         icon={<LocalGasStationRoundedIcon className="text-icon" aria-hidden="true" />}
 =======
         icon={<LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />}
 >>>>>>> 61b19f7 (alimentación de página ambiente)
+=======
+        icon={<LocalGasStationRoundedIcon className="text-icon" aria-hidden="true" />}
+>>>>>>> f577f5f (minor changes)
         aria="Tarjeta de Eficiencia Energética"
       />
     </>

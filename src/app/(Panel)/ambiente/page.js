@@ -120,17 +120,17 @@ export default async function AmbientePage() {
   return (
     <main
       id="ambiente-resumen"
-      className="flex flex-col w-full bg-[#F4F5F7] p-6 min-h-screen"
+      className="flex min-h-screen w-full flex-col bg-background p-6 text-text"
     >
       {/* Encabezado del panel */}
       <header id="ambiente-encabezado" className="mb-6">
-        <h1 id="ambiente-titulo" className="text-[#1A1A1A] text-2xl font-bold">
+        <h1 id="ambiente-titulo" className="text-2xl font-bold">
           Ambiente y Sostenibilidad de {empresa?.nombre}
         </h1>
 
         <p
           id="ambiente-reloj"
-          className="text-[#1A1A1A] text-sm mt-1 flex items-center gap-2"
+          className="mt-1 flex items-center gap-2 text-sm text-subtext"
         >
           <Clock className="w-4 h-4" role="timer" />
         </p>
@@ -161,31 +161,31 @@ export default async function AmbientePage() {
         {/* Card resumen de Impacto Ecológico */}
         <section
           id="ambiente-impacto-card"
-          className="w-full h-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] border border-[#EAE5DA] flex flex-col justify-between"
+          className="flex h-full w-full flex-col justify-between rounded-xl border border-border bg-card p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]"
         >
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <PublicRoundedIcon className="text-[#4A4A4A]" />
-              <h2 className="text-[#1A1A1A] font-bold text-lg">
+              <PublicRoundedIcon className="text-icon" />
+              <h2 className="text-lg font-bold">
                 Impacto Ecológico
               </h2>
             </div>
 
             <div className="flex flex-col items-center justify-center my-6">
-              <div className="w-32 h-32 rounded-full bg-[#EAE5DA] flex items-center justify-center border-4 border-[#1A1A1A]">
-                <ParkRoundedIcon className="text-[#1A1A1A] w-14 h-14" />
+              <div className="flex h-32 w-32 items-center justify-center rounded-full border-4 border-text bg-background">
+                <ParkRoundedIcon className="h-14 w-14 text-text" />
               </div>
-              <p className="mt-4 text-2xl font-bold text-[#1A1A1A]">85%</p>
-              <p className="text-xs text-[#4A4A4A] font-medium text-center">
+              <p className="mt-4 text-2xl font-bold">85%</p>
+              <p className="text-center text-xs font-medium text-subtext">
                 Cumplimiento Meta Verde
               </p>
             </div>
 
-            <div className="w-full bg-[#EAE5DA] h-3 rounded-full overflow-hidden mb-2">
-              <div className="bg-[#D4AF37] h-full w-[85%]" />
+            <div className="mb-2 h-3 w-full overflow-hidden rounded-full bg-border">
+              <div className="h-full w-[85%] bg-accent" />
             </div>
 
-            <p className="text-xs text-[#4A4A4A] leading-relaxed mt-4">
+            <p className="mt-4 text-xs leading-relaxed text-subtext">
               Rendimiento y reducción de emisiones calculados a partir de los
               viajes y abastecimientos de combustible de la flota.
             </p>
