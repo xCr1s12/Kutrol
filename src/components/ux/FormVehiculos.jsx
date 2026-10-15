@@ -174,9 +174,13 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
       <div className="flex flex-col gap-4">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <h3 className="text-sm font-bold text-brand">Detalles</h3>
 =======
         <h3 className="text-sm font-bold text-text dark:text-[#1A1A1A]">
+=======
+        <h3 className="text-sm font-bold text-text dark:text-ink">
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
           Detalles
         </h3>
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
@@ -184,7 +188,7 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
         <CamposFormularioVehiculo />
 
         {error && (
-          <p role="alert" className="text-sm text-accent-dark dark:text-[#C49A2E]">
+          <p role="alert" className="text-sm text-accent-dark">
             {error}
           </p>
         )}
@@ -193,7 +197,7 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-md bg-accent px-6 py-2.5 text-xs font-semibold text-brand transition-colors light:hover:bg-[#A8784A] light:hover:text-[#FDFBF7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-[#D4AF37] dark:text-brand dark:hover:opacity-90 dark:focus-visible:outline-[#D4AF37]"
+            className="rounded-md bg-accent px-6 py-2.5 text-xs font-semibold text-brand transition-colors light:hover:bg-copper-dark light:hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-gold dark:text-brand dark:hover:opacity-90 dark:focus-visible:outline-gold"
           >
 <<<<<<< HEAD
             Finalizar
@@ -230,6 +234,7 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
 =======
             disabled={submitting}
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 6e11786 (feat(vehiculos): implement vehicle creation with validation and UI form)
             className="rounded-md bg-text px-6 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-icon"
 =======
@@ -239,6 +244,9 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
 =======
             className="rounded-md bg-text px-6 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-icon light:bg-[#EAE5DA] light:text-[#1A1A1A] light:hover:bg-[#D8CDBA] light:hover:text-[#FDFBF7] dark:bg-[#314139] dark:text-[#FDFBF7] dark:hover:bg-[#20332B]"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+            className="rounded-md bg-text px-6 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-icon light:bg-linen light:text-ink light:hover:bg-linen-hover light:hover:text-cream dark:bg-moss dark:text-cream dark:hover:bg-deep"
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
           >
             Cancelar
           </button>

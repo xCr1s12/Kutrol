@@ -67,6 +67,7 @@ export default function MetricasDashboard() {
       SubText: "Listado de vehículos",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <LocalShippingRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <LocalShippingRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
@@ -74,6 +75,9 @@ export default function MetricasDashboard() {
 =======
       icon: <LocalShippingRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+      icon: <LocalShippingRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
       ariaLabel: "Vehículos disponibles y totales",
     },
     {
@@ -86,6 +90,7 @@ export default function MetricasDashboard() {
       SubText: "Costos de combustible",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <MonetizationOnRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <MonetizationOnRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
@@ -93,6 +98,9 @@ export default function MetricasDashboard() {
 =======
       icon: <MonetizationOnRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+      icon: <MonetizationOnRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
       ariaLabel: "Gasto total vehicular",
     },
     {
@@ -105,6 +113,7 @@ export default function MetricasDashboard() {
       SubText: "Combustible total utilizado",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <LocalGasStationRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
@@ -112,6 +121,9 @@ export default function MetricasDashboard() {
 =======
       icon: <LocalGasStationRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+      icon: <LocalGasStationRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
       ariaLabel: "Combustible total utilizado en litros",
     },
     {
@@ -124,6 +136,7 @@ export default function MetricasDashboard() {
       SubText: "Rendimiento Km/L",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <LocalGasStationRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
@@ -131,6 +144,9 @@ export default function MetricasDashboard() {
 =======
       icon: <LocalGasStationRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+      icon: <LocalGasStationRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
       ariaLabel: "Rendimiento en kilómetros por litro",
     },
   ];

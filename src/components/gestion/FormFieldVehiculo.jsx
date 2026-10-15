@@ -3,10 +3,14 @@ import FormField from "@/components/ui/FormField";
 const inputClase =
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "w-full rounded-md border border-icon bg-background px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 =======
   "w-full rounded-md border border-icon bg-background dark:bg-foreground px-3 py-2.5 text-xs text-text  placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-[#C2C9C4] dark:bg-[#1B2B24] dark:text-[#1A1A1A] dark:placeholder:text-[#A8B0AB] dark:focus:border-[#D4AF37] dark:focus:ring-[#D4AF37]";
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+  "w-full rounded-md border border-icon bg-background dark:bg-foreground px-3 py-2.5 text-xs text-text  placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-mist dark:bg-brand dark:text-ink dark:placeholder:text-sage dark:focus:border-gold dark:focus:ring-gold";
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
 
 const COMBUSTIBLES = [
   { value: "DIESEL", label: "Diesel" },

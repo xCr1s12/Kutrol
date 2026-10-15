@@ -22,6 +22,7 @@ export default function FormField({
       <div className="flex flex-col gap-1.5">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <label htmlFor={id} className="text-xs font-semibold text-brand">
 =======
         <label htmlFor={id} className="text-xs font-semibold text-text dark:text-ink">
@@ -29,6 +30,9 @@ export default function FormField({
 =======
         <label htmlFor={id} className="text-xs font-semibold text-text dark:text-[#1A1A1A]">
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+        <label htmlFor={id} className="text-xs font-semibold text-text dark:text-ink">
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
           {label}
         </label>
         {children}

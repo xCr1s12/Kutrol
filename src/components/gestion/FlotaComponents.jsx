@@ -22,6 +22,7 @@ export const PillButton = ({ children, onClick }) => (
     onClick={onClick}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     className="rounded-full border border-icon bg-background px-3.5 py-1.5 text-xs text-brand transition-colors hover:bg-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
 =======
     className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs text-text transition-colors hover:bg-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent light:hover:bg-border light:hover:text-text  dark:bg-brand  dark:hover:bg-moss dark:focus-visible:outline-gold"
@@ -29,6 +30,9 @@ export const PillButton = ({ children, onClick }) => (
 =======
     className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs text-text transition-colors hover:bg-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent light:hover:bg-border light:hover:text-text  dark:bg-brand  dark:hover:bg-[#314139] dark:focus-visible:outline-[#D4AF37]"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+    className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs text-text transition-colors hover:bg-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent light:hover:bg-border light:hover:text-text  dark:bg-brand  dark:hover:bg-moss dark:focus-visible:outline-gold"
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
   >
     {children}
   </button>
@@ -179,13 +183,17 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             onClick={() => onSelect(opcion)}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
 =======
             className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-[#D4AF37] ${
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+            className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-gold ${
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
               activo
                 ? "border-transparent bg-accent font-bold text-text dark:bg-accent"
-                : "bg-background text-text hover:bg-text light:hover:bg-border light:hover:text-text border-border dark:bg-brand  dark:hover:bg-[#314139]"
+                : "bg-background text-text hover:bg-text light:hover:bg-border light:hover:text-text border-border dark:bg-brand  dark:hover:bg-moss"
             }`}
 <<<<<<< HEAD
             style={activo ? { backgroundColor: GOLD } : undefined}
@@ -220,6 +228,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         onClick={() => onCambiarPagina(pagina - 1)}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50"
 =======
         className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-mist dark:bg-brand dark:text-sage"
@@ -227,6 +236,9 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
 =======
         className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-mist dark:bg-brand dark:text-sage"
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
       >
         ‹
       </button>
@@ -238,6 +250,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
           onClick={() => onCambiarPagina(numero)}
           className={`h-6 w-6 rounded-md border text-xs font-bold ${
             numero === pagina
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
               ? "border-transparent text-brand"
@@ -252,6 +265,10 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
 =======
               ? "border-transparent bg-accent text-brand dark:bg-[#D4AF37] dark:text-brand"
               : "border-icon bg-background text-subtext dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
+=======
+              ? "border-transparent bg-accent text-brand dark:bg-gold dark:text-brand"
+              : "border-icon bg-background text-subtext dark:border-mist dark:bg-brand dark:text-sage"
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
           }`}
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         >
@@ -265,6 +282,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         onClick={() => onCambiarPagina(pagina + 1)}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50"
 =======
         className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-mist dark:bg-brand dark:text-sage"
@@ -272,6 +290,9 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
 =======
         className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-mist dark:bg-brand dark:text-sage"
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
       >
         ›
       </button>

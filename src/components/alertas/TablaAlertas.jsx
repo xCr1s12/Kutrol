@@ -137,10 +137,14 @@ export default function TablaAlertas({ alertas }) {
             {filtradas.length === 0 && (
               <tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <td colSpan={4} className="px-4 py-8 text-center text-graphite">
 =======
                 <td colSpan={4} className="px-4 py-8 text-center text-[#4A4A4A]">
 >>>>>>> 0c414e2 (pagina de alerta)
+=======
+                <td colSpan={4} className="px-4 py-8 text-center text-graphite">
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
                   No se encontraron alertas
                 </td>
               </tr>

@@ -33,6 +33,7 @@ export default function MetricasAmbiente() {
     return (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div className="col-span-full py-8 text-center text-graphite animate-pulse font-medium">
 =======
       <div className="col-span-full py-8 text-center text-[#4A4A4A] animate-pulse font-medium">
@@ -40,6 +41,9 @@ export default function MetricasAmbiente() {
 =======
       <div className="col-span-full animate-pulse py-8 text-center font-medium text-subtext">
 >>>>>>> f577f5f (minor changes)
+=======
+      <div className="col-span-full py-8 text-center text-graphite animate-pulse font-medium">
+>>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
         Cargando métricas de sostenibilidad...
       </div>
     );
