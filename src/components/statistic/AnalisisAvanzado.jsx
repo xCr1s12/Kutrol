@@ -27,63 +27,63 @@ export default function AnalisisAvanzado({ data }) {
     <div className="flex flex-col gap-6 w-full">
       {/* 1. KPIs Técnicos Avanzados */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-[#FDFBF7] p-5 rounded-xl border border-[#EAE5DA] shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+        <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-semibold text-[#4A4A4A]">Ralentí Innecesario</span>
-            <AccessTimeRoundedIcon className="text-[#8C6239]" fontSize="small" />
+            <span className="text-subtext text-xs font-semibold">Ralentí Innecesario</span>
+            <AccessTimeRoundedIcon className="text-accent" fontSize="small" />
           </div>
-          <p className="text-2xl font-bold text-[#1A1A1A]">14.2 %</p>
-          <p className="text-xs text-[#4A4A4A] mt-1">~23.4 Horas motor encendido sin marcha</p>
+          <p className="text-text text-2xl font-bold">14.2 %</p>
+          <p className="text-subtext mt-1 text-xs">~23.4 Horas motor encendido sin marcha</p>
         </div>
 
-        <div className="bg-[#FDFBF7] p-5 rounded-xl border border-[#EAE5DA] shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+        <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-semibold text-[#4A4A4A]">Coeficiente de Correlación</span>
-            <ShowChartRoundedIcon className="text-[#1B2B24]" fontSize="small" />
+            <span className="text-subtext text-xs font-semibold">Coeficiente de Correlación</span>
+            <ShowChartRoundedIcon className="text-accent" fontSize="small" />
           </div>
-          <p className="text-2xl font-bold text-[#1A1A1A]">- 0.84 r</p>
-          <p className="text-xs text-[#4A4A4A] mt-1">Velocidad vs. Rendimiento (Fuerte Inversa)</p>
+          <p className="text-text text-2xl font-bold">- 0.84 r</p>
+          <p className="text-subtext mt-1 text-xs">Velocidad vs. Rendimiento (Fuerte Inversa)</p>
         </div>
 
-        <div className="bg-[#FDFBF7] p-5 rounded-xl border border-[#EAE5DA] shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+        <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-semibold text-[#4A4A4A]">Desviación Estándar</span>
-            <BalanceRoundedIcon className="text-[#D4AF37]" fontSize="small" />
+            <span className="text-subtext text-xs font-semibold">Desviación Estándar</span>
+            <BalanceRoundedIcon className="text-accent" fontSize="small" />
           </div>
-          <p className="text-2xl font-bold text-[#1A1A1A]">± 0.42 Km/L</p>
-          <p className="text-xs text-[#4A4A4A] mt-1">Variabilidad de conducción en flota</p>
+          <p className="text-text text-2xl font-bold">± 0.42 Km/L</p>
+          <p className="text-subtext mt-1 text-xs">Variabilidad de conducción en flota</p>
         </div>
 
-        <div className="bg-[#FDFBF7] p-5 rounded-xl border border-[#EAE5DA] shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+        <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-semibold text-[#4A4A4A]">Proyección Gasto Mensual</span>
-            <AssessmentRoundedIcon className="text-[#1A1A1A]" fontSize="small" />
+            <span className="text-subtext text-xs font-semibold">Proyección Gasto Mensual</span>
+            <AssessmentRoundedIcon className="text-text" fontSize="small" />
           </div>
-          <p className="text-2xl font-bold text-[#1A1A1A]">$1.450.000</p>
-          <p className="text-xs text-[#4A4A4A] mt-1">Estimación basada en regresión lineal</p>
+          <p className="text-text text-2xl font-bold">$1.450.000</p>
+          <p className="text-subtext mt-1 text-xs">Estimación basada en regresión lineal</p>
         </div>
       </div>
 
       {/* 2. Gráfico de Correlación de Variables */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-[#FDFBF7] p-6 rounded-xl border border-[#EAE5DA] shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+        <div className="bg-card text-text lg:col-span-2 rounded-xl border border-border p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-[#1A1A1A] font-bold text-lg">
+              <h2 className="text-text text-lg font-bold">
                 Análisis de Dispersión y Correlación
               </h2>
-              <p className="text-xs text-[#4A4A4A]">
+              <p className="text-subtext text-xs">
                 Evaluación del impacto de factores operativos sobre el rendimiento de combustible
               </p>
             </div>
 
-            <div className="flex bg-[#EAE5DA]/50 p-1 rounded-lg border border-[#EAE5DA]">
+            <div className="bg-background flex rounded-lg border border-border p-1">
               <button
                 onClick={() => setFiltroMétrica("velocidad")}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
                   filtroMétrica === "velocidad"
-                    ? "bg-[#1A1A1A] text-[#FDFBF7]"
-                    : "text-[#4A4A4A] hover:text-[#1A1A1A]"
+                    ? "bg-text text-background"
+                    : "text-subtext hover:text-text"
                 }`}
               >
                 Velocidad (Km/h)
@@ -92,8 +92,8 @@ export default function AnalisisAvanzado({ data }) {
                 onClick={() => setFiltroMétrica("carga")}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
                   filtroMétrica === "carga"
-                    ? "bg-[#1A1A1A] text-[#FDFBF7]"
-                    : "text-[#4A4A4A] hover:text-[#1A1A1A]"
+                    ? "bg-text text-background"
+                    : "text-subtext hover:text-text"
                 }`}
               >
                 Carga (Toneladas)
@@ -101,8 +101,8 @@ export default function AnalisisAvanzado({ data }) {
             </div>
           </div>
 
-          <div className="p-4 bg-[#F4F5F7] rounded-lg border border-[#EAE5DA]">
-            <div className="flex justify-between items-center text-xs font-bold text-[#4A4A4A] mb-3 pb-2 border-b border-[#EAE5DA]">
+          <div className="bg-background rounded-lg border border-border p-4">
+            <div className="text-subtext mb-3 flex items-center justify-between border-b border-border pb-2 text-xs font-bold">
               <span>Vehículo / Patente</span>
               <span>{filtroMétrica === "velocidad" ? "Velocidad Promedio" : "Carga Transportada"}</span>
               <span>Rendimiento Real</span>
@@ -117,14 +117,14 @@ export default function AnalisisAvanzado({ data }) {
                 return (
                   <div
                     key={idx}
-                    className="flex items-center justify-between bg-[#FDFBF7] p-3 rounded-md border border-[#EAE5DA] text-xs"
+                    className="bg-card text-text flex items-center justify-between rounded-md border border-border p-3 text-xs"
                   >
-                    <span className="font-bold text-[#1A1A1A]">{item.camion}</span>
-                    <span className="text-[#4A4A4A] font-medium">{valorVariable}</span>
-                    <span className="font-semibold text-[#1A1A1A]">{item.rendimiento} Km/L</span>
+                    <span className="text-text font-bold">{item.camion}</span>
+                    <span className="text-subtext font-medium">{valorVariable}</span>
+                    <span className="text-text font-semibold">{item.rendimiento} Km/L</span>
                     <span
                       className={`px-2.5 py-1 rounded text-[11px] font-bold ${
-                        esIneficiente ? "bg-[#8C6239] text-white" : "bg-[#1B2B24] text-white"
+                        esIneficiente ? "bg-accent text-background" : "bg-brand text-white"
                       }`}
                     >
                       {esIneficiente ? "Alto Consumo" : "Eficiente"}
@@ -137,33 +137,33 @@ export default function AnalisisAvanzado({ data }) {
         </div>
 
         {/* 3. Panel de Diagnóstico */}
-        <div className="bg-[#FDFBF7] p-6 rounded-xl border border-[#EAE5DA] shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+        <div className="bg-card text-text flex flex-col justify-between rounded-xl border border-border p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div>
-            <h2 className="text-[#1A1A1A] font-bold text-lg mb-1">
+            <h2 className="text-text mb-1 text-lg font-bold">
               Diagnóstico Algorítmico
             </h2>
-            <p className="text-xs text-[#4A4A4A] mb-6">
+            <p className="text-subtext mb-6 text-xs">
               Detección automática de anomalías operativas
             </p>
 
             <div className="flex flex-col gap-4">
-              <div className="p-3.5 bg-[#EAE5DA]/40 rounded-lg border border-[#EAE5DA]">
-                <span className="text-xs font-bold text-[#8C6239]">Exceso de Velocidad</span>
-                <p className="text-xs text-[#1A1A1A] mt-1 leading-relaxed">
+              <div className="bg-background rounded-lg border border-border p-3.5">
+                <span className="text-accent text-xs font-bold">Exceso de Velocidad</span>
+                <p className="text-text mt-1 text-xs leading-relaxed">
                   Los tramos superiores a 85 Km/h representan el 68% de las pérdidas de rendimiento registradas en la flota.
                 </p>
               </div>
 
-              <div className="p-3.5 bg-[#EAE5DA]/40 rounded-lg border border-[#EAE5DA]">
-                <span className="text-xs font-bold text-[#D4AF37]">Ralentí Prolongado</span>
-                <p className="text-xs text-[#1A1A1A] mt-1 leading-relaxed">
+              <div className="bg-background rounded-lg border border-border p-3.5">
+                <span className="text-accent text-xs font-bold">Ralentí Prolongado</span>
+                <p className="text-text mt-1 text-xs leading-relaxed">
                   Se detectaron detenciones con motor encendido en puntos de acopio de Castro superando los 40 min continuos.
                 </p>
               </div>
 
-              <div className="p-3.5 bg-[#EAE5DA]/40 rounded-lg border border-[#EAE5DA]">
-                <span className="text-xs font-bold text-[#1B2B24]">Optimización Recomendada</span>
-                <p className="text-xs text-[#1A1A1A] mt-1 leading-relaxed">
+              <div className="bg-background rounded-lg border border-border p-3.5">
+                <span className="text-accent text-xs font-bold">Optimización Recomendada</span>
+                <p className="text-text mt-1 text-xs leading-relaxed">
                   Regular la velocidad máxima a 80 Km/h ahorraría aprox. <strong>180 Litros/mes</strong> en la operación.
                 </p>
               </div>

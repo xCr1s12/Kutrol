@@ -16,7 +16,7 @@ export default function Clock({ className = "", role }) {
 
   if (!time) {
     return (
-      <span className={`text-xs text-[#4A4A4A] inline-flex items-center ${className}`}>
+      <span className={`text-subtext inline-flex items-center text-xs ${className}`}>
         Cargando hora...
       </span>
     );
@@ -39,12 +39,12 @@ export default function Clock({ className = "", role }) {
   });
 
   return (
-    <div className={`inline-flex items-center gap-2 text-xs font-medium text-[#4A4A4A] whitespace-nowrap ${className}`} role={role}>
+    <div className={`text-subtext inline-flex items-center gap-2 whitespace-nowrap text-xs font-medium ${className}`} role={role}>
       <span className="flex items-center gap-1">
         <span>📅</span>
         <span>{fechaFormatted}</span>
       </span>
-      <span className="text-gray-300">•</span>
+      <span className="text-border">•</span>
       <span className="flex items-center gap-1">
         <span>🕒</span>
         <span>{horaFormatted}</span>

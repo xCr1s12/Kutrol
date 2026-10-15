@@ -56,34 +56,34 @@ export default function ConsumoChart() {
   );
 
   return (
-    <div className="w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.04)] border border-[#EAE5DA] flex flex-col gap-4 font-sans">
+    <div className="bg-card text-text flex w-full flex-col gap-4 rounded-xl border border-border p-6 font-sans shadow-[0px_4px_10px_rgba(0,0,0,0.04)]">
       {/* Cabecera con Selector de Rango */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
         <div>
-          <h2 className="text-[#1A1A1A] font-bold text-lg leading-tight">Consumo y Eficiencia</h2>
-          <p className="text-xs text-[#6E6E6E] mt-0.5">Litros consumidos vs. Kilómetros recorridos</p>
+          <h2 className="text-text text-lg font-bold leading-tight">Consumo y Eficiencia</h2>
+          <p className="text-subtext mt-0.5 text-xs">Litros consumidos vs. Kilómetros recorridos</p>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 text-xs text-[#4A4A4A]">
+          <div className="text-subtext flex items-center gap-3 text-xs">
             <span className="flex items-center gap-1.5">
-              <span className="w-3 h-3 bg-[#1A1A1A] rounded-sm inline-block"></span>
+              <span className="bg-text inline-block h-3 w-3 rounded-sm"></span>
               Litros (L)
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-3 h-0.5 bg-[#8C6239] inline-block"></span>
+              <span className="bg-accent inline-block h-0.5 w-3"></span>
               Recorrido (Km)
             </span>
           </div>
 
           {/* Botones de Filtro por Rango */}
-          <div className="flex bg-[#EAE5DA] p-1 rounded-full text-xs font-medium text-[#4A4A4A]">
+          <div className="bg-background text-subtext flex rounded-full border border-border p-1 text-xs font-medium">
             {["semanal", "mensual", "anual"].map((p) => (
               <button
                 key={p}
                 onClick={() => setPeriodo(p)}
                 className={`px-3 py-1 rounded-full capitalize transition-colors ${
-                  periodo === p ? "bg-[#1A1A1A] text-[#FDFBF7]" : "hover:text-[#1A1A1A]"
+                  periodo === p ? "bg-text text-background" : "hover:text-text"
                 }`}
               >
                 {p}
@@ -95,11 +95,11 @@ export default function ConsumoChart() {
 
       {/* Ámbito del Gráfico */}
       {loading ? (
-        <div className="w-full h-64 flex items-center justify-center text-xs text-[#6E6E6E]">
+        <div className="text-subtext flex h-64 w-full items-center justify-center text-xs">
           Cargando periodo {periodo}...
         </div>
       ) : error || data.length === 0 ? (
-        <div className="w-full h-64 flex items-center justify-center text-xs text-[#6E6E6E]">
+        <div className="text-subtext flex h-64 w-full items-center justify-center text-xs">
           No hay datos disponibles para el rango seleccionado.
         </div>
       ) : (
@@ -114,7 +114,7 @@ export default function ConsumoChart() {
                   y1={y}
                   x2={chartWidth - 15}
                   y2={y}
-                  stroke="#EAE5DA"
+                  stroke="var(--border)"
                   strokeDasharray="4 4"
                   strokeWidth="1"
                 />
@@ -131,7 +131,7 @@ export default function ConsumoChart() {
                   y={pt.yBar}
                   width={barWidth}
                   height={chartHeight - pt.yBar}
-                  fill="#1A1A1A"
+                  fill="var(--text)"
                   rx="3"
                   className="transition-all duration-200 opacity-90 hover:opacity-100 cursor-pointer"
                   onMouseEnter={() => setHovered(pt)}
@@ -140,7 +140,7 @@ export default function ConsumoChart() {
               );
             })}
 
-            <path d={linePath} fill="none" stroke="#8C6239" strokeWidth="2.5" strokeLinecap="round" />
+            <path d={linePath} fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
 
             {points.map((pt, i) => (
               <circle
@@ -148,8 +148,8 @@ export default function ConsumoChart() {
                 cx={pt.x}
                 cy={pt.yLine}
                 r="3.5"
-                fill="#FDFBF7"
-                stroke="#8C6239"
+                fill="var(--card)"
+                stroke="var(--accent)"
                 strokeWidth="2"
                 className="cursor-pointer"
                 onMouseEnter={() => setHovered(pt)}
@@ -163,7 +163,7 @@ export default function ConsumoChart() {
                 x={pt.x}
                 y={chartHeight + 20}
                 textAnchor="middle"
-                fill="#6E6E6E"
+                fill="var(--subtext)"
                 fontSize="10"
                 className="font-medium select-none"
               >
@@ -174,16 +174,16 @@ export default function ConsumoChart() {
 
           {hovered && (
             <div
-              className="absolute bg-[#FDFBF7] border border-[#EAE5DA] p-2.5 rounded-lg shadow-md text-xs pointer-events-none z-10 transition-all"
+              className="bg-card text-text border-border pointer-events-none absolute z-10 rounded-lg border p-2.5 text-xs shadow-md transition-all"
               style={{
                 left: `${(hovered.x / chartWidth) * 100}%`,
                 top: "10%",
                 transform: "translateX(-50%)",
               }}
             >
-              <p className="font-bold text-[#1A1A1A] mb-1">{hovered.fecha}</p>
-              <p className="text-[#1A1A1A]">Litros: <span className="font-semibold">{hovered.litros} L</span></p>
-              <p className="text-[#8C6239]">Recorrido: <span className="font-semibold">{hovered.km} Km</span></p>
+              <p className="text-text mb-1 font-bold">{hovered.fecha}</p>
+              <p>Litros: <span className="font-semibold">{hovered.litros} L</span></p>
+              <p className="text-accent">Recorrido: <span className="font-semibold">{hovered.km} Km</span></p>
             </div>
           )}
         </div>
