@@ -21,13 +21,17 @@
   --color-icon: var(--icon);
   --color-border: var(--border);
   --color-accent: var(--accent);
+<<<<<<< HEAD
   --color-accent-dark: var(--accent-dark);
   --color-danger: var(--danger);
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-header: var(--header);
   --color-footer: var(--footer);
   --color-card: var(--card);
+<<<<<<< HEAD
   /* Acentos fijos: el dorado va sobre superficies oscuras y el ocre sobre
      superficies claras, para que no dependan del modo activo. */
   --color-gold: #D4AF37;
@@ -52,6 +56,8 @@
   --color-slate: #6E6E6E;          /* superficie gris del mapa */
   --color-copper: #8C6239;         /* cobre: acento sobre claro fijo */
   --color-copper-dark: #A8784A;
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 }
 
 /* MODO OSCURO (por defecto) */
@@ -65,6 +71,7 @@
   --icon: #C2C9C4;         /* Iconos */
   --border: #314139;       /* Bordes / divisores */
   --accent: #D4AF37;       /* Acento */
+<<<<<<< HEAD
   --accent-dark: #C49A2E;
   --danger: #F87171;
   --header: #1B2B24;       /* = Fondo */
@@ -103,7 +110,40 @@
 
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
+=======
+  --header: #1B2B24;       /* = Fondo */
+  --footer: #20332B;
+  --card: #314139;         /* = Bordes */
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 }
+
+/* MODO CLARO */
+.light {
+  color-scheme: light;
+  --background: #FDFBF7;   /* Fondo */
+  --foreground: #1A1A1A;   /* Texto principal */
+  --text: #1A1A1A;         /* Texto principal */
+  --subtext: #6E6E6E;      /* Subtexto */
+  --icon: #4A4A4A;         /* Iconos */
+  --border: #EAE5DA;       /* Bordes / divisores */
+  --accent: #8C6239;       /* Acento */
+  --header: #FDFBF7;       /* = Fondo */
+  --footer: #EAE5DA;       /* = Bordes */
+  --card: #EAE5DA;         /* = Bordes */
+}
+
+.panel-theme {
+  --accent: #D4AF37;
+  --accent-dark: #C49A2E;
+  --icon: #C2C9C4;
+  --color-accent-dark: #C49A2E;
+  --color-red: #FF0000 ;
+}
+
+.route-form-modal {
+  --background: #EAE5DA;
+}
+
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
 }
@@ -112,4 +152,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-poppins), sans-serif;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)

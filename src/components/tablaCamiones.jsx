@@ -23,6 +23,7 @@ const FILTROS = [
 
 const ESTADOS = {
 <<<<<<< HEAD
+<<<<<<< HEAD
   disponible: { label: "DISPONIBLE", color: "var(--color-text)" },
   en_ruta: { label: "EN RUTA", color: "var(--color-accent)" },
   mantencion: { label: "MANTENCION", color: "var(--color-accent-dark)" },
@@ -37,6 +38,14 @@ const ESTADOS = {
     label: "FUERA DE SERVICIO",
     color: "var(--color-accent-dark)",
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+  disponible: { label: "DISPONIBLE", color: "var(--color-text)" },
+  en_ruta: { label: "EN RUTA", color: "var(--color-accent)" },
+  mantencion: { label: "MANTENCION", color: "var(--color-accent-dark)" },
+  fuera_de_servicio: {
+    label: "FUERA DE SERVICIO",
+    color: "var(--color-red)",
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   },
 };
 
@@ -183,10 +192,14 @@ export default function TablaCamiones({
         {cargando ? (
           <tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <td colSpan={5} className="h-15 text-center text-text">
 =======
             <td colSpan={5} className="h-15 text-center text-base text-subtext">
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+            <td colSpan={5} className="h-15 text-center text-text">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               Cargando vehículos...
             </td>
           </tr>

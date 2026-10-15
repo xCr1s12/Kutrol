@@ -1,6 +1,7 @@
 "use client";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -42,11 +43,18 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
 
 =======
 import { useEffect, useRef, useState } from "react";
+=======
+import { useContext, useEffect, useRef, useState } from "react";
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import Logo from "@/components/ui/Logo";
+import { darkModeContext } from "@/components/ui/DarkModeProvider";
 
 export default function PanelHeaderClient({ Encargado, Empresa }) {
+  const { darkMode, toggleDarkMode } = useContext(darkModeContext);
   const [isOpen, setIsOpen] = useState(false);
   const [imagenRota, setImagenRota] = useState(false);
   const dropdownRef = useRef(null);
@@ -64,6 +72,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
   }, []);
 
   return (
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       <header className="w-full flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-2 flex-wrap gap-2 light:bg-header light:border-border dark:bg-header dark:border-border">
@@ -109,11 +118,27 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
 =======
       <Logo fondo="claro" href="/dashboard" className="h-12" />
 >>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
+=======
+      <header className="w-full flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-2 flex-wrap gap-2 light:bg-header light:border-border dark:bg-header dark:border-border">
+      <Logo fondo={darkMode ? "oscuro" : "claro"} href="/dashboard" className="h-12" />
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 
-      <div className="relative" ref={dropdownRef}>
+      <div className="flex items-center gap-2">
         <button
+          type="button"
+          onClick={toggleDarkMode}
+          className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+          aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+          aria-pressed={darkMode}
+        >
+          {darkMode ? <LightModeOutlinedIcon /> : <ModeNightOutlinedIcon />}
+        </button>
+
+        <div className="relative" ref={dropdownRef}>
+        <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-[#EAE5DA]/50 transition-colors cursor-pointer focus:outline-none"
+          className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-border/50 transition-colors cursor-pointer focus:outline-none"
         >
           <img
             src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}
@@ -122,28 +147,40 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
             onError={() => setImagenRota(true)}
           />
 
+<<<<<<< HEAD
           <span className="hidden sm:inline-block text-sm font-medium text-[#1A1A1A]">
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+          <span className="hidden sm:inline-block text-sm font-medium text-text">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             {Encargado.primer_nombre} {Encargado.apellidos}
           </span>
 
           {isOpen ? (
             <KeyboardArrowUpIcon
 <<<<<<< HEAD
+<<<<<<< HEAD
               className="text-icon"
 =======
               htmlColor="#4A4A4A"
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+              className="text-icon"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               aria-hidden="false"
               aria-label="Cerrar Menu"
             />
           ) : (
             <KeyboardArrowDownIcon
 <<<<<<< HEAD
+<<<<<<< HEAD
               className="text-icon"
 =======
               htmlColor="#4A4A4A"
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+              className="text-icon"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               aria-hidden="false"
               aria-label="Abrir Menu"
             />
@@ -151,6 +188,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
         </button>
 
         {isOpen && (
+<<<<<<< HEAD
 <<<<<<< HEAD
           <div className="absolute right-0 mt-2 w-56 rounded-xl border shadow-lg py-2 z-50 bg-card border-border text-text">
             <div className="px-4 py-2 border-b border-border">
@@ -160,6 +198,11 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
             <div className="px-4 py-2 border-b border-[#EAE5DA]">
               <p className="text-sm font-semibold text-[#1A1A1A]">
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+          <div className="absolute right-0 mt-2 w-56 rounded-xl border shadow-lg py-2 z-50 bg-card border-border text-text">
+            <div className="px-4 py-2 border-b border-border">
+              <p className="text-sm font-semibold text-text">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 {Encargado.primer_nombre} {Encargado.apellidos}
               </p>
               <p className="text-xs text-subtext truncate">{Encargado.email}</p>
@@ -193,13 +236,13 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
 =======
               <a
                 href="/configPanel"
-                className="block px-4 py-2 text-sm hover:bg-text transition-colors"
+                className="block px-4 py-2 text-sm hover:bg-border transition-colors"
               >
                 Configuración
               </a>
             </div>
 
-            <div className="border-t border-[#EAE5DA] pt-1">
+            <div className="border-t border-border pt-1">
               <button
                 onClick={() => setIsOpen(false)}
                 className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer"
@@ -211,9 +254,13 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
           </div>
         )}
 <<<<<<< HEAD
+<<<<<<< HEAD
         </div>
 =======
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+        </div>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       </div>
     </header>
   );

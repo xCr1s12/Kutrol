@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import {
   createContext,
   useCallback,
@@ -7,12 +8,16 @@ import {
   useLayoutEffect,
   useSyncExternalStore,
 } from "react";
+=======
+import { createContext, useEffect, useState } from "react";
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 
 export const darkModeContext = createContext({
   darkMode: true,
   toggleDarkMode: () => {},
 });
 
+<<<<<<< HEAD
 const STORAGE_KEY = "darkMode";
 const THEME_EVENT = "kutrol:theme";
 const DEFAULT_DARK = true;
@@ -80,9 +85,39 @@ export default function DarkModeProvider({ children }) {
     window.dispatchEvent(new Event(THEME_EVENT));
   }, []);
 
+=======
+export default function DarkModeProvider({ children }) {
+  const [darkMode, setDarkMode] = useState(true);
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("darkMode");
+    if (saved !== null) {
+      setDarkMode(saved === "true");
+    }
+    setInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (!initialized) return;
+
+    document.documentElement.classList.toggle("light", !darkMode);
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem("darkMode", String(darkMode));
+  }, [darkMode, initialized]);
+
+  const toggleDarkMode = () => {
+    setDarkMode((current) => !current);
+  };
+
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   return (
     <darkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}
     </darkModeContext.Provider>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)

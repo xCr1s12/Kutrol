@@ -190,9 +190,13 @@ export default function FormRoute({ open, onClose, onSubmit }) {
       open={open}
       onClose={onClose}
 <<<<<<< HEAD
+<<<<<<< HEAD
       className="route-form-modal"
 =======
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+      className="route-form-modal"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       title="Agregar ruta"
       eyebrow="RUTAS"
       icon={<AddRoadRoundedIcon />}
@@ -200,15 +204,21 @@ export default function FormRoute({ open, onClose, onSubmit }) {
       footer={
         <>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           <BotonSecundario
             onClick={onClose}
             className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-brand hover:brightness-95"
           >
             Cancelar
           </BotonSecundario>
+<<<<<<< HEAD
 =======
           <BotonSecundario onClick={onClose}>Cancelar</BotonSecundario>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           <BotonPrimario type="submit" form="form-ruta">
             Agregar ruta
           </BotonPrimario>

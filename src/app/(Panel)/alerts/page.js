@@ -24,6 +24,7 @@ export default function Alertas() {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className="flex flex-col w-full bg-card  p-6 gap-5 rounded-2xl">
       <header>
         <h1 className="text-text text-2xl font-bold">Registro de alertas</h1>
@@ -32,6 +33,11 @@ export default function Alertas() {
       <header>
         <h1 className="text-[#1A1A1A] text-2xl font-bold">Registro de alertas</h1>
 >>>>>>> 0c414e2 (pagina de alerta)
+=======
+    <div className="flex flex-col w-full bg-card  p-6 gap-5 rounded-2xl">
+      <header>
+        <h1 className="text-text text-2xl font-bold">Registro de alertas</h1>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-5">

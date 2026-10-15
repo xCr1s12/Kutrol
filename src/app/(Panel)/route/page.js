@@ -101,6 +101,7 @@ export default function Route() {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl" lang="es">
       {/* Lista de rutas y mapa */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch ">
@@ -110,13 +111,22 @@ export default function Route() {
           <p className="text-sm light:text-subtext dark:text-subtext">
 =======
     <div className="flex flex-col w-full bg-[#FDFBF7]" lang="es">
+=======
+    <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl" lang="es">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       {/* Lista de rutas y mapa */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch ">
         {/* Lista de rutas: 1/3 */}
+<<<<<<< HEAD
         <div className="lg:col-span-1 border-2 border-[#EAE5DA] p-6 rounded-2xl bg-white">
           <h1 className="font-bold text-lg text-[#1A1A1A]">Lista de Rutas</h1>
           <p className="text-sm text-[#6E6E6E]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-white dark:bg-background">
+          <h1 className="font-bold text-lg light:text-text dark:text-text">Lista de Rutas</h1>
+          <p className="text-sm light:text-subtext dark:text-subtext">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             Selecciona una para verla en el mapa
           </p>
           <Listitem
@@ -176,10 +186,14 @@ export default function Route() {
             <table className="w-full text-sm">
               <thead>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <tr className="text-left text-xs uppercase tracking-wide  dark:text-subtext light:text-subtext">
 =======
                 <tr className="text-left text-xs uppercase tracking-wide text-[#6E6E6E]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                <tr className="text-left text-xs uppercase tracking-wide  dark:text-subtext light:text-subtext">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   <th className="font-medium pb-2">Conductor</th>
                   <th className="font-medium pb-2">Encargado</th>
                 </tr>
@@ -187,12 +201,16 @@ export default function Route() {
               <tbody>
                 {asignado.viajes.map((v, i) => (
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <tr key={i} className="border-t  dark:border-border light:border-border">
                     <td className="py-2">
                       <div className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-7 h-7 rounded-full bg-sand text-xs font-semibold text-ink">
 =======
                   <tr key={i} className="border-t border-[#EAE5DA]">
+=======
+                  <tr key={i} className="border-t  dark:border-border light:border-border">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                     <td className="py-2">
                       <div className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#F3EFE6] text-xs font-semibold text-[#1A1A1A]">
@@ -202,6 +220,7 @@ export default function Route() {
                             .map((n) => n[0])
                             .join("")}
                         </span>
+<<<<<<< HEAD
 <<<<<<< HEAD
                         <span className="light:text-text dark:text-text ">{v.conductor}</span>
                       </div>
@@ -213,6 +232,12 @@ export default function Route() {
                     </td>
                     <td className="py-2 text-[#6E6E6E]">{v.encargado}</td>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                        <span className="light:text-text dark:text-text ">{v.conductor}</span>
+                      </div>
+                    </td>
+                    <td className="py-2 light:text-text dark:text-text">{v.encargado}</td>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   </tr>
                 ))}
               </tbody>
@@ -228,16 +253,22 @@ export default function Route() {
             <dl className="flex flex-col gap-3 text-sm">
               <div className="flex justify-between">
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <dt className="light:text-text dark:text-text">Consumo promedio</dt>
                 <dd className="font-semibold light:text-text dark:text-text">
 =======
                 <dt className="text-[#6E6E6E]">Consumo promedio</dt>
                 <dd className="font-semibold text-[#1A1A1A]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                <dt className="light:text-text dark:text-text">Consumo promedio</dt>
+                <dd className="font-semibold light:text-text dark:text-text">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   {asignado.combustible.consumo}
                 </dd>
               </div>
               <div className="flex justify-between">
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <dt className="light:text-text dark:text-text">Rendimiento</dt>
                 <dd className="font-semibold light:text-text dark:text-text">
@@ -245,15 +276,23 @@ export default function Route() {
                 <dt className="text-[#6E6E6E]">Rendimiento</dt>
                 <dd className="font-semibold text-[#1A1A1A]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                <dt className="light:text-text dark:text-text">Rendimiento</dt>
+                <dd className="font-semibold light:text-text dark:text-text">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   {asignado.combustible.rendimiento}
                 </dd>
               </div>
               <div className="flex justify-between items-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <dt className="light:text-text dark:text-text">Ahorro</dt>
 =======
                 <dt className="text-[#6E6E6E]">Ahorro</dt>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                <dt className="light:text-text dark:text-text">Ahorro</dt>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 <dd className="font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
                   {asignado.combustible.ahorro}
                 </dd>
@@ -269,6 +308,7 @@ export default function Route() {
           >
             <div className="flex-1 flex flex-col items-center justify-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <p className="text-4xl font-bold light:text-text dark:text-text">
                 {asignado.tiempoEstimado}
               </p>
@@ -279,6 +319,12 @@ export default function Route() {
               </p>
               <p className="text-sm text-[#6E6E6E] mt-1">Tiempo estimado</p>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+              <p className="text-4xl font-bold light:text-text dark:text-text">
+                {asignado.tiempoEstimado}
+              </p>
+              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Tiempo estimado</p>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             </div>
           </InfoCard>
 
@@ -290,6 +336,7 @@ export default function Route() {
           >
             <div className="flex-1 flex flex-col items-center justify-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <p className="text-4xl font-bold light:text-text dark:text-text">
                 {asignado.distanciaTotal}
               </p>
@@ -300,6 +347,12 @@ export default function Route() {
               </p>
               <p className="text-sm text-[#6E6E6E] mt-1">Distancia total</p>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+              <p className="text-4xl font-bold light:text-text dark:text-text">
+                {asignado.distanciaTotal}
+              </p>
+              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Distancia total</p>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             </div>
           </InfoCard>
         </section>

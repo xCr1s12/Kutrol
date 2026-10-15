@@ -107,9 +107,12 @@ const PillTiempo = ({ dias }) => (
 );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* Solo contenido: el Modal lo pone quien lo usa */
 =======
 >>>>>>> FrontEnd
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 const ConductorHistory = ({ conductor = CONDUCTOR_DEMO }) => {
   const nombre = conductor.conductor ?? conductor.nombre;
   const historial = HISTORIALES_CONDUCTORES.find(

@@ -161,8 +161,8 @@ const Flota = () => {
       className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
     >
       {/* ---------- Vehiculos ---------- */}
-      <Card>
-        <h2 className="text-base font-bold text-brand">Vehiculos</h2>
+      <Card >
+        <h2 className="text-base font-bold text-text">Vehiculos</h2>
 
         <TablaCamiones
           key={versionVehiculos}
@@ -180,6 +180,7 @@ const Flota = () => {
       </Card>
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 
+<<<<<<< HEAD
             {/* Seccion de Conductores */}
             <section className="flex flex-col w-full bg-[#FDFBF7] p-10">
                 <h2 className="text-[#1A1A1A] text-2xl font-bold">Conductores</h2>
@@ -219,5 +220,15 @@ const Flota = () => {
         </main>
     );
 }
+=======
+      {/* ---------- Conductores ---------- */}
+      <Card>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-base font-bold text-text">Conductores</h2>
+          <PillButton onClick={() => setModalConductor(true)}>
+            Agregar Conductor
+          </PillButton>
+        </div>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 
 export default page;

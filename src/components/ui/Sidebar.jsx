@@ -42,10 +42,14 @@ export default function Sidebar() {
           }}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
           className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
 =======
           className="flex items-center gap-3 text-subtext cursor-pointer p-2 rounded transition-colors"
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+          className="flex items-center gap-3 cursor-pointer p-2 rounded text-[#A8B0AB] transition-colors"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         >
           {!isActive && (
             <MenuIcon aria-label="Abrir menú" aria-expanded={false} aria-hidden="false" />
@@ -71,7 +75,11 @@ export default function Sidebar() {
               key={item.path}
               href={item.path}
               className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
+<<<<<<< HEAD
                   ? "border-l-4 border-gold bg-gold/20"
+=======
+                  ? "border-l-4 border-[#D4AF37] bg-[#D4AF37]/20"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   : "border-l-4 border-transparent"
                 }`}
             >
@@ -82,7 +90,11 @@ export default function Sidebar() {
                 <item.icon
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
                   aria-hidden="false"
+<<<<<<< HEAD
                   className={isCurrentPath ? "text-gold" : "text-mist"}
+=======
+                  className={isCurrentPath ? "text-[#D4AF37]" : "text-[#C2C9C4]"}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   fontSize="medium"
                 />
               </div>
@@ -90,10 +102,14 @@ export default function Sidebar() {
               {isActive && (
                 <span
 <<<<<<< HEAD
+<<<<<<< HEAD
                   className={`truncate text-sm font-bold ${isCurrentPath ? "text-cream" : "text-sage"}`}
 =======
                   className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-subtext"}`}
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+                  className={`truncate text-sm font-bold ${isCurrentPath ? "text-[#FDFBF7]" : "text-[#A8B0AB]"}`}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 >
                   {item.name}
                 </span>

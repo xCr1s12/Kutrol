@@ -43,6 +43,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
         <button className={botonIcono} aria-label="Volver al perfil" onClick={onVolver}>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <ArrowBackRounded className="text-icon" sx={{ fontSize: 20 }} aria-hidden="true" />
         </button>
         <h2 className="text-text font-bold text-lg">Editar empresa</h2>
@@ -53,6 +54,9 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
 =======
           <ArrowBackRounded htmlColor="#4A4A4A" sx={{ fontSize: 20 }} aria-hidden="true" />
+=======
+          <ArrowBackRounded className="text-icon" sx={{ fontSize: 20 }} aria-hidden="true" />
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         </button>
         <h2 className="text-[#1A1A1A] font-bold text-lg">Editar empresa</h2>
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)

@@ -66,10 +66,14 @@ export default function MetricasDashboard() {
           : `Disponibles: ${vehiculos.disponibles}/${vehiculos.totales}`,
       SubText: "Listado de vehículos",
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <LocalShippingRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <LocalShippingRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
+=======
+      icon: <LocalShippingRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       ariaLabel: "Vehículos disponibles y totales",
     },
     {
@@ -81,10 +85,14 @@ export default function MetricasDashboard() {
           : formatoCLP.format(gasto.total),
       SubText: "Costos de combustible",
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <MonetizationOnRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <MonetizationOnRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
+=======
+      icon: <MonetizationOnRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       ariaLabel: "Gasto total vehicular",
     },
     {
@@ -96,10 +104,14 @@ export default function MetricasDashboard() {
           : `${formatoNumero.format(combustible.litros)} L`,
       SubText: "Combustible total utilizado",
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <LocalGasStationRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
+=======
+      icon: <LocalGasStationRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       ariaLabel: "Combustible total utilizado en litros",
     },
     {
@@ -111,10 +123,14 @@ export default function MetricasDashboard() {
           : `${formatoNumero.format(combustible.kmPorLitro)} Km/L`,
       SubText: "Rendimiento Km/L",
 <<<<<<< HEAD
+<<<<<<< HEAD
       icon: <LocalGasStationRoundedIcon className="light:text-graphite dark:text-icon" fontSize="large" aria-hidden="true" />,
 =======
       icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
+=======
+      icon: <LocalGasStationRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       ariaLabel: "Rendimiento en kilómetros por litro",
     },
   ];

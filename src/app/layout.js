@@ -32,6 +32,7 @@ export default function RootLayout({ children }) {
       className={`${geistMono.variable} ${geistSans.variable} ${poppins.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+<<<<<<< HEAD
       <head>
         {/* Fija el tema guardado antes del primer pintado: sin esto, quien usa
             modo claro ve un parpadeo oscuro -> claro. El script corre durante
@@ -43,6 +44,8 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       <body className="font-pop bg-background min-h-full flex flex-col">
         <DarkModeProvider>{children}</DarkModeProvider>
       </body>

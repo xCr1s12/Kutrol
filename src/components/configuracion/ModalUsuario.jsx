@@ -78,7 +78,7 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
               {foto ? (
                 <img src={foto} alt="Foto del usuario" className="w-full h-full object-cover" />
               ) : (
-                <ImageRounded htmlColor="#B0B5BD" fontSize="large" aria-hidden="true" />
+                <ImageRounded className="text-icon" fontSize="large" aria-hidden="true" />
               )}
             </div>
             <label className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A1A1A] bg-[#F4F5F7] rounded-full px-3 py-1.5 cursor-pointer hover:bg-[#E9EAED]">

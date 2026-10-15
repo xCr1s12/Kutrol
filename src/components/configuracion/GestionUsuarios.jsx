@@ -72,7 +72,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
           className="w-full bg-transparent text-xs text-text placeholder:text-subtext focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
 =======
       <div className="flex items-center gap-2 w-full max-w-56 border border-[#E2E8F0] rounded-md px-2 py-1 mb-3">
-        <SearchRounded htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
+        <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
           type="search"
           className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
@@ -143,6 +143,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                     <button className={botonIcono} aria-label={`Editar a ${u.nombre}`} onClick={() => setModal(u)}>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <EditRounded className="text-icon" sx={{ fontSize: 18 }} aria-hidden="true" />
 =======
                       <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 14 }} aria-hidden="true" />
@@ -150,6 +151,9 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
 =======
                       <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 18 }} aria-hidden="true" />
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)
+=======
+                      <EditRounded className="text-icon" sx={{ fontSize: 18 }} aria-hidden="true" />
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                     </button>
                     <button
                       className={botonIcono}

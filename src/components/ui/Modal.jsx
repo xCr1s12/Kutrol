@@ -33,9 +33,13 @@ const Modal = ({
   children,
   footer,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   className = "",
 >>>>>>> FrontEnd
+=======
+  className = "",
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   size = "md",
 }) => {
   const dialogRef = useRef(null);
@@ -67,10 +71,14 @@ const Modal = ({
       onClick={handleClickFondo}
       aria-labelledby="modal-titulo"
 <<<<<<< HEAD
+<<<<<<< HEAD
       className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-['Poppins',sans-serif] text-brand shadow-2xl `}
 =======
       className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-['Poppins',sans-serif] text-brand shadow-2xl ${className}`}
 >>>>>>> FrontEnd
+=======
+      className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-['Poppins',sans-serif] text-brand shadow-2xl ${className}`}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
     >
       {open && (
         <div className="flex max-h-[90vh] flex-col">
@@ -79,6 +87,7 @@ const Modal = ({
           <header className="flex items-center justify-between gap-4 border-b-2 border-accent bg-brand px-6 py-5">
             <div className="flex items-center gap-4">
               {icon && (
+<<<<<<< HEAD
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-brand/80 [&_svg]:text-3xl">
 =======
           <header className="flex items-center justify-between gap-4 border-b-2 border-gold bg-brand px-6 py-5">
@@ -86,6 +95,9 @@ const Modal = ({
               {icon && (
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold text-brand [&_svg]:text-3xl">
 >>>>>>> FrontEnd
+=======
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-brand/80 [&_svg]:text-3xl dark:bg-[#D4AF37] dark:text-[#1B2B24]">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   {icon}
                 </span>
               )}
@@ -102,10 +114,14 @@ const Modal = ({
                 <h2
                   id="modal-titulo"
 <<<<<<< HEAD
+<<<<<<< HEAD
                   className="text-xl font-bold leading-tight text-text"
 =======
                   className="text-xl font-bold leading-tight text-cream"
 >>>>>>> FrontEnd
+=======
+                  className="text-xl font-bold leading-tight text-[#FDFBF7]"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 >
                   {title}
                 </h2>
@@ -117,10 +133,14 @@ const Modal = ({
               onClick={onAction ?? onClose}
               aria-label={onAction ? "Acción" : "Cerrar"}
 <<<<<<< HEAD
+<<<<<<< HEAD
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white/5 text-icon transition hover:bg-white/10 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
 =======
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-moss bg-deep text-mist hover:bg-moss hover:text-cream focus-visible:outline-gold  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-moss dark:bg-deep dark:text-mist dark:hover:bg-moss dark:hover:text-cream dark:focus-visible:outline-gold"
 >>>>>>> FrontEnd
+=======
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-[#314139] bg-[#20332B] text-[#C2C9C4] hover:bg-[#314139] hover:text-[#FDFBF7] focus-visible:outline-[#D4AF37]  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-[#314139] dark:bg-[#20332B] dark:text-[#C2C9C4] dark:hover:bg-[#314139] dark:hover:text-[#FDFBF7] dark:focus-visible:outline-[#D4AF37]"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             >
               {actionIcon ?? <CloseRoundedIcon fontSize="small" />}
             </button>
@@ -157,10 +177,14 @@ export const Seccion = ({ titulo, children, className = "" }) => (
 export const Tarjeta = ({ children, className = "" }) => (
   <div
 <<<<<<< HEAD
+<<<<<<< HEAD
     className={`rounded-2xl border border-icon bg-background p-5 ${className}`}
 =======
     className={`rounded-2xl border border-icon dark:bg-foreground p-5 ${className}`}
 >>>>>>> FrontEnd
+=======
+    className={`rounded-2xl border border-icon dark:bg-foreground p-5 ${className}`}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   >
     {children}
   </div>
@@ -171,10 +195,14 @@ export const Tabla = ({ columnas, filas }) => (
   <div className="overflow-hidden rounded-2xl border border-icon">
     <table className="w-full text-left text-sm">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <thead className="bg-text text-xs font-bold uppercase tracking-wider">
 =======
       <thead className="light:bg-background dark:bg-foreground text-xs font-bold uppercase tracking-wider">
 >>>>>>> FrontEnd
+=======
+      <thead className="light:bg-background dark:bg-foreground text-xs font-bold uppercase tracking-wider">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         <tr>
           {columnas.map((c) => (
             <th key={c.key} className="px-5 py-3">
@@ -184,10 +212,14 @@ export const Tabla = ({ columnas, filas }) => (
         </tr>
       </thead>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <tbody className="bg-background">
 =======
       <tbody className="dark:bg-foreground light:bg-background">
 >>>>>>> FrontEnd
+=======
+      <tbody className="dark:bg-foreground light:bg-background">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         {filas.map((fila, i) => (
           <tr key={i} className="border-t border-icon">
             {columnas.map((c, j) => (
@@ -215,12 +247,17 @@ export const Dato = ({ label, value }) => (
 /** Línea de tiempo vertical. items: [{ titulo, detalle, actual }] */
 export const LineaTiempo = ({ items }) => (
 <<<<<<< HEAD
+<<<<<<< HEAD
   <Tarjeta className="px-6 py-5">
     <ol className="relative flex flex-col gap-5">
 =======
   <Tarjeta className="px-6 py-5 dark:bg-foreground">
     <ol className="relative flex flex-col gap-5 dark:bg-foreground">
 >>>>>>> FrontEnd
+=======
+  <Tarjeta className="px-6 py-5 dark:bg-foreground">
+    <ol className="relative flex flex-col gap-5 dark:bg-foreground">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       <span className="absolute bottom-2 left-1.25 top-2 w-px bg-icon" />
       {items.map((it, i) => (
         <li key={i} className="relative flex items-center gap-4 pl-6 text-sm">
@@ -228,6 +265,7 @@ export const LineaTiempo = ({ items }) => (
             className={`absolute left-0 rounded-full ${
               it.actual
                 ? "h-3 w-3 bg-accent ring-4 ring-accent/25"
+<<<<<<< HEAD
 <<<<<<< HEAD
                 : "ml-0.5 h-2 w-2 bg-subtext"
             }`}
@@ -239,6 +277,12 @@ export const LineaTiempo = ({ items }) => (
           />
           <span className={`font-semibold ${it.actual ? "light:text-text" : "light:text-text/70"}`}>
 >>>>>>> FrontEnd
+=======
+                : "ml-0.5 h-2 w-2 dark:bg-foreground light:bg:background"
+            }`}
+          />
+          <span className={`font-semibold ${it.actual ? "light:text-text" : "light:text-text/70"}`}>
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             {it.titulo}
           </span>
           <span
@@ -273,6 +317,7 @@ export const inputClase =
   "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const BotonSecundario = ({ children, ...props }) => (
   <button
     type="button"
@@ -289,6 +334,17 @@ export const BotonSecundario = ({
     {...props}
     className={className}
 >>>>>>> FrontEnd
+=======
+export const BotonSecundario = ({
+  children,
+  className = "rounded-full border border-icon bg-background px-4 py-1.5 text-xs hover:bg-text",
+  ...props
+}) => (
+  <button
+    type="button"
+    {...props}
+    className={className}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   >
     {children}
   </button>

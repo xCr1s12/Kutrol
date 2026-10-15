@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+<<<<<<< HEAD
 <<<<<<< HEAD
 import { useHookNavigation } from "@/hooks/useAuthRedirect";
 =======
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
 import Image from "next/image";
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 import { useHookNavigation } from "@/hooks/useAuthRedirect";
+import Image from "next/image";
 import HomeCards from "@/components/home/HomeCards";
-import TreeSVG from "@/components/home/TreeSvg";
 import LocalGasStationOutlinedIcon from "@mui/icons-material/LocalGasStationOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import ShowChartOutlinedIcon from "@mui/icons-material/ShowChartOutlined";
@@ -21,6 +23,7 @@ import MailOutlineIcon from "@mui/icons-material/EmailOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import TreeSVG from "@/components/home/TreeSvg";
 =======
 import MenuIcon from "@mui/icons-material/Menu";
@@ -28,10 +31,15 @@ import CloseIcon from "@mui/icons-material/Close";
 >>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
 import Logo from "@/components/ui/Logo";
 <<<<<<< HEAD
+=======
+import TreeSVG from "@/components/home/TreeSvg";
+import Logo from "@/components/ui/Logo";
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { useContext } from "react";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+<<<<<<< HEAD
 =======
 >>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
 
@@ -50,6 +58,10 @@ import CloseIcon from "@mui/icons-material/Close";
     icon: svg, componente o texto que servirá de icono en las esquinas de la card
 */
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+
+
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 const cardData = [
   {
     title: "Control de Combustible",
@@ -77,6 +89,7 @@ const cardData = [
   },
 ];
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export default function Home() {
   /* hook personalizado de navegacion y auth */
@@ -199,15 +212,15 @@ const ghostButton =
 const socialLink =
   "flex h-8 w-8 items-center justify-center rounded-full bg-border text-[#D4AF37] transition-colors hover:bg-[#3d4f45]";
 
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 export default function Home() {
-  /* hook personalizado de navegación y auth */
+  /* hook personalizado de navegacion y auth */
   const { handleRedirect } = useHookNavigation();
-
-  /* estado del menú hamburguesa (solo pantallas pequeñas) */
-  const [menuOpen, setMenuOpen] = useState(false);
-  const closeMenu = () => setMenuOpen(false);
+  const { darkMode, toggleDarkMode } = useContext(darkModeContext);
 
   return (
+<<<<<<< HEAD
     <div className="min-h-screen w-full overflow-hidden" lang="es">
       {/* ───────────── Encabezado ───────────── */}
       <header className="relative w-full border-b-2 border-border bg-[#1B2B24]">
@@ -270,65 +283,75 @@ export default function Home() {
           </div>
 
           {/* Botón hamburguesa (derecha, solo móvil) */}
+=======
+    <div
+      className="w-full min-h-screen overflow-hidden bg-background text-text"
+      lang="es"
+    >
+      {/* encabezado de la pagina principal */}
+      <header className="w-full bg-header flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-border border-b-2 flex-wrap gap-2">
+        {/* Logo Kutrol y Nombre */}
+        <Logo fondo={darkMode ? "oscuro" : "claro"} />
+        {/* barra de navegacion */}
+        <nav className="items-center px-4 py-2">
+          <ul className="flex flex-row justify-between gap-3 items-center">
+            <li>
+              <Link
+                className="text-subtext hover:text-text"
+                href={"#Que-hace-kutrol"}
+              >
+                ¿Qué hace?
+              </Link>
+            </li>
+            <li>
+              <Link className="text-subtext hover:text-text" href={"#Pasos"}>
+                Pasos
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-subtext hover:text-text"
+                href={"#Registrate"}
+              >
+                Registrate
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Contenedor Botones de registro y inicio de sesion */}
+        <div className="flex items-center gap-2 sm:gap-4">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           <button
             type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            className="rounded-md p-1 text-text transition-colors hover:bg-border md:hidden"
-            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-            aria-expanded={menuOpen}
-            aria-controls="menu-movil"
+            onClick={toggleDarkMode}
+            className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+            aria-label="Alternar modo oscuro"
+            aria-pressed={darkMode}
           >
-            {menuOpen ? <CloseIcon /> : <MenuIcon />}
+            {darkMode ? <LightModeOutlinedIcon /> : <ModeNightOutlinedIcon />}
+          </button>
+          <button
+            onClick={() => {
+              handleRedirect("/login");
+            }}
+            className="text-xs sm:text-sm font-medium text-subtext transition-colors hover:text-text px-2 sm:px-4 py-1 sm:py-2"
+          >
+            Iniciar Sesion
+          </button>
+
+          <button
+            onClick={() => {
+              handleRedirect("/register");
+            }}
+            className="rounded-md bg-[#D4AF37] light:bg-accent px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#1A1A1A] light:text-white transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)] light:hover:shadow-[0_0_12px_rgba(140,98,57,0.5)]"
+          >
+            Registrarse
           </button>
         </div>
-
-        {/* Menú desplegable móvil */}
-        {menuOpen && (
-          <div
-            id="menu-movil"
-            className="absolute inset-x-0 top-full z-50 flex flex-col gap-4 border-b-2 border-border bg-[#1B2B24] px-4 py-4 shadow-xl md:hidden"
-          >
-            <nav aria-label="Navegación móvil">
-              {/* Lista en columna */}
-              <ul className="flex flex-col gap-1">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={closeMenu}
-                      className="block rounded-md px-2 py-2 text-subtext hover:bg-border hover:text-text"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="flex flex-col gap-2 border-t-2 border-border pt-4">
-              <button
-                onClick={() => {
-                  closeMenu();
-                  handleRedirect("/login");
-                }}
-                className={`${ghostButton} w-full text-left`}
-              >
-                Iniciar Sesión
-              </button>
-              <button
-                onClick={() => {
-                  closeMenu();
-                  handleRedirect("/register");
-                }}
-                className={`${primaryButton} w-full`}
-              >
-                Registrarse
-              </button>
-            </div>
-          </div>
-        )}
       </header>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       <main id="contenido-principal">
       {/* Seccion principal Texto e imagenes   */}
@@ -337,22 +360,27 @@ export default function Home() {
       {/* ───────────── Sección principal: texto e imágenes ───────────── */}
       <section className="relative grid min-h-fit w-full grid-cols-1 items-center gap-8 overflow-hidden px-6 py-12 sm:px-8 lg:min-h-screen lg:grid-cols-2 lg:gap-12 lg:px-16 lg:py-0">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+      {/* Seccion principal Texto e imagenes   */}
+      <section className="relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 w-full min-h-fit lg:min-h-screen items-center px-6 sm:px-8 lg:px-18 gap-8 lg:gap-12 py-12 lg:py-0">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         {/* Imagen trasera SVG */}
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 flex max-h-full w-full translate-y-2 items-end opacity-10 sm:w-2/3 lg:w-3/5 lg:translate-y-4">
-          <TreeSVG className="h-auto w-full object-contain object-bottom-left" />
+        <div className="absolute left-0 bottom-0 z-0 w-full sm:w-[65%] lg:w-[57%] max-h-[90%] flex items-end opacity-10 pointer-events-none -translate-x-2 lg:-translate-x-6 translate-y-2 lg:translate-y-4">
+          <TreeSVG className="w-full h-auto object-contain object-bottom-left" />
         </div>
 
-        {/* Columna de textos (arriba en móvil) */}
-        <div className="relative z-10 flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
-          <p className="text-xs text-subtext sm:text-sm">
+        {/* Columna izquierda Textos */}
+        <div className="relative z-10 flex flex-col gap-4 items-center text-center lg:items-start lg:text-left">
+          <p className="text-xs sm:text-sm text-subtext">
             Herramienta en Gestión de Flota y Combustible
           </p>
-          <h1 className="text-3xl font-bold uppercase leading-tight text-text sm:text-5xl lg:text-7xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold uppercase leading-tight text-text">
             Rentabilidad <br />
             Para ti, <br />
             Respiro para el <br />
             planeta
           </h1>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <p className="max-w-md text-sm leading-relaxed text-subtext mx-auto lg:mx-0">
 <<<<<<< HEAD
@@ -366,6 +394,9 @@ export default function Home() {
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
 =======
           <p className="mx-auto max-w-md text-sm leading-relaxed text-subtext lg:mx-0">
+=======
+          <p className="max-w-md text-sm leading-relaxed text-subtext mx-auto lg:mx-0">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             Kutrol te permite monitorear el gasto de combustible de tu flota en
             tiempo real, identificar patrones de consumo y tomar decisiones que
             reducen costos operativos sin complicaciones.
@@ -373,29 +404,33 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Columna de imágenes superpuestas (abajo en móvil) */}
-        <div className="relative z-10 mx-auto mt-8 flex h-64 w-full max-w-full items-center justify-center sm:h-96 sm:max-w-lg lg:mt-0 lg:h-120 lg:max-w-2xl">
-          <div className="absolute left-0 top-0 w-4/5 -translate-x-2 -translate-y-2 overflow-hidden rounded-lg shadow-xl">
+        {/* Columna derecha Imagenes Superpuestas */}
+        <div className="relative z-10 w-full max-w-full sm:max-w-125 lg:max-w-162.5 h-65 sm:h-95 lg:h-120 flex items-center justify-center mx-auto mt-8 lg:mt-0">
+          <div className="absolute top-0 left-0 w-[82%] rounded-lg overflow-hidden shadow-xl -translate-x-2 -translate-y-2">
             <Image
               src="https://res.cloudinary.com/ur93naqo/image/upload/v1787980331/imagen_2026-08-29_011211191.png"
-              alt="Imagen panel de estadística de la aplicación"
+              alt="imagen panel de estadistica de la aplicacion"
               width={400}
               height={400}
-              className="h-auto w-full object-cover opacity-80"
+              className="w-full h-auto object-cover opacity-80"
             />
           </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
           <div className="absolute bottom-0 right-0 z-10 w-[85%] rounded-lg overflow-hidden shadow-2xl border border-white/10 light:border-border translate-x-2 translate-y-2">
 =======
           <div className="absolute bottom-0 right-0 z-10 w-5/6 translate-x-2 translate-y-2 overflow-hidden rounded-lg border border-white/10 shadow-2xl">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+          <div className="absolute bottom-0 right-0 z-10 w-[85%] rounded-lg overflow-hidden shadow-2xl border border-white/10 light:border-border translate-x-2 translate-y-2">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             <Image
               src="https://res.cloudinary.com/ur93naqo/image/upload/v1787980138/imagen_2026-08-29_010859066.png"
-              alt="Imagen del panel de Dashboard de la aplicación"
+              alt="Imagen del panel de Dashboard de la aplicacion"
               width={400}
               height={400}
-              className="h-auto w-full object-cover"
+              className="w-full h-auto object-cover"
               priority
             />
           </div>
@@ -403,14 +438,19 @@ export default function Home() {
       </section>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       {/* Seccion  "Que hace Kutrol" */}
 =======
       {/* ───────────── Sección "Qué hace Kutrol" ───────────── */}
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+      {/* Seccion  "Que hace Kutrol" */}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       <section
         id="Que-hace-kutrol"
-        className="relative w-full px-6 py-12 md:px-16 md:py-16 md:pl-32"
+        className="relative w-full px-6 md:px-16 py-12 md:py-16 md:pl-32"
       >
+<<<<<<< HEAD
 <<<<<<< HEAD
         {/* Linea vertical y circulo con Numero 1 */}
         <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
@@ -424,13 +464,19 @@ export default function Home() {
         <div className="absolute bottom-16 left-8 top-16 hidden flex-col items-center md:flex lg:left-16">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-border text-xl font-semibold text-subtext lg:h-12 lg:w-12 lg:text-2xl">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        {/* Linea vertical y circulo con Numero 1 */}
+        <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
+          <div className="text-xl lg:text-2xl flex h-10 w-10 lg:h-12 lg:w-12 bg-border light:bg-card justify-center rounded-full text-subtext light:text-icon font-semibold shrink-0 items-center">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             1
           </div>
-          <div className="mt-2 w-0.75 flex-1 bg-border"></div>
+          <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
         {/* Encabezado */}
         <div className="mb-10 text-center md:text-left">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
           <h2 className="font-bold text-2xl md:text-4xl text-text">
@@ -442,30 +488,40 @@ export default function Home() {
 =======
           <h2 className="text-2xl font-bold text-text md:text-4xl">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+          <h2 className="font-bold text-2xl md:text-4xl text-text">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             ¿Qué puedes hacer con Kutrol?
           </h2>
         </div>
 
-        {/* Grilla de cards: 1 columna en móvil, 2 desde sm */}
-        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 md:mx-0 md:gap-8">
-          {cardData.map((card) => (
-            <HomeCards
-              key={card.title}
-              title={card.title}
-              description={card.description}
-              icon={card.icon}
-            />
-          ))}
+        {/* Grilla de Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 max-w-4xl gap-4 md:gap-8 mx-auto md:mx-0">
+          {cardData.map((card, index) => {
+            return (
+              <HomeCards
+                key={index}
+                title={card.title}
+                description={card.description}
+                icon={card.icon}
+              />
+            );
+          })}
         </div>
       </section>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       {/* Seccion Pasos Para iniciar */}
 <<<<<<< HEAD
+=======
+      {/* Seccion Pasos Para iniciar */}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       <section className="relative w-full mt-8 md:mt-15 px-6 md:px-16 py-12 md:py-16 md:pr-32 bg-header text-text">
         {/* Linea vertical derecha y circulo con numero 2 */}
         <div className="hidden md:flex absolute right-8 lg:right-16 top-16 bottom-16 flex-col items-center">
           <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border light:bg-card text-subtext light:text-icon font-semibold text-xl lg:text-2xl shrink-0">
+<<<<<<< HEAD
 =======
       <section className="relative w-full mt-8 md:mt-15 px-6 md:px-16 py-12 md:py-16 md:pr-32 bg-[#1B2B24] text-text">
         {/* Linea vertical derecha y circulo con numero 2 */}
@@ -482,14 +538,20 @@ export default function Home() {
         <div className="absolute bottom-16 right-8 top-16 hidden flex-col items-center md:flex lg:right-16">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-border text-xl font-semibold text-subtext lg:h-14 lg:w-14 lg:text-2xl">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             2
           </div>
-          <div className="mt-2 w-0.75 flex-1 bg-border"></div>
+          <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         {/* Contenedor de Pasos */}
 <<<<<<< HEAD
+=======
+        {/* Contenedor de Pasos */}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         <div
           id="Pasos"
           className="max-w-4xl mx-auto md:mr-0 md:ml-auto flex flex-col gap-y-8 md:gap-y-12"
@@ -497,6 +559,7 @@ export default function Home() {
           <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
               <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border light:bg-card text-xl sm:text-3xl font-bold text-text">
+<<<<<<< HEAD
 =======
         <div 
         id="Pasos"
@@ -588,30 +651,78 @@ export default function Home() {
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-border text-xl font-bold text-text sm:h-16 sm:w-16 sm:text-3xl">
                 {index + 1}
+=======
+                1
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               </div>
               <div className="flex flex-col gap-y-1">
-                <h3 className="text-lg font-bold sm:text-2xl">{step.title}</h3>
-                <p className="text-sm text-subtext">{step.description}</p>
+                <h3 className="text-lg sm:text-2xl font-bold text-text">
+                  Registra tus Vehículos
+                </h3>
+                <p className="text-sm text-subtext">
+                  Suma cada unidad de tu flota con sus datos básicos y
+                  documentos.
+                </p>
               </div>
             </div>
-          ))}
+          </div>
+
+          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border light:bg-card text-xl sm:text-3xl font-bold text-text">
+                2
+              </div>
+              <div className="flex flex-col gap-y-1">
+                <h3 className="text-lg sm:text-2xl font-bold text-text">
+                  Registra Tus Datos
+                </h3>
+                <p className="text-sm text-subtext">
+                  Cada carga de combustible y cada viaje queda guardado
+                  automáticamente.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-y-4 pb-8 border-b-2 border-border">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-x-8">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-border light:bg-card text-xl sm:text-3xl font-bold text-text">
+                3
+              </div>
+              <div className="flex flex-col gap-y-1">
+                <h3 className="text-lg sm:text-2xl font-bold text-text">
+                  Vizualiza y Optimiza
+                </h3>
+                <p className="text-sm text-subtext">
+                  El panel te muestra dónde estás gastando de más y qué
+                  vehículos necesitan atención.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ───────────── Sección registro ───────────── */}
+      {/* Seccion  Registro */}
       <section
         id="Registrate"
-        className="relative flex w-full items-center justify-center bg-[#1B2B24] px-6 py-12 text-text md:px-16 md:py-16 md:pl-32"
+        className="relative w-full flex items-center justify-center px-6 md:px-16 py-12 md:py-16 md:pl-32 bg-header text-text"
       >
+<<<<<<< HEAD
         {/* Línea vertical y círculo con número 3 (solo desde md) */}
         <div className="absolute bottom-16 left-8 top-16 hidden flex-col items-center md:flex lg:left-16">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-border text-xl font-semibold text-subtext lg:h-14 lg:w-14 lg:text-2xl">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        <div className="hidden md:flex absolute left-8 lg:left-16 top-16 bottom-16 flex-col items-center">
+          <div className="flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full bg-border light:bg-card text-subtext light:text-icon font-semibold text-xl lg:text-2xl shrink-0">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             3
           </div>
-          <div className="mt-2 w-0.75 flex-1 bg-border"></div>
+          <div className="w-0.75 flex-1 bg-border mt-2"></div>
         </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         <div className="max-w-6xl w-full">
 <<<<<<< HEAD
@@ -634,10 +745,20 @@ export default function Home() {
 =======
               <p className="text-sm text-subtext">
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+        <div className="max-w-6xl w-full">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-2xl bg-border light:bg-card p-6 sm:p-10 gap-y-4 sm:gap-y-0">
+            <div className="flex flex-col gap-y-2 pb-0 sm:pb-4">
+              <h2 className="text-2xl sm:text-4xl font-bold text-text">
+                Regístrate
+              </h2>
+              <p className="text-sm text-subtext light:text-icon">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 Crea una cuenta y registra tu primer vehículo en minutos.
               </p>
             </div>
             <button
+<<<<<<< HEAD
 <<<<<<< HEAD
               onClick={() => {
                 handleRedirect("/register");
@@ -647,6 +768,12 @@ export default function Home() {
               onClick={() => handleRedirect("/register")}
               className={`${primaryButton} w-full sm:w-auto lg:px-6 lg:py-3 lg:text-xl`}
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+              onClick={() => {
+                handleRedirect("/register");
+              }}
+              className="rounded-md bg-[#D4AF37] light:bg-accent px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#1A1A1A] light:text-white lg:px-6 lg:py-3 lg:text-xl transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)] light:hover:shadow-[0_0_12px_rgba(140,98,57,0.5)]"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             >
               Registrarse
             </button>
@@ -655,6 +782,7 @@ export default function Home() {
       </section>
       </main>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       {/* Acerca de Equipo Kutrol (footer) */}
       <footer className="w-full flex flex-col mt-10 gap-1 pb-4">
@@ -690,12 +818,25 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4AF37] text-sm font-bold text-[#1A1A1A]">
 >>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
+=======
+      {/* Acerca de Equipo Kutrol (footer) */}
+      <footer className="w-full flex flex-col mt-10 gap-1 pb-4">
+        <div className="w-full h-0.5 bg-linear-to-r from-[#D4AF37] light:from-accent via-border to-transparent"></div>
+
+        <div className="w-full bg-footer rounded-t-2xl">
+          <div className="w-full flex flex-col sm:flex-row justify-between items-center sm:items-start gap-10 px-6 sm:px-16 py-10">
+            {/* Logo y descripción corta */}
+            <div className="flex flex-col gap-3 items-center sm:items-start text-center sm:text-left max-w-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-9 h-9 rounded-full bg-[#D4AF37] light:bg-accent flex items-center justify-center text-[#1A1A1A] light:text-white font-bold text-sm">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   K
                 </span>
-                <span className="text-xl font-bold tracking-tighter text-text">
+                <span className="text-xl font-bold text-text tracking-tighter">
                   Kutrol
                 </span>
               </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -745,27 +886,47 @@ export default function Home() {
 =======
 >>>>>>> 4dac250 (fix(home): update navigation links and simplify header layout)
               <p className="text-xs leading-relaxed text-subtext">
+=======
+              <p className="text-xs text-subtext light:text-icon leading-relaxed">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 Gestión inteligente de flota y combustible para tu empresa.
               </p>
-              <div className="mt-1 flex gap-3">
-                <a href="#" className={socialLink} aria-label="Facebook">
+              <div className="flex gap-3 mt-1">
+                <a
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-[#D4AF37] light:text-accent transition-opacity hover:opacity-80"
+                  aria-label="Facebook"
+                >
                   <FacebookIcon sx={{ fontSize: 16 }} />
                 </a>
-                <a href="#" className={socialLink} aria-label="Instagram">
+                <a
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-[#D4AF37] light:text-accent transition-opacity hover:opacity-80"
+                  aria-label="Instagram"
+                >
                   <InstagramIcon sx={{ fontSize: 16 }} />
                 </a>
+<<<<<<< HEAD
                 <a href="#" className={socialLink} aria-label="LinkedIn">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                <a
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-[#D4AF37] light:text-accent transition-opacity hover:opacity-80"
+                  aria-label="LinkedIn"
+                >
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                   <LinkedInIcon sx={{ fontSize: 16 }} />
                 </a>
               </div>
             </div>
 
             {/* Links rápidos */}
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col gap-2 items-center sm:items-start">
               <span className="text-sm font-semibold text-text">
                 Navegación
               </span>
+<<<<<<< HEAD
 <<<<<<< HEAD
               <Link
 <<<<<<< HEAD
@@ -775,29 +936,43 @@ export default function Home() {
                 className="text-xs text-subtext hover:text-text"
                 href={"#Que-Hace-kutrol"}
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+              <Link
+                className="text-xs text-subtext light:text-icon hover:text-text"
+                href={"#Que-hace-kutrol"}
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               >
                 ¿Qué hace?
               </Link>
               <Link
 <<<<<<< HEAD
+<<<<<<< HEAD
                 className="text-xs text-subtext light:text-icon hover:text-text"
 =======
                 className="text-xs text-subtext hover:text-text"
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+                className="text-xs text-subtext light:text-icon hover:text-text"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 href={"#Pasos"}
               >
                 Pasos
               </Link>
               <Link
 <<<<<<< HEAD
+<<<<<<< HEAD
                 className="text-xs text-subtext light:text-icon hover:text-text"
 =======
                 className="text-xs text-subtext hover:text-text"
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+                className="text-xs text-subtext light:text-icon hover:text-text"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 href={"#Registrate"}
               >
                 Regístrate
               </Link>
+<<<<<<< HEAD
             </div>
 
             {/* Contacto */}
@@ -834,22 +1009,33 @@ export default function Home() {
                   {link.label}
                 </Link>
               ))}
+=======
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
             </div>
 
             {/* Contacto */}
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col gap-2 items-center sm:items-start">
               <span className="text-sm font-semibold text-text">Contacto</span>
-              <span className="flex items-center gap-1 text-xs text-subtext">
-                <MailOutlineIcon sx={{ fontSize: 14 }} />
+              <span className="text-xs text-subtext light:text-icon flex items-center gap-1">
+                <MailOutlineIcon className="text-icon" sx={{ fontSize: 14 }} />
                 contacto@kutrol.cl
               </span>
+<<<<<<< HEAD
               <span className="flex items-center gap-1 text-xs text-subtext">
                 <LocationOnOutlinedIcon sx={{ fontSize: 14 }} />
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+              <span className="text-xs text-subtext light:text-icon flex items-center gap-1">
+                <LocationOnOutlinedIcon
+                  className="text-icon"
+                  sx={{ fontSize: 14 }}
+                />
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 Castro, Chile
               </span>
               <Link
                 href="/acerca_de"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 className="text-xs text-gold light:text-text light:decoration-accent hover:text-text mt-1 underline underline-offset-2"
@@ -859,6 +1045,9 @@ export default function Home() {
 =======
                 className="mt-1 text-xs text-[#D4AF37] underline underline-offset-2 hover:text-text"
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                className="text-xs text-[#D4AF37] light:text-text light:decoration-accent hover:text-text mt-1 underline underline-offset-2"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               >
                 Quiénes somos
               </Link>
@@ -866,6 +1055,7 @@ export default function Home() {
           </div>
         </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         {/*sub Footer   */}
         <div className="w-full bg-border h-1"></div>
@@ -882,6 +1072,12 @@ export default function Home() {
         <p className="px-5 pt-2 text-left text-xs text-subtext sm:text-sm">
           Proyecto de Ingeniería Civil en Informática | Ulagos 2026
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        {/*sub Footer   */}
+        <div className="w-full bg-border h-1"></div>
+        <p className="text-xs sm:text-sm text-subtext px-5 text-center sm:text-left pt-2">
+          Proyecto de Ingenieria Civil en Informatica | Ulagos 2026
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         </p>
       </footer>
     </div>

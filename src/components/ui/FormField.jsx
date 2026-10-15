@@ -21,10 +21,14 @@ export default function FormField({
     return (
       <div className="flex flex-col gap-1.5">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <label htmlFor={id} className="text-xs font-semibold text-brand">
 =======
         <label htmlFor={id} className="text-xs font-semibold text-text dark:text-ink">
 >>>>>>> FrontEnd
+=======
+        <label htmlFor={id} className="text-xs font-semibold text-text dark:text-[#1A1A1A]">
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           {label}
         </label>
         {children}
@@ -53,7 +57,11 @@ export default function FormField({
         required={required}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
+<<<<<<< HEAD
         className="w-full bg-background border border-icon text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
+=======
+        className="w-full bg-background border border-border text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
+>>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         {...inputProps}
       />
       {error && (
