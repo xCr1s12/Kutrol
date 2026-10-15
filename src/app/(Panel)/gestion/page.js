@@ -1,7 +1,11 @@
 "use client";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { useState } from "react";
+=======
+import { useEffect, useState } from "react";
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 import Modal from "@/components/ui/Modal";
 import FormularioConductor from "@/components/ux/FormConductores";
 import FormularioVehiculo from "@/components/ux/FormVehiculos";
@@ -137,8 +141,68 @@ const normalizar = (texto) =>
 /* ---------- Página ---------- */
 
 const Flota = () => {
+  const [flotas, setFlotas] = useState([]);
+  const [flotaSeleccionada, setFlotaSeleccionada] = useState("");
+  const [cargandoFlotas, setCargandoFlotas] = useState(true);
+  const [errorFlotas, setErrorFlotas] = useState("");
   const [modalVehiculo, setModalVehiculo] = useState(false);
   const [versionVehiculos, setVersionVehiculos] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function cargarFlotas() {
+      try {
+        setCargandoFlotas(true);
+        setErrorFlotas("");
+
+        const sessionResponse = await fetch("/api/auth/session", {
+          signal: controller.signal,
+        });
+        const sessionData = await sessionResponse.json();
+
+        if (!sessionResponse.ok || !sessionData.authenticated) {
+          throw new Error(
+            sessionData.message || "No se pudo obtener la sesión del usuario",
+          );
+        }
+
+        const idEmpresa = Number(sessionData.session?.id_empresa);
+        if (!Number.isInteger(idEmpresa) || idEmpresa <= 0) {
+          throw new Error("La sesión no contiene una empresa válida");
+        }
+
+        const response = await fetch(
+          `/api/flota?id_empresa=${encodeURIComponent(idEmpresa)}`,
+          { signal: controller.signal },
+        );
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || data.error || "No se pudieron cargar las flotas",
+          );
+        }
+        if (!Array.isArray(data)) {
+          throw new Error("La respuesta de flotas no tiene un formato válido");
+        }
+
+        setFlotas(data);
+        setFlotaSeleccionada(data.length ? String(data[0].id_flota) : "");
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        setErrorFlotas(
+          error instanceof Error ? error.message : "No se pudieron cargar las flotas",
+        );
+      } finally {
+        if (!controller.signal.aborted) setCargandoFlotas(false);
+      }
+    }
+
+    cargarFlotas();
+    return () => controller.abort();
+  }, []);
+
   const handleNuevoVehiculo = () => {
     setVersionVehiculos((version) => version + 1);
     setModalVehiculo(false);
@@ -162,21 +226,60 @@ const Flota = () => {
     >
       {/* ---------- Vehiculos ---------- */}
       <Card >
-        <h2 className="text-base font-bold text-text">Vehiculos</h2>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-base font-bold text-text">Vehículos</h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <label
+              htmlFor="flota-para-revisar"
+              className="text-sm font-medium text-text"
+            >
+              Flota para revisar
+            </label>
+            <select
+              id="flota-para-revisar"
+              value={flotaSeleccionada}
+              onChange={(event) => setFlotaSeleccionada(event.target.value)}
+              disabled={cargandoFlotas || Boolean(errorFlotas) || !flotas.length}
+              className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
+            >
+              {cargandoFlotas ? (
+                <option value="">Cargando flotas...</option>
+              ) : flotas.length ? (
+                flotas.map((flota) => (
+                  <option key={flota.id_flota} value={flota.id_flota}>
+                    {flota.nombre}
+                  </option>
+                ))
+              ) : (
+                <option value="">No hay flotas disponibles</option>
+              )}
+            </select>
+          </div>
+        </div>
 
-        <TablaCamiones
-          key={versionVehiculos}
-          flotaId={1}
-          onVerHistorial={(vehiculo) => {
-            setVEHICULOSELECT(vehiculo);
-            setModalHistorialV(true);
-          }}
-          acciones={
-            <PillButton onClick={() => setModalVehiculo(true)}>
-              Agregar Vehiculo
-            </PillButton>
-          }
-        />
+        {cargandoFlotas ? (
+          <p className="py-4 text-sm text-subtext">Cargando flotas...</p>
+        ) : errorFlotas ? (
+          <p role="alert" className="py-4 text-sm text-red-600">
+            Error: {errorFlotas}
+          </p>
+        ) : flotaSeleccionada ? (
+          <TablaCamiones
+            key={`${flotaSeleccionada}-${versionVehiculos}`}
+            flotaId={Number(flotaSeleccionada)}
+            onVerHistorial={(vehiculo) => {
+              setVEHICULOSELECT(vehiculo);
+              setModalHistorialV(true);
+            }}
+            acciones={
+              <PillButton onClick={() => setModalVehiculo(true)}>
+                Agregar Vehiculo
+              </PillButton>
+            }
+          />
+        ) : (
+          <p className="py-4 text-sm text-subtext">No hay flotas disponibles.</p>
+        )}
       </Card>
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 
@@ -223,7 +326,7 @@ const Flota = () => {
 =======
       {/* ---------- Conductores ---------- */}
       <Card>
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-base font-bold text-text">Conductores</h2>
           <PillButton onClick={() => setModalConductor(true)}>
             Agregar Conductor

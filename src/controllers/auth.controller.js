@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 import { CreateEmpresaWithEncargado, logoutService } from "@/services/server/auth.service";
 import { toErrorResponse } from "@/utils/errors";
 import { createSession } from "@/lib/tokenSession"; 
@@ -80,6 +83,9 @@ export async function validarSession() {
     return Response.json(body, { status });
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }
 
 
@@ -97,6 +103,7 @@ export async function logoutController() {
       { status: 500 }
     );
   }
+<<<<<<< HEAD
 }
 =======
 >>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
@@ -106,3 +113,6 @@ export async function logoutController() {
 =======
 }
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+}
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)

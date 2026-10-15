@@ -1,5 +1,6 @@
 import "server-only";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { COOKIE_NAME, MAX_AGE, secret, verifyToken } from "./session-core";
@@ -11,6 +12,11 @@ const COOKIE_NAME = "kutrol_session";
 const MAX_AGE = 60 * 60 * 24 * 7;
 const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+import { SignJWT } from "jose";
+import { cookies } from "next/headers";
+import { COOKIE_NAME, MAX_AGE, secret, verifyToken } from "./session-core";
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 
 export async function createSession(payload) {
   const token = await new SignJWT(payload)
@@ -32,6 +38,7 @@ export async function createSession(payload) {
 export async function getSession() {
   const cookieStore = await cookies();
 <<<<<<< HEAD
+<<<<<<< HEAD
   return verifyToken(cookieStore.get(COOKIE_NAME)?.value);
 =======
   const token = cookieStore.get(COOKIE_NAME)?.value;
@@ -43,6 +50,9 @@ export async function getSession() {
     return null; 
   }
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+  return verifyToken(cookieStore.get(COOKIE_NAME)?.value);
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }
 
 export async function deleteSession() {

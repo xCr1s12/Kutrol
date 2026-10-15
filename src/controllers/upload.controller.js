@@ -5,9 +5,13 @@ import {
   UploadValidationError,
 } from "@/services/server/upload.service";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getSession } from "@/lib/tokenSession";
 =======
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+import { getSession } from "@/lib/tokenSession";
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 
 export async function postUpload(request) {
   if (!request.headers.get("content-type")?.includes("multipart/form-data")) {
@@ -50,6 +54,9 @@ export async function postUpload(request) {
 
 export async function deleteUpload(request) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
   const session = await getSession();
   if (!session?.id_empresa) {
     return NextResponse.json(
@@ -58,8 +65,11 @@ export async function deleteUpload(request) {
     );
   }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
   let body;
   try {
     body = await request.json();
@@ -72,10 +82,14 @@ export async function deleteUpload(request) {
 
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const ok = await eliminarImagen(body?.public_id, session.id_empresa);
 =======
     const ok = await eliminarImagen(body?.public_id);
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+    const ok = await eliminarImagen(body?.public_id, session.id_empresa);
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
     if (!ok) return NextResponse.json({ ok: false, error: "No encontrada." }, { status: 404 });
     return NextResponse.json({ ok: true });
   } catch (error) {

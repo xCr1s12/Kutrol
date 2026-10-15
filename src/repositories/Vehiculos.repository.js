@@ -27,6 +27,7 @@ export async function CreateVehiculo(data, db = pool) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export async function CreateVehiculo(data, db = pool) {
   const { rows } = await db.query(
     `
@@ -57,6 +58,9 @@ export async function findVehiculosByFlota(id_flota, db = pool) {
 =======
 export async function findVehiculosByEmpresa(id_empresa, db = pool) {
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+export async function findVehiculosByFlota(id_flota, db = pool) {
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
   const { rows } = await db.query(
     `SELECT c.id_camion, c.patente, c.codigo_dispositivo, c.marca, c.modelo,
             c.ano, c.capacidad_carga_kg, c.capacidad_estanque_l,
@@ -65,6 +69,9 @@ export async function findVehiculosByEmpresa(id_empresa, db = pool) {
      FROM camion c
      JOIN flota f ON f.id_flota = c.id_flota
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
      WHERE f.id_flota = $1
        AND c.deleted_at IS NULL
        AND f.deleted_at IS NULL

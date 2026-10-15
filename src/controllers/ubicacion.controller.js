@@ -36,18 +36,24 @@ export async function getComunas(request) {
 
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const comunas = await ComunasRepository.getComunasbyRegion(regionId);
     if (comunas.length === 0) {
 =======
     const region = await RegionesRepository.getRegionById(regionId);
     if (!region) {
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+    const comunas = await ComunasRepository.getComunasbyRegion(regionId);
+    if (comunas.length === 0) {
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
       return Response.json(
         { ok: false, error: "La región solicitada no existe." },
         { status: 404 },
       );
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     return Response.json({
       ok: true,
@@ -66,6 +72,16 @@ export async function getComunas(request) {
         nombre: comuna.comuna_nombre,
       })),
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+    return Response.json({
+      ok: true,
+      data: comunas
+        .filter((comuna) => comuna.comuna_id !== null)
+        .map((comuna) => ({
+          id: comuna.comuna_id,
+          nombre: comuna.comuna_nombre,
+        })),
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
     });
   } catch (error) {
     console.error("Error al obtener comunas:", error);

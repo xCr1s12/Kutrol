@@ -38,14 +38,21 @@ export async function iniciarSesion(usuario, password) {
   return result.data;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 
 
 export async function logout() {
   const res = await fetch("/api/auth/logout", { method: "POST" });
   if (!res.ok) throw new Error("No se pudo cerrar sesión");
   return res.json();
+<<<<<<< HEAD
 }
 =======
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
 =======
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
+=======
+}
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)

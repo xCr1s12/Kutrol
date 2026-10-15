@@ -47,6 +47,9 @@ export async function findByIdEmpresa(id_empresa, db = pool) {
     );
     return rows[0] || null;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }
 
 export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
@@ -58,6 +61,7 @@ export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
         [id_empresa],
     );
     return rows[0]?.url_imagen ?? null;
+<<<<<<< HEAD
 =======
 export async function create({ id_comuna,nombre, rut, direccion, descripcion, url_imagen }, db = pool) {
 =======
@@ -72,4 +76,6 @@ export async function create({ id_comuna,nombre, rut, direccion, descripcion, ur
 >>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 =======
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }

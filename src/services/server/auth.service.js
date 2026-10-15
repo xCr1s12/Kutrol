@@ -406,12 +406,16 @@ export async function login(user, password) {
     usuario: encargado.usuario,
   };
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }
 
 import { deleteSession } from "@/lib/tokenSession";
 
 export async function logoutService() {
   await deleteSession();
+<<<<<<< HEAD
 =======
       return { company: newCompany, manager: newManager };
 =======
@@ -451,3 +455,6 @@ export async function logoutService() {
 =======
 }
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
+=======
+}
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)

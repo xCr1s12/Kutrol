@@ -93,14 +93,20 @@ export default function TablaCamiones({
         if (!res.ok) {
           throw new Error(
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
             json.error?.message ||
               json.message ||
               json.mensaje ||
               (typeof json.error === "string" ? json.error : null) ||
               "Error al cargar vehículos",
+<<<<<<< HEAD
 =======
             json.message || json.error || "Error al cargar vehículos",
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
           );
         }
         if (!Array.isArray(json.data)) {

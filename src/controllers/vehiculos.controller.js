@@ -14,6 +14,7 @@ import { flotaIdSchema } from "@/schema/auth.schema";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export async function getVehiculosByFlota(request) {
   try {
 
@@ -75,6 +76,9 @@ export async function createVehiculo(request) {
 =======
 >>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 export async function getVehiculosByEmpresa(request) {
+=======
+export async function getVehiculosByFlota(request) {
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
   try {
 
     //Leer y validar el id de empresa
@@ -83,7 +87,7 @@ export async function getVehiculosByEmpresa(request) {
     );
 
     // tomar los datos del servicio
-    const vehiculos = await vehiculoService.getVehiculosByEmpresa(flotaId);
+    const vehiculos = await vehiculoService.getVehiculosByFlota(flotaId);
 
     // respuesta del servidor
     return NextResponse.json({ ok: true, data: vehiculos });

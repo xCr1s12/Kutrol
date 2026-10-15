@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
 import Link from "next/link";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -46,20 +47,46 @@ import { useEffect, useRef, useState } from "react";
 =======
 import { useContext, useEffect, useRef, useState } from "react";
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import Logo from "@/components/ui/Logo";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+import { logout } from "@/services/client/auth.service";
 
 export default function PanelHeaderClient({ Encargado, Empresa }) {
   const { darkMode, toggleDarkMode } = useContext(darkModeContext);
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [imagenRota, setImagenRota] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
   const dropdownRef = useRef(null);
 
+<<<<<<< HEAD
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+  async function handleLogout() {
+    setIsLoggingOut(true);
+    setLogoutError("");
+
+    try {
+      await logout();
+      setIsOpen(false);
+      router.replace("/login");
+    } catch (error) {
+      setLogoutError(
+        error instanceof Error ? error.message : "No se pudo cerrar sesión.",
+      );
+    } finally {
+      setIsLoggingOut(false);
+    }
+  }
+
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -243,12 +270,23 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
             </div>
 
             <div className="border-t border-border pt-1">
+              {logoutError && (
+                <p role="alert" className="px-4 py-2 text-sm text-red-600">
+                  {logoutError}
+                </p>
+              )}
               <button
-                onClick={() => setIsOpen(false)}
+                type="button"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
                 className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer"
               >
+<<<<<<< HEAD
                 Cerrar sesión
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+                {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
               </button>
             </div>
           </div>

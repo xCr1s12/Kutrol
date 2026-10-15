@@ -39,6 +39,7 @@ export async function getComunasbyRegion(regionId, db = pool) {
          FROM region AS r
          LEFT JOIN comuna AS c ON c.id_region = r.id_region
          WHERE r.id_region = $1
+<<<<<<< HEAD
          ORDER BY c.nombre`,
         [regionId]
 =======
@@ -51,6 +52,8 @@ export async function getComunasbyRegion(regionId, db = pool) {
         `SELECT c.id_comuna AS comuna_id, c.nombre AS comuna_nombre 
          FROM comuna AS c
          WHERE c.id_region = $1
+=======
+>>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
          ORDER BY c.nombre`,
 <<<<<<< HEAD
         [regionId] // <--- Aquí estaba el error (faltaba la coma y el nombre de la variable era bd)
