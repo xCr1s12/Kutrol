@@ -21,10 +21,10 @@ const AlertsData = [
 export default function AlertsSection() {
   return (
     <section
-      className="w-full mt-10 bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4"
+      className="light:bg-card dark:bg-card w-full rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4"
       aria-labelledby="alerts-title"
     >
-      <h2 id="alerts-title" className="text-[#1A1A1A] font-bold text-lg mb-2">
+      <h2 id="alerts-title" className="text-text font-bold text-lg mb-2 light:text-text dark:text-text">
         Alertas
       </h2>
 
@@ -32,19 +32,19 @@ export default function AlertsSection() {
         {AlertsData.map((alert) => (
           <li
             key={alert.id}
-            className="w-full bg-[#F9F9FB] border border-gray-100 rounded-2xl p-4 shadow-sm flex justify-between items-start"
+            className=" w-full rounded-2xl border-2 p-4 shadow-sm flex justify-between items-start light:bg-background light:border-border dark:bg-background dark:border-border"
           >
             <div className="flex flex-col gap-y-1 pr-4">
-              <h3 className="text-[#1A1A1A] font-bold text-sm">
+              <h3 className="text-text light:text-text dark:text-text font-bold text-sm">
                 {alert.title}
               </h3>
-              <p className="text-[#6E6E6E] text-xs leading-relaxed">
+              <p className="text-subtext light:text-subtext dark:text-subtext text-xs leading-relaxed">
                 {alert.description}
               </p>
             </div>
 
             <div
-              className="text-[#A8B0AB] hover:text-[#1A1A1A] p-1 rounded transition-colors cursor-pointer">
+              className="  light:text-text hover:text-text p-1 rounded transition-colors cursor-pointer  dark:text-icon dark:hover:text-text">
               <DropMenu />
             </div>
           </li>

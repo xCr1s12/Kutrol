@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
@@ -8,11 +8,16 @@ import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import GoogleIcon from "@/components/ui/GoogleIcon";
 import Logo from "@/components/ui/Logo";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
+import { darkModeContext } from "@/components/ui/DarkModeProvider";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 import { iniciarSesion } from "@/services/client/auth.service";
 
 export default function Login() {
+  const { darkMode, toggleDarkMode } = useContext(darkModeContext);
+
   const router = useRouter();
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -47,21 +52,34 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-brand flex flex-col">
+    <div className="min-h-screen bg-background text-text flex flex-col">
       {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
-        <Logo />
-        <Link
-          href="/register"
-          className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
-          aria-label="Ir a la página de registro"
-        >
-          Registrarse
-        </Link>
+      <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
+        <Logo fondo={darkMode ? "oscuro" : "claro"} />
+
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={toggleDarkMode}
+            className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+            aria-label="Alternar modo oscuro"
+            aria-pressed={darkMode}
+          >
+            {darkMode ? <LightModeOutlinedIcon /> : <ModeNightOutlinedIcon />}
+          </button>
+
+          <Link
+            href="/register"
+            className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
+            aria-label="Ir a la página de registro"
+          >
+            Registrarse
+          </Link>
+        </div>
       </header>
 
       {/* Contenedor centrado */}
-      <div className="flex-1 flex items-center justify-center px-4">
+      <div className="flex-1 flex items-center justify-center px-4 pt-20">
         <Card className="w-full max-w-110 p-10 space-y-7">
           <h1 className="text-2xl font-bold text-text text-center">
             Inicio de sesión
@@ -88,7 +106,7 @@ export default function Login() {
             {/* SSO */}
             <div className="space-y-3 mt-7">
               <p
-                className="text-xs text-subtext text-center"
+                className="text-xs text-subtext light:text-icon text-center"
                 id="login-sso-label"
               >
                 Continuar con Google
@@ -97,7 +115,7 @@ export default function Login() {
                 type="button"
                 variant="ghost"
                 aria-labelledby="login-sso-label"
-                className="w-full flex items-center justify-center gap-2"
+                className="w-full flex items-center justify-center light:bg-accent gap-2"
               >
                 <GoogleIcon />
                 Google

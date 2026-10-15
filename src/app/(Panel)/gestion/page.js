@@ -68,8 +68,8 @@ const Flota = () => {
       className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
     >
       {/* ---------- Vehiculos ---------- */}
-      <Card>
-        <h2 className="text-base font-bold text-brand">Vehiculos</h2>
+      <Card >
+        <h2 className="text-base font-bold text-text">Vehiculos</h2>
 
         <TablaCamiones
           key={versionVehiculos}
@@ -89,7 +89,7 @@ const Flota = () => {
       {/* ---------- Conductores ---------- */}
       <Card>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-base font-bold text-brand">Conductores</h2>
+          <h2 className="text-base font-bold text-text">Conductores</h2>
           <PillButton onClick={() => setModalConductor(true)}>
             Agregar Conductor
           </PillButton>

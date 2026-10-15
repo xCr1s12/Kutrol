@@ -17,7 +17,7 @@ const rangosFecha = [
 ];
 
 const filtro =
-  "text-xs text-[#1A1A1A] bg-white border border-[#E2E8F0] rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
+  "text-xs text-text bg-background border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
 
 export default function TablaAlertas({ alertas }) {
   const [busqueda, setBusqueda] = useState("");
@@ -33,13 +33,13 @@ export default function TablaAlertas({ alertas }) {
   );
 
   return (
-    <section className="bg-white rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] min-w-0" aria-label="Registro de alertas">
+    <section className="bg-background rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] min-w-0" aria-label="Registro de alertas">
       <div className="flex flex-wrap gap-3 mb-4">
-        <div className="flex items-center gap-2 w-full sm:w-56 border border-[#E2E8F0] rounded-full px-3 py-1.5">
-          <SearchRounded htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
+        <div className="flex items-center gap-2 w-full sm:w-56 border border-border rounded-full px-3 py-1.5">
+          <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
           <input
             type="search"
-            className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
+            className="w-full bg-transparent text-xs text-text outline-none"
             placeholder="Buscar..."
             aria-label="Buscar alerta"
             value={busqueda}
@@ -61,10 +61,10 @@ export default function TablaAlertas({ alertas }) {
         </select>
       </div>
 
-      <div className="overflow-x-auto border border-[#E2E8F0] rounded-lg">
-        <table className="w-full text-xs text-left text-[#1A1A1A]">
+      <div className="overflow-x-auto  ligh:border-border dark:border-border/90 rounded-lg">
+        <table className="w-full text-xs text-left text-text">
           <thead>
-            <tr className="bg-[#F4F5F7]">
+            <tr className="bg-card">
               {["Vehículo", "Mensaje", "Estado", "Fecha"].map((t) => (
                 <th key={t} className="px-4 py-3 font-semibold">{t}</th>
               ))}
@@ -72,7 +72,7 @@ export default function TablaAlertas({ alertas }) {
           </thead>
           <tbody>
             {filtradas.map((a) => (
-              <tr key={a.id} className="border-t border-[#E2E8F0]">
+              <tr key={a.id} className="border-2 border-border">
                 <td className="px-4 py-3 font-semibold whitespace-nowrap">
                   <span className="inline-flex items-center gap-1.5">
                     {a.vehiculo}

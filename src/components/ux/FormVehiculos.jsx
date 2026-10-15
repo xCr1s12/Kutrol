@@ -70,7 +70,8 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
             result.error?.message ||
             result.mensaje ||
             "No fue posible registrar el vehículo.",
-        );
+          );
+
       }
 
       await onSubmit(datos);
@@ -89,12 +90,14 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       {/* Columna izquierda: campos */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-bold text-brand">Detalles</h3>
+        <h3 className="text-sm font-bold text-text dark:text-[#1A1A1A]">
+          Detalles
+        </h3>
 
         <CamposFormularioVehiculo />
 
         {error && (
-          <p role="alert" className="text-sm text-accent-dark">
+          <p role="alert" className="text-sm text-accent-dark dark:text-[#C49A2E]">
             {error}
           </p>
         )}
@@ -103,8 +106,7 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-md px-6 py-2.5 text-xs font-semibold text-brand transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            style={{ backgroundColor: "var(--color-accent)" }}
+            className="rounded-md bg-accent px-6 py-2.5 text-xs font-semibold text-brand transition-colors light:hover:bg-[#A8784A] light:hover:text-[#FDFBF7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-[#D4AF37] dark:text-brand dark:hover:opacity-90 dark:focus-visible:outline-[#D4AF37]"
           >
             {submitting ? "Guardando..." : "Finalizar"}
           </button>
@@ -112,7 +114,7 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
             type="button"
             onClick={onCancel}
             disabled={submitting}
-            className="rounded-md bg-text px-6 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-icon"
+            className="rounded-md bg-text px-6 py-2.5 text-xs font-semibold text-brand transition-colors hover:bg-icon light:bg-[#EAE5DA] light:text-[#1A1A1A] light:hover:bg-[#D8CDBA] light:hover:text-[#FDFBF7] dark:bg-[#314139] dark:text-[#FDFBF7] dark:hover:bg-[#20332B]"
           >
             Cancelar
           </button>

@@ -31,7 +31,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`h-screen bg-[#1B2B24] flex flex-col transition-all duration-300 ${isActive ? "w-64" : "w-16"
+      className={`h-screen flex flex-col bg-brand transition-all duration-300 ${isActive ? "w-64" : "w-16"
         }`}
     >
       {/* Botón de hamburguesa  */}
@@ -41,7 +41,7 @@ export default function Sidebar() {
             ToggleSideBar();
           }}
 
-          className="flex items-center gap-3 text-subtext cursor-pointer p-2 rounded transition-colors"
+          className="flex items-center gap-3 cursor-pointer p-2 rounded text-[#A8B0AB] transition-colors"
         >
           {!isActive && (
             <MenuIcon aria-label="Abrir menu" aria-expanded aria-hidden="false" />
@@ -66,21 +66,21 @@ export default function Sidebar() {
               key={item.path}
               href={item.path}
               className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
-                  ? " border-l-4 border-[#D4AF37] bg-[#D4AF37]/50"
-                  : "border-l-4 border-[#1B2B24] "
+                  ? "border-l-4 border-[#D4AF37] bg-[#D4AF37]/20"
+                  : "border-l-4 border-transparent"
                 }`}
             >
               <div className="flex items-center justify-center min-w-6">
                 <item.icon
                   aria-hidden="false"
-                  htmlColor={isCurrentPath ? "#D4AF37" : "#C2C9C4"}
+                  className={isCurrentPath ? "text-[#D4AF37]" : "text-[#C2C9C4]"}
                   fontSize="medium"
                 />
               </div>
 
               {isActive && (
                 <span
-                  className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-subtext"}`}
+                  className={`truncate text-sm font-bold ${isCurrentPath ? "text-[#FDFBF7]" : "text-[#A8B0AB]"}`}
                 >
                   {item.name}
                 </span>

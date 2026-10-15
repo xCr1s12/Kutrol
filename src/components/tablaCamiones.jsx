@@ -22,12 +22,12 @@ const FILTROS = [
 ];
 
 const ESTADOS = {
-  disponible: { label: "DISPONIBLE", color: "var(--color-brand)" },
-  en_ruta: { label: "EN RUTA", color: "var(--color-accent-dark)" },
+  disponible: { label: "DISPONIBLE", color: "var(--color-text)" },
+  en_ruta: { label: "EN RUTA", color: "var(--color-accent)" },
   mantencion: { label: "MANTENCION", color: "var(--color-accent-dark)" },
   fuera_de_servicio: {
     label: "FUERA DE SERVICIO",
-    color: "var(--color-accent-dark)",
+    color: "var(--color-red)",
   },
 };
 
@@ -140,7 +140,7 @@ export default function TablaCamiones({
       >
         {cargando ? (
           <tr>
-            <td colSpan={5} className="h-15 text-center text-base text-subtext">
+            <td colSpan={5} className="h-15 text-center text-text">
               Cargando vehículos...
             </td>
           </tr>

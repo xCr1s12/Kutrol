@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
@@ -8,8 +8,12 @@ import FormEncargado from "@/components/register/formEncargado"; // Con mayúscu
 import FormEmpresa from "@/components/register/formEmpresa";
 import { registrarEmpresaYEncargado } from "@/services/client/auth.service";
 import Logo from "@/components/ui/Logo";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
+import { darkModeContext } from "@/components/ui/DarkModeProvider";
 
 export default function Register() {
+  const { darkMode, toggleDarkMode } = useContext(darkModeContext);
   const router = useRouter();
   const [formularioActivo, setFormularioActivo] = useState(true);
   const [paso] = useState([
@@ -76,21 +80,32 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-brand flex flex-col">
+    <div className="min-h-screen bg-background text-text flex flex-col">
       {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
+      <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
         <div className="flex items-center gap-4">
-          <Logo />
+          <Logo fondo={darkMode ? "oscuro" : "claro"} />
           <span className="h-6 w-px bg-border" aria-hidden="true" />
           <span className="text-lg font-bold text-text tracking-tight">Registro</span>
         </div>
-        <Link
-          href="/login"
-          className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
-          aria-label="Ir a la página de inicio de sesión"
-        >
-          Iniciar sesión
-        </Link>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={toggleDarkMode}
+            className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+            aria-label="Alternar modo oscuro"
+            aria-pressed={darkMode}
+          >
+            {darkMode ? <LightModeOutlinedIcon /> : <ModeNightOutlinedIcon />}
+          </button>
+          <Link
+            href="/login"
+            className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
+            aria-label="Ir a la página de inicio de sesión"
+          >
+            Iniciar sesión
+          </Link>
+        </div>
       </header>
 
       {/* Contenedor centrado */}
@@ -102,14 +117,14 @@ export default function Register() {
               className={`w-full h-1 border-2 rounded-2xl ${
                 formularioActivo
                   ? "bg-accent border-accent"
-                  : "bg-brand border-accent/20"
+                  : "bg-border border-border"
               }`}
             ></div>
             <div
               id="linea-empresa"
               className={`w-full h-1  border-2 rounded-2xl ${
                 formularioActivo
-                  ? "bg-brand border-accent/20"
+                  ? "bg-border border-border"
                   : "bg-accent border-accent"
               }`}
             ></div>

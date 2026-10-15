@@ -86,7 +86,6 @@ const PillTiempo = ({ dias }) => (
   </span>
 );
 
-/* Solo contenido: el Modal lo pone quien lo usa */
 const ConductorHistory = ({ conductor = CONDUCTOR_DEMO }) => {
   const nombre = conductor.conductor ?? conductor.nombre;
   const historial = HISTORIALES_CONDUCTORES.find(

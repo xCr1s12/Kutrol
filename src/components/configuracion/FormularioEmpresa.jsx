@@ -26,7 +26,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
     <section className={tarjeta} aria-label="Perfil de la empresa">
       <div className="flex items-center gap-3 mb-4">
         <button className={botonIcono} aria-label="Volver al perfil" onClick={onVolver}>
-          <ArrowBackRounded htmlColor="#4A4A4A" sx={{ fontSize: 20 }} aria-hidden="true" />
+          <ArrowBackRounded className="text-icon" sx={{ fontSize: 20 }} aria-hidden="true" />
         </button>
         <h2 className="text-[#1A1A1A] font-bold text-lg">Editar empresa</h2>
       </div>

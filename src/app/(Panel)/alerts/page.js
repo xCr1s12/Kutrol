@@ -23,9 +23,9 @@ export default function Alertas() {
   const ordenadas = [...alertas].sort((a, b) => b.fecha - a.fecha);
 
   return (
-    <div className="flex flex-col w-full bg-[#F4F5F7] p-6 gap-5">
+    <div className="flex flex-col w-full bg-card  p-6 gap-5 rounded-2xl">
       <header>
-        <h1 className="text-[#1A1A1A] text-2xl font-bold">Registro de alertas</h1>
+        <h1 className="text-text text-2xl font-bold">Registro de alertas</h1>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-5">

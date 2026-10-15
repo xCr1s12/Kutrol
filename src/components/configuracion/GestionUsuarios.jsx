@@ -46,7 +46,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
       </div>
 
       <div className="flex items-center gap-2 w-full max-w-56 border border-[#E2E8F0] rounded-md px-2 py-1 mb-3">
-        <SearchRounded htmlColor="#4A4A4A" fontSize="small" aria-hidden="true" />
+        <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
           type="search"
           className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
@@ -92,7 +92,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                 <td className="px-4 py-2">
                   <div className="flex justify-end gap-2">
                     <button className={botonIcono} aria-label={`Editar a ${u.nombre}`} onClick={() => setModal(u)}>
-                      <EditRounded htmlColor="#4A4A4A" sx={{ fontSize: 18 }} aria-hidden="true" />
+                      <EditRounded className="text-icon" sx={{ fontSize: 18 }} aria-hidden="true" />
                     </button>
                     <button
                       className={botonIcono}

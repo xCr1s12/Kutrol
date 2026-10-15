@@ -11,7 +11,7 @@ export function diasDesde(fecha) {
 
 // texto corto para la linea de tiempo: ahora, hoy, ayer, hace 3 dias
 export function haceCuanto(fecha) {
-  const minutos = (Date.now() - new Date(fecha)) / 60000;
+  const minutos = (Date.now() - new Date(fecha).getTime()) / 60000;
   if (minutos < 60) return "Ahora";
 
   const dias = diasDesde(fecha);
@@ -19,6 +19,7 @@ export function haceCuanto(fecha) {
   if (dias === 1) return "Ayer";
   return `Hace ${dias} días`;
 }
+
 
 export function formatearFecha(fecha) {
   return new Date(fecha).toLocaleDateString("es-CL");

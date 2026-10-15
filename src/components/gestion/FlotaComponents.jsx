@@ -1,7 +1,5 @@
-export const GOLD = "var(--color-accent)";
-
 export const Card = ({ children }) => (
-  <section className="flex h-110 shrink-0 flex-col rounded-2xl border border-icon bg-background px-5 pb-4 pt-5 shadow-sm p-10">
+  <section className="flex h-110 shrink-0 flex-col rounded-2xl border border-icon bg-card px-5 pb-4 pt-5 shadow-sm p-10">
     {children}
   </section>
 );
@@ -10,21 +8,21 @@ export const PillButton = ({ children, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="rounded-full border border-icon bg-background px-3.5 py-1.5 text-xs text-brand transition-colors hover:bg-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs text-text transition-colors hover:bg-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent light:hover:bg-border light:hover:text-text  dark:bg-brand  dark:hover:bg-[#314139] dark:focus-visible:outline-[#D4AF37]"
   >
     {children}
   </button>
 );
 
 export const Th = ({ children }) => (
-  <th className="px-3.75 py-3 text-left text-base font-semibold text-brand">
+  <th className="px-3.75 py-3 text-left text-base font-semibold text-text">
     {children}
   </th>
 );
 
 export const Td = ({ children, style }) => (
   <td
-    className="h-7 px-3.75 py-1 text-left align-middle text-base text-brand"
+    className="h-7 px-3.75 py-1 text-left align-middle text-base text-text"
     style={style}
   >
     {children}
@@ -33,29 +31,22 @@ export const Td = ({ children, style }) => (
 
 export const FilaTabla = ({ children }) => (
   <tr
-    style={{
-      backgroundImage:
-        "linear-gradient(var(--color-icon), var(--color-icon))",
-      backgroundPosition: "15px 100%",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "calc(90% - 15px) 1px",
-    }}
+  className="border-y-2 border-border"
   >
     {children}
   </tr>
 );
 
 export const Estado = ({ estado, estados }) => {
-  const { label, color } = estados[estado] ?? { label: estado, color: "var(--color-brand)" };
-  return <span style={{ color }}>{label}</span>;
+  const { label, color } = estados[estado] ?? { label: estado, color: "var(--text)" };
+  return <span className="text-text">{label}</span>;
 };
 
 export const VerHistorial = ({ onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="underline underline-offset-2 hover:opacity-80"
-    style={{ color: GOLD }}
+    className="underline underline-offset-2 hover:opacity-80 text-accent"
   >
     Ver Historial
   </button>
@@ -63,20 +54,20 @@ export const VerHistorial = ({ onClick }) => (
 
 export const Tabla = ({ columnas, anchos, children }) => (
   <div className="overflow-x-auto">
-    <table className="w-full min-w-160 table-fixed border-collapse">
+    <table className="w-5/6 bg-background border-2  border-border rounded-3xl min-w-160 table-fixed ">
       <colgroup>
         {anchos.map((ancho, index) => (
           <col key={index} style={{ width: `${ancho}%` }} />
         ))}
       </colgroup>
-      <thead>
-        <tr className="bg-background">
+      <thead className="bg-background   ">
+        <tr >
           {columnas.map((columna) => (
             <Th key={columna}>{columna}</Th>
           ))}
         </tr>
       </thead>
-      <tbody className="before:block before:h-2 before:content-['']">{children}</tbody>
+      <tbody className="before:block before:h-2 before:content-[''] ">{children}</tbody>
     </table>
   </div>
 );
@@ -91,12 +82,11 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             type="button"
             aria-pressed={activo}
             onClick={() => onSelect(opcion)}
-            className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+            className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-[#D4AF37] ${
               activo
-                ? "border-transparent font-bold text-brand"
-                : "border-icon bg-background text-brand hover:bg-text"
+                ? "border-transparent bg-accent font-bold text-text dark:bg-accent"
+                : "bg-background text-text hover:bg-text light:hover:bg-border light:hover:text-text border-border dark:bg-brand  dark:hover:bg-[#314139]"
             }`}
-            style={activo ? { backgroundColor: GOLD } : undefined}
           >
             {opcion}
           </button>
@@ -117,7 +107,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página anterior"
         disabled={pagina === 1}
         onClick={() => onCambiarPagina(pagina - 1)}
-        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50"
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
       >
         ‹
       </button>
@@ -129,10 +119,9 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
           onClick={() => onCambiarPagina(numero)}
           className={`h-6 w-6 rounded-md border text-xs font-bold ${
             numero === pagina
-              ? "border-transparent text-brand"
-              : "border-icon bg-background text-subtext"
+              ? "border-transparent bg-accent text-brand dark:bg-[#D4AF37] dark:text-brand"
+              : "border-icon bg-background text-subtext dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
           }`}
-          style={numero === pagina ? { backgroundColor: GOLD } : undefined}
         >
           {numero}
         </button>
@@ -142,7 +131,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página siguiente"
         disabled={pagina === totalPaginas}
         onClick={() => onCambiarPagina(pagina + 1)}
-        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50"
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
       >
         ›
       </button>

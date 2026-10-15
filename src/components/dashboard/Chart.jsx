@@ -10,6 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useContext } from "react";
+import { darkModeContext } from "@/components/ui/DarkModeProvider";
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +24,11 @@ ChartJS.register(
 );
 
 export default function ConsumoChart() {
+  const { darkMode } = useContext(darkModeContext);
+  const chartColors = darkMode
+    ? ["#FDFBF7", "#A8B0AB", "#C2C9C4", "#D4AF37"]
+    : ["#1A1A1A", "#6E6E6E", "#A8B0AB", "#D1D5DB"];
+
   const options = {
     responsive: true,
     maintainAspectRatio: false, // Permite que el gráfico llene el contenedor
@@ -35,7 +42,7 @@ export default function ConsumoChart() {
             size: 12,
             family: "system-ui",
           },
-          color: "#6E6E6E",
+          color: darkMode ? "#A8B0AB" : "#6E6E6E",
         },
       },
       tooltip: {
@@ -49,7 +56,7 @@ export default function ConsumoChart() {
           display: false,
         },
         ticks: {
-          color: "#A8B0AB",
+          color: darkMode ? "#C2C9C4" : "#A8B0AB",
         },
       },
       y: {
@@ -72,32 +79,32 @@ export default function ConsumoChart() {
       {
         label: "Camion 1",
         data: [40, 70, 50, 80, 45],
-        borderColor: "#1A1A1A",
-        backgroundColor: "#1A1A1A",
+        borderColor: chartColors[0],
+        backgroundColor: chartColors[0],
         tension: 0.4,
         pointRadius: 4,
       },
       {
         label: "Camion 2",
         data: [30, 55, 45, 75, 30],
-        borderColor: "#6E6E6E",
-        backgroundColor: "#6E6E6E",
+        borderColor: chartColors[1],
+        backgroundColor: chartColors[1],
         tension: 0.4,
         pointRadius: 4,
       },
       {
         label: "Camion 3",
         data: [20, 60, 35, 65, 80],
-        borderColor: "#A8B0AB",
-        backgroundColor: "#A8B0AB",
+        borderColor: chartColors[2],
+        backgroundColor: chartColors[2],
         tension: 0.4,
         pointRadius: 4,
       },
       {
         label: "Camion 4",
         data: [50, 30, 20, 45, 25],
-        borderColor: "#D1D5DB",
-        backgroundColor: "#D1D5DB",
+        borderColor: chartColors[3],
+        backgroundColor: chartColors[3],
         tension: 0.4,
         pointRadius: 4,
       },
@@ -105,13 +112,13 @@ export default function ConsumoChart() {
   };
 
   return (
-    <figure className="m-0 w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col">
+    <figure className="light:bg-card dark:bg-card m-0 flex w-full flex-col rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
       <figcaption>
-        <h3 className="text-[#1A1A1A] font-bold text-lg mb-4">
+        <h3 className="text-text mb-4 text-lg font-bold light:text-text dark:text-text">
           Consumo Ultimos 30 Dias
         </h3>
       </figcaption>
-      
+
       <div className="w-full h-[280px] relative">
         <Line options={options} data={data} />
       </div>

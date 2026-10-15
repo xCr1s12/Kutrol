@@ -189,13 +189,19 @@ export default function FormRoute({ open, onClose, onSubmit }) {
     <Modal
       open={open}
       onClose={onClose}
+      className="route-form-modal"
       title="Agregar ruta"
       eyebrow="RUTAS"
       icon={<AddRoadRoundedIcon />}
       size="lg"
       footer={
         <>
-          <BotonSecundario onClick={onClose}>Cancelar</BotonSecundario>
+          <BotonSecundario
+            onClick={onClose}
+            className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-brand hover:brightness-95"
+          >
+            Cancelar
+          </BotonSecundario>
           <BotonPrimario type="submit" form="form-ruta">
             Agregar ruta
           </BotonPrimario>

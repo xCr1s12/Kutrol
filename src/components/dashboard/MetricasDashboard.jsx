@@ -65,7 +65,7 @@ export default function MetricasDashboard() {
           ? "—"
           : `Disponibles: ${vehiculos.disponibles}/${vehiculos.totales}`,
       SubText: "Listado de vehículos",
-      icon: <LocalShippingRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
+      icon: <LocalShippingRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
       ariaLabel: "Vehículos disponibles y totales",
     },
     {
@@ -76,7 +76,7 @@ export default function MetricasDashboard() {
           ? "—"
           : formatoCLP.format(gasto.total),
       SubText: "Costos de combustible",
-      icon: <MonetizationOnRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
+      icon: <MonetizationOnRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
       ariaLabel: "Gasto total vehicular",
     },
     {
@@ -87,7 +87,7 @@ export default function MetricasDashboard() {
           ? "—"
           : `${formatoNumero.format(combustible.litros)} L`,
       SubText: "Combustible total utilizado",
-      icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
+      icon: <LocalGasStationRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
       ariaLabel: "Combustible total utilizado en litros",
     },
     {
@@ -98,7 +98,7 @@ export default function MetricasDashboard() {
           ? "—"
           : `${formatoNumero.format(combustible.kmPorLitro)} Km/L`,
       SubText: "Rendimiento Km/L",
-      icon: <LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />,
+      icon: <LocalGasStationRoundedIcon className="light:text-[#4A4A4A] dark:text-icon" fontSize="large" aria-hidden="true" />,
       ariaLabel: "Rendimiento en kilómetros por litro",
     },
   ];
