@@ -4,7 +4,7 @@ import {
 import { tarjeta, botonAmarillo } from "./comun";
 
 // iconos chicos de los campos, en amarillo oscuro para que se lean sobre blanco
-export const icono = { sx: { fontSize: 18 }, className: "text-accent-dark", "aria-hidden": "true" };
+export const icono = { sx: { fontSize: 18 }, className: "text-accent", "aria-hidden": "true" };
 
 // marco verde con borde amarillo, como las tarjetas de la pagina de inicio
 export function LogoEmpresa({ logo }) {
@@ -25,11 +25,11 @@ export function LogoEmpresa({ logo }) {
 function Dato({ titulo, icono, valor, className = "" }) {
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
-      <span className="flex items-center gap-1 text-xs font-semibold text-[#1A1A1A]">
+      <span className="flex items-center gap-1 text-xs font-semibold text-text">
         {icono}
         {titulo}
       </span>
-      <p className="text-sm text-[#4A4A4A] whitespace-pre-line">{valor || "Sin información"}</p>
+      <p className="text-sm text-subtext whitespace-pre-line">{valor || "Sin información"}</p>
     </div>
   );
 }
@@ -39,7 +39,7 @@ export default function VistaEmpresa({ empresa, onEditar }) {
   // por si la base de datos no devuelve nada
   if (!empresa.nombre) {
     return (
-      <section className={`${tarjeta} py-12 text-center text-sm text-[#4A4A4A]`} aria-label="Perfil de la empresa">
+      <section className={`${tarjeta} py-12 text-center text-sm text-subtext`} aria-label="Perfil de la empresa">
         No se encontraron los datos de la empresa
       </section>
     );
@@ -51,8 +51,8 @@ export default function VistaEmpresa({ empresa, onEditar }) {
         <div className="flex flex-wrap items-center gap-4">
           <LogoEmpresa logo={empresa.logo} />
           <div>
-            <h2 className="text-[#1A1A1A] font-bold text-lg">{empresa.nombre}</h2>
-            <p className="text-sm text-[#4A4A4A]">RUT {empresa.rut}</p>
+            <h2 className="text-text font-bold text-lg">{empresa.nombre}</h2>
+            <p className="text-sm text-subtext">RUT {empresa.rut}</p>
           </div>
         </div>
         <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>

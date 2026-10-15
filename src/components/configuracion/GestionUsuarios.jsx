@@ -3,10 +3,7 @@ import { AddRounded, EditRounded, DeleteRounded, SearchRounded } from "@mui/icon
 import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
 import ModalUsuario from "./ModalUsuario";
 
-const coloresRol = {
-  Admin: "bg-blue-100 text-blue-800",
-  Usuario: "bg-green-100 text-green-800",
-};
+const coloresRol = "bg-accent/20 text-accent";
 
 function iniciales(nombre) {
   return nombre.split(" ").slice(0, 2).map((palabra) => palabra[0]).join("").toUpperCase();
@@ -45,11 +42,11 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
         </button>
       </div>
 
-      <div className="flex items-center gap-2 w-full max-w-56 border border-[#E2E8F0] rounded-md px-2 py-1 mb-3">
+      <div className="flex items-center gap-2 w-full max-w-56 border border-border bg-background rounded-md px-2 py-1 mb-3">
         <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
           type="search"
-          className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
+          className="w-full bg-transparent text-xs text-text placeholder:text-subtext outline-none"
           placeholder="Buscar"
           aria-label="Buscar usuario"
           value={busqueda}
@@ -58,9 +55,9 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-xs text-left text-[#1A1A1A]">
+        <table className="w-full text-xs text-left text-text">
           <thead>
-            <tr className="bg-[#F4F5F7]">
+            <tr className="bg-background text-subtext">
               {["Usuario", "Correo electrónico", "Rol"].map((t) => (
                 <th key={t} className="px-4 py-2 font-semibold">{t}</th>
               ))}
@@ -69,14 +66,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
           </thead>
           <tbody>
             {usuariosFiltrados.map((u) => (
-              <tr key={u.id} className="border-b border-[#E2E8F0] last:border-b-0">
+              <tr key={u.id} className="border-b border-border last:border-b-0">
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-3">
                     {u.foto ? (
                       <img src={u.foto} alt="" className="w-7 h-7 rounded-full object-cover" />
                     ) : (
                       <span
-                        className="w-7 h-7 rounded-full bg-brand ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
+                        className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}
@@ -87,7 +84,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                 </td>
                 <td className="px-4 py-2">{u.correo}</td>
                 <td className="px-4 py-2">
-                  <span className={`px-2 py-0.5 rounded-full font-medium ${coloresRol[u.rol]}`}>{u.rol}</span>
+                  <span className={`px-2 py-0.5 rounded-full font-medium ${coloresRol}`}>{u.rol}</span>
                 </td>
                 <td className="px-4 py-2">
                   <div className="flex justify-end gap-2">
@@ -99,7 +96,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                       aria-label={`Eliminar a ${u.nombre}`}
                       onClick={() => eliminarUsuario(u.id)}
                     >
-                      <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
+                      <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
                     </button>
                   </div>
                 </td>
@@ -107,7 +104,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
             ))}
             {usuariosFiltrados.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-6 text-center text-[#4A4A4A]">
+                <td colSpan={4} className="px-4 py-6 text-center text-subtext">
                   No se encontraron usuarios
                 </td>
               </tr>

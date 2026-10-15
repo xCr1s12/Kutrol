@@ -7,14 +7,14 @@ const emisiones = [500, 1000, 1500, 2000];
 // fila con icono, titulo y los selects que van como children
 function Parametro({ Icono, titulo, texto, children }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-[#E2E8F0] last:border-b-0 last:pb-0">
+    <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-border last:border-b-0 last:pb-0">
       <div className="flex items-center gap-3">
         <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
           <Icono className="text-accent" sx={{ fontSize: 26 }} aria-hidden="true" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-[#1A1A1A]">{titulo}</p>
-          <p className="text-xs text-[#4A4A4A]">{texto}</p>
+          <p className="text-sm font-semibold text-text">{titulo}</p>
+          <p className="text-xs text-subtext">{texto}</p>
         </div>
       </div>
       {children}
@@ -26,7 +26,7 @@ export default function ParametrosOperativos({ config, cambiar }) {
   return (
     <section className={tarjeta} aria-label="Parámetros operativos">
       <h2 className={titulo}>Parámetros operativos</h2>
-      <p className="text-sm text-[#4A4A4A] mb-2">
+      <p className="text-sm text-subtext mb-2">
         Define los valores base para calcular desvíos de combustible y metas de huella de carbono.
       </p>
 

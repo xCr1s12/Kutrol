@@ -26,11 +26,11 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
         role="dialog"
         aria-modal="true"
         aria-label={titulo}
-        className="w-full max-w-sm bg-white rounded-xl p-6"
+        className="w-full max-w-sm bg-card text-text border border-border rounded-xl p-6"
         onClick={(e) => e.stopPropagation()}
         onSubmit={enviar}
       >
-        <h2 className="text-[#1A1A1A] text-lg font-bold mb-4">{titulo}</h2>
+        <h2 className="text-text text-lg font-bold mb-4">{titulo}</h2>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-4">
           <div className="flex-1 flex flex-col gap-2">
@@ -56,14 +56,14 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
           </div>
 
           <div className="flex flex-col items-center gap-2 shrink-0">
-            <div className="w-28 h-28 flex items-center justify-center border border-[#E2E8F0] rounded-md overflow-hidden">
+            <div className="w-28 h-28 flex items-center justify-center border border-border bg-background rounded-md overflow-hidden">
               {foto ? (
                 <img src={foto} alt="Foto del usuario" className="w-full h-full object-cover" />
               ) : (
                 <ImageRounded className="text-icon" fontSize="large" aria-hidden="true" />
               )}
             </div>
-            <label className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A1A1A] bg-[#F4F5F7] rounded-full px-3 py-1.5 cursor-pointer hover:bg-[#E9EAED]">
+            <label className="inline-flex items-center gap-1 text-xs font-semibold text-text bg-background border border-border rounded-full px-3 py-1.5 cursor-pointer hover:bg-border">
               <PhotoCameraRounded sx={{ fontSize: 14 }} aria-hidden="true" />
               {foto ? "Cambiar imagen" : "Agregar imagen"}
               <input type="file" accept="image/*" onChange={(e) => elegirImagen(e, setFoto)} hidden />

@@ -91,12 +91,12 @@ export default function Configuracion() {
   }
 
   return (
-    <div className="flex flex-col w-full bg-[#F4F5F7] p-6 gap-5">
+    <div className="flex flex-col w-full bg-background text-text p-6 gap-5">
       <header>
-        <h1 className="text-[#1A1A1A] text-2xl font-bold">Configuración</h1>
+        <h1 className="text-text text-2xl font-bold">Configuración</h1>
       </header>
 
-      <div role="tablist" aria-label="Secciones de configuración" className="flex gap-2 border-b border-[#E2E8F0]">
+      <div role="tablist" aria-label="Secciones de configuración" className="flex gap-2 border-b border-border">
         {pestanas.map(({ id, nombre, Icono }) => (
           <button
             key={id}
@@ -105,12 +105,12 @@ export default function Configuracion() {
             onClick={() => setPestana(id)}
             className={`flex items-center gap-2 px-4 py-2 -mb-px text-sm rounded-t-lg border-b-2 ${
               pestana === id
-                ? "border-accent bg-white font-semibold text-[#1A1A1A]"
-                : "border-transparent text-[#4A4A4A] hover:text-[#1A1A1A]"
+                ? "border-accent bg-card font-semibold text-text"
+                : "border-transparent text-subtext hover:text-text"
             }`}
           >
             {/* la pestana abierta lleva el icono dorado */}
-            <Icono fontSize="small" className={pestana === id ? "text-accent-dark" : ""} aria-hidden="true" />
+            <Icono fontSize="small" className={pestana === id ? "text-accent-dark" : "text-icon"} aria-hidden="true" />
             {nombre}
           </button>
         ))}
@@ -136,14 +136,14 @@ export default function Configuracion() {
       {hayCambios && (
         <div
           role="status"
-          className="sticky bottom-4 flex flex-wrap items-center justify-between gap-3 bg-brand text-text rounded-xl px-5 py-3 shadow-lg"
+          className="sticky bottom-4 flex flex-wrap items-center justify-between gap-3 bg-card text-text border border-border rounded-xl px-5 py-3 shadow-lg"
         >
           <span className="text-sm">
             {hayErrores ? "Corrige los datos de la empresa antes de guardar" : "Tienes cambios sin guardar"}
           </span>
           <div className="flex gap-2">
             <button
-              className="text-sm rounded-lg px-4 py-2 border border-border hover:bg-white/10"
+              className="text-sm rounded-lg px-4 py-2 border border-border text-text hover:bg-border"
               onClick={cancelarCambios}
             >
               Cancelar

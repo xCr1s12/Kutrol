@@ -34,17 +34,17 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
         <AgregarAlerta disponibles={disponibles} onAgregar={agregarAlerta} />
       </div>
       {alertas.length === 0 && (
-        <p className="py-6 text-center text-xs text-[#4A4A4A]">No hay alertas configuradas</p>
+        <p className="py-6 text-center text-xs text-subtext">No hay alertas configuradas</p>
       )}
       {alertas.map((a) => (
         <div
           key={a.id}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-border last:border-b-0"
         >
-          <p className="text-sm font-semibold text-[#1A1A1A]">{a.nombre}</p>
+          <p className="text-sm font-semibold text-text">{a.nombre}</p>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[#4A4A4A]">Umbral</span>
+            <span className="text-xs text-subtext">Umbral</span>
             <Lista
               opciones={valores}
               aria-label={`Umbral de la alerta ${a.nombre}`}
@@ -62,7 +62,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[#4A4A4A]">Estado</span>
+            <span className="text-xs text-subtext">Estado</span>
             <MenuEstado
               valor={a.estado}
               disabled={!a.activa}
@@ -87,7 +87,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
             aria-label={`Eliminar la alerta ${a.nombre}`}
             onClick={() => eliminarAlerta(a.id)}
           >
-            <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
+            <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
           </button>
         </div>
       ))}

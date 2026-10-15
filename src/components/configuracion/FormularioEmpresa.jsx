@@ -28,7 +28,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
         <button className={botonIcono} aria-label="Volver al perfil" onClick={onVolver}>
           <ArrowBackRounded className="text-icon" sx={{ fontSize: 20 }} aria-hidden="true" />
         </button>
-        <h2 className="text-[#1A1A1A] font-bold text-lg">Editar empresa</h2>
+        <h2 className="text-text font-bold text-lg">Editar empresa</h2>
       </div>
 
       <div className="flex items-center gap-4 mb-6">
@@ -44,7 +44,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
               hidden
             />
           </label>
-          <p className="text-xs text-[#4A4A4A]">Recomendado: PNG o JPG transparente de 500x500px</p>
+          <p className="text-xs text-subtext">Recomendado: PNG o JPG transparente de 500x500px</p>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
 
         <Campo titulo="Teléfono" icono={<PhoneRounded {...icono} />} error={errores.telefono}>
           <div className="flex">
-            <span className="text-xs font-normal text-[#4A4A4A] bg-[#F4F5F7] border border-r-0 border-[#E2E8F0] rounded-l-md px-3 py-2">
+            <span className="text-xs font-normal text-subtext bg-background border border-r-0 border-border rounded-l-md px-3 py-2">
               +56
             </span>
             <input
@@ -134,7 +134,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
             value={empresa.descripcion}
             onChange={(e) => poner("descripcion", e.target.value)}
           />
-          <span className="self-end font-normal text-[#4A4A4A]">
+          <span className="self-end font-normal text-subtext">
             {empresa.descripcion.length}/{limiteDescripcion}
           </span>
         </Campo>
