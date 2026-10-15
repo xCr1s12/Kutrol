@@ -22,12 +22,12 @@ export default async function StatisticPage() {
           Análisis Estadístico
         </h1>
 
-        <p
+        <span
           id="estadisticas-reloj"
           className="text-subtext mt-1 flex items-center gap-2 text-sm"
         >
           <Clock className="w-4 h-4" role="timer" />
-        </p>
+        </span>
       </header>
 
       {/* Bloques de Análisis Estadístico y Correlación */}

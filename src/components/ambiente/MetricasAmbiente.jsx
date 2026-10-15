@@ -31,7 +31,7 @@ export default function MetricasAmbiente() {
 
   if (loading) {
     return (
-      <div className="col-span-full py-8 text-center text-[#4A4A4A] animate-pulse font-medium">
+      <div className="col-span-full animate-pulse py-8 text-center font-medium text-subtext">
         Cargando métricas de sostenibilidad...
       </div>
     );
@@ -69,21 +69,21 @@ export default function MetricasAmbiente() {
         Title="CO₂ Evitado Estimado"
         text={`${co2EvitadoKg.toLocaleString("es-CL")} kg`}
         SubText={`Equivale a ~${arbolesEquivalentes} árboles absorbentes/año`}
-        icon={<ParkRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />}
+        icon={<ParkRoundedIcon className="text-icon" aria-hidden="true" />}
         aria="Tarjeta de CO2 Evitado"
       />
       <StatisticCard
         Title="Emisiones Totales CO₂"
         text={`${emisionesCO2Ton} Ton`}
         SubText={`Huella por ${litrosTotales.toLocaleString("es-CL")} Litros cargados`}
-        icon={<CloudRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />}
+        icon={<CloudRoundedIcon className="text-icon" aria-hidden="true" />}
         aria="Tarjeta de Emisiones CO2"
       />
       <StatisticCard
         Title="Eficiencia Energética"
         text={`${rendimientoPromedio} Km/L`}
         SubText="Promedio global de rendimiento"
-        icon={<LocalGasStationRoundedIcon htmlColor="#4A4A4A" aria-hidden="true" />}
+        icon={<LocalGasStationRoundedIcon className="text-icon" aria-hidden="true" />}
         aria="Tarjeta de Eficiencia Energética"
       />
     </>
