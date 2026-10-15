@@ -60,6 +60,7 @@ export default function Acerca_de() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 
+<<<<<<< HEAD
         <h1 className="text-7xl text-text font-bold mb-5"> Equipo Kutrolín</h1>
 =======
         
@@ -68,6 +69,9 @@ export default function Acerca_de() {
 >>>>>>> 3607d4a (chore(team): update Claudio profile image and links)
         <span className="text-7xl text-text font-bold mb-5"> Equipo Kutrolin</span>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        <h1 className="text-7xl text-text font-bold mb-5"> Equipo Kutrolin</h1>
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
         <div className="relative w-full flex flex-row items-center mt-16 justify-center gap-6 sm:gap-10 mt-10 min-h-[450px]">
 
           <button

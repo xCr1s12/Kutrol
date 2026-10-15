@@ -15,6 +15,7 @@ export default function Sidebar() {
   const NavRoutes = [
     { name: "Dashboard", path: "/dashboard", icon: HomeIcon, aria: "Ir al Dashboard" },
 <<<<<<< HEAD
+<<<<<<< HEAD
     { name: "Estadísticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadísticas" },
     { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
     { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
@@ -24,9 +25,12 @@ export default function Sidebar() {
 
 =======
     { name: "Estadisticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadisticas" },
+=======
+    { name: "Estadísticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadísticas" },
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
     { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
     { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
-    { name: "Gestion", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestion" },
+    { name: "Gestión", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestión" },
     { name: "Ambiente", path: "/ambiente", icon: LanguageRoundedIcon, aria: "ir a Ambiente y sostenibilidad" },
   ];
   
@@ -60,6 +64,7 @@ export default function Sidebar() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
 =======
 =======
@@ -87,6 +92,17 @@ export default function Sidebar() {
             <span className="whitespace-nowrap overflow-hidden text-sm text-[#C2C9C4]">
               Cerrar Menu
 >>>>>>> f1e9fbd (pestaña de ambiente)
+=======
+          className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
+        >
+          {!isActive && (
+            <MenuIcon aria-label="Abrir menú" aria-expanded={false} aria-hidden="false" />
+          )}
+          
+          {isActive && (
+            <span className="whitespace-nowrap overflow-hidden text-sm text-mist">
+              Cerrar menú
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
             </span>
           )}  
         </div>
@@ -106,10 +122,14 @@ export default function Sidebar() {
 <<<<<<< HEAD
               className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
 <<<<<<< HEAD
+<<<<<<< HEAD
                   ? "border-l-4 border-gold bg-gold/20"
 =======
                   ? "border-l-4 border-[#D4AF37] bg-[#D4AF37]/20"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+                  ? "border-l-4 border-gold bg-gold/20"
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
                   : "border-l-4 border-transparent"
                 }`}
             >
@@ -131,16 +151,21 @@ export default function Sidebar() {
 >>>>>>> f1e9fbd (pestaña de ambiente)
                   aria-hidden="false"
 <<<<<<< HEAD
+<<<<<<< HEAD
                   className={isCurrentPath ? "text-gold" : "text-mist"}
 =======
                   className={isCurrentPath ? "text-[#D4AF37]" : "text-[#C2C9C4]"}
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+                  className={isCurrentPath ? "text-gold" : "text-mist"}
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
                   fontSize="medium"
                 />
               </div>
 
               {isActive && (
                 <span
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -156,6 +181,9 @@ export default function Sidebar() {
                     isCurrentPath ? "text-[#1A1A1A]" : "text-[#C2C9C4]"
                   }`}
 >>>>>>> f1e9fbd (pestaña de ambiente)
+=======
+                  className={`truncate text-sm font-bold ${isCurrentPath ? "text-cream" : "text-sage"}`}
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
                 >
                   {item.name}
                 </span>

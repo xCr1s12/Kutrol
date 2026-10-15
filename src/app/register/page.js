@@ -28,12 +28,17 @@ export default function Register() {
   const [formularioActivo, setFormularioActivo] = useState(true);
   const [paso] = useState([
 <<<<<<< HEAD
+<<<<<<< HEAD
     {numero :1 , titulo: "Datos del Encargado", subtext: "Registra tus datos como encargado primero"},
     {numero: 2, titulo: "Datos de la Empresa", subtext: "Registra los datos de la empresa"}
 =======
     {numero :1 , titulo: "Datos del Encargado", subtext: "Registra tus datos como encargado Primero"},
     {numero: 2, titulo: "Datos de la Empresa", subtext: "Registra los datos de la Empresa"}
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+    {numero :1 , titulo: "Datos del Encargado", subtext: "Registra tus datos como encargado primero"},
+    {numero: 2, titulo: "Datos de la Empresa", subtext: "Registra los datos de la empresa"}
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
   ]);
   const [errors, setErrors] = useState({});
   const [index , setIndex] = useState(0);
@@ -166,10 +171,14 @@ export default function Register() {
 
       {/* Contenedor centrado */}
 <<<<<<< HEAD
+<<<<<<< HEAD
       <main className="flex-1 flex items-center justify-center px-4 py-24">
 =======
       <div className="flex-1 flex items-center justify-center px-4 py-24">
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+      <main className="flex-1 flex items-center justify-center px-4 py-24">
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
         <Card className="w-140 max-w-205 p-10">
           <div id="lineas-identificadoras" className="grid grid-cols-2 gap-0">
             <div
@@ -199,6 +208,7 @@ export default function Register() {
               }`}
             ></div>
             <p className="text-accent light:text-accent-dark my-2"> Paso {paso[index].numero} de 2</p>
+<<<<<<< HEAD
 =======
                   ? "bg-brand border-accent/20"
 =======
@@ -209,6 +219,8 @@ export default function Register() {
             ></div>
             <p className="text-accent my-2"> Paso {paso[index].numero} de 2</p>
 >>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
+=======
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
           </div>
           <div id="contenedor-formulario-encargado">
             <h1 className=" text-text text-3xl font-bold">{paso[index].titulo}</h1>

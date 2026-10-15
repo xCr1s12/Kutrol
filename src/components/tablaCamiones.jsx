@@ -150,10 +150,14 @@ export default function TablaCamiones({
   );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
   // Al cambiar el filtro se vuelve a la primera pagina (antes vivia en un
   // useEffect que provocaba un render en cascada).
   const cambiarFiltro = (filtro) => {
     setFiltroActivo(filtro);
+<<<<<<< HEAD
     setPagina(1);
   };
 =======
@@ -165,6 +169,10 @@ export default function TablaCamiones({
     if (pagina > totalPaginas) setPagina(totalPaginas);
   }, [pagina, totalPaginas]);
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+    setPagina(1);
+  };
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
 
   return (
     <>
@@ -173,10 +181,14 @@ export default function TablaCamiones({
           opciones={FILTROS}
           seleccionado={filtroActivo}
 <<<<<<< HEAD
+<<<<<<< HEAD
           onSelect={cambiarFiltro}
 =======
           onSelect={setFiltroActivo}
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+          onSelect={cambiarFiltro}
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
         />
         {acciones}
       </div>
@@ -184,10 +196,14 @@ export default function TablaCamiones({
       <Tabla
         columnas={[
 <<<<<<< HEAD
+<<<<<<< HEAD
           "Vehículo",
 =======
           "Vehiculo",
 >>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
+=======
+          "Vehículo",
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
           "Marca / modelo",
           "Estado",
           "Capacidad carga",

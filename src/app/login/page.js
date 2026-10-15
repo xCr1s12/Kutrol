@@ -110,8 +110,12 @@ export default function Login() {
       </header>
 
       {/* Contenedor centrado */}
+<<<<<<< HEAD
       <div className="flex-1 flex items-center justify-center px-4 pt-20">
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+      <main className="flex-1 flex items-center justify-center px-4 pt-20">
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
         <Card className="w-full max-w-110 p-10 space-y-7">
           <h1 className="text-2xl font-bold text-text text-center">
             Inicio de sesión
@@ -148,10 +152,14 @@ export default function Login() {
                 variant="ghost"
                 aria-labelledby="login-sso-label"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 className="w-full flex items-center justify-center light:bg-accent light:text-white gap-2"
 =======
                 className="w-full flex items-center justify-center light:bg-accent gap-2"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+                className="w-full flex items-center justify-center light:bg-accent light:text-white gap-2"
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
               >
                 <GoogleIcon />
                 Google

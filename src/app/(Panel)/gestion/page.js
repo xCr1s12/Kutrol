@@ -120,9 +120,9 @@ const page = () => {
             </section>
 =======
 const CONDUCTORES = [
-  { conductor: "Jhon Doea", estado: "activo", vehiculo: "A1" },
-  { conductor: "Jhon Doe", estado: "activo", vehiculo: "A2" },
-  { conductor: "Jhon Doe", estado: "sin carga", vehiculo: "A3" },
+  { conductor: "Luis Mancilla", estado: "activo", vehiculo: "A1" },
+  { conductor: "María Cárdenas", estado: "activo", vehiculo: "A2" },
+  { conductor: "Pedro Muñoz", estado: "sin carga", vehiculo: "A3" },
 ];
 
 const ESTADOS = {
@@ -220,10 +220,15 @@ const Flota = () => {
 
   const [modalHistorialV, setModalHistorialV] = useState(false);
   return (
-    <main
+    <div
       lang="es"
       className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
     >
+      {/* Encabezado de la pagina */}
+      <header className="mb-1">
+        <h1 className="text-2xl font-bold text-text">Gestión de flota</h1>
+      </header>
+
       {/* ---------- Vehiculos ---------- */}
       <Card >
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -273,7 +278,7 @@ const Flota = () => {
             }}
             acciones={
               <PillButton onClick={() => setModalVehiculo(true)}>
-                Agregar Vehiculo
+                Agregar Vehículo
               </PillButton>
             }
           />
@@ -334,4 +339,85 @@ const Flota = () => {
         </div>
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 
+<<<<<<< HEAD
 export default page;
+=======
+        <Tabla
+          columnas={["Conductor", "Estado", "Vehículo a cargo", "Historial"]}
+          anchos={[23, 20, 27, 30]}
+        >
+          {CONDUCTORES.map((c, i) => (
+            <FilaTabla key={`${c.conductor}-${i}`}>
+              <Td>{c.conductor}</Td>
+              <Td>
+                <Estado estado={normalizar(c.estado)} estados={ESTADOS} />
+              </Td>
+              <Td>{c.vehiculo}</Td>
+              <Td>
+                <VerHistorial
+                  onClick={() => {
+                    setCONDUCTORSELECT(c);
+                    setModalHistorialC(true);
+                  }}
+                />
+              </Td>
+            </FilaTabla>
+          ))}
+        </Tabla>
+      </Card>
+      {/* Modal del Historial del Conductor */}
+      <Modal
+        open={modalHistorialC}
+        onClose={() => setModalHistorialC(false)}
+        size="xl"
+        eyebrow="CONDUCTOR"
+        title={CONDUCTORSELECT?.conductor ?? "Historial del conductor"}
+        icon={ICONCONDUCTOR}
+      >
+        <ConductorHistory conductor={CONDUCTORSELECT ?? undefined} />
+      </Modal>
+
+      {/* Modal Agregar Conductor */}
+      <Modal
+        icon={ICONCONDUCTOR}
+        open={modalConductor}
+        onClose={() => setModalConductor(false)}
+        title="Agregar Conductor"
+        size="lg"
+      >
+        <FormularioConductor
+          onSubmit={handleNuevoConductor}
+          onCancel={() => setModalConductor(false)}
+        />
+      </Modal>
+
+      {/* Modal del Historial del Vehiculo */}
+      <Modal
+        open={modalHistorialV}
+        onClose={() => setModalHistorialV(false)}
+        size="xl"
+        eyebrow="VEHÍCULO"
+        title={VEHICULOSELECT?.patente ?? "Historial del Vehículo"}
+        icon={ICONVEHICULO}
+      >
+        <VehiculoHistory vehiculo={VEHICULOSELECT ?? undefined} />
+      </Modal>
+      {/* Modal Agregar Vehiculo */}
+      <Modal
+        icon={ICONVEHICULO}
+        open={modalVehiculo}
+        onClose={() => setModalVehiculo(false)}
+        title="Agregar Vehículo"
+        size="lg"
+      >
+        <FormularioVehiculo
+          onSubmit={handleNuevoVehiculo}
+          onCancel={() => setModalVehiculo(false)}
+        />
+      </Modal>
+    </div>
+  );
+};
+
+export default Flota;
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)

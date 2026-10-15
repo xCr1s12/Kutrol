@@ -60,7 +60,7 @@ export default async function StatisticPage() {
   const metricas = await obtenerMetricasDashboard(session.id_empresa);
 
   return (
-    <main
+    <div
       id="estadisticas-avanzadas"
       className="flex min-h-screen w-full flex-col bg-background p-6 text-text"
     >
@@ -88,6 +88,7 @@ export default async function StatisticPage() {
         <AlertsSection />
       </section>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       {/* Alertas */}
       <section className="w-full mt-10" aria-label="Sección de alertas">
@@ -98,5 +99,8 @@ export default async function StatisticPage() {
 =======
     </main>
 >>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
+=======
+    </div>
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
   );
 }

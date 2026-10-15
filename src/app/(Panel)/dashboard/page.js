@@ -178,6 +178,7 @@ export default async function Dashboard() {
                   <div className="flex items-center gap-3">
                     <span
                       className="flex h-8 w-8 items-center justify-center rounded-full bg-moss text-xs font-bold text-cream"
+<<<<<<< HEAD
                       aria-hidden="true"
                     >
                       PM
@@ -205,12 +206,14 @@ export default async function Dashboard() {
                   <div className="flex items-center gap-3">
                     <span
                       className="flex h-8 w-8 items-center justify-center rounded-full bg-[#314139] text-xs font-bold text-[#FDFBF7]"
+=======
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
                       aria-hidden="true"
                     >
-                      JD
+                      PM
                     </span>
                     <span className="text-text font-medium light:text-text dark:text-text">
-                      Jhon Doe
+                      Pedro Muñoz
                     </span>
                   </div>
                   <span className="text-subtext text-sm font-semibold light:text-subtext dark:text-subtext">
@@ -259,6 +262,6 @@ export default async function Dashboard() {
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         <AlertsSection />
       </section>
-    </main>
+    </div>
   );
 }

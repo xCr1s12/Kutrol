@@ -157,6 +157,7 @@ export default function ConsumoChart() {
       <figcaption>
         <h3 className="text-text mb-4 text-lg font-bold light:text-text dark:text-text">
           Consumo últimos 30 días
+<<<<<<< HEAD
         </h3>
       </figcaption>
 
@@ -168,6 +169,8 @@ export default function ConsumoChart() {
       <figcaption>
         <h3 className="text-text mb-4 text-lg font-bold light:text-text dark:text-text">
           Consumo Ultimos 30 Dias
+=======
+>>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
         </h3>
       </figcaption>
 <<<<<<< HEAD
