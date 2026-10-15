@@ -39,6 +39,7 @@ export default function MapaCalorAmbiente() {
     { comuna: "Chonchi / Dalcahue", descripcion: "Cruces Rurales", co2: "2.1 Ton", nivel: 1 },
   ];
 
+<<<<<<< HEAD
   // Mantener los niveles distinguibles sobre las superficies de ambos temas.
   const getStyleByLevel = (nivel) => {
     switch (nivel) {
@@ -49,10 +50,23 @@ export default function MapaCalorAmbiente() {
       case 0:
       default:
         return "bg-brand"; // Verde Oscuro Fondo Kutrol (#1B2B24)
+=======
+  // Mapeo de Colores de la Paleta Kutrol
+  const getStyleByLevel = (nivel) => {
+    switch (nivel) {
+      case 2:
+        return "bg-[#8C6239]"; // Acento Oscuro / Cobre Kutrol (#8C6239)
+      case 1:
+        return "bg-[#D4AF37]"; // Dorado Acento Kutrol (#D4AF37)
+      case 0:
+      default:
+        return "bg-[#1B2B24]"; // Verde Oscuro Fondo Kutrol (#1B2B24)
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
     }
   };
 
   return (
+<<<<<<< HEAD
     <div className="w-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] border border-linen">
       {/* Encabezado y Selector de Tabs */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -61,11 +75,22 @@ export default function MapaCalorAmbiente() {
             Análisis de Impacto Ambiental y Emisiones
           </h2>
           <p className="text-xs text-graphite mt-0.5">
+=======
+    <div className="w-full bg-[#FDFBF7] rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] border border-[#EAE5DA]">
+      {/* Encabezado y Selector de Tabs */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 className="text-[#1A1A1A] font-bold text-lg">
+            Análisis de Impacto Ambiental y Emisiones
+          </h2>
+          <p className="text-xs text-[#4A4A4A] mt-0.5">
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
             Monitoreo de la huella de carbono de la flota según franja y ruta
           </p>
         </div>
 
         {/* Tabs de Selección */}
+<<<<<<< HEAD
         <div className="flex bg-linen/50 p-1 rounded-lg border border-linen self-start md:self-auto">
           <button
             onClick={() => setTabActiva("horario")}
@@ -73,6 +98,15 @@ export default function MapaCalorAmbiente() {
               tabActiva === "horario"
                 ? "bg-ink text-cream"
                 : "text-graphite hover:text-ink"
+=======
+        <div className="flex bg-[#EAE5DA]/50 p-1 rounded-lg border border-[#EAE5DA] self-start md:self-auto">
+          <button
+            onClick={() => setTabActiva("horario")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+              tabActiva === "horario"
+                ? "bg-[#1A1A1A] text-[#FDFBF7]"
+                : "text-[#4A4A4A] hover:text-[#1A1A1A]"
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
             }`}
           >
             <AccessTimeRoundedIcon fontSize="small" />
@@ -81,10 +115,17 @@ export default function MapaCalorAmbiente() {
 
           <button
             onClick={() => setTabActiva("geografico")}
+<<<<<<< HEAD
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
               tabActiva === "geografico"
                 ? "bg-ink text-cream"
                 : "text-graphite hover:text-ink"
+=======
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+              tabActiva === "geografico"
+                ? "bg-[#1A1A1A] text-[#FDFBF7]"
+                : "text-[#4A4A4A] hover:text-[#1A1A1A]"
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
             }`}
           >
             <MapIcon fontSize="small" />
@@ -93,10 +134,17 @@ export default function MapaCalorAmbiente() {
 
           <button
             onClick={() => setTabActiva("camiones")}
+<<<<<<< HEAD
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
               tabActiva === "camiones"
                 ? "bg-ink text-cream"
                 : "text-graphite hover:text-ink"
+=======
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+              tabActiva === "camiones"
+                ? "bg-[#1A1A1A] text-[#FDFBF7]"
+                : "text-[#4A4A4A] hover:text-[#1A1A1A]"
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
             }`}
           >
             <LocalShippingRoundedIcon fontSize="small" />
@@ -106,6 +154,7 @@ export default function MapaCalorAmbiente() {
       </div>
 
       {/* Leyenda de Colores */}
+<<<<<<< HEAD
       <div className="flex items-center gap-4 text-xs mb-4 pb-3 border-b border-linen">
         <span className="text-graphite font-semibold">Nivel de CO₂:</span>
         <span className="flex items-center gap-1.5">
@@ -119,6 +168,21 @@ export default function MapaCalorAmbiente() {
         <span className="flex items-center gap-1.5">
           <span className="w-3.5 h-3.5 rounded bg-copper inline-block" />
           <span className="text-ink">Crítico / Elevado</span>
+=======
+      <div className="flex items-center gap-4 text-xs mb-4 pb-3 border-b border-[#EAE5DA]">
+        <span className="text-[#4A4A4A] font-semibold">Nivel de CO₂:</span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3.5 h-3.5 rounded bg-[#1B2B24] inline-block" />
+          <span className="text-[#1A1A1A]">Bajo / Eficiente</span>
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3.5 h-3.5 rounded bg-[#D4AF37] inline-block" />
+          <span className="text-[#1A1A1A]">Moderado</span>
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3.5 h-3.5 rounded bg-[#8C6239] inline-block" />
+          <span className="text-[#1A1A1A]">Crítico / Elevado</span>
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
         </span>
       </div>
 
@@ -126,7 +190,11 @@ export default function MapaCalorAmbiente() {
       {tabActiva === "horario" && (
         <div className="overflow-x-auto pt-2">
           <div className="min-w-[500px]">
+<<<<<<< HEAD
             <div className="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-bold text-graphite">
+=======
+            <div className="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-bold text-[#4A4A4A]">
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
               <span className="text-left">Día / Hora</span>
               {horas.map((h) => (
                 <span key={h}>{h}</span>
@@ -135,7 +203,11 @@ export default function MapaCalorAmbiente() {
 
             {dias.map((dia, fIdx) => (
               <div key={dia} className="grid grid-cols-7 gap-2 mb-2 items-center">
+<<<<<<< HEAD
                 <span className="text-xs font-bold text-ink">{dia}</span>
+=======
+                <span className="text-xs font-bold text-[#1A1A1A]">{dia}</span>
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
                 {matrizHoraria[fIdx].map((val, cIdx) => (
                   <div
                     key={cIdx}
@@ -157,12 +229,21 @@ export default function MapaCalorAmbiente() {
           {zonas.map((zona, idx) => (
             <div
               key={idx}
+<<<<<<< HEAD
               className="p-4 rounded-lg border border-linen flex items-center justify-between bg-cream"
             >
               <div>
                 <h3 className="font-bold text-sm text-ink">{zona.comuna}</h3>
                 <p className="text-xs text-graphite">{zona.descripcion}</p>
                 <span className="text-xs text-copper font-medium mt-1 inline-block">
+=======
+              className="p-4 rounded-lg border border-[#EAE5DA] flex items-center justify-between bg-[#FDFBF7]"
+            >
+              <div>
+                <h3 className="font-bold text-sm text-[#1A1A1A]">{zona.comuna}</h3>
+                <p className="text-xs text-[#4A4A4A]">{zona.descripcion}</p>
+                <span className="text-xs text-[#8C6239] font-medium mt-1 inline-block">
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
                   Huella registrada: {zona.co2}
                 </span>
               </div>
@@ -181,7 +262,11 @@ export default function MapaCalorAmbiente() {
       {tabActiva === "camiones" && (
         <div className="overflow-x-auto pt-2">
           <div className="min-w-[550px]">
+<<<<<<< HEAD
             <div className="grid grid-cols-5 gap-2 mb-2 text-center text-xs font-bold text-graphite">
+=======
+            <div className="grid grid-cols-5 gap-2 mb-2 text-center text-xs font-bold text-[#4A4A4A]">
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
               <span className="text-left">Patente / Ruta</span>
               {rutas.map((r) => (
                 <span key={r} className="truncate">{r}</span>
@@ -190,7 +275,11 @@ export default function MapaCalorAmbiente() {
 
             {camiones.map((patente, fIdx) => (
               <div key={patente} className="grid grid-cols-5 gap-2 mb-2 items-center">
+<<<<<<< HEAD
                 <span className="text-xs font-bold text-ink truncate">
+=======
+                <span className="text-xs font-bold text-[#1A1A1A] truncate">
+>>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
                   {patente}
                 </span>
                 {matrizCamiones[fIdx].map((val, cIdx) => (

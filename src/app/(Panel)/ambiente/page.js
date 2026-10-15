@@ -103,7 +103,7 @@ export default async function AmbientePage() {
 >>>>>>> 61b19f7 (alimentación de página ambiente)
 import Clock from "@/components/dashboard/Clock";
 import MetricasAmbiente from "@/components/ambiente/MetricasAmbiente";
-import ConsumoChart from "@/components/dashboard/Chart";
+import MapaCalorAmbiente from "@/components/ambiente/MapaCalorAmbiente";
 import AlertsSection from "@/components/dashboard/alertsDashboard";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/tokenSession";
@@ -145,17 +145,17 @@ export default async function AmbientePage() {
         <MetricasAmbiente />
       </section>
 
-      {/* Gráfico y sección de Impacto Ecológico */}
+      {/* Mapas de Calor de Emisiones y Sección de Impacto Ecológico */}
       <div
         id="ambiente-estadisticas"
         className="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-4"
       >
         <section
-          id="ambiente-grafico-consumo"
-          aria-label="Gráfico de consumo e impacto de los últimos 30 días"
+          id="ambiente-mapa-calor"
+          aria-label="Mapas de calor de emisiones e impacto ambiental"
           className="lg:col-span-2"
         >
-          <ConsumoChart />
+          <MapaCalorAmbiente />
         </section>
 
         {/* Card resumen de Impacto Ecológico */}
