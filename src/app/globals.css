@@ -37,6 +37,9 @@
   --color-footer: var(--footer);
   --color-card: var(--card);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
   /* Acentos fijos: el dorado va sobre superficies oscuras y el ocre sobre
      superficies claras, para que no dependan del modo activo. */
   --color-gold: #D4AF37;
@@ -61,8 +64,11 @@
   --color-slate: #6E6E6E;          /* superficie gris del mapa */
   --color-copper: #8C6239;         /* cobre: acento sobre claro fijo */
   --color-copper-dark: #A8784A;
+<<<<<<< HEAD
 =======
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
 }
 
 /* MODO OSCURO (por defecto) */
@@ -94,6 +100,7 @@
   --foreground: #1A1A1A;   /* Texto principal */
   --text: #1A1A1A;         /* Texto principal */
   --subtext: #666666;      /* Subtexto (4.5:1 sobre fondo y sobre card) */
+<<<<<<< HEAD
   --icon: #4A4A4A;         /* Iconos */
   --border: #EAE5DA;       /* Bordes / divisores */
   --accent: #8C6239;       /* Acento */
@@ -132,6 +139,8 @@ dialog::backdrop {
   --foreground: #1A1A1A;   /* Texto principal */
   --text: #1A1A1A;         /* Texto principal */
   --subtext: #6E6E6E;      /* Subtexto */
+=======
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
   --icon: #4A4A4A;         /* Iconos */
   --border: #EAE5DA;       /* Bordes / divisores */
   --accent: #8C6239;       /* Acento */
@@ -163,7 +172,11 @@ body {
   color: var(--foreground);
   font-family: var(--font-poppins), sans-serif;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+}
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)

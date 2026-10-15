@@ -138,12 +138,17 @@ export default function Route() {
 
         {/* Mapa: 2/3 */}
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div className="lg:col-span-2 min-w-0 flex flex-col rounded-2xl overflow-hidden bg-slate">
           <h2 className="text-cream p-2">Mapa</h2>
 =======
         <div className="lg:col-span-2 min-w-0 flex flex-col rounded-2xl overflow-hidden bg-[#6E6E6E]">
           <h2 className="text-[#FDFBF7] p-2">Mapa</h2>
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        <div className="lg:col-span-2 min-w-0 flex flex-col rounded-2xl overflow-hidden bg-slate">
+          <h2 className="text-cream p-2">Mapa</h2>
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
 
           <div className="relative flex-1 min-h-[400px]">
             {asignado ? (
@@ -154,19 +159,27 @@ export default function Route() {
                 />
               ) : (
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <div className="flex items-center justify-center h-full min-h-[400px] px-6 text-center text-cream">
 =======
                 <div className="flex items-center justify-center h-full min-h-[400px] px-6 text-center text-[#FDFBF7]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+                <div className="flex items-center justify-center h-full min-h-[400px] px-6 text-center text-cream">
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
                   <p>Esta ruta aún no tiene coordenadas para mostrar en el mapa.</p>
                 </div>
               )
             ) : (
 <<<<<<< HEAD
+<<<<<<< HEAD
               <div className="flex items-center justify-center h-full min-h-[400px] text-cream">
 =======
               <div className="flex items-center justify-center h-full min-h-[400px] text-[#FDFBF7]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+              <div className="flex items-center justify-center h-full min-h-[400px] text-cream">
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
                 <p>Selecciona una ruta en la lista para verla en el mapa</p>
               </div>
             )}
@@ -206,6 +219,7 @@ export default function Route() {
                     <td className="py-2">
                       <div className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-7 h-7 rounded-full bg-sand text-xs font-semibold text-ink">
+<<<<<<< HEAD
 =======
                   <tr key={i} className="border-t border-[#EAE5DA]">
 =======
@@ -215,6 +229,8 @@ export default function Route() {
                       <div className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#F3EFE6] text-xs font-semibold text-[#1A1A1A]">
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
                           {v.conductor
                             .split(" ")
                             .map((n) => n[0])
@@ -362,10 +378,14 @@ export default function Route() {
         type="button"
         onClick={() => setFormRutaAbierto(true)}
 <<<<<<< HEAD
+<<<<<<< HEAD
         className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-bold text-brand light:text-white shadow-lg transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
 =======
         className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-bold text-brand shadow-lg transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
 >>>>>>> 7f07cba (feat: add route management and refactor home page layout)
+=======
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-bold text-brand light:text-white shadow-lg transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
       >
         <AddRoundedIcon fontSize="small" aria-hidden="true" />
         Agregar ruta

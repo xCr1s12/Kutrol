@@ -84,6 +84,7 @@ const Modal = ({
         <div className="flex max-h-[90vh] flex-col">
           {/* ---------- Cabecera oscura ---------- */}
 <<<<<<< HEAD
+<<<<<<< HEAD
           <header className="flex items-center justify-between gap-4 border-b-2 border-accent bg-brand px-6 py-5">
             <div className="flex items-center gap-4">
               {icon && (
@@ -98,21 +99,32 @@ const Modal = ({
 =======
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-brand/80 [&_svg]:text-3xl dark:bg-[#D4AF37] dark:text-[#1B2B24]">
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+          <header className="flex items-center justify-between gap-4 border-b-2 border-gold bg-brand px-6 py-5">
+            <div className="flex items-center gap-4">
+              {icon && (
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold text-brand [&_svg]:text-3xl">
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
                   {icon}
                 </span>
               )}
               <div className="flex flex-col">
                 {eyebrow && (
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
 =======
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
 >>>>>>> FrontEnd
+=======
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
                     {eyebrow}
                   </span>
                 )}
                 <h2
                   id="modal-titulo"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                   className="text-xl font-bold leading-tight text-text"
@@ -122,6 +134,9 @@ const Modal = ({
 =======
                   className="text-xl font-bold leading-tight text-[#FDFBF7]"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+                  className="text-xl font-bold leading-tight text-cream"
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
                 >
                   {title}
                 </h2>
@@ -134,6 +149,7 @@ const Modal = ({
               aria-label={onAction ? "Acción" : "Cerrar"}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white/5 text-icon transition hover:bg-white/10 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
 =======
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-moss bg-deep text-mist hover:bg-moss hover:text-cream focus-visible:outline-gold  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-moss dark:bg-deep dark:text-mist dark:hover:bg-moss dark:hover:text-cream dark:focus-visible:outline-gold"
@@ -141,6 +157,9 @@ const Modal = ({
 =======
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-[#314139] bg-[#20332B] text-[#C2C9C4] hover:bg-[#314139] hover:text-[#FDFBF7] focus-visible:outline-[#D4AF37]  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-[#314139] dark:bg-[#20332B] dark:text-[#C2C9C4] dark:hover:bg-[#314139] dark:hover:text-[#FDFBF7] dark:focus-visible:outline-[#D4AF37]"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-moss bg-deep text-mist hover:bg-moss hover:text-cream focus-visible:outline-gold  focus-visible:outline-2 focus-visible:outline-offset-2  dark:border-moss dark:bg-deep dark:text-mist dark:hover:bg-moss dark:hover:text-cream dark:focus-visible:outline-gold"
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
             >
               {actionIcon ?? <CloseRoundedIcon fontSize="small" />}
             </button>
@@ -288,10 +307,14 @@ export const LineaTiempo = ({ items }) => (
           <span
             className={`ml-auto ${
 <<<<<<< HEAD
+<<<<<<< HEAD
               it.actual ? "font-bold text-accent-dark" : "text-brand/60"
 =======
               it.actual ? "font-bold text-ochre" : "text-brand/60"
 >>>>>>> FrontEnd
+=======
+              it.actual ? "font-bold text-ochre" : "text-brand/60"
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
             }`}
           >
             {it.detalle}
@@ -354,10 +377,14 @@ export const BotonPrimario = ({ children, ...props }) => (
   <button
     {...props}
 <<<<<<< HEAD
+<<<<<<< HEAD
     className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand hover:bg-accent-dark"
 =======
     className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand light:text-white hover:bg-accent-dark"
 >>>>>>> FrontEnd
+=======
+    className="rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-brand light:text-white hover:bg-accent-dark"
+>>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
   >
     {children}
   </button>
