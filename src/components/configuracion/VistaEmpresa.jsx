@@ -7,6 +7,7 @@ import { tarjeta, botonAmarillo } from "./comun";
 
 // iconos chicos de los campos, en amarillo oscuro para que se lean sobre blanco
 export const icono = { sx: { fontSize: 18 }, className: "text-accent", "aria-hidden": "true" };
+<<<<<<< HEAD
 
 // marco verde con borde amarillo, como las tarjetas de la pagina de inicio
 export function LogoEmpresa({ logo }) {
@@ -30,6 +31,8 @@ import { tarjeta, botonAmarillo } from "./comun";
 
 // iconos chicos de los campos, en amarillo oscuro para que se lean sobre blanco
 export const icono = { sx: { fontSize: 18 }, className: "text-accent-dark", "aria-hidden": "true" };
+=======
+>>>>>>> 065276d (config panel dark mode adapt)
 
 // marco verde con borde amarillo, como las tarjetas de la pagina de inicio
 export function LogoEmpresa({ logo }) {
@@ -61,6 +64,7 @@ function Dato({ titulo, icono, valor, className = "" }) {
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <span className="flex items-center gap-1 text-xs font-semibold text-text">
         {icono}
         {titulo}
@@ -73,6 +77,13 @@ function Dato({ titulo, icono, valor, className = "" }) {
       </span>
       <p className="text-sm text-[#4A4A4A] whitespace-pre-line">{valor || "Sin información"}</p>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+      <span className="flex items-center gap-1 text-xs font-semibold text-text">
+        {icono}
+        {titulo}
+      </span>
+      <p className="text-sm text-subtext whitespace-pre-line">{valor || "Sin información"}</p>
+>>>>>>> 065276d (config panel dark mode adapt)
     </div>
   );
 }
@@ -85,6 +96,7 @@ export default function VistaEmpresa({ empresa, onEditar }) {
   if (!empresa.nombre) {
     return (
       <section className={`${tarjeta} py-12 text-center text-sm text-subtext`} aria-label="Perfil de la empresa">
+<<<<<<< HEAD
         No se encontraron los datos de la empresa
 =======
 // muestra los datos guardados, el formulario se abre con el boton
@@ -107,6 +119,8 @@ export default function VistaEmpresa({ empresa, onEditar }) {
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
 =======
       <section className={`${tarjeta} py-12 text-center text-sm text-[#4A4A4A]`} aria-label="Perfil de la empresa">
+=======
+>>>>>>> 065276d (config panel dark mode adapt)
         No se encontraron los datos de la empresa
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)
       </section>
@@ -123,6 +137,7 @@ export default function VistaEmpresa({ empresa, onEditar }) {
           <div>
             <h2 className="text-text font-bold text-lg">{empresa.nombre}</h2>
             <p className="text-sm text-subtext">RUT {empresa.rut}</p>
+<<<<<<< HEAD
           </div>
         </div>
         <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>
@@ -139,6 +154,8 @@ export default function VistaEmpresa({ empresa, onEditar }) {
           <div>
             <h2 className="text-[#1A1A1A] font-bold text-lg">{empresa.nombre}</h2>
             <p className="text-sm text-[#4A4A4A]">RUT {empresa.rut}</p>
+=======
+>>>>>>> 065276d (config panel dark mode adapt)
           </div>
         </div>
         <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>

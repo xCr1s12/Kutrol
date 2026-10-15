@@ -5,6 +5,7 @@ import { AddRounded, EditRounded, DeleteRounded, SearchRounded } from "@mui/icon
 import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
 import ModalUsuario from "./ModalUsuario";
 
+<<<<<<< HEAD
 const coloresRol = "bg-accent/20 text-text";
 =======
 import { tarjeta, botonAmarillo, botonIcono } from "./comun";
@@ -18,6 +19,9 @@ const coloresRol = {
   Usuario: "bg-green-100 text-green-800",
 };
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+const coloresRol = "bg-accent/20 text-accent";
+>>>>>>> 065276d (config panel dark mode adapt)
 
 function iniciales(nombre) {
   return nombre.split(" ").slice(0, 2).map((palabra) => palabra[0]).join("").toUpperCase();
@@ -65,6 +69,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
       </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div className="flex items-center gap-2 w-full max-w-56 border border-border bg-background rounded-md px-2 py-1 mb-3">
         <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
@@ -77,6 +82,13 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
           type="search"
           className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+      <div className="flex items-center gap-2 w-full max-w-56 border border-border bg-background rounded-md px-2 py-1 mb-3">
+        <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
+        <input
+          type="search"
+          className="w-full bg-transparent text-xs text-text placeholder:text-subtext outline-none"
+>>>>>>> 065276d (config panel dark mode adapt)
           placeholder="Buscar"
           aria-label="Buscar usuario"
           value={busqueda}
@@ -86,6 +98,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
 
       <div className="overflow-x-auto">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <table className="w-full text-xs text-left text-text">
           <thead>
             <tr className="bg-background text-subtext">
@@ -94,6 +107,11 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
           <thead>
             <tr className="bg-[#F4F5F7]">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+        <table className="w-full text-xs text-left text-text">
+          <thead>
+            <tr className="bg-background text-subtext">
+>>>>>>> 065276d (config panel dark mode adapt)
               {["Usuario", "Correo electrónico", "Rol"].map((t) => (
                 <th key={t} className="px-4 py-2 font-semibold">{t}</th>
               ))}
@@ -103,16 +121,21 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
           <tbody>
             {usuariosFiltrados.map((u) => (
 <<<<<<< HEAD
+<<<<<<< HEAD
               <tr key={u.id} className="border-b border-border last:border-b-0">
 =======
               <tr key={u.id} className="border-b border-[#E2E8F0] last:border-b-0">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+              <tr key={u.id} className="border-b border-border last:border-b-0">
+>>>>>>> 065276d (config panel dark mode adapt)
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-3">
                     {u.foto ? (
                       <img src={u.foto} alt="" className="w-7 h-7 rounded-full object-cover" />
                     ) : (
                       <span
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                         className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
@@ -122,6 +145,9 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
 =======
                         className="w-7 h-7 rounded-full bg-brand ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)
+=======
+                        className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
+>>>>>>> 065276d (config panel dark mode adapt)
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}
@@ -133,10 +159,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                 <td className="px-4 py-2">{u.correo}</td>
                 <td className="px-4 py-2">
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <span className={`px-2 py-0.5 rounded-full font-medium ${coloresRol}`}>{u.rol}</span>
 =======
                   <span className={`px-2 py-0.5 rounded-full font-medium ${coloresRol[u.rol]}`}>{u.rol}</span>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+                  <span className={`px-2 py-0.5 rounded-full font-medium ${coloresRol}`}>{u.rol}</span>
+>>>>>>> 065276d (config panel dark mode adapt)
                 </td>
                 <td className="px-4 py-2">
                   <div className="flex justify-end gap-2">
@@ -162,6 +192,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                     >
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
 =======
                       <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
@@ -169,6 +200,9 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
 =======
                       <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)
+=======
+                      <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
+>>>>>>> 065276d (config panel dark mode adapt)
                     </button>
                   </div>
                 </td>
@@ -177,10 +211,14 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
             {usuariosFiltrados.length === 0 && (
               <tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <td colSpan={4} className="px-4 py-6 text-center text-subtext">
 =======
                 <td colSpan={4} className="px-4 py-6 text-center text-[#4A4A4A]">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+                <td colSpan={4} className="px-4 py-6 text-center text-subtext">
+>>>>>>> 065276d (config panel dark mode adapt)
                   No se encontraron usuarios
                 </td>
               </tr>

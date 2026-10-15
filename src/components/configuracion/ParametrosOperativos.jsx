@@ -16,6 +16,7 @@ const emisiones = [500, 1000, 1500, 2000];
 function Parametro({ Icono, titulo, texto, children }) {
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-border last:border-b-0 last:pb-0">
       <div className="flex items-center gap-3">
         <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
@@ -26,14 +27,22 @@ function Parametro({ Icono, titulo, texto, children }) {
           <p className="text-xs text-subtext">{texto}</p>
 =======
     <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-[#E2E8F0] last:border-b-0 last:pb-0">
+=======
+    <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-border last:border-b-0 last:pb-0">
+>>>>>>> 065276d (config panel dark mode adapt)
       <div className="flex items-center gap-3">
         <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
           <Icono className="text-accent" sx={{ fontSize: 26 }} aria-hidden="true" />
         </span>
         <div>
+<<<<<<< HEAD
           <p className="text-sm font-semibold text-[#1A1A1A]">{titulo}</p>
           <p className="text-xs text-[#4A4A4A]">{texto}</p>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+          <p className="text-sm font-semibold text-text">{titulo}</p>
+          <p className="text-xs text-subtext">{texto}</p>
+>>>>>>> 065276d (config panel dark mode adapt)
         </div>
       </div>
       {children}
@@ -48,6 +57,7 @@ export default function ParametrosOperativos({ config, cambiar }) {
 <<<<<<< HEAD
       <h2 className={titulo}>Parámetros operativos</h2>
       <p className="text-sm text-subtext mb-2">
+<<<<<<< HEAD
 =======
       <h2 className="text-[#1A1A1A] font-bold text-lg">Parámetros operativos</h2>
 =======
@@ -55,6 +65,8 @@ export default function ParametrosOperativos({ config, cambiar }) {
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)
       <p className="text-sm text-[#4A4A4A] mb-2">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+>>>>>>> 065276d (config panel dark mode adapt)
         Define los valores base para calcular desvíos de combustible y metas de huella de carbono.
       </p>
 

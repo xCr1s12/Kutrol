@@ -27,6 +27,7 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
         aria-modal="true"
         aria-label={titulo}
 <<<<<<< HEAD
+<<<<<<< HEAD
         className="w-full max-w-sm bg-card text-text border border-border rounded-xl p-6"
         onClick={(e) => e.stopPropagation()}
         onSubmit={enviar}
@@ -39,6 +40,13 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
       >
         <h2 className="text-[#1A1A1A] text-lg font-bold mb-4">{titulo}</h2>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+        className="w-full max-w-sm bg-card text-text border border-border rounded-xl p-6"
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={enviar}
+      >
+        <h2 className="text-text text-lg font-bold mb-4">{titulo}</h2>
+>>>>>>> 065276d (config panel dark mode adapt)
 
         <div className="flex flex-col sm:flex-row gap-4 mb-4">
           <div className="flex-1 flex flex-col gap-2">
@@ -65,6 +73,7 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
 
           <div className="flex flex-col items-center gap-2 shrink-0">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className="w-28 h-28 flex items-center justify-center border border-border bg-background rounded-md overflow-hidden">
               {foto ? (
                 <img src={foto} alt="Foto del usuario" className="w-full h-full object-cover" />
@@ -75,14 +84,21 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
             <label className="inline-flex items-center gap-1 text-xs font-semibold text-text bg-background border border-border rounded-full px-3 py-1.5 cursor-pointer hover:bg-border">
 =======
             <div className="w-28 h-28 flex items-center justify-center border border-[#E2E8F0] rounded-md overflow-hidden">
+=======
+            <div className="w-28 h-28 flex items-center justify-center border border-border bg-background rounded-md overflow-hidden">
+>>>>>>> 065276d (config panel dark mode adapt)
               {foto ? (
                 <img src={foto} alt="Foto del usuario" className="w-full h-full object-cover" />
               ) : (
                 <ImageRounded className="text-icon" fontSize="large" aria-hidden="true" />
               )}
             </div>
+<<<<<<< HEAD
             <label className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A1A1A] bg-[#F4F5F7] rounded-full px-3 py-1.5 cursor-pointer hover:bg-[#E9EAED]">
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+            <label className="inline-flex items-center gap-1 text-xs font-semibold text-text bg-background border border-border rounded-full px-3 py-1.5 cursor-pointer hover:bg-border">
+>>>>>>> 065276d (config panel dark mode adapt)
               <PhotoCameraRounded sx={{ fontSize: 14 }} aria-hidden="true" />
               {foto ? "Cambiar imagen" : "Agregar imagen"}
               <input type="file" accept="image/*" onChange={(e) => elegirImagen(e, setFoto)} hidden />

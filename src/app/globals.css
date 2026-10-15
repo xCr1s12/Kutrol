@@ -22,10 +22,15 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
 <<<<<<< HEAD
+<<<<<<< HEAD
   --color-accent-dark: var(--accent-dark);
   --color-danger: var(--danger);
 =======
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+  --color-accent-dark: var(--accent-dark);
+  --color-danger: var(--danger);
+>>>>>>> 065276d (config panel dark mode adapt)
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-header: var(--header);
@@ -72,6 +77,9 @@
   --border: #314139;       /* Bordes / divisores */
   --accent: #D4AF37;       /* Acento */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 065276d (config panel dark mode adapt)
   --accent-dark: #C49A2E;
   --danger: #F87171;
   --header: #1B2B24;       /* = Fondo */
@@ -127,6 +135,8 @@ dialog::backdrop {
   --icon: #4A4A4A;         /* Iconos */
   --border: #EAE5DA;       /* Bordes / divisores */
   --accent: #8C6239;       /* Acento */
+  --accent-dark: #704D2E;
+  --danger: #C0392B;
   --header: #FDFBF7;       /* = Fondo */
   --footer: #EAE5DA;       /* = Bordes */
   --card: #EAE5DA;         /* = Bordes */

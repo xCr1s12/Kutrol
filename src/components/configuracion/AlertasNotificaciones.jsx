@@ -45,6 +45,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
       </div>
       {alertas.length === 0 && (
         <p className="py-6 text-center text-xs text-subtext">No hay alertas configuradas</p>
+<<<<<<< HEAD
 =======
         <h2 className="text-[#1A1A1A] font-bold text-lg">Alertas y notificaciones</h2>
 =======
@@ -55,10 +56,13 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
       {alertas.length === 0 && (
         <p className="py-6 text-center text-xs text-[#4A4A4A]">No hay alertas configuradas</p>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+>>>>>>> 065276d (config panel dark mode adapt)
       )}
       {alertas.map((a) => (
         <div
           key={a.id}
+<<<<<<< HEAD
 <<<<<<< HEAD
           className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-border last:border-b-0"
         >
@@ -68,12 +72,19 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
             <span className="text-xs text-subtext">Umbral</span>
 =======
           className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-[#E2E8F0] last:border-b-0"
+=======
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_170px_130px_auto] items-center gap-3 md:gap-6 py-3 border-b border-border last:border-b-0"
+>>>>>>> 065276d (config panel dark mode adapt)
         >
-          <p className="text-sm font-semibold text-[#1A1A1A]">{a.nombre}</p>
+          <p className="text-sm font-semibold text-text">{a.nombre}</p>
 
           <div className="flex items-center gap-2">
+<<<<<<< HEAD
             <span className="text-xs text-[#4A4A4A]">Umbral</span>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+            <span className="text-xs text-subtext">Umbral</span>
+>>>>>>> 065276d (config panel dark mode adapt)
             <Lista
               opciones={valores}
               aria-label={`Umbral de la alerta ${a.nombre}`}
@@ -92,10 +103,14 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
 
           <div className="flex items-center gap-2">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <span className="text-xs text-subtext">Estado</span>
 =======
             <span className="text-xs text-[#4A4A4A]">Estado</span>
 >>>>>>> 9b3d41a (Agregando archivos de pagina "Configuracion")
+=======
+            <span className="text-xs text-subtext">Estado</span>
+>>>>>>> 065276d (config panel dark mode adapt)
             <MenuEstado
               valor={a.estado}
               disabled={!a.activa}
@@ -122,6 +137,7 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
           >
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
 =======
             <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 14 }} aria-hidden="true" />
@@ -129,6 +145,9 @@ export default function AlertasNotificaciones({ alertas, cambiar }) {
 =======
             <DeleteRounded htmlColor="#C0392B" sx={{ fontSize: 18 }} aria-hidden="true" />
 >>>>>>> e612c5b (Agregando iconos dorados y verdes)
+=======
+            <DeleteRounded className="text-danger" sx={{ fontSize: 18 }} aria-hidden="true" />
+>>>>>>> 065276d (config panel dark mode adapt)
           </button>
         </div>
       ))}
