@@ -16,9 +16,9 @@ const configInicial = {
   unidadRendimiento: "Km/L",
   emisiones: 1000,
   usuarios: [
-    { id: 1, nombre: "Jhon Doe", correo: "jhondoe@correo.com", rol: "Admin", foto: null },
-    { id: 2, nombre: "Jhon Doe", correo: "jhondoe@correo.com", rol: "Usuario", foto: null },
-    { id: 3, nombre: "Jhon Doe", correo: "jhondoe@correo.com", rol: "Usuario", foto: null },
+    { id: 1, nombre: "Camila Rojas", correo: "camila.rojas@kutrol.cl", rol: "Admin", foto: null },
+    { id: 2, nombre: "Matías Fuentes", correo: "matias.fuentes@kutrol.cl", rol: "Usuario", foto: null },
+    { id: 3, nombre: "Javiera Soto", correo: "javiera.soto@kutrol.cl", rol: "Usuario", foto: null },
   ],
   alertas: [
     { id: "consumo", nombre: "Consumo excesivo", estado: "Moderado", activa: true, valor: 40, unidad: "Km/L", correo: true },
