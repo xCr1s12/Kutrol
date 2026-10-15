@@ -1,9 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Clock from "@/components/statistic/Clock";
 =======
 import Clock from "@/components/dashboard/Clock";
 >>>>>>> a6268ee (creación de mapa de calor en ambiente y modificación de pestaña estadística; se agrega algoritmos de correlación y análisis estadistico.)
+=======
+import Clock from "@/components/statistic/Clock";
+>>>>>>> 612f808 (feat(statistic): update statistic page and components)
 import AnalisisAvanzado from "@/components/statistic/AnalisisAvanzado";
 import AlertsSection from "@/components/dashboard/alertsDashboard";
 import { redirect } from "next/navigation";
@@ -58,17 +62,17 @@ export default async function StatisticPage() {
   return (
     <main
       id="estadisticas-avanzadas"
-      className="flex flex-col w-full bg-[#F4F5F7] p-6 min-h-screen"
+      className="flex min-h-screen w-full flex-col bg-background p-6 text-text"
     >
       {/* Encabezado limpio */}
       <header id="estadisticas-encabezado" className="mb-6">
-        <h1 id="estadisticas-titulo" className="text-[#1A1A1A] text-2xl font-bold">
+        <h1 id="estadisticas-titulo" className="text-text text-2xl font-bold">
           Análisis Estadístico
         </h1>
 
         <p
           id="estadisticas-reloj"
-          className="text-[#1A1A1A] text-sm mt-1 flex items-center gap-2"
+          className="text-subtext mt-1 flex items-center gap-2 text-sm"
         >
           <Clock className="w-4 h-4" role="timer" />
         </p>

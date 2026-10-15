@@ -41,8 +41,12 @@ export default function Clock({ className = "", role }) {
 
   if (!time) {
     return (
+<<<<<<< HEAD
       <span className={`text-xs text-[#4A4A4A] inline-flex items-center ${className}`}>
 >>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
+=======
+      <span className={`text-subtext inline-flex items-center text-xs ${className}`}>
+>>>>>>> 612f808 (feat(statistic): update statistic page and components)
         Cargando hora...
       </span>
     );
@@ -79,17 +83,25 @@ export default function Clock({ className = "", role }) {
   });
 
   return (
+<<<<<<< HEAD
     <div className={`inline-flex items-center gap-2 text-xs font-medium text-[#4A4A4A] whitespace-nowrap ${className}`} role={role}>
 >>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
+=======
+    <div className={`text-subtext inline-flex items-center gap-2 whitespace-nowrap text-xs font-medium ${className}`} role={role}>
+>>>>>>> 612f808 (feat(statistic): update statistic page and components)
       <span className="flex items-center gap-1">
         <span>📅</span>
         <span>{fechaFormatted}</span>
       </span>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <span className="text-border">•</span>
 =======
       <span className="text-gray-300">•</span>
 >>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
+=======
+      <span className="text-border">•</span>
+>>>>>>> 612f808 (feat(statistic): update statistic page and components)
       <span className="flex items-center gap-1">
         <span>🕒</span>
         <span>{horaFormatted}</span>
