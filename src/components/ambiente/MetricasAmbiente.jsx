@@ -31,7 +31,7 @@ export default function MetricasAmbiente() {
 
   if (loading) {
     return (
-      <div className="col-span-full py-8 text-center text-[#4A4A4A] animate-pulse font-medium">
+      <div className="col-span-full py-8 text-center text-graphite animate-pulse font-medium">
         Cargando métricas de sostenibilidad...
       </div>
     );

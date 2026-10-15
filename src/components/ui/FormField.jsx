@@ -13,7 +13,7 @@ export default function FormField({
   if (children) {
     return (
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={id} className="text-xs font-semibold text-text dark:text-[#1A1A1A]">
+        <label htmlFor={id} className="text-xs font-semibold text-text dark:text-ink">
           {label}
         </label>
         {children}

@@ -8,7 +8,7 @@ export const PillButton = ({ children, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs text-text transition-colors hover:bg-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent light:hover:bg-border light:hover:text-text  dark:bg-brand  dark:hover:bg-[#314139] dark:focus-visible:outline-[#D4AF37]"
+    className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs text-text transition-colors hover:bg-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent light:hover:bg-border light:hover:text-text  dark:bg-brand  dark:hover:bg-moss dark:focus-visible:outline-gold"
   >
     {children}
   </button>
@@ -82,10 +82,10 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             type="button"
             aria-pressed={activo}
             onClick={() => onSelect(opcion)}
-            className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-[#D4AF37] ${
+            className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-gold ${
               activo
                 ? "border-transparent bg-accent font-bold text-text dark:bg-accent"
-                : "bg-background text-text hover:bg-text light:hover:bg-border light:hover:text-text border-border dark:bg-brand  dark:hover:bg-[#314139]"
+                : "bg-background text-text hover:bg-text light:hover:bg-border light:hover:text-text border-border dark:bg-brand  dark:hover:bg-moss"
             }`}
           >
             {opcion}
@@ -107,7 +107,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página anterior"
         disabled={pagina === 1}
         onClick={() => onCambiarPagina(pagina - 1)}
-        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-mist dark:bg-brand dark:text-sage"
       >
         ‹
       </button>
@@ -119,8 +119,8 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
           onClick={() => onCambiarPagina(numero)}
           className={`h-6 w-6 rounded-md border text-xs font-bold ${
             numero === pagina
-              ? "border-transparent bg-accent text-brand dark:bg-[#D4AF37] dark:text-brand"
-              : "border-icon bg-background text-subtext dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
+              ? "border-transparent bg-accent text-brand dark:bg-gold dark:text-brand"
+              : "border-icon bg-background text-subtext dark:border-mist dark:bg-brand dark:text-sage"
           }`}
         >
           {numero}
@@ -131,7 +131,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
         aria-label="Página siguiente"
         disabled={pagina === totalPaginas}
         onClick={() => onCambiarPagina(pagina + 1)}
-        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-[#C2C9C4] dark:bg-brand dark:text-[#A8B0AB]"
+        className="h-6 w-6 rounded-md border border-icon bg-background text-xs text-subtext disabled:opacity-50 dark:border-mist dark:bg-brand dark:text-sage"
       >
         ›
       </button>

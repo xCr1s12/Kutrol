@@ -88,7 +88,7 @@ export default function TablaAlertas({ alertas }) {
             ))}
             {filtradas.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-[#4A4A4A]">
+                <td colSpan={4} className="px-4 py-8 text-center text-graphite">
                   No se encontraron alertas
                 </td>
               </tr>

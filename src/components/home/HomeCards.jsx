@@ -4,7 +4,7 @@ export default function HomeCards({ title, description, icon }) {
 
       {/* fila superior: icono y titulo */}
       <div className="flex items-center gap-4 h-1/2 p-5 max-sm:p-3">
-        <div className="font-bold flex h-12 w-12 items-center justify-center light:text-[#1B2B24] max-sm:h-10 max-sm:w-10">
+        <div className="font-bold flex h-12 w-12 items-center justify-center light:text-brand max-sm:h-10 max-sm:w-10">
           {icon}
         </div>
         <h3 className="text-2xl font-bold text-text max-sm:text-xl">{title}</h3>
