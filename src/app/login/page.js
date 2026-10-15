@@ -79,7 +79,7 @@ export default function Login() {
       </header>
 
       {/* Contenedor centrado */}
-      <div className="flex-1 flex items-center justify-center px-4 pt-20">
+      <main className="flex-1 flex items-center justify-center px-4 pt-20">
         <Card className="w-full max-w-110 p-10 space-y-7">
           <h1 className="text-2xl font-bold text-text text-center">
             Inicio de sesión
@@ -115,7 +115,7 @@ export default function Login() {
                 type="button"
                 variant="ghost"
                 aria-labelledby="login-sso-label"
-                className="w-full flex items-center justify-center light:bg-accent gap-2"
+                className="w-full flex items-center justify-center light:bg-accent light:text-white gap-2"
               >
                 <GoogleIcon />
                 Google
@@ -143,7 +143,7 @@ export default function Login() {
             )}
           </form>
         </Card>
-      </div>
+      </main>
     </div>
   );
 }

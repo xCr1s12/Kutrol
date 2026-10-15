@@ -47,9 +47,10 @@ export default function Acerca_de() {
     <div className="w-full min-h-screen overflow-hidden" lang="es">
       <HomeHeader />
 
+      <main>
       <section className="w-full h-full flex flex-col items-center justify-center py-24">
 
-        <span className="text-7xl text-text font-bold mb-5"> Equipo Kutrolin</span>
+        <h1 className="text-7xl text-text font-bold mb-5"> Equipo Kutrolin</h1>
         <div className="relative w-full flex flex-row items-center mt-16 justify-center gap-6 sm:gap-10 mt-10 min-h-[450px]">
 
           <button
@@ -107,6 +108,7 @@ export default function Acerca_de() {
         </div>
         <span className="text-subtext text-xl font-semibold font-pop"> Los Kutrolines</span>
       </section>
+      </main>
     </div>
   );
 }

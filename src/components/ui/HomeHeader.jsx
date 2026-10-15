@@ -17,9 +17,9 @@ export default function HomeHeader() {
             className={` font-big w-full overflow-hidden `}
             lang="es"
         >
-            <header className=" w-full bg-[#1B2B24] flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-[#314139] border-b-2 flex-wrap gap-2">
+            <header className=" w-full bg-brand flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-moss border-b-2 flex-wrap gap-2">
                 {/* Logo Kutrol y Nombre */}
-                <span className=" text-xl sm:text-2xl font-bold text-[#FDFBF7] tracking-tighter">
+                <span className=" text-xl sm:text-2xl font-bold text-cream tracking-tighter">
                     Kutrol
                 </span>
 
@@ -30,16 +30,16 @@ export default function HomeHeader() {
                         onClick={() => {
                             handleRedirect("/login");
                         }}
-                        className="text-xs sm:text-sm font-medium text-[#A8B0AB] transition-colors hover:text-[#FDFBF7] px-2 sm:px-4 py-1 sm:py-2"
+                        className="text-xs sm:text-sm font-medium text-sage transition-colors hover:text-cream px-2 sm:px-4 py-1 sm:py-2"
                     >
-                        Iniciar Sesion
+                        Iniciar sesión
                     </button>
 
                     <button
                         onClick={() => {
                             handleRedirect("/register");
                         }}
-                        className="rounded-md bg-[#D4AF37] px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#1A1A1A] transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)]"
+                        className="rounded-md bg-gold px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-ink transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)]"
                     >
                         Registrarse
                     </button>
@@ -56,7 +56,7 @@ export default function HomeHeader() {
                         <li>
                             {" "}
                             <Link
-                                className="text-[#A8B0AB] hover:text-[#FDFBF7]"
+                                className="text-sage hover:text-cream"
                                 href={"#Que-hace-kutrol"}
                             >
                                 ¿Qué hace?{" "}
@@ -65,7 +65,7 @@ export default function HomeHeader() {
                         <li>
                             {" "}
                             <Link
-                                className="text-[#A8B0AB] hover:text-[#FDFBF7]"
+                                className="text-sage hover:text-cream"
                                 href={"#Pasos"}
                             >
                                 Pasos{" "}
@@ -74,7 +74,7 @@ export default function HomeHeader() {
                         <li>
                             {" "}
                             <Link
-                                className="text-[#A8B0AB] hover:text-[#FDFBF7]"
+                                className="text-sage hover:text-cream"
                                 href={"#Registrate"}
                             >
                                 Registrate{" "}

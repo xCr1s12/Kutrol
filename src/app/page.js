@@ -83,7 +83,7 @@ export default function Home() {
                 className="text-subtext hover:text-text"
                 href={"#Registrate"}
               >
-                Registrate
+                Regístrate
               </Link>
             </li>
           </ul>
@@ -106,20 +106,21 @@ export default function Home() {
             }}
             className="text-xs sm:text-sm font-medium text-subtext transition-colors hover:text-text px-2 sm:px-4 py-1 sm:py-2"
           >
-            Iniciar Sesion
+            Iniciar sesión
           </button>
 
           <button
             onClick={() => {
               handleRedirect("/register");
             }}
-            className="rounded-md bg-[#D4AF37] light:bg-accent px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#1A1A1A] light:text-white transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)] light:hover:shadow-[0_0_12px_rgba(140,98,57,0.5)]"
+            className="rounded-md bg-gold light:bg-accent px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-ink light:text-white transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)] light:hover:shadow-[0_0_12px_rgba(140,98,57,0.5)]"
           >
             Registrarse
           </button>
         </div>
       </header>
 
+      <main id="contenido-principal">
       {/* Seccion principal Texto e imagenes   */}
       <section className="relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 w-full min-h-fit lg:min-h-screen items-center px-6 sm:px-8 lg:px-18 gap-8 lg:gap-12 py-12 lg:py-0">
         {/* Imagen trasera SVG */}
@@ -261,7 +262,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-y-1">
                 <h3 className="text-lg sm:text-2xl font-bold text-text">
-                  Vizualiza y Optimiza
+                  Visualiza y Optimiza
                 </h3>
                 <p className="text-sm text-subtext">
                   El panel te muestra dónde estás gastando de más y qué
@@ -299,24 +300,25 @@ export default function Home() {
               onClick={() => {
                 handleRedirect("/register");
               }}
-              className="rounded-md bg-[#D4AF37] light:bg-accent px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#1A1A1A] light:text-white lg:px-6 lg:py-3 lg:text-xl transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)] light:hover:shadow-[0_0_12px_rgba(140,98,57,0.5)]"
+              className="rounded-md bg-gold light:bg-accent px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-ink light:text-white lg:px-6 lg:py-3 lg:text-xl transition-all duration-200 hover:shadow-[0_0_12px_rgba(212,175,55,0.6)] light:hover:shadow-[0_0_12px_rgba(140,98,57,0.5)]"
             >
               Registrarse
             </button>
           </div>
         </div>
       </section>
+      </main>
 
       {/* Acerca de Equipo Kutrol (footer) */}
       <footer className="w-full flex flex-col mt-10 gap-1 pb-4">
-        <div className="w-full h-0.5 bg-linear-to-r from-[#D4AF37] light:from-accent via-border to-transparent"></div>
+        <div className="w-full h-0.5 bg-linear-to-r from-gold light:from-accent via-border to-transparent"></div>
 
         <div className="w-full bg-footer rounded-t-2xl">
           <div className="w-full flex flex-col sm:flex-row justify-between items-center sm:items-start gap-10 px-6 sm:px-16 py-10">
             {/* Logo y descripción corta */}
             <div className="flex flex-col gap-3 items-center sm:items-start text-center sm:text-left max-w-xs">
               <div className="flex items-center gap-2">
-                <span className="w-9 h-9 rounded-full bg-[#D4AF37] light:bg-accent flex items-center justify-center text-[#1A1A1A] light:text-white font-bold text-sm">
+                <span className="w-9 h-9 rounded-full bg-gold light:bg-accent flex items-center justify-center text-ink light:text-white font-bold text-sm">
                   K
                 </span>
                 <span className="text-xl font-bold text-text tracking-tighter">
@@ -329,21 +331,21 @@ export default function Home() {
               <div className="flex gap-3 mt-1">
                 <a
                   href="#"
-                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-[#D4AF37] light:text-accent transition-opacity hover:opacity-80"
+                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-gold light:text-accent transition-opacity hover:opacity-80"
                   aria-label="Facebook"
                 >
                   <FacebookIcon sx={{ fontSize: 16 }} />
                 </a>
                 <a
                   href="#"
-                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-[#D4AF37] light:text-accent transition-opacity hover:opacity-80"
+                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-gold light:text-accent transition-opacity hover:opacity-80"
                   aria-label="Instagram"
                 >
                   <InstagramIcon sx={{ fontSize: 16 }} />
                 </a>
                 <a
                   href="#"
-                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-[#D4AF37] light:text-accent transition-opacity hover:opacity-80"
+                  className="w-8 h-8 rounded-full bg-border light:bg-background flex items-center justify-center text-gold light:text-accent transition-opacity hover:opacity-80"
                   aria-label="LinkedIn"
                 >
                   <LinkedInIcon sx={{ fontSize: 16 }} />
@@ -392,7 +394,7 @@ export default function Home() {
               </span>
               <Link
                 href="/acerca_de"
-                className="text-xs text-[#D4AF37] light:text-text light:decoration-accent hover:text-text mt-1 underline underline-offset-2"
+                className="text-xs text-gold light:text-text light:decoration-accent hover:text-text mt-1 underline underline-offset-2"
               >
                 Quiénes somos
               </Link>

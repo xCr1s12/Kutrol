@@ -23,9 +23,9 @@ const ICONCONDUCTOR = <PermIdentityOutlinedIcon fontSize="large" />;
 const ICONVEHICULO = <LocalShippingOutlinedIcon fontSize="large" />;
 
 const CONDUCTORES = [
-  { conductor: "Jhon Doea", estado: "activo", vehiculo: "A1" },
-  { conductor: "Jhon Doe", estado: "activo", vehiculo: "A2" },
-  { conductor: "Jhon Doe", estado: "sin carga", vehiculo: "A3" },
+  { conductor: "Luis Mancilla", estado: "activo", vehiculo: "A1" },
+  { conductor: "María Cárdenas", estado: "activo", vehiculo: "A2" },
+  { conductor: "Pedro Muñoz", estado: "sin carga", vehiculo: "A3" },
 ];
 
 const ESTADOS = {
@@ -123,10 +123,15 @@ const Flota = () => {
 
   const [modalHistorialV, setModalHistorialV] = useState(false);
   return (
-    <main
+    <div
       lang="es"
       className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
     >
+      {/* Encabezado de la pagina */}
+      <header className="mb-1">
+        <h1 className="text-2xl font-bold text-text">Gestión de flota</h1>
+      </header>
+
       {/* ---------- Vehiculos ---------- */}
       <Card >
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -176,7 +181,7 @@ const Flota = () => {
             }}
             acciones={
               <PillButton onClick={() => setModalVehiculo(true)}>
-                Agregar Vehiculo
+                Agregar Vehículo
               </PillButton>
             }
           />
@@ -195,7 +200,7 @@ const Flota = () => {
         </div>
 
         <Tabla
-          columnas={["Conductor", "Estado", "Vehiculo a cargo", "Historial"]}
+          columnas={["Conductor", "Estado", "Vehículo a cargo", "Historial"]}
           anchos={[23, 20, 27, 30]}
         >
           {CONDUCTORES.map((c, i) => (
@@ -248,8 +253,8 @@ const Flota = () => {
         open={modalHistorialV}
         onClose={() => setModalHistorialV(false)}
         size="xl"
-        eyebrow="VEHICULO"
-        title={VEHICULOSELECT?.patente ?? "Historial del Vehiculo"}
+        eyebrow="VEHÍCULO"
+        title={VEHICULOSELECT?.patente ?? "Historial del Vehículo"}
         icon={ICONVEHICULO}
       >
         <VehiculoHistory vehiculo={VEHICULOSELECT ?? undefined} />
@@ -259,7 +264,7 @@ const Flota = () => {
         icon={ICONVEHICULO}
         open={modalVehiculo}
         onClose={() => setModalVehiculo(false)}
-        title="Agregar Vehiculo"
+        title="Agregar Vehículo"
         size="lg"
       >
         <FormularioVehiculo
@@ -267,7 +272,7 @@ const Flota = () => {
           onCancel={() => setModalVehiculo(false)}
         />
       </Modal>
-    </main>
+    </div>
   );
 };
 
