@@ -5,6 +5,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36fd7a1 (feat(ui): add icons and SPA link to the profile menu)
 import Link from "next/link";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -237,6 +240,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
 
             <div className="py-1">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <Link
                 href="/configPanel"
                 className="flex items-center gap-2.5 px-4 py-2 text-sm hover:bg-border transition-colors"
@@ -262,11 +266,15 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
                 {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
 =======
               <a
+=======
+              <Link
+>>>>>>> 36fd7a1 (feat(ui): add icons and SPA link to the profile menu)
                 href="/configPanel"
-                className="block px-4 py-2 text-sm hover:bg-border transition-colors"
+                className="flex items-center gap-2.5 px-4 py-2 text-sm hover:bg-border transition-colors"
               >
+                <SettingsOutlinedIcon fontSize="small" className="text-icon" aria-hidden="true" />
                 Configuración
-              </a>
+              </Link>
             </div>
 
             <div className="border-t border-border pt-1">
@@ -279,12 +287,16 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
                 type="button"
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer"
+                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer flex items-center gap-2.5"
               >
+<<<<<<< HEAD
 <<<<<<< HEAD
                 Cerrar sesión
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
 =======
+=======
+                <LogoutRoundedIcon fontSize="small" aria-hidden="true" />
+>>>>>>> 36fd7a1 (feat(ui): add icons and SPA link to the profile menu)
                 {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
 >>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
               </button>
