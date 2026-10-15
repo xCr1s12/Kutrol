@@ -15,9 +15,12 @@ export async function findAllRegionesYComunas(db = pool) {
 // BUSQUEDA DE COMUNAS POR REGION
 export async function getComunasbyRegion(regionId, db = pool) {
     const { rows } = await db.query(
-        `SELECT c.id_comuna AS comuna_id, c.nombre AS comuna_nombre 
-         FROM comuna AS c
-         WHERE c.id_region = $1
+        `SELECT r.id_region AS region_id,
+                c.id_comuna AS comuna_id,
+                c.nombre AS comuna_nombre
+         FROM region AS r
+         LEFT JOIN comuna AS c ON c.id_region = r.id_region
+         WHERE r.id_region = $1
          ORDER BY c.nombre`,
         [regionId]
     );

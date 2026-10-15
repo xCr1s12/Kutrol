@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { toErrorResponse } from "@/utils/errors";
 import { flotaIdSchema } from "@/schema/auth.schema";
 
-export async function getVehiculosByEmpresa(request) {
+export async function getVehiculosByFlota(request) {
   try {
 
     //Leer y validar el id de empresa
@@ -12,7 +12,7 @@ export async function getVehiculosByEmpresa(request) {
     );
 
     // tomar los datos del servicio
-    const vehiculos = await vehiculoService.getVehiculosByEmpresa(flotaId);
+    const vehiculos = await vehiculoService.getVehiculosByFlota(flotaId);
 
     // respuesta del servidor
     return NextResponse.json({ ok: true, data: vehiculos });

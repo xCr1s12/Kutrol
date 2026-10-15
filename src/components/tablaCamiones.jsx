@@ -66,7 +66,11 @@ export default function TablaCamiones({
 
         if (!res.ok) {
           throw new Error(
-            json.message || json.error || "Error al cargar vehículos",
+            json.error?.message ||
+              json.message ||
+              json.mensaje ||
+              (typeof json.error === "string" ? json.error : null) ||
+              "Error al cargar vehículos",
           );
         }
         if (!Array.isArray(json.data)) {

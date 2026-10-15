@@ -3,13 +3,8 @@ import { camionFormSchema } from "@/schema/vehiculo.schema";
 import { ZodError } from "zod";
 
 
-export async function getVehiculosByEmpresa(id_flota) {
-    const Vehiculos =  await repoVehiculos.findVehiculosByEmpresa(id_flota);
-    
-    if (Vehiculos.length == 0) {
-        throw new Error("Esta empresa no tiene camiones registrados");
-    }
-    return Vehiculos
+export async function getVehiculosByFlota(id_flota) {
+    return repoVehiculos.findVehiculosByFlota(id_flota);
 }
 
 export async function createVehiculo (data) {

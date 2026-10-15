@@ -50,9 +50,8 @@ export default function Configuracion() {
   const [config, setConfig] = useState(configInicial);
   const [editandoEmpresa, setEditandoEmpresa] = useState(false);
 
-  // trae los datos de la empresa desde la base de datos al abrir la pagina
   useEffect(() => {
-    fetch("/api/empresa") // cambiar por la ruta real del backend
+    fetch("/api/data/empresa")
       .then((res) => (res.ok ? res.json() : null))
       .then((empresa) => {
         if (!empresa) return;

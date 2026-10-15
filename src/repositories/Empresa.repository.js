@@ -42,3 +42,14 @@ export async function findByIdEmpresa(id_empresa, db = pool) {
     );
     return rows[0] || null;
 }
+
+export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
+    const { rows } = await db.query(
+        `SELECT url_imagen
+         FROM empresa
+         WHERE id_empresa = $1
+           AND deleted_at IS NULL`,
+        [id_empresa],
+    );
+    return rows[0]?.url_imagen ?? null;
+}

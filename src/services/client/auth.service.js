@@ -33,3 +33,10 @@ export async function iniciarSesion(usuario, password) {
 
   return result.data;
 }
+
+
+export async function logout() {
+  const res = await fetch("/api/auth/logout", { method: "POST" });
+  if (!res.ok) throw new Error("No se pudo cerrar sesión");
+  return res.json();
+}

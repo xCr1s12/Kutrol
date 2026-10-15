@@ -1,4 +1,4 @@
-import { CreateEmpresaWithEncargado } from "@/services/server/auth.service";
+import { CreateEmpresaWithEncargado, logoutService } from "@/services/server/auth.service";
 import { toErrorResponse } from "@/utils/errors";
 import { createSession } from "@/lib/tokenSession"; 
 import { getSession } from "@/lib/tokenSession";
@@ -48,5 +48,22 @@ export async function validarSession() {
   } catch (error) {
     const { status, body } = toErrorResponse(error);
     return Response.json(body, { status });
+  }
+}
+
+
+export async function logoutController() {
+  try {
+    await logoutService();
+    return Response.json(
+      { ok: true, message: "Sesión cerrada" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error en logout:", error);
+    return Response.json(
+      { ok: false, message: "No se pudo cerrar sesión" },
+      { status: 500 }
+    );
   }
 }

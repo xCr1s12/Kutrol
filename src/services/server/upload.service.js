@@ -1,4 +1,5 @@
 import { getCloudinary } from "@/lib/cloudinary";
+import * as EmpresaRepo from "@/repositories/Empresa.repository";
 
 const FORMATOS = ["image/jpeg", "image/png", "image/webp"];
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
@@ -36,9 +37,28 @@ export async function subirImagen(file) {
   return { url: r.secure_url, public_id: r.public_id, width: r.width, height: r.height };
 }
 
-export async function eliminarImagen(publicId) {
+function publicIdFromCloudinaryUrl(imageUrl) {
+  try {
+    const url = new URL(imageUrl);
+    const uploadMarker = "/image/upload/";
+    const uploadIndex = url.pathname.indexOf(uploadMarker);
+    if (uploadIndex === -1) return null;
+
+    let publicId = decodeURIComponent(url.pathname.slice(uploadIndex + uploadMarker.length));
+    publicId = publicId.replace(/^v\d+\//, "").replace(/\.[^/.]+$/, "");
+    return publicId;
+  } catch {
+    return null;
+  }
+}
+
+export async function eliminarImagen(publicId, idEmpresa) {
   if (typeof publicId !== "string" || !publicId.trim()) {
     throw new UploadValidationError("Falta public_id.");
+  }
+  const imageUrl = await EmpresaRepo.findImageUrlByIdEmpresa(idEmpresa);
+  if (!imageUrl || publicIdFromCloudinaryUrl(imageUrl) !== publicId) {
+    return false;
   }
 
   const cloudinary = await getCloudinary();

@@ -1,18 +1,40 @@
 "use client";
 
 import { useContext, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import Logo from "@/components/ui/Logo";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
+import { logout } from "@/services/client/auth.service";
 
 export default function PanelHeaderClient({ Encargado, Empresa }) {
   const { darkMode, toggleDarkMode } = useContext(darkModeContext);
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [imagenRota, setImagenRota] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
   const dropdownRef = useRef(null);
+
+  async function handleLogout() {
+    setIsLoggingOut(true);
+    setLogoutError("");
+
+    try {
+      await logout();
+      setIsOpen(false);
+      router.replace("/login");
+    } catch (error) {
+      setLogoutError(
+        error instanceof Error ? error.message : "No se pudo cerrar sesión.",
+      );
+    } finally {
+      setIsLoggingOut(false);
+    }
+  }
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -91,11 +113,18 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
             </div>
 
             <div className="border-t border-border pt-1">
+              {logoutError && (
+                <p role="alert" className="px-4 py-2 text-sm text-red-600">
+                  {logoutError}
+                </p>
+              )}
               <button
-                onClick={() => setIsOpen(false)}
+                type="button"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
                 className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer"
               >
-                Cerrar sesión
+                {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
               </button>
             </div>
           </div>

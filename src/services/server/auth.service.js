@@ -220,3 +220,9 @@ export async function login(user, password) {
     usuario: encargado.usuario,
   };
 }
+
+import { deleteSession } from "@/lib/tokenSession";
+
+export async function logoutService() {
+  await deleteSession();
+}

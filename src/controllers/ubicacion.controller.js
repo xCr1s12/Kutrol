@@ -35,21 +35,22 @@ export async function getComunas(request) {
   }
 
   try {
-    const region = await RegionesRepository.getRegionById(regionId);
-    if (!region) {
+    const comunas = await ComunasRepository.getComunasbyRegion(regionId);
+    if (comunas.length === 0) {
       return Response.json(
         { ok: false, error: "La región solicitada no existe." },
         { status: 404 },
       );
     }
 
-    const comunas = await ComunasRepository.getComunasbyRegion(regionId);
     return Response.json({
       ok: true,
-      data: comunas.map((comuna) => ({
-        id: comuna.comuna_id,
-        nombre: comuna.comuna_nombre,
-      })),
+      data: comunas
+        .filter((comuna) => comuna.comuna_id !== null)
+        .map((comuna) => ({
+          id: comuna.comuna_id,
+          nombre: comuna.comuna_nombre,
+        })),
     });
   } catch (error) {
     console.error("Error al obtener comunas:", error);

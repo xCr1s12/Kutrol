@@ -1,7 +1,7 @@
 import {
-  getVehiculosByEmpresa,
+  getVehiculosByFlota,
   createVehiculo,
 } from "@/controllers/vehiculos.controller";
 
-export const GET = getVehiculosByEmpresa;
+export const GET = getVehiculosByFlota;
 export const POST = createVehiculo;

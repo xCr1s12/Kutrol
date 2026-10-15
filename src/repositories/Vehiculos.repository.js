@@ -26,7 +26,7 @@ export async function CreateVehiculo(data, db = pool) {
   return rows[0];
 }
 
-export async function findVehiculosByEmpresa(id_empresa, db = pool) {
+export async function findVehiculosByFlota(id_flota, db = pool) {
   const { rows } = await db.query(
     `SELECT c.id_camion, c.patente, c.codigo_dispositivo, c.marca, c.modelo,
             c.ano, c.capacidad_carga_kg, c.capacidad_estanque_l,
@@ -34,11 +34,11 @@ export async function findVehiculosByEmpresa(id_empresa, db = pool) {
             f.id_flota, f.nombre AS flota
      FROM camion c
      JOIN flota f ON f.id_flota = c.id_flota
-     WHERE f.id_empresa = $1
+     WHERE f.id_flota = $1
        AND c.deleted_at IS NULL
        AND f.deleted_at IS NULL
      ORDER BY c.patente`,
-    [id_empresa],
+    [id_flota],
   );
   return rows;
 }

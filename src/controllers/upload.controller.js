@@ -4,6 +4,7 @@ import {
   subirImagen,
   UploadValidationError,
 } from "@/services/server/upload.service";
+import { getSession } from "@/lib/tokenSession";
 
 export async function postUpload(request) {
   if (!request.headers.get("content-type")?.includes("multipart/form-data")) {
@@ -45,6 +46,14 @@ export async function postUpload(request) {
 }
 
 export async function deleteUpload(request) {
+  const session = await getSession();
+  if (!session?.id_empresa) {
+    return NextResponse.json(
+      { ok: false, error: "No autorizado" },
+      { status: 401 },
+    );
+  }
+
   let body;
   try {
     body = await request.json();
@@ -56,7 +65,7 @@ export async function deleteUpload(request) {
   }
 
   try {
-    const ok = await eliminarImagen(body?.public_id);
+    const ok = await eliminarImagen(body?.public_id, session.id_empresa);
     if (!ok) return NextResponse.json({ ok: false, error: "No encontrada." }, { status: 404 });
     return NextResponse.json({ ok: true });
   } catch (error) {
