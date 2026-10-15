@@ -14,6 +14,7 @@ export default function Sidebar() {
   // array con rutas de navegación
   const NavRoutes = [
     { name: "Dashboard", path: "/dashboard", icon: HomeIcon, aria: "Ir al Dashboard" },
+<<<<<<< HEAD
     { name: "Estadísticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadísticas" },
     { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
     { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
@@ -21,6 +22,15 @@ export default function Sidebar() {
     { name: "Ambiente", path: "/ambiente", icon: LanguageRoundedIcon, aria: "ir a Ambiente y sostenibilidad" },
   ];
 
+=======
+    { name: "Estadisticas", path: "/statistic", icon: PieChartIcon, aria: "ir a Estadisticas" },
+    { name: "Rutas", path: "/route", icon: RouteIcon, aria: "ir a Rutas" },
+    { name: "Alertas", path: "/alerts", icon: FlagIcon, aria: "ir a Alertas" },
+    { name: "Gestion", path: "/gestion", icon: LocalShippingOutlinedIcon, aria: "ir a Gestion" },
+    { name: "Ambiente", path: "/ambiente", icon: LanguageRoundedIcon, aria: "ir a Ambiente y sostenibilidad" },
+  ];
+  
+>>>>>>> f1e9fbd (pestaña de ambiente)
   const PathName = usePathname();
 
   // Control de estado de la barra lateral
@@ -31,12 +41,19 @@ export default function Sidebar() {
 
   return (
     <aside
+<<<<<<< HEAD
       className={`h-screen flex flex-col bg-brand transition-all duration-300 ${isActive ? "w-64" : "w-16"
         }`}
+=======
+      className={`h-screen bg-[#1B2B24] flex flex-col transition-all duration-300 ${
+        isActive ? "w-64" : "w-16"
+      }`}
+>>>>>>> f1e9fbd (pestaña de ambiente)
     >
       {/* Botón de hamburguesa */}
       <div className="h-16 flex items-center pl-2.5">
         <div
+<<<<<<< HEAD
           onClick={() => {
             ToggleSideBar();
           }}
@@ -45,6 +62,9 @@ export default function Sidebar() {
 <<<<<<< HEAD
           className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
 =======
+=======
+          onClick={ToggleSideBar}
+>>>>>>> f1e9fbd (pestaña de ambiente)
           className="flex items-center gap-3 text-subtext cursor-pointer p-2 rounded transition-colors"
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
 =======
@@ -52,12 +72,21 @@ export default function Sidebar() {
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         >
           {!isActive && (
+<<<<<<< HEAD
             <MenuIcon aria-label="Abrir menú" aria-expanded={false} aria-hidden="false" />
           )}
           
           {isActive && (
             <span className="whitespace-nowrap overflow-hidden text-sm text-mist">
               Cerrar menú
+=======
+            <MenuIcon aria-label="Abrir menu" aria-expanded={false} aria-hidden="false" />
+          )}
+          
+          {isActive && (
+            <span className="whitespace-nowrap overflow-hidden text-sm text-[#C2C9C4]">
+              Cerrar Menu
+>>>>>>> f1e9fbd (pestaña de ambiente)
             </span>
           )}  
         </div>
@@ -74,6 +103,7 @@ export default function Sidebar() {
               aria-label={item.aria}
               key={item.path}
               href={item.path}
+<<<<<<< HEAD
               className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
 <<<<<<< HEAD
                   ? "border-l-4 border-gold bg-gold/20"
@@ -89,6 +119,16 @@ export default function Sidebar() {
 =======
                 <item.icon
 >>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
+=======
+              className={`flex items-center gap-4 p-3 rounded transition-colors ${
+                isCurrentPath
+                  ? "border-l-4 border-[#D4AF37] bg-[#D4AF37]/50"
+                  : "border-l-4 border-[#1B2B24]"
+              }`}
+            >
+              <div className="flex items-center justify-center min-w-6">
+                <IconComponent
+>>>>>>> f1e9fbd (pestaña de ambiente)
                   aria-hidden="false"
 <<<<<<< HEAD
                   className={isCurrentPath ? "text-gold" : "text-mist"}
@@ -103,6 +143,7 @@ export default function Sidebar() {
                 <span
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                   className={`truncate text-sm font-bold ${isCurrentPath ? "text-cream" : "text-sage"}`}
 =======
                   className={`truncate text-sm font-bold ${isCurrentPath ? " text-[#1A1A1A]" : "text-subtext"}`}
@@ -110,6 +151,11 @@ export default function Sidebar() {
 =======
                   className={`truncate text-sm font-bold ${isCurrentPath ? "text-[#FDFBF7]" : "text-[#A8B0AB]"}`}
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+                  className={`truncate text-sm font-bold ${
+                    isCurrentPath ? "text-[#1A1A1A]" : "text-[#C2C9C4]"
+                  }`}
+>>>>>>> f1e9fbd (pestaña de ambiente)
                 >
                   {item.name}
                 </span>
