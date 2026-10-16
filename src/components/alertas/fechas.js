@@ -11,15 +11,7 @@ export function diasDesde(fecha) {
 
 // texto corto para la linea de tiempo: ahora, hoy, ayer, hace 3 dias
 export function haceCuanto(fecha) {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const minutos = (Date.now() - new Date(fecha).getTime()) / 60000;
-=======
-  const minutos = (Date.now() - new Date(fecha)) / 60000;
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-  const minutos = (Date.now() - new Date(fecha).getTime()) / 60000;
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
   if (minutos < 60) return "Ahora";
 
   const dias = diasDesde(fecha);
@@ -28,14 +20,7 @@ export function haceCuanto(fecha) {
   return `Hace ${dias} días`;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 export function formatearFecha(fecha) {
   return new Date(fecha).toLocaleDateString("es-CL");
 }

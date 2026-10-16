@@ -1,27 +1,8 @@
 import pg from "pg";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-const globalPool = globalThis;
-
-const pool =
-  globalPool.pgPool ??
-  new pg.Pool({ connectionString: process.env.DATABASE_URL });
-
-if (process.env.NODE_ENV !== "production") {
-  globalPool.pgPool = pool;
-};
-=======
-pg.types.setTypeParser(1700, (v) => parseFloat(v));
-pg.types.setTypeParser(20, (v) => parseInt(v, 10));
->>>>>>> FrontEnd
-
-=======
 pg.types.setTypeParser(1700, (v) => parseFloat(v));
 pg.types.setTypeParser(20, (v) => parseInt(v, 10));
 
->>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
 // En desarrollo, el hot reload re-ejecuta este módulo. Guardar el pool en
 // globalThis evita abrir uno nuevo en cada recarga.
 const globalForPg = globalThis;

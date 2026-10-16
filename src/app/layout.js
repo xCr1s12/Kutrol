@@ -32,10 +32,6 @@ export default function RootLayout({ children }) {
       className={`${geistMono.variable} ${geistSans.variable} ${poppins.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f7fe640 (fix(theme): prevent flash of the wrong theme before hydration)
       <head>
         {/* Fija el tema guardado antes del primer pintado: sin esto, quien usa
             modo claro ve un parpadeo oscuro -> claro. El script corre durante
@@ -47,11 +43,6 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-<<<<<<< HEAD
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
->>>>>>> f7fe640 (fix(theme): prevent flash of the wrong theme before hydration)
       <body className="font-pop bg-background min-h-full flex flex-col">
         <DarkModeProvider>{children}</DarkModeProvider>
       </body>

@@ -7,22 +7,12 @@ import Card from "@/components/ui/Card";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import GoogleIcon from "@/components/ui/GoogleIcon";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import Logo from "@/components/ui/Logo";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
-<<<<<<< HEAD
-=======
-import Logo from "@/components/ui/Logo";
->>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-=======
->>>>>>> ee70475 (feat: add login authentication and dynamic dashboard metrics)
 import { iniciarSesion } from "@/services/client/auth.service";
 
 export default function Login() {
@@ -64,10 +54,6 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-background text-text flex flex-col">
       {/* Navbar */}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
         <Logo fondo={darkMode ? "oscuro" : "claro"} />
 
@@ -90,32 +76,10 @@ export default function Login() {
             Registrarse
           </Link>
         </div>
-<<<<<<< HEAD
-=======
-      <header className="fixed top-0 left-0 w-full bg-brand border-b border-border flex items-center justify-between px-8 py-4 z-50">
-        <Logo />
-        <Link
-          href="/register"
-          className="text-sm text-subtext underline underline-offset-2 hover:text-text transition-colors"
-          aria-label="Ir a la página de registro"
-        >
-          Registrarse
-        </Link>
->>>>>>> 58dd317 (Agregando logo a registro, inicio sesion y pagina inicial)
       </header>
 
       {/* Contenedor centrado */}
       <main className="flex-1 flex items-center justify-center px-4 pt-20">
-=======
-      </header>
-
-      {/* Contenedor centrado */}
-<<<<<<< HEAD
-      <div className="flex-1 flex items-center justify-center px-4 pt-20">
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-      <main className="flex-1 flex items-center justify-center px-4 pt-20">
->>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
         <Card className="w-full max-w-110 p-10 space-y-7">
           <h1 className="text-2xl font-bold text-text text-center">
             Inicio de sesión
@@ -151,15 +115,7 @@ export default function Login() {
                 type="button"
                 variant="ghost"
                 aria-labelledby="login-sso-label"
-<<<<<<< HEAD
-<<<<<<< HEAD
                 className="w-full flex items-center justify-center light:bg-accent light:text-white gap-2"
-=======
-                className="w-full flex items-center justify-center light:bg-accent gap-2"
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-                className="w-full flex items-center justify-center light:bg-accent light:text-white gap-2"
->>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
               >
                 <GoogleIcon />
                 Google

@@ -113,18 +113,9 @@ export default function FormRoute({ open, onClose, onSubmit }) {
   }, []);
 
   useEffect(() => {
-    if (!regionOrigen) {
-      setComunasOrigen([]);
-      setComunaOrigen("");
-      setCargandoOrigen(false);
-      return;
-    }
+    if (!regionOrigen) return;
 
     const controller = new AbortController();
-    setComunasOrigen([]);
-    setComunaOrigen("");
-    setErrorUbicacion("");
-    setCargandoOrigen(true);
 
     obtenerComunas(regionOrigen, controller.signal)
       .then(setComunasOrigen)
@@ -139,18 +130,9 @@ export default function FormRoute({ open, onClose, onSubmit }) {
   }, [regionOrigen]);
 
   useEffect(() => {
-    if (!regionDestino) {
-      setComunasDestino([]);
-      setComunaDestino("");
-      setCargandoDestino(false);
-      return;
-    }
+    if (!regionDestino) return;
 
     const controller = new AbortController();
-    setComunasDestino([]);
-    setComunaDestino("");
-    setErrorUbicacion("");
-    setCargandoDestino(true);
 
     obtenerComunas(regionDestino, controller.signal)
       .then(setComunasDestino)
@@ -163,6 +145,22 @@ export default function FormRoute({ open, onClose, onSubmit }) {
 
     return () => controller.abort();
   }, [regionDestino]);
+
+  function handleRegionOrigenChange(region) {
+    setRegionOrigen(region);
+    setComunasOrigen([]);
+    setComunaOrigen("");
+    setErrorUbicacion("");
+    setCargandoOrigen(Boolean(region));
+  }
+
+  function handleRegionDestinoChange(region) {
+    setRegionDestino(region);
+    setComunasDestino([]);
+    setComunaDestino("");
+    setErrorUbicacion("");
+    setCargandoDestino(Boolean(region));
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -189,36 +187,19 @@ export default function FormRoute({ open, onClose, onSubmit }) {
     <Modal
       open={open}
       onClose={onClose}
-<<<<<<< HEAD
-<<<<<<< HEAD
       className="route-form-modal"
-=======
->>>>>>> 7f07cba (feat: add route management and refactor home page layout)
-=======
-      className="route-form-modal"
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
       title="Agregar ruta"
       eyebrow="RUTAS"
       icon={<AddRoadRoundedIcon />}
       size="lg"
       footer={
         <>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           <BotonSecundario
             onClick={onClose}
             className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-brand hover:brightness-95"
           >
             Cancelar
           </BotonSecundario>
-<<<<<<< HEAD
-=======
-          <BotonSecundario onClick={onClose}>Cancelar</BotonSecundario>
->>>>>>> 7f07cba (feat: add route management and refactor home page layout)
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           <BotonPrimario type="submit" form="form-ruta">
             Agregar ruta
           </BotonPrimario>
@@ -246,7 +227,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
               regiones={regiones}
               comunas={comunasOrigen}
               loadingComunas={cargandoOrigen}
-              onRegionChange={setRegionOrigen}
+              onRegionChange={handleRegionOrigenChange}
               onComunaChange={setComunaOrigen}
             />
             <CampoUbicacion
@@ -257,7 +238,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
               regiones={regiones}
               comunas={comunasDestino}
               loadingComunas={cargandoDestino}
-              onRegionChange={setRegionDestino}
+              onRegionChange={handleRegionDestinoChange}
               onComunaChange={setComunaDestino}
             />
             <Campo label="Distancia (km)" id="distancia">

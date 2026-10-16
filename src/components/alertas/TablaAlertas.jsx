@@ -17,19 +17,7 @@ const rangosFecha = [
 ];
 
 const filtro =
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "text-xs text-text bg-background border border-icon rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
-=======
-  "text-xs text-[#1A1A1A] bg-white border border-[#E2E8F0] rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-  "text-xs text-text bg-background border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-  "text-xs text-text bg-background border border-icon rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
->>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
 
 export default function TablaAlertas({ alertas }) {
   const [busqueda, setBusqueda] = useState("");
@@ -45,8 +33,6 @@ export default function TablaAlertas({ alertas }) {
   );
 
   return (
-<<<<<<< HEAD
-<<<<<<< HEAD
     <section className="bg-background rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] min-w-0" aria-label="Registro de alertas">
       <div className="flex flex-wrap gap-3 mb-4">
         <div className="flex items-center gap-2 w-full sm:w-56 border border-border rounded-full px-3 py-1.5">
@@ -54,25 +40,6 @@ export default function TablaAlertas({ alertas }) {
           <input
             type="search"
             className="w-full bg-transparent text-xs text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-<<<<<<< HEAD
-=======
-    <section className="bg-white rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] min-w-0" aria-label="Registro de alertas">
-=======
-    <section className="bg-background rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] min-w-0" aria-label="Registro de alertas">
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-      <div className="flex flex-wrap gap-3 mb-4">
-        <div className="flex items-center gap-2 w-full sm:w-56 border border-border rounded-full px-3 py-1.5">
-          <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
-          <input
-            type="search"
-<<<<<<< HEAD
-            className="w-full bg-transparent text-xs text-[#1A1A1A] outline-none"
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-            className="w-full bg-transparent text-xs text-text outline-none"
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
->>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
             placeholder="Buscar..."
             aria-label="Buscar alerta"
             value={busqueda}
@@ -94,24 +61,10 @@ export default function TablaAlertas({ alertas }) {
         </select>
       </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
       <div className="overflow-x-auto  ligh:border-border dark:border-border/90 rounded-lg">
         <table className="w-full text-xs text-left text-text">
           <thead>
             <tr className="bg-card">
-=======
-      <div className="overflow-x-auto border border-[#E2E8F0] rounded-lg">
-        <table className="w-full text-xs text-left text-[#1A1A1A]">
-          <thead>
-            <tr className="bg-[#F4F5F7]">
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-      <div className="overflow-x-auto  ligh:border-border dark:border-border/90 rounded-lg">
-        <table className="w-full text-xs text-left text-text">
-          <thead>
-            <tr className="bg-card">
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               {["Vehículo", "Mensaje", "Estado", "Fecha"].map((t) => (
                 <th key={t} className="px-4 py-3 font-semibold">{t}</th>
               ))}
@@ -119,15 +72,7 @@ export default function TablaAlertas({ alertas }) {
           </thead>
           <tbody>
             {filtradas.map((a) => (
-<<<<<<< HEAD
-<<<<<<< HEAD
               <tr key={a.id} className="border-2 border-border">
-=======
-              <tr key={a.id} className="border-t border-[#E2E8F0]">
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-              <tr key={a.id} className="border-2 border-border">
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
                 <td className="px-4 py-3 font-semibold whitespace-nowrap">
                   <span className="inline-flex items-center gap-1.5">
                     {a.vehiculo}
@@ -143,15 +88,7 @@ export default function TablaAlertas({ alertas }) {
             ))}
             {filtradas.length === 0 && (
               <tr>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <td colSpan={4} className="px-4 py-8 text-center text-graphite">
-=======
-                <td colSpan={4} className="px-4 py-8 text-center text-[#4A4A4A]">
->>>>>>> 0c414e2 (pagina de alerta)
-=======
-                <td colSpan={4} className="px-4 py-8 text-center text-graphite">
->>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
                   No se encontraron alertas
                 </td>
               </tr>

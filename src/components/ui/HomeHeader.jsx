@@ -20,13 +20,7 @@ export default function HomeHeader() {
         >
             <header className=" w-full bg-brand flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-moss border-b-2 flex-wrap gap-2">
                 {/* Logo Kutrol y Nombre */}
-<<<<<<< HEAD
                 <Logo/>
-=======
-                <span className=" text-xl sm:text-2xl font-bold text-cream tracking-tighter">
-                    Kutrol
-                </span>
->>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
 
                 
                 {/* Contenedor Botones de registro y inicio de sesion */}

@@ -1,31 +1,10 @@
 import FormField from "@/components/ui/FormField";
 
 const inputClase =
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "w-full rounded-md border border-icon bg-background px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 const CamposFormularioConductor = () => (
   <div className="grid grid-cols-2 gap-4">
-=======
-  "w-full rounded-md border border-icon bg-background dark:bg-foreground px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-mist dark:bg-brand dark:text-cream dark:placeholder:text-sage dark:focus:border-gold dark:focus:ring-gold";
-
-const CamposFormularioConductor = () => (
-  <div className="grid grid-cols-2 gap-4 dark:text-ink">
->>>>>>> FrontEnd
-=======
-  "w-full rounded-md border border-icon bg-background dark:bg-foreground px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-[#C2C9C4] dark:bg-[#1B2B24] dark:text-[#FDFBF7] dark:placeholder:text-[#A8B0AB] dark:focus:border-[#D4AF37] dark:focus:ring-[#D4AF37]";
-
-const CamposFormularioConductor = () => (
-  <div className="grid grid-cols-2 gap-4 dark:text-[#1A1A1A]">
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-  "w-full rounded-md border border-icon bg-background dark:bg-foreground px-3 py-2.5 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-mist dark:bg-brand dark:text-cream dark:placeholder:text-sage dark:focus:border-gold dark:focus:ring-gold";
-
-const CamposFormularioConductor = () => (
-  <div className="grid grid-cols-2 gap-4 dark:text-ink">
->>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
     <FormField label="Nombre" id="nombre">
       <input
         id="nombre"

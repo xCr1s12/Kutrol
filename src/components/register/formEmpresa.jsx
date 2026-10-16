@@ -13,19 +13,7 @@ import {
 } from "@/services/client/ubicacion.service";
 
 const INPUT_CLASS =
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
-=======
-  "h-11 w-full rounded-[10px] border border-border bg-brand px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
->>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
-=======
-  "h-11 w-full rounded-[10px] border border-border bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-  "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
->>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
 
 function SelectField({ label, id, value, onChange, options, placeholder, disabled }) {
   return (
@@ -49,15 +37,7 @@ function SelectField({ label, id, value, onChange, options, placeholder, disable
             {placeholder}
           </option>
           {options.map((option) => (
-<<<<<<< HEAD
-<<<<<<< HEAD
             <option key={option.id} value={option.id} className="text-text bg-background">
-=======
-            <option key={option.id} value={option.id} className="text-text bg-brand">
->>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
-=======
-            <option key={option.id} value={option.id} className="text-text bg-background">
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               {option.nombre}
             </option>
           ))}
@@ -152,18 +132,9 @@ const FormEmpresa = ({
   }, []);
 
   useEffect(() => {
-    if (!region) {
-      setComunas([]);
-      setComuna("");
-      setLoadingComunas(false);
-      return;
-    }
+    if (!region) return;
 
     const controller = new AbortController();
-    setComunas([]);
-    setComuna("");
-    setLocationError("");
-    setLoadingComunas(true);
 
     obtenerComunas(region, controller.signal)
       .then(setComunas)
@@ -176,6 +147,15 @@ const FormEmpresa = ({
 
     return () => controller.abort();
   }, [region]);
+
+  function handleRegionChange(event) {
+    const nuevaRegion = event.target.value;
+    setRegion(nuevaRegion);
+    setComunas([]);
+    setComuna("");
+    setLocationError("");
+    setLoadingComunas(Boolean(nuevaRegion));
+  }
 
   const handleImage = async (e) => {
     const file = e.target.files?.[0];
@@ -219,15 +199,7 @@ const FormEmpresa = ({
           <span className="text-xs font-medium text-subtext">Imagen</span>
           <label
             htmlFor="image"
-<<<<<<< HEAD
-<<<<<<< HEAD
             className="group flex size-[130px] cursor-pointer flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-dashed border-border bg-background text-xs text-subtext transition-colors hover:border-accent focus-within:border-accent"
-=======
-            className="group flex size-[130px] cursor-pointer flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-dashed border-border bg-brand text-xs text-subtext transition-colors hover:border-accent focus-within:border-accent"
->>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
-=======
-            className="group flex size-[130px] cursor-pointer flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-dashed border-border bg-background text-xs text-subtext transition-colors hover:border-accent focus-within:border-accent"
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
           >
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -293,9 +265,7 @@ const FormEmpresa = ({
           label="Región"
           id="region"
           value={region}
-          onChange={(e) => {
-            setRegion(e.target.value);
-          }}
+          onChange={handleRegionChange}
           options={regiones}
           placeholder="Selecciona una región"
           disabled={loadingRegiones}
@@ -343,15 +313,7 @@ const FormEmpresa = ({
           type="button"
           onClick={onBack}
           disabled={submitting}
-<<<<<<< HEAD
-<<<<<<< HEAD
           className="flex items-center gap-2 rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-border focus-visible:outline-2 focus-visible:outline-accent"
-=======
-          className="flex items-center gap-2 rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-brand/40 focus-visible:outline-2 focus-visible:outline-accent"
->>>>>>> 21bc88e (feat(register): add multi-step registration with image upload and location services)
-=======
-          className="flex items-center gap-2 rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-border focus-visible:outline-2 focus-visible:outline-accent"
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
         >
           <ArrowBackRoundedIcon aria-hidden="true" sx={{ fontSize: 18 }} />
           Atrás

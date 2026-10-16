@@ -1,14 +1,9 @@
 import pool from "@/lib/db";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
 export async function create(
     { id_comuna, nombre, rut, direccion, descripcion, url_imagen },
     db = pool
 ) {
-<<<<<<< HEAD
     const { rows } = await db.query(
         `INSERT INTO empresa (id_comuna, nombre, rut, direccion, descripcion, url_imagen)
          VALUES ($1, $2, $3, $4, $5, $6)
@@ -46,10 +41,6 @@ export async function findByIdEmpresa(id_empresa, db = pool) {
         [id_empresa],
     );
     return rows[0] || null;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }
 
 export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
@@ -61,21 +52,4 @@ export async function findImageUrlByIdEmpresa(id_empresa, db = pool) {
         [id_empresa],
     );
     return rows[0]?.url_imagen ?? null;
-<<<<<<< HEAD
-=======
-export async function create({ id_comuna,nombre, rut, direccion, descripcion, url_imagen }, db = pool) {
-=======
->>>>>>> 53f0ae0 (feat(auth): add company registration with encargado and contact validation)
-    const { rows } = await db.query(
-        `INSERT INTO empresa (id_comuna, nombre, rut, direccion, descripcion, url_imagen)
-         VALUES ($1, $2, $3, $4, $5, $6)
-         RETURNING id_empresa, id_comuna, nombre, rut, direccion, descripcion, url_imagen, created_at`,
-        [id_comuna, nombre, rut, direccion, descripcion || null, url_imagen || null],
-    );
-    return rows[0];
->>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
-=======
->>>>>>> d9bfdaf (feat(auth): add JWT session authentication for panel routes)
-=======
->>>>>>> 8339aaa (feat(api): implement flota module and add auth logout and proxy support)
 }

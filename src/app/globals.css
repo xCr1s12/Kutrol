@@ -21,25 +21,13 @@
   --color-icon: var(--icon);
   --color-border: var(--border);
   --color-accent: var(--accent);
-<<<<<<< HEAD
-<<<<<<< HEAD
   --color-accent-dark: var(--accent-dark);
   --color-danger: var(--danger);
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-  --color-accent-dark: var(--accent-dark);
-  --color-danger: var(--danger);
->>>>>>> 065276d (config panel dark mode adapt)
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-header: var(--header);
   --color-footer: var(--footer);
   --color-card: var(--card);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
   /* Acentos fijos: el dorado va sobre superficies oscuras y el ocre sobre
      superficies claras, para que no dependan del modo activo. */
   --color-gold: #D4AF37;
@@ -64,11 +52,6 @@
   --color-slate: #6E6E6E;          /* superficie gris del mapa */
   --color-copper: #8C6239;         /* cobre: acento sobre claro fijo */
   --color-copper-dark: #A8784A;
-<<<<<<< HEAD
-=======
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
->>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
 }
 
 /* MODO OSCURO (por defecto) */
@@ -82,10 +65,6 @@
   --icon: #C2C9C4;         /* Iconos */
   --border: #314139;       /* Bordes / divisores */
   --accent: #D4AF37;       /* Acento */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 065276d (config panel dark mode adapt)
   --accent-dark: #C49A2E;
   --danger: #F87171;
   --header: #1B2B24;       /* = Fondo */
@@ -100,7 +79,6 @@
   --foreground: #1A1A1A;   /* Texto principal */
   --text: #1A1A1A;         /* Texto principal */
   --subtext: #666666;      /* Subtexto (4.5:1 sobre fondo y sobre card) */
-<<<<<<< HEAD
   --icon: #4A4A4A;         /* Iconos */
   --border: #EAE5DA;       /* Bordes / divisores */
   --accent: #8C6239;       /* Acento */
@@ -125,44 +103,7 @@
 
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
-=======
-  --header: #1B2B24;       /* = Fondo */
-  --footer: #20332B;
-  --card: #314139;         /* = Bordes */
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
 }
-
-/* MODO CLARO */
-.light {
-  color-scheme: light;
-  --background: #FDFBF7;   /* Fondo */
-  --foreground: #1A1A1A;   /* Texto principal */
-  --text: #1A1A1A;         /* Texto principal */
-  --subtext: #6E6E6E;      /* Subtexto */
-=======
->>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
-  --icon: #4A4A4A;         /* Iconos */
-  --border: #EAE5DA;       /* Bordes / divisores */
-  --accent: #8C6239;       /* Acento */
-  --accent-dark: #704D2E;
-  --danger: #C0392B;
-  --header: #FDFBF7;       /* = Fondo */
-  --footer: #EAE5DA;       /* = Bordes */
-  --card: #EAE5DA;         /* = Bordes */
-}
-
-/* El bloque .panel-theme existia para "fijar acentos" dentro del panel, pero en
-   modo oscuro era no-op (los tres valores coincidian con :root/.dark) y en modo
-   claro pisaba los que el tema ya declara correctamente: --accent, --accent-dark
-   y --icon. Medido: eso rompia 23 textos y 27 iconos. La regla que corresponde es
-   la que este archivo ya declara: sobre superficie oscura FIJA va el token fijo
-   `gold`, y sobre superficie del tema va `accent`. Por eso se elimina el bloque y
-   los elementos que viven sobre superficie oscura fija usan `gold` explicito. */
-
-.route-form-modal {
-  --background: #EAE5DA;
-}
-
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
 }
@@ -171,12 +112,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-poppins), sans-serif;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
-=======
-}
->>>>>>> a737fa2 (fix(ui): raise text contrast in light mode)
