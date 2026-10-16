@@ -114,10 +114,14 @@ const HISTORIALES_CONDUCTORES = [
 
 const PillTiempo = ({ dias }) => (
 <<<<<<< HEAD
+<<<<<<< HEAD
   <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-xs font-bold uppercase text-accent-dark">
 =======
   <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-xs font-bold uppercase text-text">
 >>>>>>> FrontEnd
+=======
+  <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-xs font-bold uppercase text-text">
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
     {dias} {dias === 1 ? "día" : "días"}
   </span>
 );

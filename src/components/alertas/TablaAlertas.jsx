@@ -19,6 +19,7 @@ const rangosFecha = [
 const filtro =
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "text-xs text-text bg-background border border-icon rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
 =======
   "text-xs text-[#1A1A1A] bg-white border border-[#E2E8F0] rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
@@ -26,6 +27,9 @@ const filtro =
 =======
   "text-xs text-text bg-background border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+  "text-xs text-text bg-background border border-icon rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
 
 export default function TablaAlertas({ alertas }) {
   const [busqueda, setBusqueda] = useState("");
@@ -50,6 +54,7 @@ export default function TablaAlertas({ alertas }) {
           <input
             type="search"
             className="w-full bg-transparent text-xs text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+<<<<<<< HEAD
 =======
     <section className="bg-white rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] min-w-0" aria-label="Registro de alertas">
 =======
@@ -66,6 +71,8 @@ export default function TablaAlertas({ alertas }) {
 =======
             className="w-full bg-transparent text-xs text-text outline-none"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
             placeholder="Buscar..."
             aria-label="Buscar alerta"
             value={busqueda}

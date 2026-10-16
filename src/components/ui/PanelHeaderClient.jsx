@@ -124,6 +124,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-border/50 transition-colors cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+<<<<<<< HEAD
         >
           <img
             src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}
@@ -169,6 +170,8 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-border/50 transition-colors cursor-pointer focus:outline-none"
+=======
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
         >
           <img
             src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}

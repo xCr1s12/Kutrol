@@ -6,6 +6,7 @@ import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
 import ModalUsuario from "./ModalUsuario";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const coloresRol = "bg-accent/20 text-text";
 =======
 import { tarjeta, botonAmarillo, botonIcono } from "./comun";
@@ -22,6 +23,9 @@ const coloresRol = {
 =======
 const coloresRol = "bg-accent/20 text-accent";
 >>>>>>> 065276d (config panel dark mode adapt)
+=======
+const coloresRol = "bg-accent/20 text-text";
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
 
 function iniciales(nombre) {
   return nombre.split(" ").slice(0, 2).map((palabra) => palabra[0]).join("").toUpperCase();
@@ -87,8 +91,12 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
         <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
           type="search"
+<<<<<<< HEAD
           className="w-full bg-transparent text-xs text-text placeholder:text-subtext outline-none"
 >>>>>>> 065276d (config panel dark mode adapt)
+=======
+          className="w-full bg-transparent text-xs text-text placeholder:text-subtext focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
           placeholder="Buscar"
           aria-label="Buscar usuario"
           value={busqueda}
@@ -138,6 +146,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                         className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
 =======
                         className="w-7 h-7 rounded-full bg-[#4A4A4A] flex items-center justify-center text-[10px] font-bold text-[#FDFBF7]"
@@ -148,6 +157,9 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
 =======
                         className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
 >>>>>>> 065276d (config panel dark mode adapt)
+=======
+                        className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}

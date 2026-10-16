@@ -62,10 +62,14 @@ export default function FormField({
         aria-invalid={!!error || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
 <<<<<<< HEAD
+<<<<<<< HEAD
         className="w-full bg-background border border-icon text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
 =======
         className="w-full bg-background border border-border text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+        className="w-full bg-background border border-icon text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
         {...inputProps}
       />
       {error && (

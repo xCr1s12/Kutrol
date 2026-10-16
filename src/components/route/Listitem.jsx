@@ -51,7 +51,7 @@ export default function Listitem({ items, onSelect, selectedId }) {
               <span
                 className={`flex items-center justify-center w-10 h-10 rounded-full shrink-0
                   ${active
-                    ? "bg-accent text-brand light:bg-accent light:text-brand dark:bg-accent dark:text-brand"
+                    ? "bg-accent text-brand light:bg-accent light:text-white dark:bg-accent dark:text-brand"
                     : "bg-border text-icon light:bg-border light:text-text dark:bg-border dark:text-icon"}`}
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
               >

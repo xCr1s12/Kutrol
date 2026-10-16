@@ -15,6 +15,7 @@ import {
 const INPUT_CLASS =
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
 =======
   "h-11 w-full rounded-[10px] border border-border bg-brand px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
@@ -22,6 +23,9 @@ const INPUT_CLASS =
 =======
   "h-11 w-full rounded-[10px] border border-border bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
 >>>>>>> bd76fc1 (feat(ui): implement dark mode support and update panel views)
+=======
+  "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
 
 function SelectField({ label, id, value, onChange, options, placeholder, disabled }) {
   return (

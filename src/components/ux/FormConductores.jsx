@@ -48,6 +48,7 @@ const FormularioConductor = ({ onSubmit, onCancel }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             className="rounded-md px-6 py-2.5 text-xs font-semibold text-brand transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             style={{ backgroundColor: "var(--color-accent)" }}
 =======
@@ -59,6 +60,9 @@ const FormularioConductor = ({ onSubmit, onCancel }) => {
 =======
             className="rounded-md bg-accent px-6 py-2.5 text-xs font-semibold text-brand transition-colors light:hover:bg-copper-dark light:hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-gold dark:text-brand dark:hover:opacity-90 dark:focus-visible:outline-gold"
 >>>>>>> 7fb52cf (refactor(theme): replace literal colors with design tokens)
+=======
+            className="rounded-md bg-accent px-6 py-2.5 text-xs font-semibold text-brand light:text-white transition-colors light:hover:bg-copper-dark light:hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-gold dark:text-brand dark:hover:opacity-90 dark:focus-visible:outline-gold"
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
           >
             Finalizar
           </button>

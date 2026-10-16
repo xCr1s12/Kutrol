@@ -21,6 +21,7 @@ function Parametro({ Icono, titulo, texto, children }) {
       <div className="flex items-center gap-3">
         <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
           <Icono className="text-gold" sx={{ fontSize: 26 }} aria-hidden="true" />
+<<<<<<< HEAD
         </span>
         <div>
           <p className="text-sm font-semibold text-text">{titulo}</p>
@@ -33,6 +34,8 @@ function Parametro({ Icono, titulo, texto, children }) {
       <div className="flex items-center gap-3">
         <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
           <Icono className="text-accent" sx={{ fontSize: 26 }} aria-hidden="true" />
+=======
+>>>>>>> e84c658 (fix(a11y): correct text, border and focus contrast)
         </span>
         <div>
 <<<<<<< HEAD
