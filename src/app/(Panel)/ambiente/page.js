@@ -20,6 +20,9 @@ export default async function AmbientePage() {
     <div
       id="ambiente-resumen"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 27044d6 (Adaptar el modo oscuro a la pantalla de ambiente)
       className="flex flex-col w-full bg-cloud dark:bg-background p-6 min-h-screen"
     >
       {/* Encabezado del panel */}
