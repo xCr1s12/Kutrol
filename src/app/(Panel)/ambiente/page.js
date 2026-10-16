@@ -17,20 +17,20 @@ export default async function AmbientePage() {
   return (
     <div
       id="ambiente-resumen"
-      className="flex flex-col w-full bg-cloud p-6 min-h-screen"
+      className="flex flex-col w-full bg-cloud dark:bg-card p-6 min-h-screen"
     >
       {/* Encabezado del panel */}
       <header id="ambiente-encabezado" className="mb-6">
-        <h1 id="ambiente-titulo" className="text-ink text-2xl font-bold">
+        <h1 id="ambiente-titulo" className="text-ink dark:text-text text-2xl font-bold">
           Ambiente y Sostenibilidad de {empresa?.nombre}
         </h1>
 
-        <p
+        <span
           id="ambiente-reloj"
-          className="text-ink text-sm mt-1 flex items-center gap-2"
+          className="text-ink dark:text-text text-sm mt-1 flex items-center gap-2"
         >
           <Clock className="w-4 h-4" role="timer" />
-        </p>
+        </span>
       </header>
 
       {/* Tarjetas KPI de Métricas Ambientales */}
