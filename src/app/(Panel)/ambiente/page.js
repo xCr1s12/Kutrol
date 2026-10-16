@@ -19,6 +19,7 @@ export default async function AmbientePage() {
   return (
     <div
       id="ambiente-resumen"
+<<<<<<< HEAD
       className="flex flex-col w-full bg-cloud dark:bg-background p-6 min-h-screen"
     >
       {/* Encabezado del panel */}
@@ -133,19 +134,30 @@ export default async function AmbientePage() {
       <header id="ambiente-encabezado" className="mb-6">
         <h1 id="ambiente-titulo" className="text-ink text-2xl font-bold">
 >>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
+=======
+      className="flex flex-col w-full bg-cloud dark:bg-card p-6 min-h-screen"
+    >
+      {/* Encabezado del panel */}
+      <header id="ambiente-encabezado" className="mb-6">
+        <h1 id="ambiente-titulo" className="text-ink dark:text-text text-2xl font-bold">
+>>>>>>> 9a5685a (actualizacion logo kutrol)
           Ambiente y Sostenibilidad de {empresa?.nombre}
         </h1>
 
-        <p
+        <span
           id="ambiente-reloj"
+<<<<<<< HEAD
 <<<<<<< HEAD
           className="mt-1 flex items-center gap-2 text-sm text-subtext"
 =======
           className="text-ink text-sm mt-1 flex items-center gap-2"
 >>>>>>> 2295efd (fix(ui): correct spelling and add landmarks and page headings)
+=======
+          className="text-ink dark:text-text text-sm mt-1 flex items-center gap-2"
+>>>>>>> 9a5685a (actualizacion logo kutrol)
         >
           <Clock className="w-4 h-4" role="timer" />
-        </p>
+        </span>
       </header>
 
       {/* Tarjetas KPI de Métricas Ambientales */}
