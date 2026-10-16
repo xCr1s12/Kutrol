@@ -14,34 +14,23 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.4.0",
     "@mui/material": "^9.4.0",
-<<<<<<< HEAD
     "bcryptjs": "^3.0.3",
     "chart.js": "^4.5.1",
     "cloudinary": "^2.11.0",
     "framer-motion": "^13.3.0",
     "jose": "^6.2.12",
     "leaflet": "^1.9.4",
-=======
-    "chart.js": "^4.5.1",
-    "framer-motion": "^13.3.0",
->>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
+    "@neon/config": "^1.9.2",
+    "@neon/env": "^1.6.3",
     "next": "16.3.3",
     "pg": "^8.23.0",
     "react": "19.2.8",
-<<<<<<< HEAD
     "react-chartjs-2": "^5.3.1",
-<<<<<<< HEAD
     "react-dom": "19.2.8",
     "react-leaflet": "^5.0.0",
+    "recharts": "^3.10.1",
     "server-only": "^0.0.1",
     "zod": "^4.6.5"
-=======
-    "react-dom": "19.2.8",
-    "recharts": "^3.10.1"
->>>>>>> 8db7d62 (Creación Funcional de la pestaña dashboard)
-=======
-    "react-dom": "19.2.8"
->>>>>>> 169239c (rama feature/estadistica con FrontEnd  (Pestañas del Menú funcionando por individual, fusión del fronted y estadistica con generación de datos sinteticos))
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

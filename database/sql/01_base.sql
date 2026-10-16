@@ -38,24 +38,10 @@
 -- 0. ESQUEMA Y EXTENSIONES
 -- ==============================================================================
 CREATE SCHEMA kutrol;
-<<<<<<< HEAD
-<<<<<<< HEAD
 CREATE SCHEMA IF NOT EXISTS public;          -- <-- nueva
 SET search_path TO kutrol, public;
 
 CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA public;
-=======
-SET search_path TO kutrol, public;
-
-CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA public;
-
->>>>>>> 9e08fd4 (feat(backend): add auth registration, repositories and modular SQL schema)
-=======
-CREATE SCHEMA IF NOT EXISTS public;          -- <-- nueva
-SET search_path TO kutrol, public;
-
-CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA public;
->>>>>>> d51ac6f (feat(vehiculos): add dynamic vehicle table with API integration)
 -- ==============================================================================
 -- 1. FUNCIONES GENÉRICAS
 -- ==============================================================================
