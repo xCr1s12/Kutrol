@@ -10,7 +10,7 @@ function Parametro({ Icono, titulo, texto, children }) {
     <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-border last:border-b-0 last:pb-0">
       <div className="flex items-center gap-3">
         <span className="w-12 h-12 shrink-0 rounded-full bg-brand flex items-center justify-center">
-          <Icono className="text-accent" sx={{ fontSize: 26 }} aria-hidden="true" />
+          <Icono className="text-gold" sx={{ fontSize: 26 }} aria-hidden="true" />
         </span>
         <div>
           <p className="text-sm font-semibold text-text">{titulo}</p>

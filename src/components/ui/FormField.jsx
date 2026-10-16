@@ -42,7 +42,7 @@ export default function FormField({
         required={required}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        className="w-full bg-background border border-border text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
+        className="w-full bg-background border border-icon text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
         {...inputProps}
       />
       {error && (

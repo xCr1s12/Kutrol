@@ -148,7 +148,7 @@ const Flota = () => {
               value={flotaSeleccionada}
               onChange={(event) => setFlotaSeleccionada(event.target.value)}
               disabled={cargandoFlotas || Boolean(errorFlotas) || !flotas.length}
-              className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
+              className="rounded-lg border border-icon bg-background px-3 py-2 text-sm text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
             >
               {cargandoFlotas ? (
                 <option value="">Cargando flotas...</option>

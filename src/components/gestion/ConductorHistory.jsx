@@ -81,7 +81,7 @@ const HISTORIALES_CONDUCTORES = [
 ];
 
 const PillTiempo = ({ dias }) => (
-  <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-xs font-bold uppercase text-accent-dark">
+  <span className="inline-block rounded-full bg-accent/20 px-3 py-0.5 text-xs font-bold uppercase text-text">
     {dias} {dias === 1 ? "día" : "días"}
   </span>
 );

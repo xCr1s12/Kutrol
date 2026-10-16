@@ -68,7 +68,7 @@ export function MenuEstado({ valor, onChange, disabled, etiqueta }) {
         aria-label={etiqueta}
         disabled={disabled}
         onClick={() => setAbierto(!abierto)}
-        className="flex items-center justify-between gap-2 w-28 text-xs font-semibold text-text bg-background border border-border rounded-md px-2 py-1.5 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-accent"
+        className="flex items-center justify-between gap-2 w-28 text-xs font-semibold text-text bg-background border border-icon rounded-md px-2 py-1.5 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-accent"
       >
         {valor}
         <KeyboardArrowDownRounded sx={{ fontSize: 16 }} aria-hidden="true" />

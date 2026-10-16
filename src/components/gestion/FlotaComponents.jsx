@@ -84,7 +84,7 @@ export const Filtros = ({ opciones, seleccionado, onSelect }) => (
             onClick={() => onSelect(opcion)}
             className={`rounded-full border px-4 py-1.5 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-gold ${
               activo
-                ? "border-transparent bg-accent font-bold text-text dark:bg-accent"
+                ? "border-transparent bg-accent font-bold text-white dark:bg-accent dark:text-brand"
                 : "bg-background text-text hover:bg-text light:hover:bg-border light:hover:text-text border-border dark:bg-brand  dark:hover:bg-moss"
             }`}
           >
@@ -119,7 +119,7 @@ export const Paginacion = ({ pagina, totalPaginas, onCambiarPagina }) => (
           onClick={() => onCambiarPagina(numero)}
           className={`h-6 w-6 rounded-md border text-xs font-bold ${
             numero === pagina
-              ? "border-transparent bg-accent text-brand dark:bg-gold dark:text-brand"
+              ? "border-transparent bg-accent text-brand light:text-white dark:bg-gold dark:text-brand"
               : "border-icon bg-background text-subtext dark:border-mist dark:bg-brand dark:text-sage"
           }`}
         >

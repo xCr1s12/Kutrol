@@ -17,7 +17,7 @@ const rangosFecha = [
 ];
 
 const filtro =
-  "text-xs text-text bg-background border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
+  "text-xs text-text bg-background border border-icon rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent";
 
 export default function TablaAlertas({ alertas }) {
   const [busqueda, setBusqueda] = useState("");
@@ -39,7 +39,7 @@ export default function TablaAlertas({ alertas }) {
           <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
           <input
             type="search"
-            className="w-full bg-transparent text-xs text-text outline-none"
+            className="w-full bg-transparent text-xs text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             placeholder="Buscar..."
             aria-label="Buscar alerta"
             value={busqueda}

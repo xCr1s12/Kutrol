@@ -58,7 +58,7 @@ export default function Acerca_de() {
             aria-label="Anterior"
             className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full  hover:bg-accent/50 shadow-md transition-colors"
           >
-            <ArrowForwardIosIcon className="rotate-180" htmlColor="#FDFBF7" fontSize="small" />
+            <ArrowForwardIosIcon className="rotate-180 text-text" fontSize="small" />
           </button>
 
           <button
@@ -66,7 +66,7 @@ export default function Acerca_de() {
             aria-label="Siguiente"
             className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full hover:bg-accent/50   shadow-md transition-colors"
           >
-            <ArrowForwardIosIcon htmlColor="#FDFBF7" fontSize="small" />
+            <ArrowForwardIosIcon className="text-text" fontSize="small" />
           </button>
 
           <AnimatePresence mode="popLayout">

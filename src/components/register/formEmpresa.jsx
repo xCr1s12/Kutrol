@@ -13,7 +13,7 @@ import {
 } from "@/services/client/ubicacion.service";
 
 const INPUT_CLASS =
-  "h-11 w-full rounded-[10px] border border-border bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
+  "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
 
 function SelectField({ label, id, value, onChange, options, placeholder, disabled }) {
   return (

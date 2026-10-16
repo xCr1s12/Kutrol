@@ -89,13 +89,13 @@
   --card: #EAE5DA;         /* = Bordes */
 }
 
-.panel-theme {
-  --accent: #D4AF37;
-  --accent-dark: #C49A2E;
-  --icon: #C2C9C4;
-  --color-accent-dark: #C49A2E;
-  --color-red: #FF0000 ;
-}
+/* El bloque .panel-theme existia para "fijar acentos" dentro del panel, pero en
+   modo oscuro era no-op (los tres valores coincidian con :root/.dark) y en modo
+   claro pisaba los que el tema ya declara correctamente: --accent, --accent-dark
+   y --icon. Medido: eso rompia 23 textos y 27 iconos. La regla que corresponde es
+   la que este archivo ya declara: sobre superficie oscura FIJA va el token fijo
+   `gold`, y sobre superficie del tema va `accent`. Por eso se elimina el bloque y
+   los elementos que viven sobre superficie oscura fija usan `gold` explicito. */
 
 .route-form-modal {
   --background: #EAE5DA;

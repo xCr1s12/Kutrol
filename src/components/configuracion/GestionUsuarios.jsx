@@ -3,7 +3,7 @@ import { AddRounded, EditRounded, DeleteRounded, SearchRounded } from "@mui/icon
 import { tarjeta, titulo, botonAmarillo, botonIcono } from "./comun";
 import ModalUsuario from "./ModalUsuario";
 
-const coloresRol = "bg-accent/20 text-accent";
+const coloresRol = "bg-accent/20 text-text";
 
 function iniciales(nombre) {
   return nombre.split(" ").slice(0, 2).map((palabra) => palabra[0]).join("").toUpperCase();
@@ -46,7 +46,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
         <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
           type="search"
-          className="w-full bg-transparent text-xs text-text placeholder:text-subtext outline-none"
+          className="w-full bg-transparent text-xs text-text placeholder:text-subtext focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           placeholder="Buscar"
           aria-label="Buscar usuario"
           value={busqueda}
@@ -73,7 +73,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
                       <img src={u.foto} alt="" className="w-7 h-7 rounded-full object-cover" />
                     ) : (
                       <span
-                        className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-accent"
+                        className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}

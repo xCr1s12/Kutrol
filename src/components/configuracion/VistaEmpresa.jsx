@@ -10,11 +10,11 @@ export const icono = { sx: { fontSize: 18 }, className: "text-accent", "aria-hid
 export function LogoEmpresa({ logo }) {
   return (
     <div className="w-[120px] h-[120px] shrink-0 rounded-2xl bg-brand p-1.5 ring-2 ring-accent/60 ring-offset-2">
-      <div className="w-full h-full rounded-xl border border-dashed border-accent/50 flex items-center justify-center overflow-hidden">
+      <div className="w-full h-full rounded-xl border border-dashed border-gold/50 flex items-center justify-center overflow-hidden">
         {logo ? (
           <img src={logo} alt="Logo de la empresa" className="w-full h-full object-cover" />
         ) : (
-          <BusinessRounded className="text-accent" sx={{ fontSize: 48 }} aria-hidden="true" />
+          <BusinessRounded className="text-gold" sx={{ fontSize: 48 }} aria-hidden="true" />
         )}
       </div>
     </div>
