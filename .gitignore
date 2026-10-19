@@ -18,10 +18,12 @@
 # production
 /build
 
-# misc
+# misc & editor
 .DS_Store
 *.pem
-.vscode
+.vscode/
+.vscode/*
+settings.json
 
 # debug
 npm-debug.log*
@@ -40,5 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
 # Local Pi runtime state
 .atl/
