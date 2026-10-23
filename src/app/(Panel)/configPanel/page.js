@@ -30,8 +30,8 @@ const configInicial = {
     logo: null,
     nombre: "Transportes Chiloé SpA",
     rut: "76.123.456-0",
-    correo: "contacto@transporteschiloe.cl",
-    telefono: "912345678",
+    emails: [],
+    telefonos: [],
     region: "Los Lagos",
     comuna: "Castro",
     direccion: "Calle 123, oficina 4",
@@ -57,7 +57,20 @@ export default function Configuracion() {
       .then((res) => (res.ok ? res.json() : null))
       .then((empresa) => {
         if (!empresa) return;
-        const datos = { ...configInicial, empresa: { ...configInicial.empresa, ...empresa } };
+        const datos = {
+          ...configInicial,
+          empresa: {
+            logo: empresa.url_imagen ?? null,
+            nombre: empresa.nombre ?? "",
+            rut: empresa.rut ?? "",
+            emails: empresa.emails ?? [],
+            telefonos: empresa.telefonos ?? [],
+            region: empresa.region ?? "",
+            comuna: empresa.comuna ?? "",
+            direccion: empresa.direccion ?? "",
+            descripcion: empresa.descripcion ?? "",
+          },
+        };
         setGuardado(datos);
         setConfig(datos);
       })
@@ -138,7 +151,7 @@ export default function Configuracion() {
       {hayCambios && (
         <div
           role="status"
-          className="sticky bottom-4 flex flex-wrap items-center justify-between gap-3 bg-card text-text border border-border rounded-xl px-5 py-3 shadow-lg"
+          className="sticky bottom-4 flex flex-wrap items-center justify-between gap-3 bg-card text-text border-2 border-gold ring-2 ring-gold/30 rounded-xl px-5 py-3 shadow-[0_0_22px_rgba(212,175,55,0.35)]"
         >
           <span className="text-sm">
             {hayErrores ? "Corrige los datos de la empresa antes de guardar" : "Tienes cambios sin guardar"}

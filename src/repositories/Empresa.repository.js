@@ -23,6 +23,8 @@ export async function findByIdEmpresa(id_empresa, db = pool) {
             e.direccion,
             e.descripcion,
             e.url_imagen,
+            c.nombre AS comuna,
+            r.nombre AS region,
             COALESCE(
                 (SELECT array_agg(ee.email ORDER BY ee.email)
                  FROM empresa_email ee
@@ -36,6 +38,8 @@ export async function findByIdEmpresa(id_empresa, db = pool) {
                 '{}'
             ) AS telefonos
          FROM empresa e
+         LEFT JOIN comuna c ON c.id_comuna = e.id_comuna
+         LEFT JOIN region r ON r.id_region = c.id_region
          WHERE e.id_empresa = $1
            AND e.deleted_at IS NULL`,
         [id_empresa],
