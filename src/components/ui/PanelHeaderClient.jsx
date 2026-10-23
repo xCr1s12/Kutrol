@@ -29,7 +29,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
     try {
       await logout();
       setIsOpen(false);
-      router.replace("/login");
+      router.replace("/");
     } catch (error) {
       setLogoutError(
         error instanceof Error ? error.message : "No se pudo cerrar sesión.",
@@ -58,7 +58,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
         <button
           type="button"
           onClick={toggleDarkMode}
-          className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+          className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:bg-border/50 hover:text-text"
           aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
           aria-pressed={darkMode}
         >
