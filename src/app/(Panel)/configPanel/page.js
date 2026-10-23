@@ -9,6 +9,7 @@ import AlertasNotificaciones from "@/components/configuracion/AlertasNotificacio
 import VistaEmpresa from "@/components/configuracion/VistaEmpresa";
 import FormularioEmpresa from "@/components/configuracion/FormularioEmpresa";
 import { validarEmpresa } from "@/components/configuracion/validarEmpresa";
+import { useToast } from "@/components/ui/Toasts";
 
 // datos de prueba, despues se reemplazan por los del backend
 const configInicial = {
@@ -49,6 +50,7 @@ export default function Configuracion() {
   const [guardado, setGuardado] = useState(configInicial);
   const [config, setConfig] = useState(configInicial);
   const [editandoEmpresa, setEditandoEmpresa] = useState(false);
+  const { mostrar } = useToast();
 
   useEffect(() => {
     fetch("/api/data/empresa")
@@ -87,6 +89,7 @@ export default function Configuracion() {
   function cerrarFormulario() {
     setConfig({ ...config, empresa: guardado.empresa });
     setEditandoEmpresa(false);
+    mostrar("Cambios guardados", "exito");
   }
 
   return (
