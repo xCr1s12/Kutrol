@@ -11,11 +11,15 @@ import {
   obtenerComunas,
   obtenerRegiones,
 } from "@/services/client/ubicacion.service";
+import { formatearRut, validateRut } from "@/lib/validateRut";
+import MultiField from "@/components/ui/MultiField";
+import CampoTelefono from "@/components/ui/CampoTelefono";
 
-const INPUT_CLASS =
-  "h-11 w-full rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
+const CAMPO_BASE =
+  "h-11 rounded-[10px] border border-icon bg-background px-3.5 text-sm text-text placeholder:text-subtext/60 outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/40";
+const INPUT_CLASS = `w-full ${CAMPO_BASE}`;
 
-function SelectField({ label, id, value, onChange, options, placeholder, disabled }) {
+function SelectField({ label, id, value, onChange, options, placeholder, disabled, error }) {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="text-xs font-medium text-subtext">
@@ -48,62 +52,48 @@ function SelectField({ label, id, value, onChange, options, placeholder, disable
           sx={{ fontSize: 20 }}
         />
       </div>
+      {error && <p className="text-xs text-accent-dark">{error}</p>}
     </div>
   );
 }
 
-function MultiField({ label, name, type, placeholder, addLabel, values, setValues }) {
-  const update = (i, v) => setValues(values.map((x, idx) => (idx === i ? v : x)));
-  const remove = (i) => setValues(values.filter((_, idx) => idx !== i));
+const VACIO = {
+  nombre: "",
+  rut: "",
+  direccion: "",
+  region: "",
+  comuna: "",
+  descripcion: "",
+  telefonos: [""],
+  emails: [""],
+  url_imagen: "",
+};
 
-  return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={`${name}-0`} className="text-xs font-medium text-subtext">
-        {label}
-      </label>
-      {values.map((v, i) => (
-        <div key={i} className="relative">
-          <input
-            id={`${name}-${i}`}
-            name={name}
-            type={type}
-            required={i === 0}
-            value={v}
-            onChange={(e) => update(i, e.target.value)}
-            placeholder={placeholder}
-            className={`${INPUT_CLASS} ${i > 0 ? "pr-10" : ""}`}
-          />
-          {i > 0 && (
-            <button
-              type="button"
-              onClick={() => remove(i)}
-              aria-label={`Quitar ${label.toLowerCase()} ${i + 1}`}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-subtext hover:text-text"
-            >
-              ×
-            </button>
-          )}
-        </div>
-      ))}
-      <button
-        type="button"
-        onClick={() => setValues([...values, ""])}
-        className="self-start text-xs font-medium text-accent hover:underline"
-      >
-        {addLabel}
-      </button>
-    </div>
-  );
-}
+const CAMPOS = {
+  nombre: "companyName",
+  rut: "rut",
+  direccion: "address",
+  region: "region",
+  comuna: "comuna",
+  telefono: "telefono-0",
+  email: "emailEmpresa-0",
+};
 
 const FormEmpresa = ({
+  defaults = {},
+  onCambio,
   onBack,
   onSubmit,
   errors = {},
   submitting = false,
 }) => {
-  const [preview, setPreview] = useState(null);
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [valores, setValores] = useState(() => ({
+    ...VACIO,
+    ...defaults,
+    telefonos: defaults.telefonos?.length ? defaults.telefonos : [""],
+    emails: defaults.emails?.length ? defaults.emails : [""],
+  }));
+  const [preview, setPreview] = useState(defaults.url_imagen || null);
   const [uploadError, setUploadError] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
   const [regiones, setRegiones] = useState([]);
@@ -111,10 +101,9 @@ const FormEmpresa = ({
   const [locationError, setLocationError] = useState("");
   const [loadingRegiones, setLoadingRegiones] = useState(true);
   const [loadingComunas, setLoadingComunas] = useState(false);
-  const [region, setRegion] = useState("");
-  const [comuna, setComuna] = useState("");
-  const [telefonos, setTelefonos] = useState([""]);
-  const [emails, setEmails] = useState([""]);
+
+  const region = valores.region;
+  const comuna = valores.comuna;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -132,18 +121,9 @@ const FormEmpresa = ({
   }, []);
 
   useEffect(() => {
-    if (!region) {
-      setComunas([]);
-      setComuna("");
-      setLoadingComunas(false);
-      return;
-    }
+    if (!region) return;
 
     const controller = new AbortController();
-    setComunas([]);
-    setComuna("");
-    setLocationError("");
-    setLoadingComunas(true);
 
     obtenerComunas(region, controller.signal)
       .then(setComunas)
@@ -157,43 +137,82 @@ const FormEmpresa = ({
     return () => controller.abort();
   }, [region]);
 
-  const handleImage = async (e) => {
-    const file = e.target.files?.[0];
+  useEffect(() => {
+    const primero = Object.keys(errors).find((campo) => CAMPOS[campo]);
+    if (primero) document.getElementById(CAMPOS[primero])?.focus();
+  }, [errors]);
+
+  function poner(campo, valor) {
+    const nuevo = { ...valores, [campo]: valor };
+    setValores(nuevo);
+    onCambio?.(nuevo);
+  }
+
+  function elegirRegion(event) {
+    const siguienteRegion = event.target.value;
+    const nuevo = { ...valores, region: siguienteRegion, comuna: "" };
+    setValores(nuevo);
+    onCambio?.(nuevo);
+    setComunas([]);
+    if (siguienteRegion) setLocationError("");
+    setLoadingComunas(Boolean(siguienteRegion));
+  }
+
+  function actualizarTelefonos(lista) {
+    const nuevo = { ...valores, telefonos: lista };
+    setValores(nuevo);
+    onCambio?.(nuevo);
+  }
+
+  function cambiarTelefono(indice, valor) {
+    actualizarTelefonos(
+      valores.telefonos.map((t, i) => (i === indice ? valor : t)),
+    );
+  }
+
+  function quitarTelefono(indice) {
+    actualizarTelefonos(
+      valores.telefonos.filter((_, posicion) => posicion !== indice),
+    );
+  }
+
+  async function handleImage(event) {
+    const file = event.target.files?.[0];
     if (!file) return;
 
     setPreview(URL.createObjectURL(file));
-    setUploadedImage(null);
     setUploadError("");
     setUploadingImage(true);
 
     try {
       const image = await subirImagenAPI(file);
-      setUploadedImage(image);
+      poner("url_imagen", image.url || "");
+      setPreview(image.url || null);
     } catch (error) {
       setUploadError(error.message);
-      setPreview(null);
+      setPreview(defaults.url_imagen || null);
     } finally {
       setUploadingImage(false);
     }
-  };
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
+  function enviar(event) {
+    event.preventDefault();
     onSubmit?.({
-      nombre: String(data.get("companyName") || ""),
-      rut: String(data.get("rut") || ""),
-      direccion: String(data.get("address") || ""),
-      id_comuna: Number(comuna),
-      url_imagen: uploadedImage?.url || "",
-      telefonos: telefonos.map((t) => t.trim()).filter(Boolean),
-      emails: emails.map((m) => m.trim()).filter(Boolean),
+      ...valores,
+      id_comuna: Number(valores.comuna),
+      telefonos: valores.telefonos.filter(Boolean),
+      emails: valores.emails.map((m) => m.trim()).filter(Boolean),
     });
-  };
+  }
+
+  const errorRut = valores.rut ? validateRut(valores.rut) : "";
+  const pistaRut = !valores.rut
+    ? "Puede ser el RUT de la empresa o uno personal"
+    : errorRut || "RUT válido";
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-[18px] my-4">
-      {/* Imagen + Nombre / RUT */}
+    <form noValidate onSubmit={enviar} className="flex flex-col gap-[18px] my-4">
       <div className="flex flex-col sm:flex-row gap-5">
         <div className="flex flex-col gap-2">
           <span className="text-xs font-medium text-subtext">Imagen</span>
@@ -242,13 +261,19 @@ const FormEmpresa = ({
             id="companyName"
             required
             placeholder="Transportes Kutrol SpA"
+            value={valores.nombre}
+            onChange={(event) => poner("nombre", event.target.value)}
+            error={errors.nombre}
           />
           <FormField
             label="RUT"
             id="rut"
             required
-            placeholder="76.123.456-0"
+            placeholder="12.345.678-5"
+            hint={pistaRut}
             error={errors.rut}
+            value={valores.rut}
+            onChange={(event) => poner("rut", formatearRut(event.target.value))}
           />
         </div>
       </div>
@@ -258,6 +283,20 @@ const FormEmpresa = ({
         id="address"
         required
         placeholder="Av. Principal 1234, Of. 5"
+        value={valores.direccion}
+        onChange={(event) => poner("direccion", event.target.value)}
+        error={errors.direccion}
+      />
+
+      <FormField
+        label="Descripción de la empresa (opcional)"
+        id="descripcion"
+        type="textarea"
+        rows={3}
+        maxLength={255}
+        placeholder="A qué se dedica la empresa"
+        value={valores.descripcion ?? ""}
+        onChange={(event) => poner("descripcion", event.target.value)}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -265,21 +304,21 @@ const FormEmpresa = ({
           label="Región"
           id="region"
           value={region}
-          onChange={(e) => {
-            setRegion(e.target.value);
-          }}
+          onChange={elegirRegion}
           options={regiones}
           placeholder="Selecciona una región"
           disabled={loadingRegiones}
+          error={errors.region}
         />
         <SelectField
           label="Comuna"
           id="comuna"
           value={comuna}
-          onChange={(e) => setComuna(e.target.value)}
+          onChange={(event) => poner("comuna", event.target.value)}
           options={comunas}
           placeholder={loadingComunas ? "Cargando comunas..." : "Selecciona una comuna"}
           disabled={!region || loadingComunas}
+          error={errors.comuna}
         />
       </div>
       {locationError && (
@@ -289,31 +328,67 @@ const FormEmpresa = ({
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <MultiField
-          label="Teléfonos"
-          name="telefono"
-          type="tel"
-          placeholder="+56 9 1234 5678"
-          addLabel="+ Agregar otro teléfono"
-          values={telefonos}
-          setValues={setTelefonos}
-        />
-        <MultiField
-          label="Emails"
-          name="emailEmpresa"
-          type="email"
-          placeholder="contacto@empresa.cl"
-          addLabel="+ Agregar otro email"
-          values={emails}
-          setValues={setEmails}
-        />
+        <div className="flex min-w-0 flex-col gap-3">
+          <span className="text-xs font-medium text-subtext">Teléfono</span>
+
+          {valores.telefonos.map((telefono, indice) => (
+            <div key={indice} className="flex items-stretch gap-2">
+              <div className="min-w-0 flex-1">
+                <CampoTelefono
+                  valor={telefono}
+                  indice={indice}
+                  onChange={(nuevo) => cambiarTelefono(indice, nuevo)}
+                  error={indice === 0 ? errors.telefonos : ""}
+                />
+              </div>
+              {indice > 0 && (
+                <button
+                  type="button"
+                  onClick={() => quitarTelefono(indice)}
+                  aria-label={`Quitar teléfono ${indice + 1}`}
+                  className="shrink-0 px-2 text-subtext hover:text-text"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          ))}
+
+          <p className="text-xs text-subtext">
+            Elige el país de cada número. Puedes pegar el número completo.
+          </p>
+
+          {errors.telefonos && (
+            <p className="text-xs text-accent-dark">{errors.telefonos}</p>
+          )}
+
+          <button
+            type="button"
+            onClick={() => actualizarTelefonos([...valores.telefonos, ""])}
+            className="self-start text-xs font-medium text-accent hover:underline"
+          >
+            + Agregar otro teléfono
+          </button>
+        </div>
+
+        <div className="min-w-0">
+          <MultiField
+            label="Emails"
+            name="emailEmpresa"
+            type="email"
+            placeholder="contacto@empresa.cl"
+            addLabel="+ Agregar otro email"
+            values={valores.emails}
+            setValues={(emails) => poner("emails", emails)}
+            error={errors.emails}
+          />
+        </div>
       </div>
 
-      {/* Acciones */}
       <div className="mt-2 flex items-center gap-3">
         <button
           type="button"
-          onClick={onBack}
+          onClick={() => onBack?.(valores)}
           disabled={submitting}
           className="flex items-center gap-2 rounded-[10px] border border-border px-6 py-3 text-[15px] text-text transition-colors hover:bg-border focus-visible:outline-2 focus-visible:outline-accent"
         >
