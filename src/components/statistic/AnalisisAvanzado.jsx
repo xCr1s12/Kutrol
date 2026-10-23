@@ -134,7 +134,6 @@ export default function AnalisisAvanzado({ data }) {
           </div>
         </div>
 
-        {/* 3. Panel de Diagnóstico */}
         <div className="bg-card text-text flex flex-col justify-between rounded-xl border border-border p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div>
             <h2 className="text-text mb-1 text-lg font-bold">

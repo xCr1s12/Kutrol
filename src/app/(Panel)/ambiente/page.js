@@ -19,7 +19,6 @@ export default async function AmbientePage() {
       id="ambiente-resumen"
       className="flex flex-col w-full bg-cloud dark:bg-background p-6 min-h-screen"
     >
-      {/* Encabezado del panel */}
       <header id="ambiente-encabezado" className="mb-6">
         <h1 id="ambiente-titulo" className="text-ink dark:text-text text-2xl font-bold">
           Ambiente y Sostenibilidad de {empresa?.nombre}
@@ -33,7 +32,6 @@ export default async function AmbientePage() {
         </span>
       </header>
 
-      {/* Tarjetas KPI de Métricas Ambientales */}
       <section
         id="ambiente-metricas-kpi"
         aria-label="Métricas de sostenibilidad"
@@ -42,7 +40,6 @@ export default async function AmbientePage() {
         <MetricasAmbiente />
       </section>
 
-      {/* Mapas de Calor de Emisiones y Sección de Impacto Ecológico */}
       <div
         id="ambiente-estadisticas"
         className="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-4"
@@ -89,7 +86,6 @@ export default async function AmbientePage() {
         </section>
       </div>
 
-      {/* Alertas */}
       <section id="ambiente-alertas" className="mt-6" aria-label="Sección de alertas">
         <AlertsSection />
       </section>

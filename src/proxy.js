@@ -27,7 +27,6 @@ export async function proxy(request) {
 
   const next = () => NextResponse.next({ request: { headers: requestHeaders } });
 
-  // ---- API ----
   if (pathname.startsWith("/api/")) {
     const esSubidaPublica = pathname === "/api/upload" && request.method === "POST";
     const esPublica =
@@ -115,7 +114,6 @@ export async function proxy(request) {
     return next();
   }
 
-  // ---- Páginas ----
   const esAuth = pathname === "/login" || pathname === "/register";
 
   if (!session && !esAuth) {
