@@ -3,8 +3,7 @@ import {
 } from "@mui/icons-material";
 import { tarjeta, botonAmarillo } from "./comun";
 
-// iconos chicos de los campos, en amarillo oscuro para que se lean sobre blanco
-export const icono = { sx: { fontSize: 18 }, className: "text-accent", "aria-hidden": "true" };
+export const icono = { sx: { fontSize: 18 }, className: "text-icon", "aria-hidden": "true" };
 
 // marco verde con borde amarillo, como las tarjetas de la pagina de inicio
 export function LogoEmpresa({ logo }) {

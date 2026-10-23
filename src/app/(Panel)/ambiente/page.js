@@ -55,14 +55,13 @@ export default async function AmbientePage() {
           <MapaCalorAmbiente />
         </section>
 
-        {/* Card resumen de Impacto Ecológico */}
         <section
           id="ambiente-impacto-card"
           className="w-full h-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] dark:border-0 border border-linen flex flex-col justify-between dark:bg-card"
         >
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <PublicRoundedIcon className="text-graphite dark:text-accent" />
+              <PublicRoundedIcon className="text-icon" />
               <h2 className="text-ink font-bold text-lg dark:text-text">
                 Impacto Ecológico
               </h2>
