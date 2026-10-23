@@ -100,11 +100,11 @@ export default function AnalisisAvanzado({ data }) {
           </div>
 
           <div className="bg-background rounded-lg border border-border p-4">
-            <div className="text-subtext mb-3 flex items-center justify-between border-b border-border pb-2 text-xs font-bold">
+            <div className="text-subtext mb-3 grid grid-cols-[29fr_25fr_29fr_17fr] items-center gap-3 border-b border-border pb-2 text-xs font-bold">
               <span>Vehículo / Patente</span>
               <span>{filtroMétrica === "velocidad" ? "Velocidad Promedio" : "Carga Transportada"}</span>
               <span>Rendimiento Real</span>
-              <span>Impacto Relativo</span>
+              <span className="whitespace-nowrap text-right">Impacto Relativo</span>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -115,13 +115,13 @@ export default function AnalisisAvanzado({ data }) {
                 return (
                   <div
                     key={idx}
-                    className="bg-card text-text flex items-center justify-between rounded-md border border-border p-3 text-xs"
+                    className="bg-card text-text grid grid-cols-[29fr_25fr_29fr_17fr] items-center gap-3 rounded-md border border-border p-3 text-xs"
                   >
                     <span className="text-text font-bold">{item.camion}</span>
                     <span className="text-subtext font-medium">{valorVariable}</span>
                     <span className="text-text font-semibold">{item.rendimiento} Km/L</span>
                     <span
-                      className={`px-2.5 py-1 rounded text-[11px] font-bold ${
+                      className={`justify-self-end whitespace-nowrap px-2.5 py-1 rounded text-[11px] font-bold ${
                         esIneficiente ? "bg-accent text-background" : "bg-brand text-white"
                       }`}
                     >
