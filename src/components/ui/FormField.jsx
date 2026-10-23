@@ -24,7 +24,7 @@ export default function FormField({
           {label}
         </label>
         {children}
-        {hint && (
+        {hint && !error && (
           <p id={`${id}-hint`} className="text-xs text-subtext">
             {hint}
           </p>
@@ -63,7 +63,7 @@ export default function FormField({
         {...inputProps}
         {...props}
       />
-      {hint && (
+      {hint && !error && (
         <p id={`${id}-hint`} className="text-xs text-subtext">
           {hint}
         </p>

@@ -12,6 +12,7 @@ export default function MultiField({
   values,
   setValues,
   error,
+  hint,
   campo,
 }) {
   const actualizar = (indice, valor) =>
@@ -49,6 +50,7 @@ export default function MultiField({
           )}
         </div>
       ))}
+      {hint && !error && <p className="text-xs text-accent">{hint}</p>}
       {error && <p className="text-xs text-accent-dark">{error}</p>}
       <button
         type="button"

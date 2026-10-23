@@ -143,6 +143,14 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
     repeatPassword: defaults.repeatPassword ?? defaults.password ?? "",
   }));
 
+  const nombreOk = (valores.primer_nombre ?? "").trim().length >= 2;
+  const apellidosOk = (valores.apellidos ?? "").trim().length >= 2;
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((valores.email ?? "").trim());
+  const cargoOk =
+    valores.cargo === "Otro"
+      ? (valores.cargoOtro ?? "").trim().length >= 2
+      : Boolean(valores.cargo);
+
   useEffect(() => {
     const primero = Object.keys(errors).find((campo) => CAMPOS[campo]);
     if (primero) document.getElementById(CAMPOS[primero])?.focus();
@@ -180,6 +188,7 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
             placeholder="Juan"
             value={valores.primer_nombre}
             onChange={cambiar("primer_nombre")}
+            hint={nombreOk ? "✓ Nombre válido" : undefined}
             error={errors.primer_nombre}
             autoComplete="given-name"
           />
@@ -190,6 +199,7 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
             placeholder="Pérez González"
             value={valores.apellidos}
             onChange={cambiar("apellidos")}
+            hint={apellidosOk ? "✓ Apellidos válidos" : undefined}
             error={errors.apellidos}
             autoComplete="family-name"
           />
@@ -203,12 +213,13 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
           placeholder="juan.perez@correo.cl"
           value={valores.email}
           onChange={cambiar("email")}
+          hint={emailOk ? "✓ Email válido" : undefined}
           error={errors.email}
           autoComplete="email"
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <FormField label="Cargo" id="position" required error={errors.cargo}>
+          <FormField label="Cargo" id="position" required error={errors.cargo} hint={cargoOk ? "✓ Cargo listo" : undefined}>
             <div className="relative">
               <select
                 id="position"

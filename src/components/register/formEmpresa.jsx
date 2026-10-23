@@ -12,6 +12,7 @@ import {
   obtenerRegiones,
 } from "@/services/client/ubicacion.service";
 import { formatearRut, validateRut } from "@/lib/validateRut";
+import { validarEmpresa } from "@/lib/validarEmpresa";
 import MultiField from "@/components/ui/MultiField";
 import CampoTelefono from "@/components/ui/CampoTelefono";
 
@@ -209,7 +210,13 @@ const FormEmpresa = ({
   const errorRut = valores.rut ? validateRut(valores.rut) : "";
   const pistaRut = !valores.rut
     ? "Puede ser el RUT de la empresa o uno personal"
-    : errorRut || "RUT válido";
+    : errorRut || "✓ RUT válido";
+
+  const enVivo = validarEmpresa(valores);
+  const nombreOk = !enVivo.nombre;
+  const direccionOk = !enVivo.direccion;
+  const correosOk = !enVivo.emails;
+  const telefonosOk = !enVivo.telefonos;
 
   return (
     <form noValidate onSubmit={enviar} className="flex flex-col gap-[18px] my-4">
@@ -263,6 +270,7 @@ const FormEmpresa = ({
             placeholder="Transportes Kutrol SpA"
             value={valores.nombre}
             onChange={(event) => poner("nombre", event.target.value)}
+            hint={nombreOk ? "✓ Nombre válido" : undefined}
             error={errors.nombre}
           />
           <FormField
@@ -285,6 +293,7 @@ const FormEmpresa = ({
         placeholder="Av. Principal 1234, Of. 5"
         value={valores.direccion}
         onChange={(event) => poner("direccion", event.target.value)}
+        hint={direccionOk ? "✓ Dirección válida" : undefined}
         error={errors.direccion}
       />
 
@@ -358,6 +367,10 @@ const FormEmpresa = ({
             Elige el país de cada número. Puedes pegar el número completo.
           </p>
 
+          {telefonosOk && (
+            <p className="text-xs text-accent">✓ Teléfonos válidos</p>
+          )}
+
           {errors.telefonos && (
             <p className="text-xs text-accent-dark">{errors.telefonos}</p>
           )}
@@ -378,6 +391,7 @@ const FormEmpresa = ({
             type="email"
             placeholder="contacto@empresa.cl"
             addLabel="+ Agregar otro email"
+            hint={correosOk ? "✓ Correos válidos" : undefined}
             values={valores.emails}
             setValues={(emails) => poner("emails", emails)}
             error={errors.emails}
