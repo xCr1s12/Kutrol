@@ -50,7 +50,7 @@ export default function Acerca_de() {
       <main>
       <section className="w-full h-full flex flex-col items-center justify-center py-24">
 
-        <h1 className="text-7xl text-text font-bold mb-5"> Equipo Kutrolín</h1>
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl text-text font-bold mb-5 text-center px-4"> Equipo Kutrolín</h1>
         <div className="relative w-full flex flex-row items-center mt-16 justify-center gap-6 sm:gap-10 mt-10 min-h-[450px]">
 
           <button
@@ -81,14 +81,14 @@ export default function Acerca_de() {
                   key={integrante.Nombre}
                   initial={{ opacity: 0, x: 150, scale: 0.9 }}
                   animate={{
-                    opacity: isMiddle ? 1 : 0.8,
+                    opacity: 1,
                     x: 0,
                     y: isMiddle ? -40 : 0,
                     scale: isMiddle ? 1.05 : 1
                   }}
                   exit={{ opacity: 0, x: -150, scale: 0.9 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="flex-shrink-0 origin-center"
+                  className={`flex-shrink-0 origin-center ${isMiddle ? "" : "max-sm:hidden"}`}
                   style={{ zIndex: isMiddle ? 20 : 10 }}
                 >
                   <CardKutrol

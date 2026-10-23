@@ -7,8 +7,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function CardKutrol({ Nombre, Rol, Imagen, Descripcion, ig, lk, git }) {
     return (
-        <div className="relative w-80 h-[480px] rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between p-4">
-            {/* imagen */}
+        <div className="relative w-full max-w-80 sm:max-w-none h-[480px] rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between p-4">
             <div className="absolute inset-0 z-0">
                 <Image 
                     src={Imagen} 
