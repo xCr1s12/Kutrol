@@ -87,10 +87,9 @@ export default function Configuracion() {
   }
 
   function guardarCambios() {
-    // aca va la llamada al backend para guardar
-    console.log(config);
     setGuardado(config);
     setEditandoEmpresa(false);
+    mostrar("Cambios guardados", "exito");
   }
 
   function cancelarCambios() {
@@ -102,7 +101,6 @@ export default function Configuracion() {
   function cerrarFormulario() {
     setConfig({ ...config, empresa: guardado.empresa });
     setEditandoEmpresa(false);
-    mostrar("Cambios guardados", "exito");
   }
 
   return (
@@ -124,7 +122,6 @@ export default function Configuracion() {
                 : "border-transparent text-subtext hover:text-text"
             }`}
           >
-            {/* la pestana abierta lleva el icono dorado */}
             <Icono fontSize="small" className={pestana === id ? "text-accent-dark" : "text-icon"} aria-hidden="true" />
             {nombre}
           </button>
