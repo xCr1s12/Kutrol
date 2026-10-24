@@ -14,7 +14,7 @@ import FormRoute from "@/components/route/FormRoute";
 const MapR = dynamic(() => import("@/components/route/map"), {
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center h-full min-h-[400px] text-white">
+    <div className="flex items-center justify-center h-full min-h-[400px] text-white font-sans">
       <p>Cargando mapa interactivo...</p>
     </div>
   ),
@@ -32,21 +32,21 @@ const RUTAS = [
       { conductor: "Marta Silva", encargado: "C. Vera" },
     ],
     combustible: { consumo: "8,5 L", rendimiento: "12 km/L", ahorro: "15 %" },
-    tiempoEstimado: "30 min",
-    distanciaTotal: "100 km",
+    tiempoEstimado: "1 h 10 min",
+    distanciaTotal: "87 km",
   },
   {
     id: "B",
     nombre: "Castro — Dalcahue",
-    coordenadas: [[-42.4816, -73.7644], [-42.38, -73.6492]],
+    coordenadas: [[-42.4816, -73.7644], [-42.3789, -73.6521]],
     viajes: [
       { conductor: "Pedro Núñez", encargado: "M. Soto" },
       { conductor: "Sofía Lagos", encargado: "C. Vera" },
       { conductor: "Diego Ortiz", encargado: "C. Vera" },
     ],
     combustible: { consumo: "6,2 L", rendimiento: "13,5 km/L", ahorro: "9 %" },
-    tiempoEstimado: "22 min",
-    distanciaTotal: "68 km",
+    tiempoEstimado: "20 min",
+    distanciaTotal: "20 km",
   },
   {
     id: "C",
@@ -61,8 +61,8 @@ const RUTAS = [
       { conductor: "Sofía Lagos", encargado: "C. Vera" },
     ],
     combustible: { consumo: "11,4 L", rendimiento: "9,8 km/L", ahorro: "5 %" },
-    tiempoEstimado: "48 min",
-    distanciaTotal: "142 km",
+    tiempoEstimado: "1 h 25 min",
+    distanciaTotal: "93 km",
   },
   {
     id: "D",
@@ -73,12 +73,12 @@ const RUTAS = [
       { conductor: "Marta Silva", encargado: "C. Vera" },
     ],
     combustible: { consumo: "9,1 L", rendimiento: "11 km/L", ahorro: "18 %" },
-    tiempoEstimado: "35 min",
-    distanciaTotal: "89 km",
+    tiempoEstimado: "25 min",
+    distanciaTotal: "24 km",
   },
 ];
 
-export default function Route() {
+export default function RoutePage() {
   const [asignado, setAsignado] = useState(null);
   const [rutas, setRutas] = useState(RUTAS);
   const [formRutaAbierto, setFormRutaAbierto] = useState(false);
@@ -100,13 +100,13 @@ export default function Route() {
   };
 
   return (
-    <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl" lang="es">
+    <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl font-sans" lang="es">
       {/* Lista de rutas y mapa */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch ">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch font-sans">
         {/* Lista de rutas: 1/3 */}
         <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-white dark:bg-background">
-          <h1 className="font-bold text-lg light:text-text dark:text-text">Lista de Rutas</h1>
-          <p className="text-sm light:text-subtext dark:text-subtext">
+          <h1 className="font-bold text-lg light:text-text dark:text-text font-sans">Lista de Rutas</h1>
+          <p className="text-sm light:text-subtext dark:text-subtext font-sans">
             Selecciona una para verla en el mapa
           </p>
           <Listitem
@@ -117,8 +117,8 @@ export default function Route() {
         </div>
 
         {/* Mapa: 2/3 */}
-        <div className="lg:col-span-2 min-w-0 flex flex-col rounded-2xl overflow-hidden bg-slate">
-          <h2 className="text-cream p-2">Mapa</h2>
+        <div className="lg:col-span-2 min-w-0 flex flex-col rounded-2xl overflow-hidden bg-slate font-sans">
+          <h2 className="text-cream p-2 font-sans font-bold">Mapa</h2>
 
           <div className="relative flex-1 min-h-[400px]">
             {asignado ? (
@@ -128,12 +128,12 @@ export default function Route() {
                   popupText={asignado.nombre}
                 />
               ) : (
-                <div className="flex items-center justify-center h-full min-h-[400px] px-6 text-center text-cream">
+                <div className="flex items-center justify-center h-full min-h-[400px] px-6 text-center text-cream font-sans">
                   <p>Esta ruta aún no tiene coordenadas para mostrar en el mapa.</p>
                 </div>
               )
             ) : (
-              <div className="flex items-center justify-center h-full min-h-[400px] text-cream">
+              <div className="flex items-center justify-center h-full min-h-[400px] text-cream font-sans">
                 <p>Selecciona una ruta en la lista para verla en el mapa</p>
               </div>
             )}
@@ -141,25 +141,25 @@ export default function Route() {
         </div>
       </section>
 
-      {/* Cards de información: una sola fila a todo el ancho */}
+      {/* Cards de información */}
       {asignado && (
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 px-6 pb-8 pt-2 w-full">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 px-6 pb-8 pt-2 w-full font-sans">
           {/* Viajes asignados */}
           <InfoCard
             title={`Viajes de la ruta ${asignado.id}`}
             icon={<GroupsIcon fontSize="small" />}
             className="min-w-0"
           >
-            <table className="w-full text-sm">
+            <table className="w-full text-sm font-sans">
               <thead>
-                <tr className="text-left text-xs uppercase tracking-wide  dark:text-subtext light:text-subtext">
+                <tr className="text-left text-xs uppercase tracking-wide dark:text-subtext light:text-subtext">
                   <th className="font-medium pb-2">Conductor</th>
                   <th className="font-medium pb-2">Encargado</th>
                 </tr>
               </thead>
               <tbody>
                 {asignado.viajes.map((v, i) => (
-                  <tr key={i} className="border-t  dark:border-border light:border-border">
+                  <tr key={i} className="border-t dark:border-border light:border-border">
                     <td className="py-2">
                       <div className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-7 h-7 rounded-full bg-sand text-xs font-semibold text-ink">
@@ -168,7 +168,7 @@ export default function Route() {
                             .map((n) => n[0])
                             .join("")}
                         </span>
-                        <span className="light:text-text dark:text-text ">{v.conductor}</span>
+                        <span className="light:text-text dark:text-text">{v.conductor}</span>
                       </div>
                     </td>
                     <td className="py-2 light:text-text dark:text-text">{v.encargado}</td>
@@ -184,7 +184,7 @@ export default function Route() {
             icon={<LocalGasStationIcon fontSize="small" />}
             className="min-w-0"
           >
-            <dl className="flex flex-col gap-3 text-sm">
+            <dl className="flex flex-col gap-3 text-sm font-sans">
               <div className="flex justify-between">
                 <dt className="light:text-text dark:text-text">Consumo promedio</dt>
                 <dd className="font-semibold light:text-text dark:text-text">
@@ -212,7 +212,7 @@ export default function Route() {
             icon={<AccessTimeIcon fontSize="small" />}
             className="min-w-0 text-center"
           >
-            <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="flex-1 flex flex-col items-center justify-center font-sans">
               <p className="text-4xl font-bold light:text-text dark:text-text">
                 {asignado.tiempoEstimado}
               </p>
@@ -226,7 +226,7 @@ export default function Route() {
             icon={<RouteIcon fontSize="small" />}
             className="min-w-0 text-center"
           >
-            <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="flex-1 flex flex-col items-center justify-center font-sans">
               <p className="text-4xl font-bold light:text-text dark:text-text">
                 {asignado.distanciaTotal}
               </p>
@@ -239,7 +239,7 @@ export default function Route() {
       <button
         type="button"
         onClick={() => setFormRutaAbierto(true)}
-        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-bold text-brand light:text-white shadow-lg transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-bold text-brand light:text-white shadow-lg transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand font-sans"
       >
         <AddRoundedIcon fontSize="small" aria-hidden="true" />
         Agregar ruta
