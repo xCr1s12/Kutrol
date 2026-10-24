@@ -96,6 +96,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
   const [cargandoOrigen, setCargandoOrigen] = useState(false);
   const [cargandoDestino, setCargandoDestino] = useState(false);
   const [errorUbicacion, setErrorUbicacion] = useState("");
+  const [errorDistancia, setErrorDistancia] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -178,10 +179,17 @@ export default function FormRoute({ open, onClose, onSubmit }) {
       return;
     }
 
+    const km = Number(distancia);
+    if (!Number.isFinite(km) || km <= 0) {
+      setErrorDistancia("Escribe una distancia mayor que 0");
+      return;
+    }
+    setErrorDistancia("");
+
     onSubmit({
       origen,
       destino,
-      distancia: Number(distancia),
+      distancia: km,
     });
   };
 
@@ -211,6 +219,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
       <form
         id="form-ruta"
         onSubmit={handleSubmit}
+        noValidate
         className="flex flex-col gap-5"
       >
         {cargandoRegiones ? (
@@ -243,7 +252,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
               onRegionChange={handleRegionDestinoChange}
               onComunaChange={setComunaDestino}
             />
-            <Campo label="Distancia (km)" id="distancia">
+            <Campo label="Distancia (km)" id="distancia" error={errorDistancia}>
               <input
                 id="distancia"
                 name="distancia"

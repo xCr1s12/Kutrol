@@ -9,12 +9,24 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
   const [correo, setCorreo] = useState(usuario?.correo ?? "");
   const [rol, setRol] = useState(usuario?.rol ?? "Usuario");
   const [foto, setFoto] = useState(usuario?.foto ?? null);
+  const [errores, setErrores] = useState({});
 
   const titulo = usuario ? "Editar usuario" : "Agregar usuario";
 
   function enviar(e) {
     e.preventDefault();
-    onGuardar({ nombre, correo, rol, foto });
+
+    const encontrados = {};
+    if (nombre.trim().length < 2) {
+      encontrados.nombre = "Escribe el nombre del usuario";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo.trim())) {
+      encontrados.correo = "Revisa el correo";
+    }
+    setErrores(encontrados);
+    if (Object.keys(encontrados).length) return;
+
+    onGuardar({ nombre: nombre.trim(), correo: correo.trim(), rol, foto });
   }
 
   return (
@@ -29,6 +41,7 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
         className="w-full max-w-sm bg-card text-text border border-border rounded-xl p-6"
         onClick={(e) => e.stopPropagation()}
         onSubmit={enviar}
+        noValidate
       >
         <h2 className="text-text text-lg font-bold mb-4">{titulo}</h2>
 
@@ -40,6 +53,7 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
               placeholder="Jhon doe"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
+              error={errores.nombre}
               required
             />
             <Campo
@@ -48,6 +62,7 @@ export default function ModalUsuario({ usuario, onCerrar, onGuardar }) {
               placeholder="Jhondoe@gmail.com"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
+              error={errores.correo}
               required
             />
             <Campo titulo="Rol">
