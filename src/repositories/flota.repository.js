@@ -28,6 +28,16 @@ export async function createFlota(
 }
 
 
+export async function getTiposFlota(db = pool) {
+    const { rows } = await db.query(
+        `SELECT id_tipo_flota, nombre
+         FROM tipo_flota
+         ORDER BY id_tipo_flota`
+    );
+    return rows;
+}
+
+
 export async function dataFlota(flota_id, db=pool) {
     const { rows } = await db.query(
         `SELECT *

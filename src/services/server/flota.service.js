@@ -1,23 +1,26 @@
 import "server-only";
 import * as flotaRepo from "@/repositories/flota.repository";
 import { FlotaPostSchema } from "@/schema/flota.schema";
-
-const CAMPOS_OBLIGATORIOS = ["id_empresa", "id_tipo_flota", "nombre"];
+import { fromZodError } from "@/utils/errors";
 
 export async function listarFlotas(id_empresa) {
     return flotaRepo.getFlotasByEmpresa(id_empresa);
 }
 
 
-export async function crearFlota(data) {
+export async function crearFlota(data, db) {
     const parsed = FlotaPostSchema.safeParse(data);
 
     if (!parsed.success) {
-        const errores = z.flattenError(parsed.error).fieldErrors;
-        throw new ValidationError(errores);
+        throw fromZodError(parsed.error);
     }
 
-    return flotaRepo.createFlota(parsed.data);
+    return flotaRepo.createFlota(parsed.data, db);
+}
+
+
+export async function listarTiposFlota(db) {
+    return flotaRepo.getTiposFlota(db);
 }
 
 

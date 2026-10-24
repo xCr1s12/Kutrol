@@ -50,6 +50,7 @@ const UNIQUE_MESSAGES = [
   ["usuario", "El nombre de usuario ya existe"],
   ["patente", "La patente ya está en uso por otro camión"],
   ["dispositivo", "Ese dispositivo ya está asignado"],
+  ["flota", "Ya tienes una flota con ese nombre"],
 ];
 
 export function toConflictError(error) {

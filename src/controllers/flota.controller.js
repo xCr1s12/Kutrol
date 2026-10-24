@@ -53,3 +53,36 @@ export async function getFlotaByID(request) {
         return NextResponse.json(body, { status });
     }
 }
+
+export async function crearFlotaController(request) {
+    try {
+        const session = await getSession();
+        if (!session?.id_empresa) {
+            return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+        }
+        const body = await request.json();
+        // la empresa siempre viene de la sesión, nunca del cuerpo
+        const flota = await flotaService.crearFlota({
+            ...body,
+            id_empresa: session.id_empresa,
+        });
+        return NextResponse.json(flota, { status: 201 });
+    } catch (err) {
+        const { body, status } = toErrorResponse(err);
+        return NextResponse.json(body, { status });
+    }
+}
+
+export async function getTiposFlotaController() {
+    try {
+        const session = await getSession();
+        if (!session?.id_empresa) {
+            return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+        }
+        const tipos = await flotaService.listarTiposFlota();
+        return NextResponse.json(tipos, { status: 200 });
+    } catch (err) {
+        const { body, status } = toErrorResponse(err);
+        return NextResponse.json(body, { status });
+    }
+}
