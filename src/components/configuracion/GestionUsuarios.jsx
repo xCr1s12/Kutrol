@@ -42,7 +42,7 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
         </button>
       </div>
 
-      <div className="flex items-center gap-2 w-full max-w-56 border border-border bg-background rounded-md px-2 py-1 mb-3">
+      <div className="flex items-center gap-2 w-full max-w-56 border border-border bg-background rounded-md px-2 py-1 mb-4">
         <SearchRounded className="text-icon" fontSize="small" aria-hidden="true" />
         <input
           type="search"
@@ -54,39 +54,40 @@ export default function GestionUsuarios({ usuarios, cambiar }) {
         />
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs text-left text-text">
+      {/* Contenedor de la tabla con borde general */}
+      <div className="overflow-x-auto rounded-lg border border-border/60 bg-background/50">
+        <table className="w-full text-xs text-left text-text border-collapse">
           <thead>
-            <tr className="bg-background text-subtext">
+            <tr className="bg-background border-b border-border/60 text-subtext">
               {["Usuario", "Correo electrónico", "Rol"].map((t) => (
-                <th key={t} className="px-4 py-2 font-semibold">{t}</th>
+                <th key={t} className="px-4 py-3 font-semibold">{t}</th>
               ))}
-              <th className="px-4 py-2 font-semibold text-right">Acciones</th>
+              <th className="px-4 py-3 font-semibold text-right">Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-border/60">
             {usuariosFiltrados.map((u) => (
-              <tr key={u.id} className="border-b border-border last:border-b-0">
-                <td className="px-4 py-2">
+              <tr key={u.id} className="hover:bg-background/80 transition-colors">
+                <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     {u.foto ? (
-                      <img src={u.foto} alt="" className="w-7 h-7 rounded-full object-cover" />
+                      <img src={u.foto} alt="" className="w-7 h-7 rounded-full object-cover border border-border/40" />
                     ) : (
                       <span
-                        className="w-7 h-7 rounded-full bg-accent/20 ring-2 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
+                        className="w-7 h-7 rounded-full bg-accent/20 ring-1 ring-accent/40 flex items-center justify-center text-[10px] font-bold text-text"
                         aria-hidden="true"
                       >
                         {iniciales(u.nombre)}
                       </span>
                     )}
-                    <span className="font-medium">{u.nombre}</span>
+                    <span className="font-medium text-text">{u.nombre}</span>
                   </div>
                 </td>
-                <td className="px-4 py-2">{u.correo}</td>
-                <td className="px-4 py-2">
-                  <span className={`px-2 py-0.5 rounded-full font-medium ${coloresRol}`}>{u.rol}</span>
+                <td className="px-4 py-3 text-subtext">{u.correo}</td>
+                <td className="px-4 py-3">
+                  <span className={`px-2.5 py-1 rounded-full font-medium text-[11px] ${coloresRol}`}>{u.rol}</span>
                 </td>
-                <td className="px-4 py-2">
+                <td className="px-4 py-3">
                   <div className="flex justify-end gap-2">
                     <button className={botonIcono} aria-label={`Editar a ${u.nombre}`} onClick={() => setModal(u)}>
                       <EditRounded className="text-icon" sx={{ fontSize: 18 }} aria-hidden="true" />

@@ -4,20 +4,22 @@ import { Lista } from "./Controles";
 
 const emisiones = [500, 1000, 1500, 2000];
 
-// fila con icono, titulo y los selects que van como children
+// Fila con icono, título, descripción y controles en una tarjeta delimitada
 function Parametro({ Icono, titulo, texto, children }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-border last:border-b-0 last:pb-0">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-border/60 bg-background/50 transition-colors hover:border-border">
       <div className="flex items-center gap-3">
-        <span className="w-12 h-12 shrink-0 rounded-full bg-brand light:bg-linen flex items-center justify-center">
-          <Icono className="text-gold light:text-icon" sx={{ fontSize: 26 }} aria-hidden="true" />
+        <span className="w-10 h-10 shrink-0 rounded-lg bg-accent/20 border border-accent/30 flex items-center justify-center">
+          <Icono className="text-text" sx={{ fontSize: 22 }} aria-hidden="true" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-text">{titulo}</p>
+          <p className="text-sm font-bold text-text">{titulo}</p>
           <p className="text-xs text-subtext">{texto}</p>
         </div>
       </div>
-      {children}
+      <div className="flex items-center gap-2 self-end sm:self-auto">
+        {children}
+      </div>
     </div>
   );
 }
@@ -25,17 +27,19 @@ function Parametro({ Icono, titulo, texto, children }) {
 export default function ParametrosOperativos({ config, cambiar }) {
   return (
     <section className={tarjeta} aria-label="Parámetros operativos">
-      <h2 className={titulo}>Parámetros operativos</h2>
-      <p className="text-sm text-subtext mb-2">
-        Define los valores base para calcular desvíos de combustible y metas de huella de carbono.
-      </p>
+      <div className="mb-5">
+        <h2 className={titulo}>Parámetros operativos</h2>
+        <p className="text-xs text-subtext mt-1">
+          Define los valores base para calcular desvíos de combustible y metas de huella de carbono.
+        </p>
+      </div>
 
-      <Parametro
-        Icono={LocalGasStationRounded}
-        titulo="Rendimiento esperado"
-        texto="Rendimiento que debería tener la flota"
-      >
-        <div className="flex gap-2">
+      <div className="flex flex-col gap-3">
+        <Parametro
+          Icono={LocalGasStationRounded}
+          titulo="Rendimiento esperado"
+          texto="Rendimiento que debería tener la flota"
+        >
           <Lista
             opciones={valores}
             aria-label="Rendimiento esperado"
@@ -48,17 +52,21 @@ export default function ParametrosOperativos({ config, cambiar }) {
             value={config.unidadRendimiento}
             onChange={(e) => cambiar("unidadRendimiento", e.target.value)}
           />
-        </div>
-      </Parametro>
+        </Parametro>
 
-      <Parametro Icono={NatureRounded} titulo="Emisiones esperadas" texto="Meta de emisiones de la flota">
-        <Lista
-          opciones={emisiones}
-          aria-label="Emisiones esperadas"
-          value={config.emisiones}
-          onChange={(e) => cambiar("emisiones", Number(e.target.value))}
-        />
-      </Parametro>
+        <Parametro
+          Icono={NatureRounded}
+          titulo="Emisiones esperadas"
+          texto="Meta de emisiones de la flota"
+        >
+          <Lista
+            opciones={emisiones}
+            aria-label="Emisiones esperadas"
+            value={config.emisiones}
+            onChange={(e) => cambiar("emisiones", Number(e.target.value))}
+          />
+        </Parametro>
+      </div>
     </section>
   );
 }
