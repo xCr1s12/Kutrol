@@ -5,18 +5,23 @@ import { useState, useEffect } from "react";
 export default function ConsumoChart() {
   const [data, setData] = useState([]);
   const [periodo, setPeriodo] = useState("semanal"); // "semanal" | "mensual" | "anual"
-  const [loading, setLoading] = useState(true);
+  const [periodoCargado, setPeriodoCargado] = useState(null);
   const [error, setError] = useState(null);
   const [hovered, setHovered] = useState(null);
 
+  const loading = periodoCargado !== periodo;
+
   useEffect(() => {
-    setLoading(true);
+    let vigente = true;
+
     fetch(`/api/consumo?periodo=${periodo}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al consultar datos");
         return res.json();
       })
       .then((rows) => {
+        if (!vigente) return;
+
         const datosProcesados = rows.map((row) => {
           const litros = Number(row.cantidad_combustible || 0);
           return {
@@ -27,12 +32,18 @@ export default function ConsumoChart() {
         });
 
         setData(datosProcesados);
-        setLoading(false);
+        setPeriodoCargado(periodo);
       })
       .catch((err) => {
+        if (!vigente) return;
+
         setError(err.message);
-        setLoading(false);
+        setPeriodoCargado(periodo);
       });
+
+    return () => {
+      vigente = false;
+    };
   }, [periodo]);
 
   // Límites SVG
@@ -56,8 +67,7 @@ export default function ConsumoChart() {
   );
 
   return (
-    <div className="bg-card text-text flex w-full flex-col gap-4 rounded-xl border border-border p-6 font-sans shadow-[0px_4px_10px_rgba(0,0,0,0.04)]">
-      {/* Cabecera con Selector de Rango */}
+    <div className="bg-card text-text flex w-full flex-col gap-4 rounded-xl border border-border p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.04)]">
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
         <div>
           <h2 className="text-text text-lg font-bold leading-tight">Consumo y Eficiencia</h2>
@@ -76,7 +86,6 @@ export default function ConsumoChart() {
             </span>
           </div>
 
-          {/* Botones de Filtro por Rango */}
           <div className="bg-background text-subtext flex rounded-full border border-border p-1 text-xs font-medium">
             {["semanal", "mensual", "anual"].map((p) => (
               <button
@@ -93,7 +102,6 @@ export default function ConsumoChart() {
         </div>
       </div>
 
-      {/* Ámbito del Gráfico */}
       {loading ? (
         <div className="text-subtext flex h-64 w-full items-center justify-center text-xs">
           Cargando periodo {periodo}...
@@ -121,7 +129,6 @@ export default function ConsumoChart() {
               );
             })}
 
-            {/* Barras dinámicas según el ancho del lote de datos */}
             {points.map((pt, i) => {
               const barWidth = periodo === "anual" ? 12 : periodo === "mensual" ? 22 : 18;
               return (

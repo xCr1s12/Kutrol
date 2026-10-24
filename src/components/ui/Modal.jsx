@@ -67,7 +67,6 @@ const Modal = ({
     >
       {open && (
         <div className="flex max-h-[90vh] flex-col">
-          {/* ---------- Cabecera oscura ---------- */}
           <header className="flex items-center justify-between gap-4 border-b-2 border-gold bg-brand px-6 py-5">
             <div className="flex items-center gap-4">
               {icon && (
@@ -100,7 +99,6 @@ const Modal = ({
             </button>
           </header>
 
-          {/* ---------- Cuerpo ---------- */}
           <div className="overflow-y-auto px-6 py-6">{children}</div>
 
           {footer && (

@@ -8,7 +8,6 @@ import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 export default function MapaCalorAmbiente() {
   const [tabActiva, setTabActiva] = useState("horario"); // 'horario', 'geografico', 'camiones'
 
-  // --- DATOS MAPA HORARIO ---
   const dias = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
   const horas = ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
   const matrizHoraria = [
@@ -21,7 +20,6 @@ export default function MapaCalorAmbiente() {
     [0, 0, 0, 0, 0, 0],
   ];
 
-  // --- DATOS MAPA CAMIONES (PATENTES REALES) VS RUTAS ---
   const camiones = ["AB-123-CD", "EF-456-GH", "JK-789-LM", "NP-012-RS"];
   const rutas = ["Castro - Ancud", "Castro - Quellón", "Castro - P. Montt", "Chonchi - Dalcahue"];
   const matrizCamiones = [
@@ -31,7 +29,6 @@ export default function MapaCalorAmbiente() {
     [0, 0, 1, 0],
   ];
 
-  // --- DATOS MAPA GEOGRÁFICO / ZONAS ---
   const zonas = [
     { comuna: "Castro (Centro)", descripcion: "Pendiente & Tráfico", co2: "4.2 Ton", nivel: 2 },
     { comuna: "Ancud (Norte)", descripcion: "Ruta 5 Sur", co2: "2.8 Ton", nivel: 1 },

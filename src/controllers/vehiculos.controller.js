@@ -27,6 +27,15 @@ export async function createVehiculo(request) {
   try {
     const body = await request.json();
 
+    const ETIQUETAS_CAMPO = {
+      marca: "marca",
+      modelo: "modelo",
+      ano: "año",
+      capacidad_carga_kg: "capacidad de carga",
+      capacidad_estanque_l: "capacidad del estanque",
+      tipo_combustible: "tipo de combustible",
+      estado: "estado",
+    };
     const camposObligatorios = [
       "id_flota",
       "patente",
@@ -43,7 +52,7 @@ export async function createVehiculo(request) {
 
       if (valor === undefined || valor === null || valor === "") {
         return NextResponse.json(
-          { mensaje: `El campo '${campo}' es obligatorio` },
+          { mensaje: `Completa el campo ${ETIQUETAS_CAMPO[campo] ?? "requerido"}` },
           { status: 400 },
         );
       }

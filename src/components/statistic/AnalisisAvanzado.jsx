@@ -25,12 +25,11 @@ export default function AnalisisAvanzado({ data }) {
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      {/* 1. KPIs Técnicos Avanzados */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
             <span className="text-subtext text-xs font-semibold">Ralentí Innecesario</span>
-            <AccessTimeRoundedIcon className="text-accent" fontSize="small" />
+            <AccessTimeRoundedIcon className="text-icon" fontSize="small" />
           </div>
           <p className="text-text text-2xl font-bold">14.2 %</p>
           <p className="text-subtext mt-1 text-xs">~23.4 Horas motor encendido sin marcha</p>
@@ -39,7 +38,7 @@ export default function AnalisisAvanzado({ data }) {
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
             <span className="text-subtext text-xs font-semibold">Coeficiente de Correlación</span>
-            <ShowChartRoundedIcon className="text-accent" fontSize="small" />
+            <ShowChartRoundedIcon className="text-icon" fontSize="small" />
           </div>
           <p className="text-text text-2xl font-bold">- 0.84 r</p>
           <p className="text-subtext mt-1 text-xs">Velocidad vs. Rendimiento (Fuerte Inversa)</p>
@@ -48,7 +47,7 @@ export default function AnalisisAvanzado({ data }) {
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
             <span className="text-subtext text-xs font-semibold">Desviación Estándar</span>
-            <BalanceRoundedIcon className="text-accent" fontSize="small" />
+            <BalanceRoundedIcon className="text-icon" fontSize="small" />
           </div>
           <p className="text-text text-2xl font-bold">± 0.42 Km/L</p>
           <p className="text-subtext mt-1 text-xs">Variabilidad de conducción en flota</p>
@@ -57,14 +56,13 @@ export default function AnalisisAvanzado({ data }) {
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
             <span className="text-subtext text-xs font-semibold">Proyección Gasto Mensual</span>
-            <AssessmentRoundedIcon className="text-text" fontSize="small" />
+            <AssessmentRoundedIcon className="text-icon" fontSize="small" />
           </div>
           <p className="text-text text-2xl font-bold">$1.450.000</p>
           <p className="text-subtext mt-1 text-xs">Estimación basada en regresión lineal</p>
         </div>
       </div>
 
-      {/* 2. Gráfico de Correlación de Variables */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-card text-text lg:col-span-2 rounded-xl border border-border p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -102,11 +100,11 @@ export default function AnalisisAvanzado({ data }) {
           </div>
 
           <div className="bg-background rounded-lg border border-border p-4">
-            <div className="text-subtext mb-3 flex items-center justify-between border-b border-border pb-2 text-xs font-bold">
+            <div className="text-subtext mb-3 grid grid-cols-[29fr_25fr_29fr_17fr] items-center gap-3 border-b border-border pb-2 text-xs font-bold">
               <span>Vehículo / Patente</span>
               <span>{filtroMétrica === "velocidad" ? "Velocidad Promedio" : "Carga Transportada"}</span>
               <span>Rendimiento Real</span>
-              <span>Impacto Relativo</span>
+              <span className="whitespace-nowrap text-right">Impacto Relativo</span>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -117,13 +115,13 @@ export default function AnalisisAvanzado({ data }) {
                 return (
                   <div
                     key={idx}
-                    className="bg-card text-text flex items-center justify-between rounded-md border border-border p-3 text-xs"
+                    className="bg-card text-text grid grid-cols-[29fr_25fr_29fr_17fr] items-center gap-3 rounded-md border border-border p-3 text-xs"
                   >
                     <span className="text-text font-bold">{item.camion}</span>
                     <span className="text-subtext font-medium">{valorVariable}</span>
                     <span className="text-text font-semibold">{item.rendimiento} Km/L</span>
                     <span
-                      className={`px-2.5 py-1 rounded text-[11px] font-bold ${
+                      className={`justify-self-end whitespace-nowrap px-2.5 py-1 rounded text-[11px] font-bold ${
                         esIneficiente ? "bg-accent text-background" : "bg-brand text-white"
                       }`}
                     >
@@ -136,7 +134,6 @@ export default function AnalisisAvanzado({ data }) {
           </div>
         </div>
 
-        {/* 3. Panel de Diagnóstico */}
         <div className="bg-card text-text flex flex-col justify-between rounded-xl border border-border p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div>
             <h2 className="text-text mb-1 text-lg font-bold">

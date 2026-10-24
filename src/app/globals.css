@@ -62,7 +62,7 @@
   --foreground: #FDFBF7;   /* Texto principal */
   --text: #FDFBF7;         /* Texto principal */
   --subtext: #A8B0AB;      /* Subtexto */
-  --icon: #C2C9C4;         /* Iconos */
+  --icon: #D4AF37;         /* Iconos: gold de la paleta, sobre superficie oscura (7.04:1) */
   --border: #314139;       /* Bordes / divisores */
   --accent: #D4AF37;       /* Acento */
   --accent-dark: #C49A2E;
@@ -79,7 +79,7 @@
   --foreground: #1A1A1A;   /* Texto principal */
   --text: #1A1A1A;         /* Texto principal */
   --subtext: #666666;      /* Subtexto (4.5:1 sobre fondo y sobre card) */
-  --icon: #4A4A4A;         /* Iconos */
+  --icon: #314139;         /* Iconos: moss de la paleta, sobre superficie clara (10.4:1) */
   --border: #EAE5DA;       /* Bordes / divisores */
   --accent: #8C6239;       /* Acento */
   --accent-dark: #704D2E;

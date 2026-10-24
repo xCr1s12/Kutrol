@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import PieChartIcon from '@mui/icons-material/PieChart';
 import RouteIcon from '@mui/icons-material/Route';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -34,28 +35,32 @@ export default function Sidebar() {
       className={`h-screen flex flex-col bg-brand transition-all duration-300 ${isActive ? "w-64" : "w-16"
         }`}
     >
-      {/* Botón de hamburguesa */}
-      <div className="h-16 flex items-center pl-2.5">
-        <div
-          onClick={() => {
-            ToggleSideBar();
-          }}
-
-          className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors"
+      <div className="h-16 flex items-center justify-between pl-2.5 pr-3">
+        <button
+          type="button"
+          onClick={ToggleSideBar}
+          aria-label={isActive ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isActive}
+          className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors hover:bg-moss hover:text-cream"
         >
-          {!isActive && (
-            <MenuIcon aria-label="Abrir menú" aria-expanded={false} aria-hidden="false" />
+          {isActive ? (
+            <MenuOpenRoundedIcon aria-hidden="true" />
+          ) : (
+            <MenuIcon aria-hidden="true" />
           )}
-          
-          {isActive && (
-            <span className="whitespace-nowrap overflow-hidden text-sm text-mist">
-              Cerrar menú
-            </span>
-          )}  
-        </div>
+        </button>
+
+        {isActive && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src="/images/camion-kutrol.svg"
+            alt=""
+            aria-hidden="true"
+            className="h-7 w-auto"
+          />
+        )}
       </div>
 
-      {/* Navegacion */}
       <nav className="flex flex-col gap-y-4 pt-20 flex-1">
         {NavRoutes.map((item) => {
           const isCurrentPath = PathName === item.path;
@@ -66,7 +71,7 @@ export default function Sidebar() {
               aria-label={item.aria}
               key={item.path}
               href={item.path}
-              className={`flex items-center gap-4 p-3 rounded   transition-colors ${isCurrentPath
+              className={`flex items-center gap-4 p-3 rounded   transition-colors hover:bg-moss/60 ${isCurrentPath
                   ? "border-l-4 border-gold bg-gold/20"
                   : "border-l-4 border-transparent"
                 }`}
@@ -74,7 +79,7 @@ export default function Sidebar() {
               <div className="flex items-center justify-center min-w-6">
                 <IconComponent
                   aria-hidden="false"
-                  className={isCurrentPath ? "text-gold" : "text-mist"}
+                  className={isCurrentPath ? "text-gold" : "text-gold/70"}
                   fontSize="medium"
                 />
               </div>

@@ -20,7 +20,6 @@ if (process.env.NODE_ENV !== "production") {
 
 export const query = (text, params) => pool.query(text, params);
 
-// Para operaciones que tocan varias tablas )
 export async function withTransaction(fn) {
   const client = await pool.connect();
   try {

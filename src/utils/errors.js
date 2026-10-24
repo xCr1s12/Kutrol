@@ -39,13 +39,13 @@ export class NotFoundError extends AppError {
 }
 
 export class ConflictError extends AppError {
-  constructor(message = "El recurso ya existe") {
-    super(message, 409, "CONFLICT");
+  constructor(message = "El recurso ya existe", details = null) {
+    super(message, 409, "CONFLICT", details);
   }
 }
 
 const UNIQUE_MESSAGES = [
-  ["rut", "El RUT de la empresa ya está registrado"],
+  ["rut", "El RUT ya está registrado en otra empresa"],
   ["email", "El correo ya está registrado"],
   ["usuario", "El nombre de usuario ya existe"],
   ["patente", "La patente ya está en uso por otro camión"],
@@ -57,10 +57,11 @@ export function toConflictError(error) {
 
   const constraint = error.constraint ?? "";
   const match = UNIQUE_MESSAGES.find(([key]) => constraint.includes(key));
+  const message = match ? match[1] : "Ya existe un registro con esos datos";
 
-  return new ConflictError(
-    match ? match[1] : "Ya existe un registro con esos datos",
-  );
+  const details = constraint.includes("rut") ? { "empresa.rut": message } : null;
+
+  return new ConflictError(message, details);
 }
 
 export function fromDatabaseError(error) {

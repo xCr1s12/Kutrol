@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ArrowBackRounded, PhotoCameraRounded, BusinessRounded, EmailRounded, PhoneRounded, LocationOnRounded,
   MapRounded, LocationCityRounded,
@@ -5,16 +6,33 @@ import {
 import { regiones } from "./regiones";
 import { tarjeta, campo, bordeError, botonAmarillo, botonIcono, elegirImagen } from "./comun";
 import { Campo, Lista } from "./Controles";
+import CampoTelefono from "@/components/ui/CampoTelefono";
+import MultiField from "@/components/ui/MultiField";
 import { LogoEmpresa, icono } from "./VistaEmpresa";
 import { formatearRut } from "./validarEmpresa";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
-const limiteDescripcion = 300;
+const limiteDescripcion = 255;
 
 export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver }) {
   const comunas = regiones.find((r) => r.nombre === empresa.region)?.comunas ?? [];
+  const descripcion = empresa.descripcion ?? "";
+  const emails = empresa.emails?.length ? empresa.emails : [""];
+  const telefonos = empresa.telefonos?.length ? empresa.telefonos : [""];
 
   function poner(dato, valor) {
     cambiar("empresa", { ...empresa, [dato]: valor });
+  }
+
+  function agregarTelefono() {
+    poner("telefonos", [...(empresa.telefonos ?? []), ""]);
+  }
+
+  function quitarTelefono(indice) {
+    poner(
+      "telefonos",
+      (empresa.telefonos ?? []).filter((_, posicion) => posicion !== indice),
+    );
   }
 
   function elegirRegion(e) {
@@ -62,35 +80,59 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
         <Campo
           titulo="RUT"
           type="text"
-          placeholder="76.123.456-0"
+          placeholder="12.345.678-5"
           value={empresa.rut}
           error={errores.rut}
           onChange={(e) => poner("rut", formatearRut(e.target.value))}
         />
-        <Campo
-          titulo="Correo de contacto"
-          icono={<EmailRounded {...icono} />}
-          type="email"
-          placeholder="contacto@empresa.cl"
-          value={empresa.correo}
-          error={errores.correo}
-          onChange={(e) => poner("correo", e.target.value.trim())}
-        />
+        <Campo titulo="Correos de contacto" icono={<EmailRounded {...icono} />}>
+          <MultiField
+            name="emailEmpresa"
+            campo="Correo"
+            type="email"
+            placeholder="contacto@empresa.cl"
+            addLabel="+ Agregar otro correo"
+            values={emails}
+            setValues={(lista) => poner("emails", lista)}
+            error={errores.emails}
+          />
+        </Campo>
 
-        <Campo titulo="Teléfono" icono={<PhoneRounded {...icono} />} error={errores.telefono}>
-          <div className="flex">
-            <span className="text-xs font-normal text-subtext bg-background border border-r-0 border-border rounded-l-md px-3 py-2">
-              +56
-            </span>
-            <input
-              type="tel"
-              inputMode="numeric"
-              maxLength={9}
-              className={`${campo} flex-1 min-w-0 rounded-l-none ${errores.telefono ? bordeError : ""}`}
-              placeholder="912345678"
-              value={empresa.telefono}
-              onChange={(e) => poner("telefono", e.target.value.replace(/\D/g, ""))}
-            />
+        <Campo titulo="Teléfonos" icono={<PhoneRounded {...icono} />} error={errores.telefonos}>
+          <div className="flex flex-col gap-2">
+            {telefonos.map((telefono, indice) => (
+              <div key={indice} className="flex items-stretch gap-2">
+                <div className="min-w-0 flex-1">
+                  <CampoTelefono
+                    valor={telefono}
+                    indice={indice}
+                    onChange={(nuevo) => {
+                      const lista = [...(empresa.telefonos ?? [])];
+                      lista[indice] = nuevo;
+                      poner("telefonos", lista);
+                    }}
+                    error={errores.telefonos}
+                  />
+                </div>
+                {telefonos.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => quitarTelefono(indice)}
+                    aria-label={`Quitar teléfono ${indice + 1}`}
+                    className="px-2 text-subtext hover:text-text"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={agregarTelefono}
+              className="self-start text-xs font-medium text-accent hover:underline"
+            >
+              + Agregar otro teléfono
+            </button>
           </div>
         </Campo>
 
@@ -131,11 +173,11 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
             maxLength={limiteDescripcion}
             className={`${campo} resize-none`}
             placeholder="Describe brevemente a qué se dedica la empresa"
-            value={empresa.descripcion}
+            value={descripcion}
             onChange={(e) => poner("descripcion", e.target.value)}
           />
           <span className="self-end font-normal text-subtext">
-            {empresa.descripcion.length}/{limiteDescripcion}
+            {descripcion.length}/{limiteDescripcion}
           </span>
         </Campo>
       </div>

@@ -6,7 +6,7 @@ export default function InfoCard({ title, icon, children, className = "" }) {
       {title && (
         <div className="flex items-center gap-2 mb-4 pb-3 border-b light:border-border dark:border-border">
           {icon && (
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent/15 dark:text-accent  light:text-accent">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-icon/15 text-icon">
               {icon}
             </span>
           )}

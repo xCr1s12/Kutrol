@@ -37,7 +37,6 @@ export default function MetricasAmbiente() {
     );
   }
 
-  // --- EXTRACCIÓN ROBUSTA DE LITROS DE COMBUSTIBLE Y RENDIMIENTO ---
   const rawLitros =
     data?.combustible?.litros_totales ??
     data?.combustible?.litros ??
@@ -54,7 +53,6 @@ export default function MetricasAmbiente() {
   const litrosTotales = parseFloat(rawLitros) || 0;
   const rendimientoPromedio = parseFloat(rawRendimiento) || 0;
 
-  // --- CÁLCULOS AMBIENTALES DINÁMICOS ---
   // Factor Diésel: 2.68 kg CO2 por litro
   const emisionesCO2Kg = Math.round(litrosTotales * 2.68);
   const emisionesCO2Ton = (emisionesCO2Kg / 1000).toFixed(2);

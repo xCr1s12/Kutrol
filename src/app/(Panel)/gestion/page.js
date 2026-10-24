@@ -132,7 +132,6 @@ const Flota = () => {
         <h1 className="text-2xl font-bold text-text">Gestión de flota</h1>
       </header>
 
-      {/* ---------- Vehiculos ---------- */}
       <Card >
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-base font-bold text-text">Vehículos</h2>
@@ -190,7 +189,6 @@ const Flota = () => {
         )}
       </Card>
 
-      {/* ---------- Conductores ---------- */}
       <Card>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-base font-bold text-text">Conductores</h2>

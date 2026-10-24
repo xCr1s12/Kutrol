@@ -1,6 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import DarkModeProvider from "@/components/ui/DarkModeProvider";
+import ToastProvider from "@/components/ui/Toasts";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -44,7 +45,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-pop bg-background min-h-full flex flex-col">
-        <DarkModeProvider>{children}</DarkModeProvider>
+        <DarkModeProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </DarkModeProvider>
       </body>
     </html>
   );

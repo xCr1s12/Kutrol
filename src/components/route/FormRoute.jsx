@@ -112,19 +112,28 @@ export default function FormRoute({ open, onClose, onSubmit }) {
     return () => controller.abort();
   }, []);
 
-  useEffect(() => {
-    if (!regionOrigen) {
-      setComunasOrigen([]);
-      setComunaOrigen("");
-      setCargandoOrigen(false);
-      return;
-    }
-
-    const controller = new AbortController();
+  const handleRegionOrigenChange = (siguienteRegion) => {
+    if (siguienteRegion === regionOrigen) return;
+    setRegionOrigen(siguienteRegion);
     setComunasOrigen([]);
     setComunaOrigen("");
-    setErrorUbicacion("");
-    setCargandoOrigen(true);
+    if (siguienteRegion) setErrorUbicacion("");
+    setCargandoOrigen(Boolean(siguienteRegion));
+  };
+
+  const handleRegionDestinoChange = (siguienteRegion) => {
+    if (siguienteRegion === regionDestino) return;
+    setRegionDestino(siguienteRegion);
+    setComunasDestino([]);
+    setComunaDestino("");
+    if (siguienteRegion) setErrorUbicacion("");
+    setCargandoDestino(Boolean(siguienteRegion));
+  };
+
+  useEffect(() => {
+    if (!regionOrigen) return;
+
+    const controller = new AbortController();
 
     obtenerComunas(regionOrigen, controller.signal)
       .then(setComunasOrigen)
@@ -139,18 +148,9 @@ export default function FormRoute({ open, onClose, onSubmit }) {
   }, [regionOrigen]);
 
   useEffect(() => {
-    if (!regionDestino) {
-      setComunasDestino([]);
-      setComunaDestino("");
-      setCargandoDestino(false);
-      return;
-    }
+    if (!regionDestino) return;
 
     const controller = new AbortController();
-    setComunasDestino([]);
-    setComunaDestino("");
-    setErrorUbicacion("");
-    setCargandoDestino(true);
 
     obtenerComunas(regionDestino, controller.signal)
       .then(setComunasDestino)
@@ -229,7 +229,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
               regiones={regiones}
               comunas={comunasOrigen}
               loadingComunas={cargandoOrigen}
-              onRegionChange={setRegionOrigen}
+              onRegionChange={handleRegionOrigenChange}
               onComunaChange={setComunaOrigen}
             />
             <CampoUbicacion
@@ -240,7 +240,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
               regiones={regiones}
               comunas={comunasDestino}
               loadingComunas={cargandoDestino}
-              onRegionChange={setRegionDestino}
+              onRegionChange={handleRegionDestinoChange}
               onComunaChange={setComunaDestino}
             />
             <Campo label="Distancia (km)" id="distancia">

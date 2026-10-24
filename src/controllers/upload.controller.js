@@ -36,7 +36,7 @@ export async function postUpload(request) {
       {
         ok: false,
         error:
-          status === 400
+          status === 400 || process.env.NODE_ENV !== "production"
             ? error.message
             : "No se pudo subir la imagen. Inténtalo de nuevo.",
       },
