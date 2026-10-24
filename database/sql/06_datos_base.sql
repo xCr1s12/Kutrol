@@ -46,9 +46,6 @@ VALUES
 -- Sincroniza el contador para que el próximo insert no choque con los ids existentes
 ALTER TABLE REGION ALTER COLUMN id_region RESTART WITH 17;
 
-
-
-
 INSERT INTO COMUNA (id_region, nombre) VALUES
 -- XV Arica y Parinacota (4)
 (15, 'Arica'), (15, 'Camarones'), (15, 'Putre'), (15, 'General Lagos'),
@@ -183,10 +180,7 @@ INSERT INTO COMUNA (id_region, nombre) VALUES
 (12, 'Porvenir'), (12, 'Primavera'), (12, 'Timaukel'),
 (12, 'Natales'), (12, 'Torres del Paine');
 
-
-
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
 
 -- ==============================================================================
 -- 1. Tipos de flota y empresa
@@ -230,8 +224,6 @@ VALUES (
     crypt('admin', gen_salt('bf', 10))
 );
 
--- Si existe un trigger que genera "usuario" (<nombre>_<apellido>_<empresa>) y lo
--- sobrescribe, esto lo deja en 'admin'. Si no lo sobrescribe, no cambia nada.
 UPDATE ENCARGADO_EMPRESA SET usuario = 'admin' WHERE email = 'admin@kutrol.cl';
 
 -- ==============================================================================
@@ -282,7 +274,7 @@ VALUES
      'KDPX82', 'KT-0043', 'Mercedes-Benz', 'Actros 2645', 2022, 15000.00, 450.00, 'DIESEL', 'DISPONIBLE');
 
 -- ==============================================================================
--- 5. Sensores: el mismo set estándar para cada camión (se crean ANTES de la telemetría)
+-- 5. Sensores
 -- ==============================================================================
 INSERT INTO SENSOR (id_camion, id_tipo_medicion, ubicacion)
 SELECT c.id_camion, tm.id_tipo_medicion, d.ubicacion
@@ -303,7 +295,7 @@ JOIN TIPO_MEDICION tm ON tm.codigo = d.codigo
 WHERE c.patente IN ('LRTS45', 'KDPX82');
 
 -- ==============================================================================
--- 6. Rutas y puntos de control
+-- 6. Rutas y puntos de control (con coordenadas para todas las rutas)
 -- ==============================================================================
 INSERT INTO RUTA (id_comuna_origen, id_comuna_destino, distancia_km)
 SELECT o.id_comuna, d.id_comuna, x.km
@@ -313,29 +305,52 @@ FROM (VALUES ('Puerto Montt', 'Osorno',       112.00),
 JOIN COMUNA o ON o.nombre = x.origen
 JOIN COMUNA d ON d.nombre = x.destino;
 
+-- Ruta 1: Puerto Montt -> Osorno
 INSERT INTO PUNTO_CONTROL (id_ruta, nombre, latitud, longitud, orden)
 SELECT r.id_ruta, p.nombre, p.lat, p.lng, p.orden
 FROM RUTA r
 JOIN COMUNA o ON o.id_comuna = r.id_comuna_origen  AND o.nombre = 'Puerto Montt'
 JOIN COMUNA d ON d.id_comuna = r.id_comuna_destino AND d.nombre = 'Osorno'
 CROSS JOIN (VALUES
-    ('Puerto Varas',  -41.31900000, -72.98500000, 1),
-    ('Frutillar',     -41.12600000, -73.06000000, 2),
-    ('Entrada Osorno',-40.57400000, -73.13400000, 3)
+    ('Puerto Varas',   -41.31900000, -72.98500000, 1),
+    ('Frutillar',      -41.12600000, -73.06000000, 2),
+    ('Entrada Osorno', -40.57400000, -73.13400000, 3)
+) AS p(nombre, lat, lng, orden);
+
+-- Ruta 2: Osorno -> Puerto Montt
+INSERT INTO PUNTO_CONTROL (id_ruta, nombre, latitud, longitud, orden)
+SELECT r.id_ruta, p.nombre, p.lat, p.lng, p.orden
+FROM RUTA r
+JOIN COMUNA o ON o.id_comuna = r.id_comuna_origen  AND o.nombre = 'Osorno'
+JOIN COMUNA d ON d.id_comuna = r.id_comuna_destino AND d.nombre = 'Puerto Montt'
+CROSS JOIN (VALUES
+    ('Entrada Osorno', -40.57400000, -73.13400000, 1),
+    ('Frutillar',      -41.12600000, -73.06000000, 2),
+    ('Puerto Varas',   -41.31900000, -72.98500000, 3)
+) AS p(nombre, lat, lng, orden);
+
+-- Ruta 3: Puerto Montt -> Temuco
+INSERT INTO PUNTO_CONTROL (id_ruta, nombre, latitud, longitud, orden)
+SELECT r.id_ruta, p.nombre, p.lat, p.lng, p.orden
+FROM RUTA r
+JOIN COMUNA o ON o.id_comuna = r.id_comuna_origen  AND o.nombre = 'Puerto Montt'
+JOIN COMUNA d ON d.id_comuna = r.id_comuna_destino AND d.nombre = 'Temuco'
+CROSS JOIN (VALUES
+    ('Puerto Montt', -41.46890000, -72.94110000, 1),
+    ('Osorno',       -40.57390000, -73.13350000, 2),
+    ('Valdivia',     -39.81420000, -73.24590000, 3),
+    ('Temuco',       -38.73590000, -72.59040000, 4)
 ) AS p(nombre, lat, lng, orden);
 
 -- ==============================================================================
--- 7. Viajes (uno completado, uno en curso, uno programado), cargas y asignaciones
+-- 7. Viajes, cargas y asignaciones
 -- ==============================================================================
 INSERT INTO VIAJE (id_camion, id_ruta, id_empresa, fecha_inicio, fecha_fin_estimada, fecha_fin, estado)
 SELECT c.id_camion, r.id_ruta, e.id_empresa, v.inicio::timestamptz, v.fin_est::timestamptz, v.fin::timestamptz, v.estado
 FROM EMPRESA e
 JOIN (VALUES
-    -- completado: Osorno -> Puerto Montt
     ('LRTS45', 'Osorno',       'Puerto Montt', '2026-10-08 07:00:00-03', '2026-10-08 11:00:00-03', '2026-10-08 10:30:00-03', 'COMPLETADO'),
-    -- en curso: Puerto Montt -> Osorno
     ('LRTS45', 'Puerto Montt', 'Osorno',       '2026-10-12 08:00:00-03', '2026-10-12 12:00:00-03', NULL,                     'EN_CURSO'),
-    -- programado: Puerto Montt -> Temuco
     ('KDPX82', 'Puerto Montt', 'Temuco',       '2026-10-15 06:00:00-03', '2026-10-15 18:00:00-03', NULL,                     'PROGRAMADO')
 ) AS v(patente, origen, destino, inicio, fin_est, fin, estado) ON TRUE
 JOIN CAMION c ON c.patente = v.patente
@@ -355,8 +370,6 @@ JOIN (VALUES
     ('KDPX82', 'PROGRAMADO',  'Productos del mar congelados', 9800.00, 'Cámara de frío a -18 °C')
 ) AS x(patente, estado, tipo, peso, descripcion) ON x.patente = c.patente AND x.estado = v.estado;
 
--- capacidad_utilizada_kg y las fechas copiadas normalmente las mantiene un trigger;
--- se envían igualmente para que el INSERT sea válido sin él.
 INSERT INTO ASIGNACION (id_conductor, id_viaje, estado, capacidad_utilizada_kg, fecha_inicio_viaje, fecha_fin_viaje)
 SELECT cd.id_conductor, v.id_viaje, x.estado_asig,
        COALESCE((SELECT SUM(peso_kg) FROM CARGA WHERE id_viaje = v.id_viaje), 0),
@@ -372,10 +385,7 @@ JOIN (VALUES
 JOIN CONDUCTOR cd ON cd.run = x.run;
 
 -- ==============================================================================
--- 8. Telemetría + lecturas del viaje en curso (camión LRTS45)
---    Cada paquete = 1 INSERT en TELEMETRIA + varias filas en LECTURA.
---    El último paquete trae la presión del neumático delantero izquierdo bajo
---    el umbral mínimo (95 psi) para probar anomalías y alertas.
+-- 8. Telemetría + lecturas del viaje en curso
 -- ==============================================================================
 DO $$
 DECLARE
@@ -440,8 +450,7 @@ JOIN (VALUES
 ) AS x(patente, fecha, litros, precio, odo, estacion) ON x.patente = c.patente;
 
 -- ==============================================================================
--- 10. Anomalía y alerta de ejemplo (neumático con presión baja)
---     Con NOT EXISTS por si tus triggers ya las generan al insertar la lectura.
+-- 10. Anomalía y alerta de ejemplo
 -- ==============================================================================
 INSERT INTO ANOMALIA (id_telemetria, fecha_hora_telemetria, id_lectura, id_severidad, tipo, descripcion)
 SELECT l.id_telemetria, l.fecha_hora, l.id_lectura, tm.id_severidad, 'UMBRAL_MINIMO',
@@ -482,19 +491,10 @@ JOIN (VALUES
     ('KDPX82', '2026-09-20 09:00:00-03', 'PREVENTIVA', 'Cambio de aceite y filtros (revisión 30.000 km)', 185000.00)
 ) AS x(patente, fecha, tipo, descripcion, costo) ON x.patente = c.patente;
 
-
-
-
-
 -- ==============================================================================
--- 20. search_path de la base (para que triggers y funciones encuentren el esquema kutrol
---     desde cualquier conexión nueva)
+-- 20. search_path de la base
 -- ==============================================================================
 DO $$
 BEGIN
     EXECUTE format('ALTER DATABASE %I SET search_path = kutrol, public', current_database());
 END $$;
-
-
-
-
