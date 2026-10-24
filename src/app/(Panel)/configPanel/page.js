@@ -9,6 +9,7 @@ import AlertasNotificaciones from "@/components/configuracion/AlertasNotificacio
 import VistaEmpresa from "@/components/configuracion/VistaEmpresa";
 import FormularioEmpresa from "@/components/configuracion/FormularioEmpresa";
 import { validarEmpresa } from "@/components/configuracion/validarEmpresa";
+import { obtenerComunas, obtenerRegiones } from "@/services/client/ubicacion.service";
 import { useToast } from "@/components/ui/Toasts";
 
 // datos de prueba, despues se reemplazan por los del backend
@@ -50,6 +51,7 @@ export default function Configuracion() {
   const [guardado, setGuardado] = useState(configInicial);
   const [config, setConfig] = useState(configInicial);
   const [editandoEmpresa, setEditandoEmpresa] = useState(false);
+  const [guardando, setGuardando] = useState(false);
   const { mostrar } = useToast();
 
   useEffect(() => {
@@ -77,7 +79,9 @@ export default function Configuracion() {
       .catch((error) => console.error("no se pudo cargar la empresa", error));
   }, []);
 
-  const hayCambios = JSON.stringify(config) !== JSON.stringify(guardado);
+  // solo la empresa se puede guardar; usuarios y umbrales aún viven en memoria
+  const hayCambios =
+    JSON.stringify(config.empresa) !== JSON.stringify(guardado.empresa);
   // la empresa solo se valida mientras el formulario esta abierto
   const errores = editandoEmpresa ? validarEmpresa(config.empresa) : {};
   const hayErrores = Object.keys(errores).length > 0;
@@ -86,10 +90,90 @@ export default function Configuracion() {
     setConfig({ ...config, [dato]: valor });
   }
 
-  function guardarCambios() {
-    setGuardado(config);
-    setEditandoEmpresa(false);
-    mostrar("Cambios guardados", "exito");
+  async function resolverComuna(region, comuna) {
+    const regiones = await obtenerRegiones();
+    const regionEncontrada = (regiones ?? []).find(
+      (item) => item.nombre === region,
+    );
+    if (!regionEncontrada) {
+      throw new Error("Selecciona una región válida");
+    }
+
+    const comunas = await obtenerComunas(regionEncontrada.id);
+    const comunaEncontrada = (comunas ?? []).find(
+      (item) => item.nombre === comuna,
+    );
+    if (!comunaEncontrada) {
+      throw new Error("La comuna elegida no pertenece a esa región");
+    }
+    return comunaEncontrada.id;
+  }
+
+  async function guardarCambios() {
+    if (guardando) return;
+
+    if (Object.keys(validarEmpresa(config.empresa)).length) {
+      setEditandoEmpresa(true);
+      mostrar("Revisa los datos de la empresa antes de guardar", "error");
+      return;
+    }
+
+    setGuardando(true);
+    try {
+      const id_comuna = await resolverComuna(
+        config.empresa.region,
+        config.empresa.comuna,
+      );
+      const respuesta = await fetch("/api/data/empresa", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: config.empresa.nombre,
+          rut: config.empresa.rut,
+          direccion: config.empresa.direccion,
+          descripcion: config.empresa.descripcion,
+          url_imagen: config.empresa.logo ?? "",
+          id_comuna,
+          emails: config.empresa.emails,
+          telefonos: config.empresa.telefonos,
+        }),
+      });
+      const cuerpo = await respuesta.json().catch(() => null);
+
+      if (!respuesta.ok) {
+        const detalles = cuerpo?.error?.details;
+        const mensaje = Array.isArray(detalles)
+          ? detalles.map((detalle) => detalle.mensaje).join(" ")
+          : cuerpo?.error?.message || "No se pudo guardar la empresa";
+        throw new Error(mensaje);
+      }
+
+      const datos = {
+        ...config,
+        empresa: {
+          logo: cuerpo?.url_imagen ?? null,
+          nombre: cuerpo?.nombre ?? "",
+          rut: cuerpo?.rut ?? "",
+          emails: cuerpo?.emails ?? [],
+          telefonos: cuerpo?.telefonos ?? [],
+          region: cuerpo?.region ?? "",
+          comuna: cuerpo?.comuna ?? "",
+          direccion: cuerpo?.direccion ?? "",
+          descripcion: cuerpo?.descripcion ?? "",
+        },
+      };
+      setConfig(datos);
+      setGuardado(datos);
+      setEditandoEmpresa(false);
+      mostrar("Cambios guardados", "exito");
+    } catch (error) {
+      mostrar(
+        error instanceof Error ? error.message : "No se pudo guardar la empresa",
+        "error",
+      );
+    } finally {
+      setGuardando(false);
+    }
   }
 
   function cancelarCambios() {
@@ -97,9 +181,12 @@ export default function Configuracion() {
     setEditandoEmpresa(false);
   }
 
-  // al volver se descartan los cambios de la empresa que no se guardaron
+  // al volver no se descarta nada en silencio: primero hay que guardar o cancelar
   function cerrarFormulario() {
-    setConfig({ ...config, empresa: guardado.empresa });
+    if (hayCambios) {
+      mostrar("Guarda o cancela los cambios antes de volver", "error");
+      return;
+    }
     setEditandoEmpresa(false);
   }
 
@@ -162,10 +249,10 @@ export default function Configuracion() {
             </button>
             <button
               className={`${botonAmarillo} disabled:opacity-50 disabled:cursor-not-allowed`}
-              disabled={hayErrores}
+              disabled={hayErrores || guardando}
               onClick={guardarCambios}
             >
-              Guardar Cambios
+              {guardando ? "Guardando..." : "Guardar Cambios"}
             </button>
           </div>
         </div>

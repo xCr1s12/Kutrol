@@ -3,7 +3,7 @@ import { telefonoSchema, emailSchema } from "@/schema/comunicacion.schema";
 import { validateRut } from "@/lib/validateRut";
 import { mensajePassword } from "@/lib/passwordPolicy";
 
-const EmpresaSchema = z.object({
+export const EmpresaSchema = z.object({
   nombre: z
     .string()
     .trim()

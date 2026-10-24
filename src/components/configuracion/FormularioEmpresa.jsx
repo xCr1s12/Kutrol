@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowBackRounded, PhotoCameraRounded, BusinessRounded, EmailRounded, PhoneRounded, LocationOnRounded,
   MapRounded, LocationCityRounded,
 } from "@mui/icons-material";
-import { regiones } from "./regiones";
+import { obtenerComunas, obtenerRegiones } from "@/services/client/ubicacion.service";
 import { tarjeta, campo, bordeError, botonAmarillo, botonIcono, elegirImagen } from "./comun";
 import { Campo, Lista } from "./Controles";
 import CampoTelefono from "@/components/ui/CampoTelefono";
@@ -15,7 +15,49 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 const limiteDescripcion = 255;
 
 export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver }) {
-  const comunas = regiones.find((r) => r.nombre === empresa.region)?.comunas ?? [];
+  const [regiones, setRegiones] = useState([]);
+  const [comunasDe, setComunasDe] = useState({ regionId: null, comunas: [] });
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    obtenerRegiones(controller.signal)
+      .then((lista) => {
+        if (!controller.signal.aborted) setRegiones(lista ?? []);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setRegiones([]);
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  const region = regiones.find((item) => item.nombre === empresa.region);
+  const regionId = region?.id ?? null;
+
+  useEffect(() => {
+    if (!regionId) return;
+
+    const controller = new AbortController();
+
+    obtenerComunas(regionId, controller.signal)
+      .then((lista) => {
+        if (!controller.signal.aborted) {
+          setComunasDe({ regionId, comunas: lista ?? [] });
+        }
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setComunasDe({ regionId, comunas: [] });
+        }
+      });
+
+    return () => controller.abort();
+  }, [regionId]);
+
+  // si la región cambió, las comunas en memoria son de otra región
+  const comunas = comunasDe.regionId === regionId ? comunasDe.comunas : [];
+
   const descripcion = empresa.descripcion ?? "";
   const emails = empresa.emails?.length ? empresa.emails : [""];
   const telefonos = empresa.telefonos?.length ? empresa.telefonos : [""];
@@ -147,7 +189,7 @@ export default function FormularioEmpresa({ empresa, errores, cambiar, onVolver 
 
         <Campo titulo="Comuna" icono={<LocationCityRounded {...icono} />} error={errores.comuna}>
           <Lista
-            opciones={comunas}
+            opciones={comunas.map((comuna) => comuna.nombre)}
             vacio={empresa.region ? "Selecciona una comuna" : "Primero elige una región"}
             className={errores.comuna ? bordeError : ""}
             value={empresa.comuna}
