@@ -1,6 +1,8 @@
 import * as vehiculoService from "@/services/server/vehiculos.service";
+import * as flotaService from "@/services/server/flota.service";
 import { NextResponse } from "next/server";
 import { toErrorResponse } from "@/utils/errors";
+import { getSession } from "@/lib/tokenSession";
 import { flotaIdSchema } from "@/schema/auth.schema";
 
 export async function getVehiculosByFlota(request) {
@@ -10,6 +12,14 @@ export async function getVehiculosByFlota(request) {
     const flotaId = flotaIdSchema.parse(
       new URL(request.url).searchParams.get("flota_id"),
     );
+
+    const session = await getSession();
+    if (!session?.id_empresa) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+
+    // la flota pedida debe pertenecer a la empresa de la sesión
+    await flotaService.asegurarFlotaDeEmpresa(flotaId, session.id_empresa);
 
     // tomar los datos del servicio
     const vehiculos = await vehiculoService.getVehiculosByFlota(flotaId);
@@ -25,9 +35,22 @@ export async function getVehiculosByFlota(request) {
 
 export async function createVehiculo(request) {
   try {
+    const session = await getSession();
+    if (!session?.id_empresa) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+
     const body = await request.json();
 
+    const idFlota = Number(body.id_flota);
+    if (Number.isInteger(idFlota) && idFlota > 0) {
+      await flotaService.asegurarFlotaDeEmpresa(idFlota, session.id_empresa);
+    }
+
     const ETIQUETAS_CAMPO = {
+      id_flota: "flota",
+      patente: "patente",
+      codigo_dispositivo: "código del dispositivo",
       marca: "marca",
       modelo: "modelo",
       ano: "año",

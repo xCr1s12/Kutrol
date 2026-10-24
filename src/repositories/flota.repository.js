@@ -38,6 +38,19 @@ export async function getTiposFlota(db = pool) {
 }
 
 
+export async function perteneceAEmpresa(id_flota, id_empresa, db = pool) {
+    const { rows } = await db.query(
+        `SELECT 1
+         FROM flota
+         WHERE id_flota = $1
+           AND id_empresa = $2
+           AND deleted_at IS NULL`,
+        [id_flota, id_empresa]
+    );
+    return rows.length > 0;
+}
+
+
 export async function dataFlota(flota_id, db=pool) {
     const { rows } = await db.query(
         `SELECT *

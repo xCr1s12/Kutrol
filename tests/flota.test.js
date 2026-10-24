@@ -26,7 +26,7 @@ registerHooks({
 });
 
 const { AppError } = await import("@/utils/errors");
-const { crearFlota, listarTiposFlota } = await import(
+const { asegurarFlotaDeEmpresa, crearFlota, listarTiposFlota } = await import(
   "@/services/server/flota.service"
 );
 
@@ -148,4 +148,30 @@ test("listarTiposFlota devuelve las filas que entrega la base", async () => {
   assert.deepEqual(resultado, tipos);
   assert.equal(db.calls.length, 1);
   assert.match(db.calls[0].sql, /FROM tipo_flota/);
+});
+
+test("asegurarFlotaDeEmpresa acepta una flota de la propia empresa", async () => {
+  const db = fakeDb([{ existe: 1 }]);
+
+  await asegurarFlotaDeEmpresa(7, 1, db);
+
+  assert.equal(db.calls.length, 1);
+  assert.match(db.calls[0].sql, /FROM flota/);
+  assert.deepEqual(db.calls[0].params, [7, 1]);
+});
+
+test("asegurarFlotaDeEmpresa rechaza una flota ajena con 403", async () => {
+  const db = fakeDb([]);
+
+  await assert.rejects(
+    () => asegurarFlotaDeEmpresa(7, 99, db),
+    (err) => {
+      assert.ok(err instanceof AppError);
+      assert.equal(err.status, 403);
+      return true;
+    },
+  );
+
+  assert.equal(db.calls.length, 1);
+  assert.deepEqual(db.calls[0].params, [7, 99]);
 });
