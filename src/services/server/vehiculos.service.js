@@ -1,5 +1,6 @@
 import * as repoVehiculos from "@/repositories/Vehiculos.repository"
 import { camionFormSchema } from "@/schema/vehiculo.schema";
+import { ConflictError, NotFoundError } from "@/utils/errors";
 import { ZodError } from "zod";
 
 
@@ -26,14 +27,14 @@ export async function createVehiculo (data) {
     }catch (err) {
         if (err.code === "23505") {
             if(err.constraint === "uq_camion_patente"){
-                   throw new Error("Esta patente ya se encuentra en uso")
+                   throw new ConflictError("Esta patente ya se encuentra en uso")
             }
             if(err.constraint === "uq_camion_codigo_dispositivo")
-                throw new Error("Codigo de dispositivo en uso por otro camion")
+                throw new ConflictError("El código del dispositivo ya está en uso por otro camión")
         }
         if (err.code === "23503") {
-            throw new Error("flota seleccionada inexistente")
+            throw new NotFoundError("La flota seleccionada no existe")
         }
-        throw new Error(err)
+        throw err
     }
 }

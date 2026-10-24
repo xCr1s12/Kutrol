@@ -178,7 +178,7 @@ const Flota = () => {
         <h1 className="text-2xl font-bold text-text">Gestión de flota</h1>
       </header>
 
-      <Card>
+      <Card className={flotas.length ? "h-110" : "h-auto"}>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-base font-bold text-text">Flotas</h2>
           <PillButton onClick={() => setModalFlota(true)}>
@@ -217,15 +217,10 @@ const Flota = () => {
             ))}
           </ul>
         ) : (
-          <div className="flex flex-1 flex-col items-start justify-center gap-3">
-            <p className="text-sm text-subtext">
-              Todavía no tienes flotas. Crea la primera para poder agregar
-              vehículos.
-            </p>
-            <PillButton onClick={() => setModalFlota(true)}>
-              Nueva flota
-            </PillButton>
-          </div>
+          <p className="py-2 text-sm text-subtext">
+            Todavía no tienes flotas. Crea la primera para poder agregar
+            vehículos.
+          </p>
         )}
       </Card>
 
@@ -383,6 +378,8 @@ const Flota = () => {
         size="lg"
       >
         <FormularioVehiculo
+          flotas={flotas}
+          flotaSeleccionada={flotaSeleccionada}
           onSubmit={handleNuevoVehiculo}
           onCancel={() => setModalVehiculo(false)}
         />

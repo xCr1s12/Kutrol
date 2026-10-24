@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import FormField from "@/components/ui/FormField";
+import { FlotaPostSchema } from "@/schema/flota.schema";
+
+// En el cliente la empresa no se envía: la pone el servidor desde la sesión.
+const FlotaFormSchema = FlotaPostSchema.omit({ id_empresa: true });
 
 const CLASE_CAMPO =
   "w-full rounded-md border border-icon bg-background px-4 py-2.5 text-sm text-text placeholder:text-subtext outline-none transition-colors focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60";
@@ -73,6 +77,23 @@ const FormularioFlota = ({ onCreada, onCancel }) => {
     event.preventDefault();
     if (enviando) return;
 
+    const validacion = FlotaFormSchema.safeParse({
+      id_tipo_flota: Number(idTipoFlota),
+      nombre: nombre.trim(),
+      descripcion: descripcion.trim(),
+    });
+    if (!validacion.success) {
+      const porCampo = {};
+      for (const issue of validacion.error.issues) {
+        const campo = issue.path.join(".");
+        if (!porCampo[campo]) porCampo[campo] = issue.message;
+      }
+      setErroresCampo(porCampo);
+      setErrorGeneral("");
+      document.getElementById(Object.keys(porCampo)[0])?.focus();
+      return;
+    }
+
     setEnviando(true);
     setErrorGeneral("");
     setErroresCampo({});
@@ -123,7 +144,7 @@ const FormularioFlota = ({ onCreada, onCancel }) => {
     : "Selecciona un tipo de flota";
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       <h3 className="text-sm font-bold text-text">Detalles</h3>
 
       <FormField label="Nombre" id="nombre" required error={erroresCampo.nombre}>

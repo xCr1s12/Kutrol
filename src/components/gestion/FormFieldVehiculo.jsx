@@ -20,18 +20,16 @@ const ESTADOS = [
 
 ];
 
-// flotas = [] como param  
-const flotas =  [{id_flota: "1" , nombre: "Flota Sur"}]
-// flotas: [{ id_flota: 1, nombre: "Flota Sur" }, ...] (viene de tu API)
-const CamposFormularioVehiculo = ({  }) => ( 
+const CamposFormularioVehiculo = ({ flotas = [], flotaSeleccionada = "", errores = {} }) => (
     
   <div className="grid grid-cols-2 gap-4">
-    <FormField label="Flota" id="id_flota">
+    <FormField label="Flota" id="id_flota" error={errores.id_flota}>
       <select
         id="id_flota"
         name="id_flota"
         required
-        defaultValue=""
+        defaultValue={flotaSeleccionada ? String(flotaSeleccionada) : ""}
+        disabled={!flotas.length}
         className={`${inputClase} invalid:text-subtext`}
       >
         <option value="" disabled>
@@ -45,7 +43,7 @@ const CamposFormularioVehiculo = ({  }) => (
       </select>
     </FormField>
 
-    <FormField label="Patente" id="patente">
+    <FormField label="Patente" id="patente" error={errores.patente}>
       <input
         id="patente"
         name="patente"
@@ -56,7 +54,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Código del dispositivo" id="codigo_dispositivo">
+    <FormField label="Código del dispositivo" id="codigo_dispositivo" error={errores.codigo_dispositivo}>
       <input
         id="codigo_dispositivo"
         name="codigo_dispositivo"
@@ -67,7 +65,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Marca" id="marca">
+    <FormField label="Marca" id="marca" error={errores.marca}>
       <input
         id="marca"
         name="marca"
@@ -78,7 +76,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Modelo" id="modelo">
+    <FormField label="Modelo" id="modelo" error={errores.modelo}>
       <input
         id="modelo"
         name="modelo"
@@ -89,7 +87,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Año" id="ano">
+    <FormField label="Año" id="ano" error={errores.ano}>
       <input
         id="ano"
         name="ano"
@@ -103,7 +101,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Capacidad de carga (kg)" id="capacidad_carga_kg">
+    <FormField label="Capacidad de carga (kg)" id="capacidad_carga_kg" error={errores.capacidad_carga_kg}>
       <input
         id="capacidad_carga_kg"
         name="capacidad_carga_kg"
@@ -117,7 +115,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Capacidad del estanque (L)" id="capacidad_estanque_l">
+    <FormField label="Capacidad del estanque (L)" id="capacidad_estanque_l" error={errores.capacidad_estanque_l}>
       <input
         id="capacidad_estanque_l"
         name="capacidad_estanque_l"
@@ -131,7 +129,7 @@ const CamposFormularioVehiculo = ({  }) => (
       />
     </FormField>
 
-    <FormField label="Tipo de combustible" id="tipo_combustible">
+    <FormField label="Tipo de combustible" id="tipo_combustible" error={errores.tipo_combustible}>
       <select
         id="tipo_combustible"
         name="tipo_combustible"
@@ -147,7 +145,7 @@ const CamposFormularioVehiculo = ({  }) => (
       </select>
     </FormField>
 
-    <FormField label="Estado" id="estado">
+    <FormField label="Estado" id="estado" error={errores.estado}>
       <select
         id="estado"
         name="estado"

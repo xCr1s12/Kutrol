@@ -1,5 +1,7 @@
-export const Card = ({ children }) => (
-  <section className="flex h-110 shrink-0 flex-col rounded-2xl border border-icon bg-card px-5 pb-4 pt-5 shadow-sm p-10">
+export const Card = ({ children, className = "h-110" }) => (
+  <section
+    className={`flex shrink-0 flex-col rounded-2xl border border-icon bg-card px-5 pb-4 pt-5 shadow-sm p-10 ${className}`}
+  >
     {children}
   </section>
 );

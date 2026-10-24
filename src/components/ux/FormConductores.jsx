@@ -1,10 +1,34 @@
+import { useState } from "react";
 import CamposFormularioConductor from "../gestion/FormFieldsConductores";
+import { validateRut } from "@/lib/validateRut";
+import { detectarPais, soloDigitos, telefonoValido } from "@/lib/paises";
+
+const CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validarConductor({ nombre, run, licencia_num, email, telefono }) {
+  const errores = {};
+  if (nombre.length < 2) errores.nombre = "Escribe el nombre del conductor";
+  const runError = validateRut(run);
+  if (runError) errores.run = runError;
+  if (licencia_num.length < 4) {
+    errores.licencia_num = "Escribe el número de licencia";
+  }
+  if (!CORREO.test(email)) errores.email = "Revisa el correo";
+  const pais = detectarPais(telefono);
+  if (!telefonoValido(pais.codigo, soloDigitos(telefono.slice(pais.codigo.length)))) {
+    errores.telefono = "Revisa el teléfono: no tiene el largo de su país";
+  }
+  return errores;
+}
+
 /**
  * Props:
  * - onSubmit(datos): recibe { nombre, run, licencia_num, email, telefono }
  * - onCancel(): se llama al presionar "Cancelar"
  */
 const FormularioConductor = ({ onSubmit, onCancel }) => {
+  const [errores, setErrores] = useState({});
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -15,18 +39,27 @@ const FormularioConductor = ({ onSubmit, onCancel }) => {
       telefono: formData.get("telefono").trim(),
       email: formData.get("email").trim(),
     };
+
+    const encontrados = validarConductor(datos);
+    if (Object.keys(encontrados).length) {
+      setErrores(encontrados);
+      document.getElementById(Object.keys(encontrados)[0])?.focus();
+      return;
+    }
+    setErrores({});
+
     onSubmit(datos);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
       {/* Campos */}
       <div className="flex flex-col gap-4">
         <h3 className="text-sm font-bold text-text dark:text-ink ">
           Detalles
         </h3>
 
-        <CamposFormularioConductor />
+        <CamposFormularioConductor errores={errores} />
 
         <div className="mt-2 flex gap-3">
           <button

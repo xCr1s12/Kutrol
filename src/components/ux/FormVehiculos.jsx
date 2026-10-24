@@ -1,4 +1,5 @@
 import CamposFormularioVehiculo from "@/components/gestion/FormFieldVehiculo";
+import { camionFormSchema } from "@/schema/vehiculo.schema";
 import { useState } from "react";
 
 /**
@@ -6,9 +7,15 @@ import { useState } from "react";
  * - onSubmit(datos): recibe { patente, marca, modelo, ano, combustible, capacidad_carga, estado }
  * - onCancel(): se llama al presionar "Cancelar"
  */
-const FormularioVehiculo = ({ onSubmit, onCancel }) => {
+const FormularioVehiculo = ({
+  onSubmit,
+  onCancel,
+  flotas = [],
+  flotaSeleccionada = "",
+}) => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [erroresCampo, setErroresCampo] = useState({});
 
   const formatearDetallesError = (details) => {
     if (!Array.isArray(details)) return "";
@@ -55,6 +62,20 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
     setSubmitting(true);
     setError("");
 
+    const validacion = camionFormSchema.safeParse(datos);
+    if (!validacion.success) {
+      const porCampo = {};
+      for (const issue of validacion.error.issues) {
+        const campo = issue.path.join(".");
+        if (!porCampo[campo]) porCampo[campo] = issue.message;
+      }
+      setErroresCampo(porCampo);
+      document.getElementById(Object.keys(porCampo)[0])?.focus();
+      setSubmitting(false);
+      return;
+    }
+    setErroresCampo({});
+
     try {
       const response = await fetch("/api/data/vehiculos", {
         method: "POST",
@@ -87,14 +108,18 @@ const FormularioVehiculo = ({ onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
       {/* Columna izquierda: campos */}
       <div className="flex flex-col gap-4">
         <h3 className="text-sm font-bold text-text dark:text-ink">
           Detalles
         </h3>
 
-        <CamposFormularioVehiculo />
+        <CamposFormularioVehiculo
+          flotas={flotas}
+          flotaSeleccionada={flotaSeleccionada}
+          errores={erroresCampo}
+        />
 
         {error && (
           <p role="alert" className="text-sm text-accent-dark">
