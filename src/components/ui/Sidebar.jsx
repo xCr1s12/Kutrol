@@ -32,13 +32,15 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`h-screen flex flex-col bg-brand transition-all duration-300 ${isActive ? "w-64" : "w-16"
-        }`}
+      className={`h-screen flex flex-col bg-brand transition-all duration-300 ${
+        isActive ? "w-64" : "w-16"
+      }`}
     >
       <div className="h-16 flex items-center justify-between pl-2.5 pr-3">
         <button
           type="button"
           onClick={ToggleSideBar}
+          title={isActive ? "Cerrar menú" : "Abrir menú"}
           aria-label={isActive ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={isActive}
           className="flex items-center gap-3 cursor-pointer p-2 rounded text-sage transition-colors hover:bg-moss hover:text-cream"
@@ -69,12 +71,14 @@ export default function Sidebar() {
           return (
             <Link
               aria-label={item.aria}
+              title={item.name}
               key={item.path}
               href={item.path}
-              className={`flex items-center gap-4 p-3 rounded   transition-colors hover:bg-moss/60 ${isCurrentPath
+              className={`group relative flex items-center gap-4 p-3 rounded transition-colors hover:bg-moss/60 ${
+                isCurrentPath
                   ? "border-l-4 border-gold bg-gold/20"
                   : "border-l-4 border-transparent"
-                }`}
+              }`}
             >
               <div className="flex items-center justify-center min-w-6">
                 <IconComponent
@@ -84,10 +88,17 @@ export default function Sidebar() {
                 />
               </div>
 
-              {isActive && (
+              {isActive ? (
                 <span
-                  className={`truncate text-sm font-bold ${isCurrentPath ? "text-cream" : "text-sage"}`}
+                  className={`truncate text-sm font-bold ${
+                    isCurrentPath ? "text-cream" : "text-sage"
+                  }`}
                 >
+                  {item.name}
+                </span>
+              ) : (
+                /* Tooltip visual elegante al pasar el cursor con menú colapsado */
+                <span className="pointer-events-none absolute left-full ml-3 hidden rounded-md bg-black/80 px-2.5 py-1 text-xs font-medium text-white shadow-md transition-opacity group-hover:block z-50 whitespace-nowrap">
                   {item.name}
                 </span>
               )}
