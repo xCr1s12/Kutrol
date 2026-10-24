@@ -4,6 +4,7 @@ import MapaCalorAmbiente from "@/components/ambiente/MapaCalorAmbiente";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/tokenSession";
 import { findByIdEmpresa } from "@/repositories/Empresa.repository";
+import { obtenerMapaCalorAmbiente } from "@/services/server/ambiente.service";
 import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
 import ParkRoundedIcon from "@mui/icons-material/ParkRounded";
 
@@ -11,7 +12,12 @@ export default async function AmbientePage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const empresa = await findByIdEmpresa(session.id_empresa);
+  const [empresa, datosAmbiente] = await Promise.all([
+    findByIdEmpresa(session.id_empresa),
+    obtenerMapaCalorAmbiente(session.id_empresa).catch(() => null),
+  ]);
+
+  const cumplimiento = datosAmbiente?.impactoEcologico?.cumplimientoMetaVerde ?? 0;
 
   return (
     <div
@@ -67,14 +73,19 @@ export default async function AmbientePage() {
               <div className="w-32 h-32 rounded-full bg-linen flex items-center justify-center border-4 border-ink">
                 <ParkRoundedIcon className="text-ink w-14 h-14" />
               </div>
-              <p className="mt-4 text-2xl font-bold text-ink dark:text-text">85%</p>
+              <p className="mt-4 text-2xl font-bold text-ink dark:text-text">
+                {cumplimiento}%
+              </p>
               <p className="text-xs text-graphite font-medium text-center dark:text-text">
                 Cumplimiento Meta Verde
               </p>
             </div>
 
             <div className="w-full bg-linen h-3 rounded-full overflow-hidden mb-2">
-              <div className="bg-gold h-full w-[85%]" />
+              <div
+                className="bg-gold h-full transition-all duration-500"
+                style={{ width: `${cumplimiento}%` }}
+              />
             </div>
 
             <p className="text-xs text-graphite leading-relaxed mt-4 dark:text-text">
