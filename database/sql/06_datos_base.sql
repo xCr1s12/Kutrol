@@ -289,7 +289,9 @@ CROSS JOIN (VALUES
     ('PRESION_NEUMATICO', 'TRASERO_IZQ'),
     ('PRESION_NEUMATICO', 'TRASERO_DER'),
     ('VOLTAJE_BATERIA',   'BATERIA'),
-    ('PESO_CARGA',        'CARROCERIA')
+    ('PESO_CARGA',        'CARROCERIA'),
+    ('EMISION_CO2',       'ESCAPE'),
+    ('CONSUMO_INSTANTANEO','MOTOR')
 ) AS d(codigo, ubicacion)
 JOIN TIPO_MEDICION tm ON tm.codigo = d.codigo
 WHERE c.patente IN ('LRTS45', 'KDPX82');
@@ -385,52 +387,117 @@ JOIN (VALUES
 JOIN CONDUCTOR cd ON cd.run = x.run;
 
 -- ==============================================================================
--- 8. Telemetría + lecturas del viaje en curso
+-- 8. Telemetría + lecturas completas (7 días x 24 horas)
 -- ==============================================================================
 DO $$
 DECLARE
-    v_camion  INTEGER;
-    v_viaje   INTEGER;
-    v_tel     BIGINT;
-    p         RECORD;
+    v_camion_1 INTEGER;
+    v_camion_2 INTEGER;
+    v_viaje_1  INTEGER;
+    v_tel      BIGINT;
+    v_fecha    TIMESTAMPTZ;
+    v_dia      INTEGER;
+    v_hora     INTEGER;
+    v_vel      NUMERIC;
+    v_fuel     NUMERIC;
+    v_co2      NUMERIC;
+    v_temp     NUMERIC;
+    v_oil      NUMERIC;
+    v_rpm      NUMERIC;
+    v_volt     NUMERIC;
 BEGIN
-    SELECT id_camion INTO v_camion FROM CAMION WHERE patente = 'LRTS45';
-    SELECT id_viaje  INTO v_viaje  FROM VIAJE  WHERE id_camion = v_camion AND estado = 'EN_CURSO';
+    SELECT id_camion INTO v_camion_1 FROM CAMION WHERE patente = 'LRTS45';
+    SELECT id_camion INTO v_camion_2 FROM CAMION WHERE patente = 'KDPX82';
+    SELECT id_viaje  INTO v_viaje_1  FROM VIAJE  WHERE id_camion = v_camion_1 AND estado = 'EN_CURSO';
 
-    FOR p IN
-        SELECT * FROM (VALUES
-          (timestamptz '2026-10-12 08:30:00-03', 62.0::numeric, -41.31900000::numeric, -72.98500000::numeric,
-           62.4::numeric, 88.0::numeric, 310.0::numeric, 1450::numeric, 106.2::numeric, 105.8::numeric, 108.0::numeric, 107.6::numeric, 24.1::numeric, 8450.0::numeric),
-          (timestamptz '2026-10-12 09:00:00-03', 78.5, -41.12600000, -73.06000000,
-           61.1, 90.5, 305.0, 1520, 106.0, 105.7, 107.9, 107.5, 24.1, 8450.0),
-          (timestamptz '2026-10-12 09:30:00-03', 80.2, -40.93500000, -73.09000000,
-           59.8, 91.5, 308.0, 1480, 105.8, 105.6, 107.8, 107.4, 24.0, 8450.0),
-          (timestamptz '2026-10-12 10:00:00-03', 74.9, -40.74000000, -73.12000000,
-           58.3, 92.0, 300.0, 1500,  88.5, 105.4, 107.6, 107.3, 24.0, 8450.0)
-        ) AS t(ts, vel, lat, lng, fuel, temp, oil, rpm, tfl, tfr, trl, trr, volt, peso)
-    LOOP
-        INSERT INTO TELEMETRIA (fecha_hora, id_camion, id_viaje, velocidad, latitud, longitud)
-        VALUES (p.ts, v_camion, v_viaje, p.vel, p.lat, p.lng)
-        RETURNING id_telemetria INTO v_tel;
+    -- Generación de telemetría y lecturas para los 7 días de la semana y las 24 horas del día
+    FOR v_dia IN 0..6 LOOP
+        FOR v_hora IN 0..23 LOOP
+            v_fecha := date_trunc('week', CURRENT_TIMESTAMP) + (v_dia || ' days')::INTERVAL + (v_hora || ' hours')::INTERVAL;
 
-        INSERT INTO LECTURA (fecha_hora, id_telemetria, id_sensor, valor)
-        SELECT p.ts, v_tel, s.id_sensor, m.valor
-        FROM (VALUES
-            ('NIVEL_COMBUSTIBLE', 'ESTANQUE',      p.fuel),
-            ('TEMP_MOTOR',        'MOTOR',         p.temp),
-            ('PRESION_ACEITE',    'MOTOR',         p.oil),
-            ('RPM_MOTOR',         'MOTOR',         p.rpm),
-            ('PRESION_NEUMATICO', 'DELANTERO_IZQ', p.tfl),
-            ('PRESION_NEUMATICO', 'DELANTERO_DER', p.tfr),
-            ('PRESION_NEUMATICO', 'TRASERO_IZQ',   p.trl),
-            ('PRESION_NEUMATICO', 'TRASERO_DER',   p.trr),
-            ('VOLTAJE_BATERIA',   'BATERIA',       p.volt),
-            ('PESO_CARGA',        'CARROCERIA',    p.peso)
-        ) AS m(codigo, ubicacion, valor)
-        JOIN TIPO_MEDICION tm ON tm.codigo = m.codigo
-        JOIN SENSOR s ON s.id_tipo_medicion = tm.id_tipo_medicion
-                     AND s.id_camion = v_camion
-                     AND s.ubicacion = m.ubicacion;
+            -- Perfiles dinámicos según franja horaria
+            IF v_hora BETWEEN 7 AND 18 THEN
+                -- Horario Operativo de Alta Exigencia (Emisiones elevadas/moderadas)
+                v_vel  := 55.0 + (v_hora % 5) * 6.5;
+                v_co2  := 11.5 + (v_hora % 4) * 2.1;
+                v_fuel := 75.0 - (v_hora * 1.8);
+                v_temp := 88.0 + (v_hora % 3) * 2.0;
+                v_oil  := 310.0 - (v_hora % 4) * 2.0;
+                v_rpm  := 1400 + (v_hora % 5) * 120;
+                v_volt := 24.1;
+            ELSIF v_hora BETWEEN 19 AND 22 THEN
+                -- Horario Nocturno Moderado
+                v_vel  := 40.0 + (v_hora % 3) * 5.0;
+                v_co2  := 6.5 + (v_hora % 3) * 1.5;
+                v_fuel := 45.0 - (v_hora * 0.5);
+                v_temp := 84.0;
+                v_oil  := 300.0;
+                v_rpm  := 1100;
+                v_volt := 24.0;
+            ELSE
+                -- Madrugada / Apagado o Ralentí Eficiente
+                v_vel  := 0.0;
+                v_co2  := 1.2;
+                v_fuel := 38.0;
+                v_temp := 40.0;
+                v_oil  := 250.0;
+                v_rpm  := 0;
+                v_volt := 23.8;
+            END IF;
+
+            -- 1. Paquete para Camión LRTS45
+            INSERT INTO TELEMETRIA (fecha_hora, id_camion, id_viaje, velocidad, latitud, longitud)
+            VALUES (v_fecha, v_camion_1, v_viaje_1, v_vel, -41.3190, -72.9850)
+            RETURNING id_telemetria INTO v_tel;
+
+            INSERT INTO LECTURA (fecha_hora, id_telemetria, id_sensor, valor)
+            SELECT v_fecha, v_tel, s.id_sensor, m.valor
+            FROM (VALUES
+                ('NIVEL_COMBUSTIBLE', 'ESTANQUE',       v_fuel),
+                ('TEMP_MOTOR',        'MOTOR',          v_temp),
+                ('PRESION_ACEITE',    'MOTOR',          v_oil),
+                ('RPM_MOTOR',         'MOTOR',          v_rpm),
+                ('PRESION_NEUMATICO', 'DELANTERO_IZQ', 106.0),
+                ('PRESION_NEUMATICO', 'DELANTERO_DER', 105.7),
+                ('PRESION_NEUMATICO', 'TRASERO_IZQ',   107.9),
+                ('PRESION_NEUMATICO', 'TRASERO_DER',   107.5),
+                ('VOLTAJE_BATERIA',   'BATERIA',        v_volt),
+                ('PESO_CARGA',        'CARROCERIA',     8450.0),
+                ('EMISION_CO2',       'ESCAPE',         v_co2),
+                ('CONSUMO_INSTANTANEO','MOTOR',         v_co2 * 2.2)
+            ) AS m(codigo, ubicacion, valor)
+            JOIN TIPO_MEDICION tm ON tm.codigo = m.codigo
+            JOIN SENSOR s ON s.id_tipo_medicion = tm.id_tipo_medicion
+                         AND s.id_camion = v_camion_1
+                         AND s.ubicacion = m.ubicacion;
+
+            -- 2. Paquete para Camión KDPX82
+            INSERT INTO TELEMETRIA (fecha_hora, id_camion, id_viaje, velocidad, latitud, longitud)
+            VALUES (v_fecha, v_camion_2, NULL, v_vel * 0.85, -40.5739, -73.1335)
+            RETURNING id_telemetria INTO v_tel;
+
+            INSERT INTO LECTURA (fecha_hora, id_telemetria, id_sensor, valor)
+            SELECT v_fecha, v_tel, s.id_sensor, m.valor
+            FROM (VALUES
+                ('NIVEL_COMBUSTIBLE', 'ESTANQUE',       v_fuel + 5.0),
+                ('TEMP_MOTOR',        'MOTOR',          v_temp),
+                ('PRESION_ACEITE',    'MOTOR',          v_oil),
+                ('RPM_MOTOR',         'MOTOR',          v_rpm * 0.9),
+                ('PRESION_NEUMATICO', 'DELANTERO_IZQ', 105.0),
+                ('PRESION_NEUMATICO', 'DELANTERO_DER', 105.0),
+                ('PRESION_NEUMATICO', 'TRASERO_IZQ',   107.0),
+                ('PRESION_NEUMATICO', 'TRASERO_DER',   107.0),
+                ('VOLTAJE_BATERIA',   'BATERIA',        v_volt),
+                ('PESO_CARGA',        'CARROCERIA',     9800.0),
+                ('EMISION_CO2',       'ESCAPE',         v_co2 * 0.85),
+                ('CONSUMO_INSTANTANEO','MOTOR',         v_co2 * 1.9)
+            ) AS m(codigo, ubicacion, valor)
+            JOIN TIPO_MEDICION tm ON tm.codigo = m.codigo
+            JOIN SENSOR s ON s.id_tipo_medicion = tm.id_tipo_medicion
+                         AND s.id_camion = v_camion_2
+                         AND s.ubicacion = m.ubicacion;
+
+        END LOOP;
     END LOOP;
 END $$;
 

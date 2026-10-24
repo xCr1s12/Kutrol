@@ -39,20 +39,19 @@ export async function MetricasAmbienteQuery(id_empresa) {
   return rows[0] || { litros_totales: 0, km_recorridos: 0, km_por_litro: 0 };
 }
 
-// 2. Mapa de Calor - Franja Horaria (00:00 a 23:00)
 export async function MapaCalorHorarioQuery(id_empresa) {
   const { rows } = await pool.query(
     `SELECT 
-       EXTRACT(ISODOW FROM t.fecha_hora)::int - 1 AS dia_semana,
-       EXTRACT(HOUR FROM t.fecha_hora)::int AS hora_dia,
-       AVG(l.valor) AS emision_promedio
+       EXTRACT(ISODOW FROM t.fecha_hora)::int - 1 AS dia_semana, -- 0: Lun, 6: Dom
+       EXTRACT(HOUR FROM t.fecha_hora)::int AS hora_dia,         -- 0 a 23
+       COALESCE(AVG(l.valor), 0) AS emision_promedio
      FROM TELEMETRIA t
      JOIN LECTURA l ON l.id_telemetria = t.id_telemetria AND l.fecha_hora = t.fecha_hora
      JOIN SENSOR s ON s.id_sensor = l.id_sensor
      JOIN TIPO_MEDICION tm ON tm.id_tipo_medicion = s.id_tipo_medicion
      JOIN CAMION c ON c.id_camion = t.id_camion
      JOIN FLOTA f ON f.id_flota = c.id_flota
-     WHERE f.id_empresa = $1 AND tm.codigo IN ('EMISION_CO2', 'CONSUMO_INSTANTANEO')
+     WHERE f.id_empresa = $1 AND tm.codigo = 'EMISION_CO2'
      GROUP BY dia_semana, hora_dia`,
     [id_empresa]
   );

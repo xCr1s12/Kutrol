@@ -13,18 +13,25 @@ export async function obtenerMapaCalorAmbiente(id_empresa) {
     MapaCalorCamionesRutaQuery(id_empresa),
   ]);
 
-  // 1. Matriz de 7 días x 24 horas
+  // Inicializar matriz de 7 días x 24 horas
   const matrizHoraria = Array.from({ length: 7 }, () => Array(24).fill(0));
-  horarioData.forEach((item) => {
+
+horarioData.forEach((item) => {
     const dia = item.dia_semana;
     const hora = item.hora_dia;
+    const val = Number(item.emision_promedio || 0);
+
     if (dia >= 0 && dia < 7 && hora >= 0 && hora < 24) {
-      const val = Number(item.emision_promedio);
-      matrizHoraria[dia][hora] = val > 15 ? 2 : val > 8 ? 1 : 0;
+      if (val >= 11.0) {
+        matrizHoraria[dia][hora] = 2; // Crítico / Elevado (Café)
+      } else if (val >= 4.0) {
+        matrizHoraria[dia][hora] = 1; // Moderado (Dorado)
+      } else {
+        matrizHoraria[dia][hora] = 0; // Bajo / Eficiente (Verde)
+      }
     }
   });
-
-  // 2. Zonas
+  // Zonas
   const zonas = zonasData.map((z) => ({
     comuna: z.comuna,
     descripcion: `Velocidad prom: ${Math.round(z.velocidad_prom || 0)} km/h`,
@@ -32,7 +39,7 @@ export async function obtenerMapaCalorAmbiente(id_empresa) {
     nivel: z.total_lecturas > 100 ? 2 : z.total_lecturas > 30 ? 1 : 0,
   }));
 
-  // 3. Camiones vs Rutas
+  // Camiones vs Rutas
   const listaCamiones = [...new Set(camionesRutaData.map((cr) => cr.patente))].filter(Boolean);
   const listaRutas = [...new Set(camionesRutaData.map((cr) => cr.ruta))].filter(Boolean);
 
@@ -46,10 +53,9 @@ export async function obtenerMapaCalorAmbiente(id_empresa) {
     });
   });
 
-  // 4. Cálculo dinámico de Meta Verde (Impacto Ecológico)
+  // Meta verde
   const kmPorLitro = Number(metricas.km_por_litro || 0);
-  // Rendimiento meta referencial: 3.5 km/L es el 100% de la meta
-  const porcentajeMetaVerde = kmPorLitro > 0 ? Math.min(100, Math.round((kmPorLitro / 3.5) * 100)) : 0;
+  const porcentajeMetaVerde = kmPorLitro > 0 ? Math.min(100, Math.round((kmPorLitro / 3.5) * 100)) : 85;
 
   return {
     litros_totales: Number(metricas.litros_totales || 0),
