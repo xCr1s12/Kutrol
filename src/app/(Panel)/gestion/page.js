@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import FormularioConductor from "@/components/ux/FormConductores";
 import FormularioVehiculo from "@/components/ux/FormVehiculos";
+import FormularioFlota from "@/components/gestion/FormularioFlota";
 import {
   Card,
   Estado,
@@ -50,6 +51,10 @@ const Flota = () => {
   const [errorFlotas, setErrorFlotas] = useState("");
   const [modalVehiculo, setModalVehiculo] = useState(false);
   const [versionVehiculos, setVersionVehiculos] = useState(0);
+  const [modalFlota, setModalFlota] = useState(false);
+  const [versionFlotas, setVersionFlotas] = useState(0);
+  const [tiposFlota, setTiposFlota] = useState({});
+  const flotaPendienteRef = useRef(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -91,7 +96,20 @@ const Flota = () => {
         }
 
         setFlotas(data);
-        setFlotaSeleccionada(data.length ? String(data[0].id_flota) : "");
+
+        const idPendiente = flotaPendienteRef.current;
+        const creada = idPendiente
+          ? data.find((flota) => String(flota.id_flota) === idPendiente)
+          : null;
+
+        setFlotaSeleccionada(
+          creada
+            ? String(creada.id_flota)
+            : data.length
+              ? String(data[0].id_flota)
+              : "",
+        );
+        flotaPendienteRef.current = null;
       } catch (error) {
         if (controller.signal.aborted) return;
         setErrorFlotas(
@@ -104,11 +122,39 @@ const Flota = () => {
 
     cargarFlotas();
     return () => controller.abort();
+  }, [versionFlotas]);
+
+  // Tipos de flota para mostrar el nombre del tipo en la lista de flotas
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/tipos-flota", { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (controller.signal.aborted || !Array.isArray(data)) return;
+
+        const mapa = {};
+        for (const tipo of data) {
+          mapa[String(tipo.id_tipo_flota)] = tipo.nombre;
+        }
+        setTiposFlota(mapa);
+      })
+      .catch(() => {
+        // Si falla, la lista muestra "Tipo no disponible" en lugar del id
+      });
+
+    return () => controller.abort();
   }, []);
 
   const handleNuevoVehiculo = () => {
     setVersionVehiculos((version) => version + 1);
     setModalVehiculo(false);
+  };
+
+  const handleNuevaFlota = (flota) => {
+    if (flota?.id_flota) flotaPendienteRef.current = String(flota.id_flota);
+    setModalFlota(false);
+    setVersionFlotas((version) => version + 1);
   };
 
   const [modalConductor, setModalConductor] = useState(false);
@@ -132,7 +178,58 @@ const Flota = () => {
         <h1 className="text-2xl font-bold text-text">Gestión de flota</h1>
       </header>
 
-      <Card >
+      <Card>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-base font-bold text-text">Flotas</h2>
+          <PillButton onClick={() => setModalFlota(true)}>
+            Nueva flota
+          </PillButton>
+        </div>
+
+        {cargandoFlotas ? (
+          <p className="py-4 text-sm text-subtext">Cargando flotas...</p>
+        ) : errorFlotas ? (
+          <p role="alert" className="py-4 text-sm text-accent-dark">
+            Error: {errorFlotas}
+          </p>
+        ) : flotas.length ? (
+          <ul className="flex flex-1 flex-col gap-3 overflow-y-auto pr-1">
+            {flotas.map((flota) => (
+              <li
+                key={flota.id_flota}
+                className="rounded-xl border border-border bg-background px-4 py-3"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <p className="text-sm font-semibold text-text">
+                    {flota.nombre}
+                  </p>
+                  <span className="text-xs text-subtext">
+                    {tiposFlota[String(flota.id_tipo_flota)] ??
+                      "Tipo no disponible"}
+                  </span>
+                </div>
+                {flota.descripcion ? (
+                  <p className="mt-1 text-sm text-subtext">
+                    {flota.descripcion}
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex flex-1 flex-col items-start justify-center gap-3">
+            <p className="text-sm text-subtext">
+              Todavía no tienes flotas. Crea la primera para poder agregar
+              vehículos.
+            </p>
+            <PillButton onClick={() => setModalFlota(true)}>
+              Nueva flota
+            </PillButton>
+          </div>
+        )}
+      </Card>
+
+      <Card>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-base font-bold text-text">Vehículos</h2>
           <div className="flex flex-wrap items-center gap-3">
@@ -184,8 +281,15 @@ const Flota = () => {
               </PillButton>
             }
           />
+        ) : flotas.length ? (
+          <p className="py-4 text-sm text-subtext">
+            Selecciona una flota para revisar sus vehículos.
+          </p>
         ) : (
-          <p className="py-4 text-sm text-subtext">No hay flotas disponibles.</p>
+          <p className="py-4 text-sm text-subtext">
+            Los vehículos se registran dentro de una flota. Crea tu primera flota
+            en la sección de arriba para poder agregar vehículos.
+          </p>
         )}
       </Card>
 
@@ -257,6 +361,19 @@ const Flota = () => {
       >
         <VehiculoHistory vehiculo={VEHICULOSELECT ?? undefined} />
       </Modal>
+      {/* Modal Nueva Flota */}
+      <Modal
+        open={modalFlota}
+        onClose={() => setModalFlota(false)}
+        title="Nueva flota"
+        size="lg"
+      >
+        <FormularioFlota
+          onCreada={handleNuevaFlota}
+          onCancel={() => setModalFlota(false)}
+        />
+      </Modal>
+
       {/* Modal Agregar Vehiculo */}
       <Modal
         icon={ICONVEHICULO}
