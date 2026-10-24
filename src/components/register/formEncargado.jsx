@@ -35,7 +35,6 @@ const VACIO = {
   apellidos: "",
   email: "",
   cargo: "",
-  cargoOtro: "",
   password: "",
   repeatPassword: "",
 };
@@ -46,7 +45,6 @@ const CARGOS = [
   "Jefe de flota",
   "Supervisor",
   "Administrador",
-  "Otro",
 ];
 
 function CampoPassword({ valor, onChange, error }) {
@@ -146,10 +144,7 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
   const nombreOk = (valores.primer_nombre ?? "").trim().length >= 2;
   const apellidosOk = (valores.apellidos ?? "").trim().length >= 2;
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((valores.email ?? "").trim());
-  const cargoOk =
-    valores.cargo === "Otro"
-      ? (valores.cargoOtro ?? "").trim().length >= 2
-      : Boolean(valores.cargo);
+  const cargoOk = Boolean(valores.cargo);
 
   useEffect(() => {
     const primero = Object.keys(errors).find((campo) => CAMPOS[campo]);
@@ -170,13 +165,7 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
-          Submit?.({
-            ...valores,
-            cargo:
-              valores.cargo === "Otro"
-                ? (valores.cargoOtro ?? "").trim()
-                : valores.cargo,
-          });
+          Submit?.(valores);
         }}
         className="flex flex-col gap-[18px]"
       >
@@ -247,17 +236,6 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
               />
             </div>
           </FormField>
-
-          {valores.cargo === "Otro" && (
-            <FormField
-              label="Especifica el cargo"
-              id="cargo-otro"
-              required
-              placeholder="Ej: Jefe de taller"
-              value={valores.cargoOtro ?? ""}
-              onChange={cambiar("cargoOtro")}
-            />
-          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

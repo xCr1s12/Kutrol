@@ -61,11 +61,9 @@ export default function Register() {
       errs.email = "Escribe un email válido";
     }
 
-    const cargo =
-      valores.cargo === "Otro" ? (valores.cargoOtro ?? "").trim() : valores.cargo;
-    if (!cargo || cargo.length < 2) {
-      errs.cargo =
-        valores.cargo === "Otro" ? "Especifica tu cargo" : "Selecciona un cargo";
+    const cargo = (valores.cargo ?? "").trim();
+    if (cargo.length < 2) {
+      errs.cargo = "Selecciona un cargo";
     }
 
     const passwordError = mensajePassword(valores.password);
