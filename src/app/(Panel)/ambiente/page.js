@@ -1,7 +1,6 @@
 import Clock from "@/components/dashboard/Clock";
 import MetricasAmbiente from "@/components/ambiente/MetricasAmbiente";
 import MapaCalorAmbiente from "@/components/ambiente/MapaCalorAmbiente";
-import AlertsSection from "@/components/dashboard/alertsDashboard";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/tokenSession";
 import { findByIdEmpresa } from "@/repositories/Empresa.repository";
@@ -74,7 +73,7 @@ export default async function AmbientePage() {
               </p>
             </div>
 
-            <div className="w-full bg-linen  h-3 rounded-full overflow-hidden mb-2">
+            <div className="w-full bg-linen h-3 rounded-full overflow-hidden mb-2">
               <div className="bg-gold h-full w-[85%]" />
             </div>
 
@@ -85,10 +84,6 @@ export default async function AmbientePage() {
           </div>
         </section>
       </div>
-
-      <section id="ambiente-alertas" className="mt-6" aria-label="Sección de alertas">
-        <AlertsSection />
-      </section>
     </div>
   );
 }

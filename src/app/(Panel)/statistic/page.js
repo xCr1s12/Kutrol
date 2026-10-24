@@ -1,6 +1,5 @@
 import Clock from "@/components/statistic/Clock";
 import AnalisisAvanzado from "@/components/statistic/AnalisisAvanzado";
-import AlertsSection from "@/components/dashboard/alertsDashboard";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/tokenSession";
 import { obtenerMetricasDashboard } from "@/services/server/metricas.service";
@@ -33,11 +32,6 @@ export default async function StatisticPage() {
       {/* Bloques de Análisis Estadístico y Correlación */}
       <section id="estadisticas-bloque-analitico" className="w-full">
         <AnalisisAvanzado data={metricas} />
-      </section>
-
-      {/* Sección de Alertas */}
-      <section id="estadisticas-alertas" className="mt-8" aria-label="Sección de alertas">
-        <AlertsSection />
       </section>
     </div>
   );
