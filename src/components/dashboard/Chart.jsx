@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { darkModeContext } from "@/components/ui/DarkModeProvider";
 
 ChartJS.register(
@@ -25,9 +25,45 @@ ChartJS.register(
 
 export default function ConsumoChart() {
   const { darkMode } = useContext(darkModeContext);
+  const [chartData, setChartData] = useState({ labels: [], datasets: [] });
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
   const chartColors = darkMode
     ? ["#FDFBF7", "#A8B0AB", "#C2C9C4", "#D4AF37"]
     : ["#1A1A1A", "#6E6E6E", "#A8B0AB", "#D1D5DB"];
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function cargarConsumo() {
+      try {
+        const response = await fetch("/api/dashboard/consumo", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        const result = await response.json();
+
+        if (
+          !response.ok ||
+          !result.ok ||
+          !Array.isArray(result.data?.labels) ||
+          !Array.isArray(result.data?.datasets)
+        ) {
+          throw new Error(result.error || "No se pudieron cargar los datos de consumo.");
+        }
+
+        setChartData(result.data);
+      } catch (err) {
+        if (controller.signal.aborted) return;
+        setError(err instanceof Error ? err.message : "Error al cargar el consumo.");
+      } finally {
+        if (!controller.signal.aborted) setCargando(false);
+      }
+    }
+
+    cargarConsumo();
+    return () => controller.abort();
+  }, []);
 
   const options = {
     responsive: true,
@@ -74,41 +110,14 @@ export default function ConsumoChart() {
   };
 
   const data = {
-    labels: ["Lun", "Mar", "Mie", "Jue", "Vie"],
-    datasets: [
-      {
-        label: "Camion 1",
-        data: [40, 70, 50, 80, 45],
-        borderColor: chartColors[0],
-        backgroundColor: chartColors[0],
-        tension: 0.4,
-        pointRadius: 4,
-      },
-      {
-        label: "Camion 2",
-        data: [30, 55, 45, 75, 30],
-        borderColor: chartColors[1],
-        backgroundColor: chartColors[1],
-        tension: 0.4,
-        pointRadius: 4,
-      },
-      {
-        label: "Camion 3",
-        data: [20, 60, 35, 65, 80],
-        borderColor: chartColors[2],
-        backgroundColor: chartColors[2],
-        tension: 0.4,
-        pointRadius: 4,
-      },
-      {
-        label: "Camion 4",
-        data: [50, 30, 20, 45, 25],
-        borderColor: chartColors[3],
-        backgroundColor: chartColors[3],
-        tension: 0.4,
-        pointRadius: 4,
-      },
-    ],
+    labels: chartData.labels,
+    datasets: chartData.datasets.map((dataset, index) => ({
+      ...dataset,
+      borderColor: chartColors[index % chartColors.length],
+      backgroundColor: chartColors[index % chartColors.length],
+      tension: 0.4,
+      pointRadius: 4,
+    })),
   };
 
   return (
@@ -120,7 +129,21 @@ export default function ConsumoChart() {
       </figcaption>
 
       <div className="w-full h-[280px] relative">
-        <Line options={options} data={data} />
+        {cargando ? (
+          <p className="text-subtext flex h-full items-center justify-center text-sm" role="status">
+            Cargando consumo...
+          </p>
+        ) : error ? (
+          <p className="flex h-full items-center justify-center text-sm text-red-500" role="alert">
+            {error}
+          </p>
+        ) : data.datasets.length === 0 ? (
+          <p className="text-subtext flex h-full items-center justify-center text-sm">
+            No hay datos de consumo para los últimos 30 días.
+          </p>
+        ) : (
+          <Line options={options} data={data} />
+        )}
       </div>
     </figure>
   );

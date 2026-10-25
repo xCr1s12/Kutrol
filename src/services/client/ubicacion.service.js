@@ -18,3 +18,12 @@ export async function obtenerComunas(regionId, signal) {
   );
   return getJson(response, "No se pudieron cargar las comunas.");
 }
+
+export async function obtenerComunasIntermedias(origenId, destinoId, signal) {
+  const parametros = new URLSearchParams({
+    origenId: String(origenId),
+    destinoId: String(destinoId),
+  });
+  const response = await fetch(`/api/comunas?${parametros}`, { signal });
+  return getJson(response, "No se pudieron cargar las ciudades intermedias.");
+}

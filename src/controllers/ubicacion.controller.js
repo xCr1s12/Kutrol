@@ -1,5 +1,6 @@
 import * as ComunasRepository from "@/repositories/Comunas.repository";
 import * as RegionesRepository from "@/repositories/Regiones.repository";
+import { getComunasIntermedias } from "@/services/server/comuna.service";
 
 export async function getRegiones() {
   try {
@@ -11,6 +12,8 @@ export async function getRegiones() {
         id: region.region_id,
         nombre: region.region_nombre,
         numero_romano: region.numero_romano,
+        latitud: region.latitud,
+        longitud: region.longitud,
       })),
     });
   } catch (error) {
@@ -23,7 +26,39 @@ export async function getRegiones() {
 }
 
 export async function getComunas(request) {
-  const regionId = Number(new URL(request.url).searchParams.get("regionId"));
+  const url = new URL(request.url);
+  const origenId = url.searchParams.get("origenId");
+  const destinoId = url.searchParams.get("destinoId");
+
+  if (origenId !== null || destinoId !== null) {
+    const origen = Number(origenId);
+    const destino = Number(destinoId);
+    if (
+      !Number.isInteger(origen) ||
+      origen <= 0 ||
+      !Number.isInteger(destino) ||
+      destino <= 0 ||
+      origen === destino
+    ) {
+      return Response.json(
+        { ok: false, error: "Debes proporcionar comunas de origen y destino válidas." },
+        { status: 400 },
+      );
+    }
+
+    try {
+      const comunas = await getComunasIntermedias(origen, destino);
+      return Response.json({ ok: true, data: comunas });
+    } catch (error) {
+      console.error("Error al obtener ciudades intermedias:", error);
+      return Response.json(
+        { ok: false, error: "No se pudieron obtener las ciudades intermedias." },
+        { status: 500 },
+      );
+    }
+  }
+
+  const regionId = Number(url.searchParams.get("regionId"));
   if (!Number.isInteger(regionId) || regionId <= 0) {
     return Response.json(
       {
@@ -50,6 +85,8 @@ export async function getComunas(request) {
         .map((comuna) => ({
           id: comuna.comuna_id,
           nombre: comuna.comuna_nombre,
+          latitud: Number(comuna.latitud),
+          longitud: Number(comuna.longitud),
         })),
     });
   } catch (error) {

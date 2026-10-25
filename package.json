@@ -7,13 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test tests/"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.4.0",
     "@mui/material": "^9.4.0",
+    "@neon/config": "^1.9.2",
     "bcryptjs": "^3.0.3",
     "chart.js": "^4.5.1",
     "cloudinary": "^2.11.0",

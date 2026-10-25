@@ -112,3 +112,48 @@ export async function CombustibleYRendimiento(id_empresa, db = pool) {
   );
   return rows[0];
 }
+
+export async function ConsumoGraficoQuery(id_empresa, db = pool) {
+  const { rows } = await db.query(
+    `WITH consumo_diario AS (
+       SELECT
+         c.id_camion,
+         c.patente,
+         a.fecha::date AS dia,
+         SUM(a.litros)::float AS litros
+       FROM abastecimiento AS a
+       INNER JOIN camion AS c ON c.id_camion = a.id_camion
+       INNER JOIN flota AS f ON f.id_flota = c.id_flota
+       WHERE f.id_empresa = $1
+         AND c.deleted_at IS NULL
+         AND f.deleted_at IS NULL
+         AND a.fecha >= CURRENT_DATE - INTERVAL '29 days'
+         AND a.fecha < CURRENT_DATE + INTERVAL '1 day'
+       GROUP BY c.id_camion, c.patente, a.fecha::date
+     ),
+     dias AS (
+       SELECT generate_series(
+         CURRENT_DATE - INTERVAL '29 days',
+         CURRENT_DATE,
+         INTERVAL '1 day'
+       )::date AS dia
+     ),
+     camiones AS (
+       SELECT DISTINCT id_camion, patente
+       FROM consumo_diario
+     )
+     SELECT
+       TO_CHAR(d.dia, 'YYYY-MM-DD') AS fecha,
+       c.id_camion,
+       c.patente,
+       COALESCE(cd.litros, 0)::float AS litros
+     FROM dias AS d
+     CROSS JOIN camiones AS c
+     LEFT JOIN consumo_diario AS cd
+       ON cd.id_camion = c.id_camion
+       AND cd.dia = d.dia
+     ORDER BY d.dia, c.patente`,
+    [id_empresa],
+  );
+  return rows;
+}

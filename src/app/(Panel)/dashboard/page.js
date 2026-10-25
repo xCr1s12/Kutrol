@@ -5,6 +5,7 @@ import AlertsSection from "@/components/dashboard/alertsDashboard";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/tokenSession";
 import { findByIdEmpresa } from "@/repositories/Empresa.repository";
+import RankingConductores from "@/components/dashboard/RankingConductores";
 
 export default async function Dashboard() {
   const session = await getSession();
@@ -86,27 +87,7 @@ export default async function Dashboard() {
               aria-describedby="dashboard-ranking-descripcion"
               className="m-0 flex list-none flex-col gap-y-4 p-0"
             >
-              {[1, 2].map((driver) => (
-                <li
-                  key={driver}
-                  className="flex items-center justify-between text-sm"
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-moss text-xs font-bold text-cream"
-                      aria-hidden="true"
-                    >
-                      PM
-                    </span>
-                    <span className="text-text font-medium light:text-text dark:text-text">
-                      Pedro Muñoz
-                    </span>
-                  </div>
-                  <span className="text-subtext text-sm font-semibold light:text-subtext dark:text-subtext">
-                    40 km/L
-                  </span>
-                </li>
-              ))}
+              <RankingConductores />
             </ol>
           </div>
         </section>

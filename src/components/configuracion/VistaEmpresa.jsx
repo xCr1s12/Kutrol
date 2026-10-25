@@ -3,8 +3,7 @@ import {
 } from "@mui/icons-material";
 import { tarjeta, botonAmarillo } from "./comun";
 
-// iconos chicos de los campos, en amarillo oscuro para que se lean sobre blanco
-export const icono = { sx: { fontSize: 18 }, className: "text-accent", "aria-hidden": "true" };
+export const icono = { sx: { fontSize: 18 }, className: "text-icon", "aria-hidden": "true" };
 
 // marco verde con borde amarillo, como las tarjetas de la pagina de inicio
 export function LogoEmpresa({ logo }) {
@@ -35,7 +34,7 @@ function Dato({ titulo, icono, valor, className = "" }) {
 }
 
 // muestra los datos que la empresa dejo al registrarse
-export default function VistaEmpresa({ empresa, onEditar }) {
+export default function VistaEmpresa({ empresa, onEditar, puedeEditar = true }) {
   // por si la base de datos no devuelve nada
   if (!empresa.nombre) {
     return (
@@ -55,20 +54,25 @@ export default function VistaEmpresa({ empresa, onEditar }) {
             <p className="text-sm text-subtext">RUT {empresa.rut}</p>
           </div>
         </div>
-        <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>
-          <EditRounded fontSize="small" aria-hidden="true" />
-          Editar
-        </button>
+        {puedeEditar && (
+          <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>
+            <EditRounded fontSize="small" aria-hidden="true" />
+            Editar
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* izquierda contacto, derecha ubicacion */}
-        <Dato titulo="Correo de contacto" icono={<EmailRounded {...icono} />} valor={empresa.correo} />
+        <Dato
+          titulo="Correo de contacto"
+          icono={<EmailRounded {...icono} />}
+          valor={empresa.emails?.join(", ")}
+        />
         <Dato titulo="Región" icono={<MapRounded {...icono} />} valor={empresa.region} />
         <Dato
           titulo="Teléfono"
           icono={<PhoneRounded {...icono} />}
-          valor={empresa.telefono && `+56 ${empresa.telefono}`}
+          valor={empresa.telefonos?.join(" · ")}
         />
         <Dato titulo="Comuna" icono={<LocationCityRounded {...icono} />} valor={empresa.comuna} />
         <Dato
@@ -77,7 +81,11 @@ export default function VistaEmpresa({ empresa, onEditar }) {
           icono={<LocationOnRounded {...icono} />}
           valor={empresa.direccion}
         />
-        <Dato className="md:col-span-2" titulo="Descripción de la empresa" valor={empresa.descripcion} />
+        <Dato
+          className="md:col-span-2"
+          titulo="Descripción de la empresa"
+          valor={empresa.descripcion || "Sin descripción"}
+        />
       </div>
     </section>
   );

@@ -6,7 +6,6 @@ import Link from "next/link";
 import Card from "@/components/ui/Card";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
-import GoogleIcon from "@/components/ui/GoogleIcon";
 import Logo from "@/components/ui/Logo";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
@@ -53,7 +52,6 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-background text-text flex flex-col">
-      {/* Navbar */}
       <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
         <Logo fondo={darkMode ? "oscuro" : "claro"} />
 
@@ -61,7 +59,7 @@ export default function Login() {
           <button
             type="button"
             onClick={toggleDarkMode}
-            className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+            className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:bg-border/50 hover:text-text"
             aria-label="Alternar modo oscuro"
             aria-pressed={darkMode}
           >
@@ -78,7 +76,6 @@ export default function Login() {
         </div>
       </header>
 
-      {/* Contenedor centrado */}
       <main className="flex-1 flex items-center justify-center px-4 pt-20">
         <Card className="w-full max-w-110 p-10 space-y-7">
           <h1 className="text-2xl font-bold text-text text-center">
@@ -86,7 +83,6 @@ export default function Login() {
           </h1>
 
           <form onSubmit={handleSubmit} noValidate>
-            {/* Campos */}
             <div className="space-y-5">
               <FormField
                 label="Usuario"
@@ -103,26 +99,6 @@ export default function Login() {
               />
             </div>
 
-            {/* SSO */}
-            <div className="space-y-3 mt-7">
-              <p
-                className="text-xs text-subtext light:text-icon text-center"
-                id="login-sso-label"
-              >
-                Continuar con Google
-              </p>
-              <Button
-                type="button"
-                variant="ghost"
-                aria-labelledby="login-sso-label"
-                className="w-full flex items-center justify-center light:bg-accent light:text-white gap-2"
-              >
-                <GoogleIcon />
-                Google
-              </Button>
-            </div>
-
-            {/* Acciones */}
             <div className="flex gap-3 pt-5">
               <Button
                 type="submit"

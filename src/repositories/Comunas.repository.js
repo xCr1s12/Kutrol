@@ -17,7 +17,9 @@ export async function getComunasbyRegion(regionId, db = pool) {
     const { rows } = await db.query(
         `SELECT r.id_region AS region_id,
                 c.id_comuna AS comuna_id,
-                c.nombre AS comuna_nombre
+                c.nombre AS comuna_nombre,
+                c.latitud,
+                c.longitud
          FROM region AS r
          LEFT JOIN comuna AS c ON c.id_region = r.id_region
          WHERE r.id_region = $1
@@ -25,6 +27,20 @@ export async function getComunasbyRegion(regionId, db = pool) {
         [regionId]
     );
     return rows;
+}
+
+export async function getAllComunasWithCoordinates(db = pool) {
+  const { rows } = await db.query(
+    `SELECT
+       c.id_comuna AS id,
+       c.nombre,
+       c.id_region,
+       c.latitud,
+       c.longitud
+     FROM comuna c
+     ORDER BY c.nombre`,
+  );
+  return rows;
 }
 
 // BUSQUEDA DE COMUNAS POR NOMBRE DE REGION

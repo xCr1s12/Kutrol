@@ -38,18 +38,26 @@ CREATE TABLE REGION (
     id_region      INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre         VARCHAR(100) NOT NULL,
     numero_romano  VARCHAR(4)   NOT NULL,
+    latitud        NUMERIC(10,8) NOT NULL,
+    longitud       NUMERIC(11,8) NOT NULL,
     CONSTRAINT uq_region_nombre UNIQUE (nombre),
     CONSTRAINT uq_region_numero_romano UNIQUE (numero_romano),
-    CONSTRAINT chk_region_numero_romano CHECK (numero_romano ~ '^(RM|[IVXL]+)$')
+    CONSTRAINT chk_region_numero_romano CHECK (numero_romano ~ '^(RM|[IVXL]+)$'),
+    CONSTRAINT chk_region_latitud CHECK (latitud BETWEEN -90 AND 90),
+    CONSTRAINT chk_region_longitud CHECK (longitud BETWEEN -180 AND 180)
 );
 
 CREATE TABLE COMUNA (
     id_comuna  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_region  INTEGER      NOT NULL,
     nombre     VARCHAR(100) NOT NULL,
+    latitud    NUMERIC(10,8) NOT NULL,
+    longitud   NUMERIC(11,8) NOT NULL,
     CONSTRAINT fk_comuna_region FOREIGN KEY (id_region)
         REFERENCES REGION(id_region) ON DELETE RESTRICT,
-    CONSTRAINT uq_comuna_region_nombre UNIQUE (id_region, nombre)
+    CONSTRAINT uq_comuna_region_nombre UNIQUE (id_region, nombre),
+    CONSTRAINT chk_comuna_latitud CHECK (latitud BETWEEN -90 AND 90),
+    CONSTRAINT chk_comuna_longitud CHECK (longitud BETWEEN -180 AND 180)
 );
 
 -- ==============================================================================
@@ -250,12 +258,15 @@ CREATE TABLE SENSOR (
 -- ==============================================================================
 CREATE TABLE RUTA (
     id_ruta            INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_empresa         INTEGER       NOT NULL,   -- empresa dueña de la ruta
     id_comuna_origen   INTEGER       NOT NULL,
     id_comuna_destino  INTEGER       NOT NULL,
     distancia_km       NUMERIC(8,2)  NOT NULL,
     created_at         TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at         TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uq_ruta_origen_destino UNIQUE (id_comuna_origen, id_comuna_destino),
+    CONSTRAINT uq_ruta_empresa_origen_destino UNIQUE (id_empresa, id_comuna_origen, id_comuna_destino),
+    CONSTRAINT fk_ruta_empresa FOREIGN KEY (id_empresa)
+        REFERENCES EMPRESA(id_empresa) ON DELETE RESTRICT,
     CONSTRAINT fk_ruta_comuna_origen FOREIGN KEY (id_comuna_origen)
         REFERENCES COMUNA(id_comuna) ON DELETE RESTRICT,
     CONSTRAINT fk_ruta_comuna_destino FOREIGN KEY (id_comuna_destino)

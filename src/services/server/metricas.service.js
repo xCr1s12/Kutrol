@@ -5,6 +5,7 @@ import {
   GastoTotalDinero,
   CombustibleYRendimiento,
 } from "@/repositories/Vehiculos.repository";
+import { obtenerMetricasEstadisticas as consultarMetricasEstadisticas } from "@/repositories/metricas.repository";
 
 const num = (v) => Number(v ?? 0) || 0;
 
@@ -26,4 +27,8 @@ export async function obtenerMetricasDashboard(id_empresa) {
       kmPorLitro: num(combustible?.km_por_litro),
     },
   };
+}
+
+export async function obtenerMetricasEstadisticas(id_empresa) {
+  return consultarMetricasEstadisticas(id_empresa);
 }

@@ -1,44 +1,51 @@
-import Clock from "@/components/statistic/Clock";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import AnalisisAvanzado from "@/components/statistic/AnalisisAvanzado";
-import AlertsSection from "@/components/dashboard/alertsDashboard";
-import { redirect } from "next/navigation";
-import { getSession } from "@/lib/tokenSession";
-import { obtenerMetricasDashboard } from "@/services/server/metricas.service";
 
-export default async function StatisticPage() {
-  const session = await getSession();
-  if (!session) redirect("/login");
+export default function StatisticPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const metricas = await obtenerMetricasDashboard(session.id_empresa);
+  useEffect(() => {
+    async function fetchEstadisticas() {
+      try {
+        const response = await fetch("/api/estadisticas", {
+          cache: "no-store",
+        });
+        const result = await response.json();
 
-  return (
-    <div
-      id="estadisticas-avanzadas"
-      className="flex min-h-screen w-full flex-col bg-background p-6 text-text"
-    >
-      {/* Encabezado limpio */}
-      <header id="estadisticas-encabezado" className="mb-6">
-        <h1 id="estadisticas-titulo" className="text-text text-2xl font-bold">
-          Análisis Estadístico
-        </h1>
+        if (result.success) {
+          setData(result.data);
+        } else {
+          setError(result.message || "Error al obtener las estadísticas desde la base de datos");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-        <span
-          id="estadisticas-reloj"
-          className="text-subtext mt-1 flex items-center gap-2 text-sm"
-        >
-          <Clock className="w-4 h-4" role="timer" />
-        </span>
-      </header>
+    fetchEstadisticas();
+  }, []);
 
-      {/* Bloques de Análisis Estadístico y Correlación */}
-      <section id="estadisticas-bloque-analitico" className="w-full">
-        <AnalisisAvanzado data={metricas} />
-      </section>
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64 text-text text-sm font-medium">
+        Cargando estadísticas en tiempo real desde la base de datos...
+      </div>
+    );
+  }
 
-      {/* Sección de Alertas */}
-      <section id="estadisticas-alertas" className="mt-8" aria-label="Sección de alertas">
-        <AlertsSection />
-      </section>
-    </div>
-  );
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-64 text-accent text-sm font-medium">
+        Error al cargar los datos: {error}
+      </div>
+    );
+  }
+
+  return <AnalisisAvanzado data={data} />;
 }

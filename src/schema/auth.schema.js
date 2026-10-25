@@ -1,20 +1,29 @@
 import { z } from "zod";
 import { telefonoSchema, emailSchema } from "@/schema/comunicacion.schema";
-import { validateCompanyRut } from "@/lib/validateCompanyRut";
+import { validateRut } from "@/lib/validateRut";
+import { mensajePassword } from "@/lib/passwordPolicy";
 
-const EmpresaSchema = z.object({
-  nombre: z.string().trim().min(2, "El nombre de la empresa es obligatorio"),
+export const EmpresaSchema = z.object({
+  nombre: z
+    .string()
+    .trim()
+    .min(2, "El nombre de la empresa es obligatorio")
+    .max(100, "El nombre no puede superar 100 caracteres"),
   rut: z
     .string()
     .trim()
     .superRefine((val, ctx) => {
-      const errorMsg = validateCompanyRut(val);
+      const errorMsg = validateRut(val);
       if (errorMsg !== "") {
         ctx.addIssue({ code: z.ZodIssueCode.custom, message: errorMsg });
       }
     }),
-  direccion: z.string().trim().min(5, "La dirección es obligatoria"),
-  descripcion: z.string().trim().optional(),
+  direccion: z
+    .string()
+    .trim()
+    .min(5, "La dirección es obligatoria")
+    .max(200, "La dirección no puede superar 200 caracteres"),
+  descripcion: z.string().trim().max(255, "La descripción no puede superar 255 caracteres").optional(),
   url_imagen: z
     .string()
     .url("Debe ser una URL válida")
@@ -32,11 +41,14 @@ const EmpresaSchema = z.object({
 });
 
 const EncargadoSchema = z.object({
-  primer_nombre: z.string().trim().min(2, "El primer nombre es obligatorio"),
-  apellidos: z.string().trim().min(2, "Los apellidos son obligatorios"),
-  email: z.string().trim().toLowerCase().email("Email inválido"),
-  cargo: z.string().trim().min(2, "El cargo es obligatorio"),
-  password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres"),
+  primer_nombre: z.string().trim().min(2, "El primer nombre es obligatorio").max(50, "El nombre no puede superar 50 caracteres"),
+  apellidos: z.string().trim().min(2, "Los apellidos son obligatorios").max(100, "Los apellidos no pueden superar 100 caracteres"),
+  email: z.string().trim().toLowerCase().max(100, "El email no puede superar 100 caracteres").email("Email inválido"),
+  cargo: z.string().trim().min(2, "El cargo es obligatorio").max(100, "El cargo no puede superar 100 caracteres"),
+  password: z.string().superRefine((val, ctx) => {
+    const mensaje = mensajePassword(val);
+    if (mensaje) ctx.addIssue({ code: z.ZodIssueCode.custom, message: mensaje });
+  }),
 });
 
 export const registerEmpresaAndEncargadoSchema = z.object({

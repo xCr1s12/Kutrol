@@ -1,210 +1,153 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MapIcon from "@mui/icons-material/Map";
 import AccessTimeRoundedIcon from "@mui/icons-material/AccessTimeRounded";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 
 export default function MapaCalorAmbiente() {
-  const [tabActiva, setTabActiva] = useState("horario"); // 'horario', 'geografico', 'camiones'
+  const [tabActiva, setTabActiva] = useState("horario");
+  const [loading, setLoading] = useState(true);
+  const diasSemana = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+  const horasDelDia = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, "0")}:00`);
 
-  // --- DATOS MAPA HORARIO ---
-  const dias = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-  const horas = ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
-  const matrizHoraria = [
-    [0, 1, 2, 2, 1, 0],
-    [0, 2, 2, 1, 1, 0],
-    [1, 2, 2, 2, 1, 0],
-    [0, 1, 2, 1, 0, 0],
-    [1, 2, 2, 2, 2, 1],
-    [0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-  ];
+  const [matrizHoraria, setMatrizHoraria] = useState([]);
+  const [zonasRegistradas, setZonasRegistradas] = useState([]);
+  const [datosCamionesRuta, setDatosCamionesRuta] = useState({ camiones: [], rutas: [], matrizCamiones: [] });
 
-  // --- DATOS MAPA CAMIONES (PATENTES REALES) VS RUTAS ---
-  const camiones = ["AB-123-CD", "EF-456-GH", "JK-789-LM", "NP-012-RS"];
-  const rutas = ["Castro - Ancud", "Castro - Quellón", "Castro - P. Montt", "Chonchi - Dalcahue"];
-  const matrizCamiones = [
-    [0, 1, 2, 0],
-    [1, 0, 2, 1],
-    [2, 2, 2, 1],
-    [0, 0, 1, 0],
-  ];
+  useEffect(() => {
+    async function cargarDatosMapaCalor() {
+      try {
+        const respuestaServidor = await fetch("/api/ambiente/mapa-calor");
+        if (respuestaServidor.ok) {
+          const jsonServidor = await respuestaServidor.json();
+          if (jsonServidor.data?.matrizHoraria) setMatrizHoraria(jsonServidor.data.matrizHoraria);
+          if (jsonServidor.data?.zonas) setZonasRegistradas(jsonServidor.data.zonas);
+          if (jsonServidor.data?.camionesRuta) setDatosCamionesRuta(jsonServidor.data.camionesRuta);
+        }
+      } catch (errorPeticion) {
+        console.error("Error al cargar mapa de calor:", errorPeticion);
+      } finally {
+        setLoading(false);
+      }
+    }
+    cargarDatosMapaCalor();
+  }, []);
 
-  // --- DATOS MAPA GEOGRÁFICO / ZONAS ---
-  const zonas = [
-    { comuna: "Castro (Centro)", descripcion: "Pendiente & Tráfico", co2: "4.2 Ton", nivel: 2 },
-    { comuna: "Ancud (Norte)", descripcion: "Ruta 5 Sur", co2: "2.8 Ton", nivel: 1 },
-    { comuna: "Quellón (Sur)", descripcion: "Flujo Continuo", co2: "1.1 Ton", nivel: 0 },
-    { comuna: "Chonchi / Dalcahue", descripcion: "Cruces Rurales", co2: "2.1 Ton", nivel: 1 },
-  ];
-
-  // Mantener los niveles distinguibles sobre las superficies de ambos temas.
-  const getStyleByLevel = (nivel) => {
-    switch (nivel) {
-      case 2:
-        return "bg-copper"; // Acento Oscuro / Cobre Kutrol (#8C6239)
-      case 1:
-        return "bg-gold"; // Dorado Acento Kutrol (#D4AF37)
-      case 0:
-      default:
-        return "bg-brand"; // Verde Oscuro Fondo Kutrol (#1B2B24)
+  const obtenerEstiloPorNivelCO2 = (nivelContaminacion) => {
+    switch (nivelContaminacion) {
+      case 2: return "bg-copper";
+      case 1: return "bg-gold";
+      case 0: default: return "bg-brand";
     }
   };
 
+  // aca revisamos si la matriz tiene algun dato mayor a cero para no dibujar una grilla vacia
+  const contieneDatosHorariosValidos = matrizHoraria.length > 0 && matrizHoraria.some((filaDia) => filaDia.some((valorHora) => valorHora > 0));
+
+  if (loading) {
+    return (
+      <div className="w-full bg-cream rounded-xl p-8 text-center text-graphite font-medium animate-pulse border border-linen">
+        Cargando análisis de emisiones desde la base de datos...
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] border border-linen">
-      {/* Encabezado y Selector de Tabs */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-ink font-bold text-lg">
-            Análisis de Impacto Ambiental y Emisiones
-          </h2>
-          <p className="text-xs text-graphite mt-0.5">
-            Monitoreo de la huella de carbono de la flota según franja y ruta
-          </p>
+          <h2 className="text-ink font-bold text-lg">Análisis de Impacto Ambiental y Emisiones</h2>
+          <p className="text-xs text-graphite mt-0.5">Monitoreo de la huella de carbono de la flota según franja y ruta</p>
         </div>
-
-        {/* Tabs de Selección */}
         <div className="flex bg-linen/50 p-1 rounded-lg border border-linen self-start md:self-auto">
-          <button
-            onClick={() => setTabActiva("horario")}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              tabActiva === "horario"
-                ? "bg-ink text-cream"
-                : "text-graphite hover:text-ink"
-            }`}
-          >
-            <AccessTimeRoundedIcon fontSize="small" />
-            <span>Franja Horaria</span>
+          <button onClick={() => setTabActiva("horario")} className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${tabActiva === "horario" ? "bg-ink text-cream" : "text-graphite hover:text-ink"}`}>
+            <AccessTimeRoundedIcon fontSize="small" /><span>Franja Horaria</span>
           </button>
-
-          <button
-            onClick={() => setTabActiva("geografico")}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              tabActiva === "geografico"
-                ? "bg-ink text-cream"
-                : "text-graphite hover:text-ink"
-            }`}
-          >
-            <MapIcon fontSize="small" />
-            <span>Por Zonas</span>
+          <button onClick={() => setTabActiva("geografico")} className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${tabActiva === "geografico" ? "bg-ink text-cream" : "text-graphite hover:text-ink"}`}>
+            <MapIcon fontSize="small" /><span>Por Zonas</span>
           </button>
-
-          <button
-            onClick={() => setTabActiva("camiones")}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              tabActiva === "camiones"
-                ? "bg-ink text-cream"
-                : "text-graphite hover:text-ink"
-            }`}
-          >
-            <LocalShippingRoundedIcon fontSize="small" />
-            <span>Camión vs Ruta</span>
+          <button onClick={() => setTabActiva("camiones")} className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${tabActiva === "camiones" ? "bg-ink text-cream" : "text-graphite hover:text-ink"}`}>
+            <LocalShippingRoundedIcon fontSize="small" /><span>Camión vs Ruta</span>
           </button>
         </div>
       </div>
 
-      {/* Leyenda de Colores */}
       <div className="flex items-center gap-4 text-xs mb-4 pb-3 border-b border-linen">
         <span className="text-graphite font-semibold">Nivel de CO₂:</span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 rounded bg-brand inline-block" />
-          <span className="text-ink">Bajo / Eficiente</span>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 rounded bg-gold inline-block" />
-          <span className="text-ink">Moderado</span>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3.5 h-3.5 rounded bg-copper inline-block" />
-          <span className="text-ink">Crítico / Elevado</span>
-        </span>
+        <span className="flex items-center gap-1.5"><span className="w-3.5 h-3.5 rounded bg-brand inline-block" /><span className="text-ink">Bajo / Eficiente</span></span>
+        <span className="flex items-center gap-1.5"><span className="w-3.5 h-3.5 rounded bg-gold inline-block" /><span className="text-ink">Moderado</span></span>
+        <span className="flex items-center gap-1.5"><span className="w-3.5 h-3.5 rounded bg-copper inline-block" /><span className="text-ink">Crítico / Elevado</span></span>
       </div>
 
-      {/* VISTA 1: FRANJA HORARIA */}
       {tabActiva === "horario" && (
         <div className="overflow-x-auto pt-2">
-          <div className="min-w-[500px]">
-            <div className="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-bold text-graphite">
-              <span className="text-left">Día / Hora</span>
-              {horas.map((h) => (
-                <span key={h}>{h}</span>
+          {contieneDatosHorariosValidos ? (
+            <div className="min-w-[850px]">
+              <div className="grid grid-cols-[50px_repeat(24,1fr)] gap-1 mb-2 text-center text-[10px] font-bold text-graphite">
+                <span className="text-left font-bold text-xs text-ink">Día</span>
+                {horasDelDia.map((horaEspecifica) => <span key={horaEspecifica} className="truncate">{horaEspecifica}</span>)}
+              </div>
+              {diasSemana.map((nombreDia, indiceFila) => (
+                <div key={nombreDia} className="grid grid-cols-[50px_repeat(24,1fr)] gap-1 mb-1.5 items-center">
+                  <span className="text-xs font-bold text-ink">{nombreDia}</span>
+                  {matrizHoraria[indiceFila]?.map((valorContaminacion, indiceColumna) => (
+                    <div key={indiceColumna} className={`h-8 rounded-sm transition-transform hover:scale-110 cursor-pointer ${obtenerEstiloPorNivelCO2(valorContaminacion)}`} title={`Hora: ${horasDelDia[indiceColumna]} | Día: ${nombreDia}`} />
+                  ))}
+                </div>
               ))}
             </div>
-
-            {dias.map((dia, fIdx) => (
-              <div key={dia} className="grid grid-cols-7 gap-2 mb-2 items-center">
-                <span className="text-xs font-bold text-ink">{dia}</span>
-                {matrizHoraria[fIdx].map((val, cIdx) => (
-                  <div
-                    key={cIdx}
-                    className={`h-9 rounded-md transition-transform hover:scale-105 cursor-pointer ${getStyleByLevel(
-                      val
-                    )}`}
-                    title={`Nivel CO₂: ${val === 2 ? "Crítico" : val === 1 ? "Moderado" : "Bajo"}`}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+          ) : (
+            <div className="flex justify-center items-center py-10">
+              <p className="text-sm text-graphite font-medium">No hay datos suficientes registrados para generar el mapa de calor horario.</p>
+            </div>
+          )}
         </div>
       )}
 
-      {/* VISTA 2: POR ZONAS */}
       {tabActiva === "geografico" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-          {zonas.map((zona, idx) => (
-            <div
-              key={idx}
-              className="p-4 rounded-lg border border-linen flex items-center justify-between bg-cream"
-            >
-              <div>
-                <h3 className="font-bold text-sm text-ink">{zona.comuna}</h3>
-                <p className="text-xs text-graphite">{zona.descripcion}</p>
-                <span className="text-xs text-copper font-medium mt-1 inline-block">
-                  Huella registrada: {zona.co2}
-                </span>
+          {zonasRegistradas.length > 0 ? (
+            zonasRegistradas.map((zonaUbicacion, indiceZona) => (
+              <div key={indiceZona} className="p-4 rounded-lg border border-linen flex items-center justify-between bg-cream">
+                <div>
+                  <h3 className="font-bold text-sm text-ink">{zonaUbicacion.comuna}</h3>
+                  <p className="text-xs text-graphite">{zonaUbicacion.descripcion}</p>
+                  <span className="text-xs text-copper font-medium mt-1 inline-block">Huella registrada: {zonaUbicacion.co2}</span>
+                </div>
+                <div className={`w-10 h-10 rounded-lg transition-transform hover:scale-105 ${obtenerEstiloPorNivelCO2(zonaUbicacion.nivel)}`} />
               </div>
-              <div
-                className={`w-10 h-10 rounded-lg transition-transform hover:scale-105 ${getStyleByLevel(
-                  zona.nivel
-                )}`}
-                title={`Nivel CO₂: ${zona.nivel === 2 ? "Crítico" : zona.nivel === 1 ? "Moderado" : "Bajo"}`}
-              />
+            ))
+          ) : (
+            <div className="flex justify-center items-center py-10 col-span-2">
+              <p className="text-sm text-graphite font-medium">No hay datos de zonas registrados en la base de datos.</p>
             </div>
-          ))}
+          )}
         </div>
       )}
 
-      {/* VISTA 3: CAMIÓN (PATENTE) VS RUTA */}
       {tabActiva === "camiones" && (
         <div className="overflow-x-auto pt-2">
-          <div className="min-w-[550px]">
-            <div className="grid grid-cols-5 gap-2 mb-2 text-center text-xs font-bold text-graphite">
-              <span className="text-left">Patente / Ruta</span>
-              {rutas.map((r) => (
-                <span key={r} className="truncate">{r}</span>
+          {datosCamionesRuta?.camiones?.length > 0 && datosCamionesRuta?.rutas?.length > 0 ? (
+            <div className="min-w-[550px]">
+              <div className="grid gap-2 mb-2 text-center text-xs font-bold text-graphite" style={{ gridTemplateColumns: `100px repeat(${datosCamionesRuta.rutas.length}, 1fr)` }}>
+                <span className="text-left">Patente / Ruta</span>
+                {datosCamionesRuta.rutas.map((nombreRuta) => <span key={nombreRuta} className="truncate" title={nombreRuta}>{nombreRuta}</span>)}
+              </div>
+              {datosCamionesRuta.camiones.map((patenteCamion, indiceFilaCamion) => (
+                <div key={patenteCamion} className="grid gap-2 mb-2 items-center" style={{ gridTemplateColumns: `100px repeat(${datosCamionesRuta.rutas.length}, 1fr)` }}>
+                  <span className="text-xs font-bold text-ink truncate">{patenteCamion}</span>
+                  {datosCamionesRuta.matrizCamiones[indiceFilaCamion]?.map((valorContaminacionRuta, indiceColumnaRuta) => (
+                    <div key={indiceColumnaRuta} className={`h-9 rounded-md transition-transform hover:scale-105 cursor-pointer ${obtenerEstiloPorNivelCO2(valorContaminacionRuta)}`} title={`Patente: ${patenteCamion} | Ruta: ${datosCamionesRuta.rutas[indiceColumnaRuta]}`} />
+                  ))}
+                </div>
               ))}
             </div>
-
-            {camiones.map((patente, fIdx) => (
-              <div key={patente} className="grid grid-cols-5 gap-2 mb-2 items-center">
-                <span className="text-xs font-bold text-ink truncate">
-                  {patente}
-                </span>
-                {matrizCamiones[fIdx].map((val, cIdx) => (
-                  <div
-                    key={cIdx}
-                    className={`h-9 rounded-md transition-transform hover:scale-105 cursor-pointer ${getStyleByLevel(
-                      val
-                    )}`}
-                    title={`Patente: ${patente} | Ruta: ${rutas[cIdx]}`}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+          ) : (
+            <div className="flex justify-center items-center py-10">
+              <p className="text-sm text-graphite font-medium">No hay registros suficientes de rutas por camión en la base de datos.</p>
+            </div>
+          )}
         </div>
       )}
     </div>

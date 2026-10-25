@@ -8,8 +8,15 @@ export default function FormField({
   minLength,
   error,
   required,
+  hint,
   children,
+  ...props
 }) {
+  const describedBy =
+    [error ? `${id}-error` : null, hint ? `${id}-hint` : null]
+      .filter(Boolean)
+      .join(" ") || undefined;
+
   if (children) {
     return (
       <div className="flex flex-col gap-1.5">
@@ -17,6 +24,16 @@ export default function FormField({
           {label}
         </label>
         {children}
+        {hint && !error && (
+          <p id={`${id}-hint`} className="text-xs text-subtext">
+            {hint}
+          </p>
+        )}
+        {error && (
+          <p id={`${id}-error`} className="text-xs text-accent-dark">
+            {error}
+          </p>
+        )}
       </div>
     );
   }
@@ -41,10 +58,16 @@ export default function FormField({
         minLength={minLength}
         required={required}
         aria-invalid={!!error || undefined}
-        aria-describedby={error ? `${id}-error` : undefined}
+        aria-describedby={describedBy}
         className="w-full bg-background border border-icon text-text placeholder-subtext rounded-md px-4 py-2.5 text-sm outline-none focus:border-accent transition-colors resize-none"
         {...inputProps}
+        {...props}
       />
+      {hint && !error && (
+        <p id={`${id}-hint`} className="text-xs text-subtext">
+          {hint}
+        </p>
+      )}
       {error && (
         <p id={`${id}-error`} className="text-xs text-accent-dark">
           {error}

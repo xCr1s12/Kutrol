@@ -28,6 +28,29 @@ export async function createFlota(
 }
 
 
+export async function getTiposFlota(db = pool) {
+    const { rows } = await db.query(
+        `SELECT id_tipo_flota, nombre
+         FROM tipo_flota
+         ORDER BY id_tipo_flota`
+    );
+    return rows;
+}
+
+
+export async function perteneceAEmpresa(id_flota, id_empresa, db = pool) {
+    const { rows } = await db.query(
+        `SELECT 1
+         FROM flota
+         WHERE id_flota = $1
+           AND id_empresa = $2
+           AND deleted_at IS NULL`,
+        [id_flota, id_empresa]
+    );
+    return rows.length > 0;
+}
+
+
 export async function dataFlota(flota_id, db=pool) {
     const { rows } = await db.query(
         `SELECT *

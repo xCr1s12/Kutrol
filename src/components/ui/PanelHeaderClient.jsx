@@ -29,7 +29,7 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
     try {
       await logout();
       setIsOpen(false);
-      router.replace("/login");
+      router.replace("/");
     } catch (error) {
       setLogoutError(
         error instanceof Error ? error.message : "No se pudo cerrar sesión.",
@@ -51,14 +51,15 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
   }, []);
 
   return (
-      <header className="w-full flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-2 flex-wrap gap-2 light:bg-header light:border-border dark:bg-header dark:border-border">
+    <header className="w-full flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 border-b-2 flex-wrap gap-2 light:bg-header light:border-border dark:bg-header dark:border-border">
       <Logo fondo={darkMode ? "oscuro" : "claro"} href="/dashboard" className="h-12" />
 
       <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={toggleDarkMode}
-          className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:text-text"
+          title={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+          className="cursor-pointer rounded-md p-2 text-icon transition-colors hover:bg-border/50 hover:text-text"
           aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
           aria-pressed={darkMode}
         >
@@ -66,74 +67,75 @@ export default function PanelHeaderClient({ Encargado, Empresa }) {
         </button>
 
         <div className="relative" ref={dropdownRef}>
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-border/50 transition-colors cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        >
-          <img
-            src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}
-            alt="Logo de la empresa"
-            className="w-8 h-8 rounded-full object-cover"
-            onError={() => setImagenRota(true)}
-          />
-
-          <span className="hidden sm:inline-block text-sm font-medium text-text">
-            {Encargado.primer_nombre} {Encargado.apellidos}
-          </span>
-
-          {isOpen ? (
-            <KeyboardArrowUpIcon
-              className="text-icon"
-              aria-hidden="false"
-              aria-label="Cerrar Menu"
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            title="Opciones de perfil"
+            className="flex items-center gap-x-2.5 p-1.5 rounded-full hover:bg-border/50 transition-colors cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <img
+              src={Empresa.url_imagen && !imagenRota ? Empresa.url_imagen : "/images/empresa-defecto.svg"}
+              alt="Logo de la empresa"
+              className="w-8 h-8 rounded-full object-cover"
+              onError={() => setImagenRota(true)}
             />
-          ) : (
-            <KeyboardArrowDownIcon
-              className="text-icon"
-              aria-hidden="false"
-              aria-label="Abrir Menu"
-            />
-          )}
-        </button>
 
-        {isOpen && (
-          <div className="absolute right-0 mt-2 w-56 rounded-xl border shadow-lg py-2 z-50 bg-card border-border text-text">
-            <div className="px-4 py-2 border-b border-border">
-              <p className="text-sm font-semibold text-text">
-                {Encargado.primer_nombre} {Encargado.apellidos}
-              </p>
-              <p className="text-xs text-subtext truncate">{Encargado.email}</p>
-            </div>
+            <span className="hidden sm:inline-block text-sm font-medium text-text">
+              {Encargado.primer_nombre} {Encargado.apellidos}
+            </span>
 
-            <div className="py-1">
-              <Link
-                href="/configPanel"
-                className="flex items-center gap-2.5 px-4 py-2 text-sm hover:bg-border transition-colors"
-              >
-                <SettingsOutlinedIcon fontSize="small" className="text-icon" aria-hidden="true" />
-                Configuración
-              </Link>
-            </div>
+            {isOpen ? (
+              <KeyboardArrowUpIcon
+                className="text-icon"
+                aria-hidden="false"
+                aria-label="Cerrar Menu"
+              />
+            ) : (
+              <KeyboardArrowDownIcon
+                className="text-icon"
+                aria-hidden="false"
+                aria-label="Abrir Menu"
+              />
+            )}
+          </button>
 
-            <div className="border-t border-border pt-1">
-              {logoutError && (
-                <p role="alert" className="px-4 py-2 text-sm text-red-600">
-                  {logoutError}
+          {isOpen && (
+            <div className="absolute right-0 mt-2 w-56 rounded-xl border shadow-lg py-2 z-50 bg-card border-border text-text">
+              <div className="px-4 py-2 border-b border-border">
+                <p className="text-sm font-semibold text-text">
+                  {Encargado.primer_nombre} {Encargado.apellidos}
                 </p>
-              )}
-              <button
-                type="button"
-                onClick={handleLogout}
-                disabled={isLoggingOut}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer flex items-center gap-2.5"
-              >
-                <LogoutRoundedIcon fontSize="small" aria-hidden="true" />
-                {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
-              </button>
+                <p className="text-xs text-subtext truncate">{Encargado.email}</p>
+              </div>
+
+              <div className="py-1">
+                <Link
+                  href="/configPanel"
+                  className="flex items-center gap-2.5 px-4 py-2 text-sm hover:bg-border transition-colors"
+                >
+                  <SettingsOutlinedIcon fontSize="small" className="text-icon" aria-hidden="true" />
+                  Configuración
+                </Link>
+              </div>
+
+              <div className="border-t border-border pt-1">
+                {logoutError && (
+                  <p role="alert" className="px-4 py-2 text-sm text-red-600">
+                    {logoutError}
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
+                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium cursor-pointer flex items-center gap-2.5"
+                >
+                  <LogoutRoundedIcon fontSize="small" aria-hidden="true" />
+                  {isLoggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </div>
       </div>
     </header>
