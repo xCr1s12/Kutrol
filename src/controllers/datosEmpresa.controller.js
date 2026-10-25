@@ -5,10 +5,10 @@ import {
   getEmpresaByID,
 } from "@/services/server/datosEmpresa.service";
 import { toErrorResponse } from "@/utils/errors";
+import { exigirAdministracion } from "@/lib/permisos";
 
 export async function getDataEmpresaByID() {
   try {
-    //verifica la session
     const session = await getSession();
     if (!session?.id_empresa) {
       return NextResponse.json(
@@ -27,7 +27,6 @@ export async function getDataEmpresaByID() {
 
 export async function updateDataEmpresaByID(request) {
   try {
-    //verifica la session
     const session = await getSession();
     if (!session?.id_empresa) {
       return NextResponse.json(
@@ -35,6 +34,11 @@ export async function updateDataEmpresaByID(request) {
         { status: 401 },
       );
     }
+
+    exigirAdministracion(
+      session,
+      "Solo el dueño o un administrador pueden editar los datos de la empresa",
+    );
 
     const body = await request.json();
     await actualizarEmpresa(session.id_empresa, body);
