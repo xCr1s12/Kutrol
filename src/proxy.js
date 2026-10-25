@@ -13,8 +13,53 @@ const API_PUBLICAS = [
 
 export async function proxy(request) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
-  const session = await verifyToken(token);
+  let session = await verifyToken(token);
   const { pathname } = request.nextUrl;
+  let sessionInvalida = Boolean(token) && !session;
+
+  if (session) {
+    const idEncargado = Number(session.id_encargado);
+    const idEmpresa = Number(session.id_empresa);
+
+    if (
+      !Number.isInteger(idEncargado) ||
+      idEncargado <= 0 ||
+      !Number.isInteger(idEmpresa) ||
+      idEmpresa <= 0
+    ) {
+      session = null;
+      sessionInvalida = true;
+    } else {
+      try {
+        const { rows } = await pool.query(
+          `SELECT 1
+           FROM encargado_empresa
+           WHERE id_encargado = $1
+             AND id_empresa = $2
+           LIMIT 1`,
+          [idEncargado, idEmpresa],
+        );
+
+        if (rows.length === 0) {
+          session = null;
+          sessionInvalida = true;
+        }
+      } catch (error) {
+        console.error("Error al validar el usuario de la sesión:", error);
+        return NextResponse.json(
+          { error: "No se pudo validar la sesión" },
+          { status: 500 },
+        );
+      }
+    }
+  }
+
+  const limpiarCookieSesion = (response) => {
+    if (sessionInvalida) {
+      response.cookies.delete(COOKIE_NAME);
+    }
+    return response;
+  };
 
   // Copia de los headers de la petición. Borramos siempre el header
   // para que el cliente no pueda inventarse un id_encargado.
@@ -25,7 +70,10 @@ export async function proxy(request) {
     requestHeaders.set("x-id-encargado", String(session.id_encargado));
   }
 
-  const next = () => NextResponse.next({ request: { headers: requestHeaders } });
+  const next = () =>
+    limpiarCookieSesion(
+      NextResponse.next({ request: { headers: requestHeaders } }),
+    );
 
   if (pathname.startsWith("/api/")) {
     const esSubidaPublica = pathname === "/api/upload" && request.method === "POST";
@@ -35,8 +83,16 @@ export async function proxy(request) {
         (ruta) => pathname === ruta || pathname.startsWith(ruta + "/")
       );
 
+    if (pathname === "/api/auth/session" && !session) {
+      return limpiarCookieSesion(
+        NextResponse.json({ authenticated: false }, { status: 401 }),
+      );
+    }
+
     if (!session && !esPublica) {
-      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+      return limpiarCookieSesion(
+        NextResponse.json({ error: "No autorizado" }, { status: 401 }),
+      );
     }
 
     if (session && pathname === "/api/flota" && request.method === "GET") {
@@ -117,7 +173,9 @@ export async function proxy(request) {
   const esAuth = pathname === "/login" || pathname === "/register";
 
   if (!session && !esAuth) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return limpiarCookieSesion(
+      NextResponse.redirect(new URL("/login", request.url)),
+    );
   }
   if (session && esAuth) {
     return NextResponse.redirect(new URL("/dashboard", request.url));

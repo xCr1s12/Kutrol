@@ -9,6 +9,12 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RouteIcon from "@mui/icons-material/Route";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import FormRoute from "@/components/route/FormRoute";
+import FormViaje from "@/components/route/FormViaje";
+
+async function obtenerMensajeError(respuesta, mensajePredeterminado) {
+  const resultado = await respuesta.json().catch(() => ({}));
+  return resultado.error?.message || resultado.error || mensajePredeterminado;
+}
 
 const MapR = dynamic(() => import("@/components/route/map"), {
   ssr: false,
@@ -34,18 +40,26 @@ export default function RoutePage() {
   const [asignado, setAsignado] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [formRutaAbierto, setFormRutaAbierto] = useState(false);
+  const [formViajeAbierto, setFormViajeAbierto] = useState(false);
+  const [errorApi, setErrorApi] = useState("");
 
   useEffect(() => {
     async function cargarRutas() {
       try {
         const res = await fetch("/api/data/rutas");
-        if (res.ok) {
-          const data = await res.json();
-          setRutas(data);
-          if (data.length > 0) setAsignado(data[0]);
+        if (!res.ok) {
+          throw new Error(await obtenerMensajeError(res, "No se pudieron cargar las rutas."));
         }
+
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+          throw new Error("La API devolvió un formato de rutas inválido.");
+        }
+
+        setRutas(data);
+        setAsignado(data[0] ?? null);
       } catch (err) {
-        console.error("Error al cargar rutas desde la BD:", err);
+        setErrorApi(err.message || "No se pudieron cargar las rutas.");
       } finally {
         setCargando(false);
       }
@@ -53,26 +67,78 @@ export default function RoutePage() {
     cargarRutas();
   }, []);
 
-  const agregarRuta = async ({ origen, destino, distancia }) => {
+  const agregarRuta = async ({ origen, destino, puntosControl, distancia }) => {
     try {
+      setErrorApi("");
       const res = await fetch("/api/data/rutas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id_comuna_origen: origen.id,
           id_comuna_destino: destino.id,
+          ids_comunas_puntos_control: puntosControl.map((punto) => punto.id),
           distancia_km: distancia,
         }),
       });
 
-      if (res.ok) {
-        // Recargar la lista desde la base de datos
-        const actualizadas = await (await fetch("/api/data/rutas")).json();
-        setRutas(actualizadas);
-        setFormRutaAbierto(false);
+      if (!res.ok) {
+        throw new Error(await obtenerMensajeError(res, "No se pudo guardar la ruta."));
       }
+
+      const creada = await res.json();
+      const recarga = await fetch("/api/data/rutas");
+      if (!recarga.ok) {
+        throw new Error(
+          `La ruta se guardó, pero no se pudo actualizar la lista: ${await obtenerMensajeError(
+            recarga,
+            "Error al cargar rutas.",
+          )}`,
+        );
+      }
+
+      const actualizadas = await recarga.json();
+      if (!Array.isArray(actualizadas)) {
+        throw new Error("La API devolvió un formato de rutas inválido.");
+      }
+
+      setRutas(actualizadas);
+      setAsignado(actualizadas.find((ruta) => ruta.id === String(creada.id_ruta)) ?? actualizadas[0] ?? null);
+      setFormRutaAbierto(false);
     } catch (err) {
-      console.error("Error guardando ruta:", err);
+      setErrorApi(err.message || "No se pudo guardar la ruta.");
+    }
+  };
+
+  const agregarViaje = async (datosViaje) => {
+    setErrorApi("");
+    const res = await fetch("/api/data/viajes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...datosViaje,
+        id_ruta: Number(asignado.id),
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(await obtenerMensajeError(res, "No se pudo guardar el viaje."));
+    }
+
+    setFormViajeAbierto(false);
+    try {
+      const recarga = await fetch("/api/data/rutas");
+      if (!recarga.ok) {
+        throw new Error(await obtenerMensajeError(recarga, "Error al cargar rutas."));
+      }
+
+      const actualizadas = await recarga.json();
+      if (!Array.isArray(actualizadas)) {
+        throw new Error("La API devolvió un formato de rutas inválido.");
+      }
+
+      setRutas(actualizadas);
+      setAsignado(actualizadas.find((ruta) => ruta.id === asignado.id) ?? null);
+    } catch (err) {
+      setErrorApi(`El viaje se guardó, pero no se pudo actualizar la lista: ${err.message}`);
     }
   };
 
@@ -89,6 +155,11 @@ export default function RoutePage() {
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch font-sans">
         <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-white dark:bg-background">
           <h1 className="font-bold text-lg light:text-text dark:text-text font-sans">Lista de Rutas</h1>
+          {errorApi && (
+            <p role="alert" className="mt-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300">
+              {errorApi}
+            </p>
+          )}
           <p className="text-sm light:text-subtext dark:text-subtext font-sans">
             Selecciona una para verla en el mapa
           </p>
@@ -121,7 +192,21 @@ export default function RoutePage() {
 
       {asignado && (
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 px-6 pb-8 pt-2 w-full font-sans">
-          <InfoCard title={`Viajes de la ruta ${asignado.id}`} icon={<GroupsIcon fontSize="small" />} className="min-w-0">
+          <InfoCard
+            title={`Viajes de la ruta ${asignado.id}`}
+            icon={<GroupsIcon fontSize="small" />}
+            className="min-w-0"
+            action={
+              <button
+                type="button"
+                onClick={() => setFormViajeAbierto(true)}
+                className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-accent px-3 py-2 text-xs font-bold text-brand transition hover:bg-accent-dark light:text-white"
+              >
+                <AddRoundedIcon fontSize="small" aria-hidden="true" />
+                Agregar viajes
+              </button>
+            }
+          >
             <table className="w-full text-sm font-sans">
               <thead>
                 <tr className="text-left text-xs uppercase tracking-wide dark:text-subtext light:text-subtext">
@@ -186,6 +271,15 @@ export default function RoutePage() {
             </div>
           </InfoCard>
         </section>
+      )}
+
+      {formViajeAbierto && asignado && (
+        <FormViaje
+          open={formViajeAbierto}
+          onClose={() => setFormViajeAbierto(false)}
+          onSubmit={agregarViaje}
+          rutaNombre={asignado.nombre}
+        />
       )}
 
       <button

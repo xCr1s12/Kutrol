@@ -34,6 +34,19 @@ const CamposFormularioConductor = ({ errores = {} }) => (
         className={inputClase}
       />
     </FormField>
+    <FormField
+      label="Vencimiento de licencia"
+      id="fecha_venc_licencia"
+      error={errores.fecha_venc_licencia}
+    >
+      <input
+        id="fecha_venc_licencia"
+        name="fecha_venc_licencia"
+        type="date"
+        required
+        className={inputClase}
+      />
+    </FormField>
     <FormField label="Email" id="email" error={errores.email}>
       <input
         id="email"

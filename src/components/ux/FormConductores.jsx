@@ -5,13 +5,25 @@ import { detectarPais, soloDigitos, telefonoValido } from "@/lib/paises";
 
 const CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validarConductor({ nombre, run, licencia_num, email, telefono }) {
+function validarConductor({
+  nombre,
+  run,
+  licencia_num,
+  fecha_venc_licencia,
+  email,
+  telefono,
+}) {
   const errores = {};
-  if (nombre.length < 2) errores.nombre = "Escribe el nombre del conductor";
+  if (nombre.length < 2 || nombre.split(/\s+/).length < 2) {
+    errores.nombre = "Ingresa el nombre y los apellidos del conductor";
+  }
   const runError = validateRut(run);
   if (runError) errores.run = runError;
   if (licencia_num.length < 4) {
     errores.licencia_num = "Escribe el número de licencia";
+  }
+  if (!fecha_venc_licencia) {
+    errores.fecha_venc_licencia = "Ingresa la fecha de vencimiento de la licencia";
   }
   if (!CORREO.test(email)) errores.email = "Revisa el correo";
   const pais = detectarPais(telefono);
@@ -26,7 +38,12 @@ function validarConductor({ nombre, run, licencia_num, email, telefono }) {
  * - onSubmit(datos): recibe { nombre, run, licencia_num, email, telefono }
  * - onCancel(): se llama al presionar "Cancelar"
  */
-const FormularioConductor = ({ onSubmit, onCancel }) => {
+const FormularioConductor = ({
+  onSubmit,
+  onCancel,
+  error = "",
+  guardando = false,
+}) => {
   const [errores, setErrores] = useState({});
 
   const handleSubmit = (e) => {
@@ -36,6 +53,7 @@ const FormularioConductor = ({ onSubmit, onCancel }) => {
       nombre: formData.get("nombre").trim(),
       run: formData.get("run").trim(),
       licencia_num: formData.get("licencia_num").trim(),
+      fecha_venc_licencia: formData.get("fecha_venc_licencia"),
       telefono: formData.get("telefono").trim(),
       email: formData.get("email").trim(),
     };
@@ -59,14 +77,20 @@ const FormularioConductor = ({ onSubmit, onCancel }) => {
           Detalles
         </h3>
 
+        {error ? (
+          <p role="alert" className="text-sm text-red-600">
+            {error}
+          </p>
+        ) : null}
         <CamposFormularioConductor errores={errores} />
 
         <div className="mt-2 flex gap-3">
           <button
             type="submit"
+            disabled={guardando}
             className="rounded-md bg-accent px-6 py-2.5 text-xs font-semibold text-brand light:text-white transition-colors light:hover:bg-copper-dark light:hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-gold dark:text-brand dark:hover:opacity-90 dark:focus-visible:outline-gold"
           >
-            Finalizar
+            {guardando ? "Guardando..." : "Agregar conductor"}
           </button>
           <button
             type="button"

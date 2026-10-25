@@ -23,162 +23,166 @@ INSERT INTO TIPO_MEDICION (codigo, nombre, categoria, unidad, valor_min_fisico, 
 ('VOLTAJE_BATERIA',     'Voltaje de batería',            'ELECTRICO',   'V',     0,    36,      22,   30,   3),
 ('PESO_CARGA',          'Peso de carga a bordo',         'CARGA',       'kg',    0,    60000,   NULL, NULL, 3);
 
-INSERT INTO REGION (id_region, nombre, numero_romano)
+-- Coordenadas aproximadas de las capitales regionales y centros comunales.
+-- Comunas: geo-chile, copyright (c) 2017 2x3, MIT,
+-- commit e0260a9faa81be8c79f088c2caa13fc9fd9109bb.
+-- Alhué y Lago Verde: OpenStreetMap contributors, ODbL 1.0.
+INSERT INTO REGION (id_region, nombre, numero_romano, latitud, longitud)
 OVERRIDING SYSTEM VALUE
 VALUES
-(15, 'Arica y Parinacota',                         'XV'),
-(1,  'Tarapacá',                                   'I'),
-(2,  'Antofagasta',                                'II'),
-(3,  'Atacama',                                    'III'),
-(4,  'Coquimbo',                                   'IV'),
-(5,  'Valparaíso',                                 'V'),
-(13, 'Metropolitana de Santiago',                  'RM'),
-(6,  'Libertador General Bernardo O''Higgins',     'VI'),
-(7,  'Maule',                                      'VII'),
-(16, 'Ñuble',                                      'XVI'),
-(8,  'Biobío',                                     'VIII'),
-(9,  'La Araucanía',                               'IX'),
-(14, 'Los Ríos',                                   'XIV'),
-(10, 'Los Lagos',                                  'X'),
-(11, 'Aysén del General Carlos Ibáñez del Campo',  'XI'),
-(12, 'Magallanes y de la Antártica Chilena',       'XII');
+(15, 'Arica y Parinacota',                         'XV',   -18.47500000, -70.31444440),
+(1,  'Tarapacá',                                   'I',    -20.21666670, -70.16666670),
+(2,  'Antofagasta',                                'II',   -23.63333330, -70.40000000),
+(3,  'Atacama',                                    'III',  -27.36666670, -70.31666670),
+(4,  'Coquimbo',                                   'IV',   -29.90000000, -71.25000000),
+(5,  'Valparaíso',                                 'V',    -33.04583330, -71.61638890),
+(13, 'Metropolitana de Santiago',                  'RM',   -33.45000000, -70.66666670),
+(6,  'Libertador General Bernardo O''Higgins',     'VI',   -34.16527780, -70.73972220),
+(7,  'Maule',                                      'VII',  -35.43333330, -71.66666670),
+(16, 'Ñuble',                                      'XVI',  -36.60000000, -72.11666670),
+(8,  'Biobío',                                     'VIII', -36.83333330, -73.05000000),
+(9,  'La Araucanía',                               'IX',   -38.75000000, -72.66666670),
+(14, 'Los Ríos',                                   'XIV',  -39.80000000, -73.23333330),
+(10, 'Los Lagos',                                  'X',    -41.46666670, -72.93333330),
+(11, 'Aysén del General Carlos Ibáñez del Campo',  'XI',   -45.56666670, -72.06666670),
+(12, 'Magallanes y de la Antártica Chilena',       'XII',  -53.16694440, -70.93361110);
 
 -- Sincroniza el contador para que el próximo insert no choque con los ids existentes
 ALTER TABLE REGION ALTER COLUMN id_region RESTART WITH 17;
 
-INSERT INTO COMUNA (id_region, nombre) VALUES
+INSERT INTO COMUNA (id_region, nombre, latitud, longitud) VALUES
 -- XV Arica y Parinacota (4)
-(15, 'Arica'), (15, 'Camarones'), (15, 'Putre'), (15, 'General Lagos'),
+(15, 'Arica', -18.47500000, -70.31444440), (15, 'Camarones', -19.01666670, -69.86666670), (15, 'Putre', -18.19166670, -69.59777780), (15, 'General Lagos', -17.56666670, -69.50000000),
 
 -- I Tarapacá (7)
-(1, 'Iquique'), (1, 'Alto Hospicio'), (1, 'Pozo Almonte'), (1, 'Camiña'),
-(1, 'Colchane'), (1, 'Huara'), (1, 'Pica'),
+(1, 'Iquique', -20.21666670, -70.16666670), (1, 'Alto Hospicio', -20.25000000, -70.11666670), (1, 'Pozo Almonte', -20.26666670, -69.78333330), (1, 'Camiña', -19.30000000, -69.41666670),
+(1, 'Colchane', -19.26666670, -68.61666670), (1, 'Huara', -19.96666670, -69.76666670), (1, 'Pica', -20.50000000, -69.33333330),
 
 -- II Antofagasta (9)
-(2, 'Antofagasta'), (2, 'Mejillones'), (2, 'Sierra Gorda'), (2, 'Taltal'),
-(2, 'Calama'), (2, 'Ollagüe'), (2, 'San Pedro de Atacama'),
-(2, 'Tocopilla'), (2, 'María Elena'),
+(2, 'Antofagasta', -23.63333330, -70.40000000), (2, 'Mejillones', -23.10000000, -70.45000000), (2, 'Sierra Gorda', -22.88333330, -69.31666670), (2, 'Taltal', -25.28333330, -69.76666670),
+(2, 'Calama', -22.46666670, -68.91666670), (2, 'Ollagüe', -21.21666670, -68.26666670), (2, 'San Pedro de Atacama', -22.91666670, -68.21666670),
+(2, 'Tocopilla', -22.06666670, -70.20000000), (2, 'María Elena', -22.35000000, -69.66666670),
 
 -- III Atacama (9)
-(3, 'Copiapó'), (3, 'Caldera'), (3, 'Tierra Amarilla'), (3, 'Chañaral'),
-(3, 'Diego de Almagro'), (3, 'Vallenar'), (3, 'Alto del Carmen'),
-(3, 'Freirina'), (3, 'Huasco'),
+(3, 'Copiapó', -27.36666670, -70.31666670), (3, 'Caldera', -27.06666670, -70.81666670), (3, 'Tierra Amarilla', -27.46666670, -70.26666670), (3, 'Chañaral', -26.33333330, -70.60000000),
+(3, 'Diego de Almagro', -26.36666670, -70.05000000), (3, 'Vallenar', -28.56666670, -70.75000000), (3, 'Alto del Carmen', -28.93361110, -70.46222220),
+(3, 'Freirina', -28.50000000, -71.06666670), (3, 'Huasco', -28.45000000, -71.21666670),
 
 -- IV Coquimbo (15)
-(4, 'La Serena'), (4, 'Coquimbo'), (4, 'Andacollo'), (4, 'La Higuera'),
-(4, 'Paiguano'), (4, 'Vicuña'), (4, 'Illapel'), (4, 'Canela'),
-(4, 'Los Vilos'), (4, 'Salamanca'), (4, 'Ovalle'), (4, 'Combarbalá'),
-(4, 'Monte Patria'), (4, 'Punitaqui'), (4, 'Río Hurtado'),
+(4, 'La Serena', -29.90000000, -71.25000000), (4, 'Coquimbo', -29.95000000, -71.33333330), (4, 'Andacollo', -30.21666670, -71.08333330), (4, 'La Higuera', -29.50000000, -71.26666670),
+(4, 'Paiguano', -30.01666670, -70.51666670), (4, 'Vicuña', -30.01666670, -70.70000000), (4, 'Illapel', -31.61666670, -71.15000000), (4, 'Canela', -31.40000000, -71.45000000),
+(4, 'Los Vilos', -31.90000000, -71.51666670), (4, 'Salamanca', -31.76666670, -70.96666670), (4, 'Ovalle', -30.58333330, -71.20000000), (4, 'Combarbalá', -31.16666670, -71.05000000),
+(4, 'Monte Patria', -30.68333330, -70.93333330), (4, 'Punitaqui', -30.90000000, -71.26666670), (4, 'Río Hurtado', -30.26666670, -70.70000000),
 
 -- V Valparaíso (38)
-(5, 'Valparaíso'), (5, 'Casablanca'), (5, 'Concón'), (5, 'Juan Fernández'),
-(5, 'Puchuncaví'), (5, 'Quintero'), (5, 'Viña del Mar'), (5, 'Isla de Pascua'),
-(5, 'Los Andes'), (5, 'Calle Larga'), (5, 'Rinconada'), (5, 'San Esteban'),
-(5, 'La Ligua'), (5, 'Cabildo'), (5, 'Papudo'), (5, 'Petorca'), (5, 'Zapallar'),
-(5, 'Quillota'), (5, 'Calera'), (5, 'Hijuelas'), (5, 'La Cruz'), (5, 'Nogales'),
-(5, 'San Antonio'), (5, 'Algarrobo'), (5, 'Cartagena'), (5, 'El Quisco'),
-(5, 'El Tabo'), (5, 'Santo Domingo'),
-(5, 'San Felipe'), (5, 'Catemu'), (5, 'Llaillay'), (5, 'Panquehue'),
-(5, 'Putaendo'), (5, 'Santa María'),
-(5, 'Quilpué'), (5, 'Limache'), (5, 'Olmué'), (5, 'Villa Alemana'),
+(5, 'Valparaíso', -33.04583330, -71.61638890), (5, 'Casablanca', -33.31666670, -71.41666670), (5, 'Concón', -32.91666670, -71.51666670), (5, 'Juan Fernández', -33.61666670, -78.86666670),
+(5, 'Puchuncaví', -32.73333330, -71.41666670), (5, 'Quintero', -32.78333330, -71.53333330), (5, 'Viña del Mar', -33.03333330, -71.53333330), (5, 'Isla de Pascua', -27.08333330, -109.37500000),
+(5, 'Los Andes', -32.81666670, -70.61666670), (5, 'Calle Larga', -32.85000000, -70.63333330), (5, 'Rinconada', -32.83333330, -70.70000000), (5, 'San Esteban', -32.80000000, -70.58333330),
+(5, 'La Ligua', -32.45000000, -71.21666670), (5, 'Cabildo', -32.41666670, -71.13333330), (5, 'Papudo', -32.51666670, -71.45000000), (5, 'Petorca', -32.25000000, -70.93333330), (5, 'Zapallar', -32.53333330, -71.46666670),
+(5, 'Quillota', -32.88333330, -71.26666670), (5, 'Calera', -32.78333330, -71.21666670), (5, 'Hijuelas', -32.80000000, -71.16666670), (5, 'La Cruz', -32.81666670, -71.23333330), (5, 'Nogales', -32.71666670, -71.23333330),
+(5, 'San Antonio', -33.60000000, -71.61666670), (5, 'Algarrobo', -33.39111110, -71.69277780), (5, 'Cartagena', -33.55000000, -71.60000000), (5, 'El Quisco', -33.40000000, -71.70000000),
+(5, 'El Tabo', -33.45000000, -71.66666670), (5, 'Santo Domingo', -33.63333330, -71.65000000),
+(5, 'San Felipe', -32.75000000, -70.73333330), (5, 'Catemu', -32.63333330, -71.03333330), (5, 'Llaillay', -32.85000000, -70.96666670), (5, 'Panquehue', -32.80000000, -70.83333330),
+(5, 'Putaendo', -32.63333330, -70.73333330), (5, 'Santa María', -32.75000000, -70.66666670),
+(5, 'Quilpué', -33.05000000, -71.45000000), (5, 'Limache', -32.98333330, -71.28333330), (5, 'Olmué', -33.00000000, -71.20000000), (5, 'Villa Alemana', -33.05000000, -71.36666670),
 
 -- RM Metropolitana de Santiago (52)
-(13, 'Santiago'), (13, 'Cerrillos'), (13, 'Cerro Navia'), (13, 'Conchalí'),
-(13, 'El Bosque'), (13, 'Estación Central'), (13, 'Huechuraba'),
-(13, 'Independencia'), (13, 'La Cisterna'), (13, 'La Florida'),
-(13, 'La Granja'), (13, 'La Pintana'), (13, 'La Reina'), (13, 'Las Condes'),
-(13, 'Lo Barnechea'), (13, 'Lo Espejo'), (13, 'Lo Prado'), (13, 'Macul'),
-(13, 'Maipú'), (13, 'Ñuñoa'), (13, 'Pedro Aguirre Cerda'), (13, 'Peñalolén'),
-(13, 'Providencia'), (13, 'Pudahuel'), (13, 'Quilicura'), (13, 'Quinta Normal'),
-(13, 'Recoleta'), (13, 'Renca'), (13, 'San Joaquín'), (13, 'San Miguel'),
-(13, 'San Ramón'), (13, 'Vitacura'),
-(13, 'Puente Alto'), (13, 'Pirque'), (13, 'San José de Maipo'),
-(13, 'Colina'), (13, 'Lampa'), (13, 'Tiltil'),
-(13, 'San Bernardo'), (13, 'Buin'), (13, 'Calera de Tango'), (13, 'Paine'),
-(13, 'Melipilla'), (13, 'Alhué'), (13, 'Curacaví'), (13, 'María Pinto'),
-(13, 'San Pedro'),
-(13, 'Talagante'), (13, 'El Monte'), (13, 'Isla de Maipo'),
-(13, 'Padre Hurtado'), (13, 'Peñaflor'),
+(13, 'Santiago', -33.45000000, -70.66666670), (13, 'Cerrillos', -33.48333330, -70.70000000), (13, 'Cerro Navia', -33.41666670, -70.71666670), (13, 'Conchalí', -33.35000000, -70.61666670),
+(13, 'El Bosque', -33.56666670, -70.70000000), (13, 'Estación Central', -33.46331500, -70.70297600), (13, 'Huechuraba', -33.35000000, -70.66666670),
+(13, 'Independencia', -33.42198800, -70.65493200), (13, 'La Cisterna', -33.55000000, -70.68333330), (13, 'La Florida', -33.55000000, -70.56666670),
+(13, 'La Granja', -33.58333330, -70.58333330), (13, 'La Pintana', -33.58333330, -70.61666670), (13, 'La Reina', -33.45000000, -70.55000000), (13, 'Las Condes', -33.41666670, -70.58333330),
+(13, 'Lo Barnechea', -33.35000000, -70.51666670), (13, 'Lo Espejo', -33.53333330, -70.71666670), (13, 'Lo Prado', -33.43333330, -70.71666670), (13, 'Macul', -33.50000000, -70.56666670),
+(13, 'Maipú', -33.51666670, -70.76666670), (13, 'Ñuñoa', -33.46666670, -70.60000000), (13, 'Pedro Aguirre Cerda', -33.49245500, -70.67808600), (13, 'Peñalolén', -33.48333330, -70.53333330),
+(13, 'Providencia', -33.43333330, -70.61666670), (13, 'Pudahuel', -33.43333330, -70.71666670), (13, 'Quilicura', -33.36666670, -70.75000000), (13, 'Quinta Normal', -33.45000000, -70.70000000),
+(13, 'Recoleta', -33.40814800, -70.63919200), (13, 'Renca', -33.40000000, -70.73333330), (13, 'San Joaquín', -33.50000000, -70.61666670), (13, 'San Miguel', -33.50000000, -70.66666670),
+(13, 'San Ramón', -33.45000000, -70.50000000), (13, 'Vitacura', -33.40000000, -70.60000000),
+(13, 'Puente Alto', -33.61666670, -70.58333330), (13, 'Pirque', -33.63333330, -70.55000000), (13, 'San José de Maipo', -33.63333330, -70.36666670),
+(13, 'Colina', -33.20000000, -70.68333330), (13, 'Lampa', -33.28333330, -70.90000000), (13, 'Tiltil', -33.08333330, -70.93333330),
+(13, 'San Bernardo', -33.60000000, -70.71666670), (13, 'Buin', -33.73333330, -70.75000000), (13, 'Calera de Tango', -33.65000000, -70.81666670), (13, 'Paine', -33.81666670, -70.75000000),
+(13, 'Melipilla', -33.70000000, -71.21666670), (13, 'Alhué', -34.03699530, -71.08411920), (13, 'Curacaví', -33.40000000, -71.15000000), (13, 'María Pinto', -33.53333330, -71.13333330),
+(13, 'San Pedro', -33.90000000, -71.46666670),
+(13, 'Talagante', -33.66666670, -70.93333330), (13, 'El Monte', -33.68333330, -71.01666670), (13, 'Isla de Maipo', -33.75000000, -70.90000000),
+(13, 'Padre Hurtado', -33.56666670, -70.83333330), (13, 'Peñaflor', -33.61666670, -70.91666670),
 
 -- VI O'Higgins (33)
-(6, 'Rancagua'), (6, 'Codegua'), (6, 'Coinco'), (6, 'Coltauco'),
-(6, 'Doñihue'), (6, 'Graneros'), (6, 'Las Cabras'), (6, 'Machalí'),
-(6, 'Malloa'), (6, 'Mostazal'), (6, 'Olivar'), (6, 'Peumo'),
-(6, 'Pichidegua'), (6, 'Quinta de Tilcoco'), (6, 'Rengo'), (6, 'Requínoa'),
-(6, 'San Vicente'),
-(6, 'Pichilemu'), (6, 'La Estrella'), (6, 'Litueche'), (6, 'Marchihue'),
-(6, 'Navidad'), (6, 'Paredones'),
-(6, 'San Fernando'), (6, 'Chépica'), (6, 'Chimbarongo'), (6, 'Lolol'),
-(6, 'Nancagua'), (6, 'Palmilla'), (6, 'Peralillo'), (6, 'Placilla'),
-(6, 'Pumanque'), (6, 'Santa Cruz'),
+(6, 'Rancagua', -34.16527780, -70.73972220), (6, 'Codegua', -34.03333330, -70.66666670), (6, 'Coinco', -34.26666670, -70.96666670), (6, 'Coltauco', -34.28722900, -71.08572300),
+(6, 'Doñihue', -34.23333330, -70.96666670), (6, 'Graneros', -34.06472220, -70.72666670), (6, 'Las Cabras', -34.30000000, -71.31666670), (6, 'Machalí', -34.18250000, -70.65111110),
+(6, 'Malloa', -34.45000000, -70.95000000), (6, 'Mostazal', -33.98333330, -70.70000000), (6, 'Olivar', -34.21000000, -70.81750000), (6, 'Peumo', -34.40000000, -71.16666670),
+(6, 'Pichidegua', -34.35000000, -71.30000000), (6, 'Quinta de Tilcoco', -34.35000000, -70.98333330), (6, 'Rengo', -34.41666670, -70.86666670), (6, 'Requínoa', -34.28333330, -70.83333330),
+(6, 'San Vicente', -34.50000000, -71.13333330),
+(6, 'Pichilemu', -34.38333330, -72.00000000), (6, 'La Estrella', -34.20000000, -71.66666670), (6, 'Litueche', -34.11666670, -71.73333330), (6, 'Marchihue', -34.40000000, -71.63333330),
+(6, 'Navidad', -33.93333330, -71.83333330), (6, 'Paredones', -34.78333330, -71.16666670),
+(6, 'San Fernando', -34.58333330, -70.96666670), (6, 'Chépica', -34.73333330, -71.28333330), (6, 'Chimbarongo', -34.70000000, -71.05000000), (6, 'Lolol', -34.72861110, -71.64472220),
+(6, 'Nancagua', -34.66666670, -71.21666670), (6, 'Palmilla', -34.60000000, -71.36666670), (6, 'Peralillo', -34.48333330, -71.48333330), (6, 'Placilla', -34.63333330, -71.11666670),
+(6, 'Pumanque', -34.60000000, -71.66666670), (6, 'Santa Cruz', -34.63333330, -71.36666670),
 
 -- VII Maule (30)
-(7, 'Talca'), (7, 'Constitución'), (7, 'Curepto'), (7, 'Empedrado'),
-(7, 'Maule'), (7, 'Pelarco'), (7, 'Pencahue'), (7, 'Río Claro'),
-(7, 'San Clemente'), (7, 'San Rafael'),
-(7, 'Cauquenes'), (7, 'Chanco'), (7, 'Pelluhue'),
-(7, 'Curicó'), (7, 'Hualañé'), (7, 'Licantén'), (7, 'Molina'), (7, 'Rauco'),
-(7, 'Romeral'), (7, 'Sagrada Familia'), (7, 'Teno'), (7, 'Vichuquén'),
-(7, 'Linares'), (7, 'Colbún'), (7, 'Longaví'), (7, 'Parral'), (7, 'Retiro'),
-(7, 'San Javier'), (7, 'Villa Alegre'), (7, 'Yerbas Buenas'),
+(7, 'Talca', -35.43333330, -71.66666670), (7, 'Constitución', -35.33333330, -72.41666670), (7, 'Curepto', -35.08333330, -72.01666670), (7, 'Empedrado', -35.60000000, -72.28333330),
+(7, 'Maule', -35.53333330, -71.70000000), (7, 'Pelarco', -35.38333330, -71.45000000), (7, 'Pencahue', -35.40000000, -71.81666670), (7, 'Río Claro', -35.28333330, -71.26666670),
+(7, 'San Clemente', -35.55000000, -71.48333330), (7, 'San Rafael', -35.31666670, -71.53333330),
+(7, 'Cauquenes', -35.96666670, -72.35000000), (7, 'Chanco', -35.73333330, -72.53333330), (7, 'Pelluhue', -35.83333330, -72.63333330),
+(7, 'Curicó', -34.98333330, -71.23333330), (7, 'Hualañé', -34.97666670, -71.80472220), (7, 'Licantén', -34.98333330, -72.00000000), (7, 'Molina', -34.11666670, -71.28333330), (7, 'Rauco', -34.93333330, -71.31666670),
+(7, 'Romeral', -34.96666670, -71.13333330), (7, 'Sagrada Familia', -35.00000000, -71.38333330), (7, 'Teno', -34.86666670, -71.18333330), (7, 'Vichuquén', -34.88333330, -72.00000000),
+(7, 'Linares', -35.85000000, -71.60000000), (7, 'Colbún', -35.70000000, -71.41666670), (7, 'Longaví', -35.96666670, -71.68333330), (7, 'Parral', -36.15000000, -71.83333330), (7, 'Retiro', -36.05000000, -71.76666670),
+(7, 'San Javier', -35.60000000, -71.75000000), (7, 'Villa Alegre', -35.66666670, -71.75000000), (7, 'Yerbas Buenas', -35.75000000, -71.58333330),
 
 -- XVI Ñuble (21)
-(16, 'Chillán'), (16, 'Bulnes'), (16, 'Chillán Viejo'), (16, 'El Carmen'),
-(16, 'Pemuco'), (16, 'Pinto'), (16, 'Quillón'), (16, 'San Ignacio'),
-(16, 'Yungay'),
-(16, 'Quirihue'), (16, 'Cobquecura'), (16, 'Coelemu'), (16, 'Ninhue'),
-(16, 'Portezuelo'), (16, 'Ránquil'), (16, 'Treguaco'),
-(16, 'San Carlos'), (16, 'Coihueco'), (16, 'Ñiquén'), (16, 'San Fabián'),
-(16, 'San Nicolás'),
+(16, 'Chillán', -36.60000000, -72.11666670), (16, 'Bulnes', -36.74198700, -72.30142900), (16, 'Chillán Viejo', -36.61666670, -72.13333330), (16, 'El Carmen', -36.89944400, -72.03231300),
+(16, 'Pemuco', -36.96666670, -72.10000000), (16, 'Pinto', -36.70000000, -71.90000000), (16, 'Quillón', -36.73333330, -72.46666670), (16, 'San Ignacio', -36.80000000, -72.03333330),
+(16, 'Yungay', -37.11666670, -72.01666670),
+(16, 'Quirihue', -36.28333330, -72.53333330), (16, 'Cobquecura', -36.13333330, -72.78333330), (16, 'Coelemu', -36.48333330, -72.70000000), (16, 'Ninhue', -36.40000000, -72.40000000),
+(16, 'Portezuelo', -36.53333330, -72.43333330), (16, 'Ránquil', -36.65000000, -72.55000000), (16, 'Treguaco', -36.43333330, -72.66666670),
+(16, 'San Carlos', -36.42472220, -71.95805560), (16, 'Coihueco', -36.61666670, -71.83333330), (16, 'Ñiquén', -36.30000000, -71.90000000), (16, 'San Fabián', -36.55000000, -71.55000000),
+(16, 'San Nicolás', -36.50000000, -72.21666670),
 
 -- VIII Biobío (33)
-(8, 'Concepción'), (8, 'Coronel'), (8, 'Chiguayante'), (8, 'Florida'),
-(8, 'Hualqui'), (8, 'Lota'), (8, 'Penco'), (8, 'San Pedro de la Paz'),
-(8, 'Santa Juana'), (8, 'Talcahuano'), (8, 'Tomé'), (8, 'Hualpén'),
-(8, 'Lebu'), (8, 'Arauco'), (8, 'Cañete'), (8, 'Contulmo'),
-(8, 'Curanilahue'), (8, 'Los Álamos'), (8, 'Tirúa'),
-(8, 'Los Ángeles'), (8, 'Antuco'), (8, 'Cabrero'), (8, 'Laja'),
-(8, 'Mulchén'), (8, 'Nacimiento'), (8, 'Negrete'), (8, 'Quilaco'),
-(8, 'Quilleco'), (8, 'San Rosendo'), (8, 'Santa Bárbara'), (8, 'Tucapel'),
-(8, 'Yumbel'), (8, 'Alto Biobío'),
+(8, 'Concepción', -36.83333330, -73.05000000), (8, 'Coronel', -37.01666670, -73.13333330), (8, 'Chiguayante', -36.91666670, -73.01666670), (8, 'Florida', -36.81666670, -72.66666670),
+(8, 'Hualqui', -36.96666670, -72.93333330), (8, 'Lota', -37.08707300, -73.15605600), (8, 'Penco', -36.73333330, -72.98333330), (8, 'San Pedro de la Paz', -36.83333330, -73.11666670),
+(8, 'Santa Juana', -37.16666670, -72.93333330), (8, 'Talcahuano', -36.71666670, -73.11666670), (8, 'Tomé', -36.61666670, -72.95000000), (8, 'Hualpén', -36.78333330, -73.08333330),
+(8, 'Lebu', -37.61666670, -73.65000000), (8, 'Arauco', -37.25000000, -73.31666670), (8, 'Cañete', -37.80000000, -73.38333330), (8, 'Contulmo', -38.00000000, -73.23333330),
+(8, 'Curanilahue', -37.46666670, -73.35000000), (8, 'Los Álamos', -37.61666670, -73.46666670), (8, 'Tirúa', -38.33333330, -73.50000000),
+(8, 'Los Ángeles', -37.46666670, -72.35000000), (8, 'Antuco', -37.33333330, -71.68333330), (8, 'Cabrero', -37.03333330, -72.40000000), (8, 'Laja', -37.26666670, -72.70000000),
+(8, 'Mulchén', -37.71666670, -72.23333330), (8, 'Nacimiento', -37.50000000, -72.66666670), (8, 'Negrete', -37.58333330, -72.51666670), (8, 'Quilaco', -37.66666670, -71.98333330),
+(8, 'Quilleco', -37.46666670, -71.96666670), (8, 'San Rosendo', -37.26666670, -72.71666670), (8, 'Santa Bárbara', -37.66666670, -72.01666670), (8, 'Tucapel', -37.28333330, -71.95000000),
+(8, 'Yumbel', -37.13333330, -72.53333330), (8, 'Alto Biobío', -38.05000000, -71.31666670),
 
 -- IX La Araucanía (32)
-(9, 'Temuco'), (9, 'Carahue'), (9, 'Cunco'), (9, 'Curarrehue'),
-(9, 'Freire'), (9, 'Galvarino'), (9, 'Gorbea'), (9, 'Lautaro'),
-(9, 'Loncoche'), (9, 'Melipeuco'), (9, 'Nueva Imperial'),
-(9, 'Padre Las Casas'), (9, 'Perquenco'), (9, 'Pitrufquén'), (9, 'Pucón'),
-(9, 'Saavedra'), (9, 'Teodoro Schmidt'), (9, 'Toltén'), (9, 'Vilcún'),
-(9, 'Villarrica'), (9, 'Cholchol'),
-(9, 'Angol'), (9, 'Collipulli'), (9, 'Curacautín'), (9, 'Ercilla'),
-(9, 'Lonquimay'), (9, 'Los Sauces'), (9, 'Lumaco'), (9, 'Purén'),
-(9, 'Renaico'), (9, 'Traiguén'), (9, 'Victoria'),
+(9, 'Temuco', -38.75000000, -72.66666670), (9, 'Carahue', -38.70000000, -73.16666670), (9, 'Cunco', -38.91666670, -72.03333330), (9, 'Curarrehue', -39.35000000, -71.58333330),
+(9, 'Freire', -38.95000000, -72.63333330), (9, 'Galvarino', -38.40000000, -72.78333330), (9, 'Gorbea', -39.10000000, -72.68333330), (9, 'Lautaro', -38.52916670, -72.43500000),
+(9, 'Loncoche', -39.36666670, -72.63333330), (9, 'Melipeuco', -38.85000000, -71.70000000), (9, 'Nueva Imperial', -38.73333330, -72.95000000),
+(9, 'Padre Las Casas', -38.76666670, -72.60000000), (9, 'Perquenco', -38.41666670, -72.38333330), (9, 'Pitrufquén', -38.98333330, -72.65000000), (9, 'Pucón', -39.26666670, -71.96666670),
+(9, 'Saavedra', -38.78333330, -73.40000000), (9, 'Teodoro Schmidt', -38.96666670, -73.05000000), (9, 'Toltén', -39.21666670, -73.23333330), (9, 'Vilcún', -39.11833330, -72.37944440),
+(9, 'Villarrica', -39.26666670, -72.21666670), (9, 'Cholchol', -38.60000000, -72.85000000),
+(9, 'Angol', -37.80000000, -72.71666670), (9, 'Collipulli', -37.95000000, -72.43333330), (9, 'Curacautín', -38.43333330, -71.88333330), (9, 'Ercilla', -38.05000000, -72.38333330),
+(9, 'Lonquimay', -38.43333330, -71.23333330), (9, 'Los Sauces', -37.96666670, -72.83333330), (9, 'Lumaco', -38.15000000, -72.91666670), (9, 'Purén', -38.01666670, -73.08333330),
+(9, 'Renaico', -37.66666670, -72.58333330), (9, 'Traiguén', -38.25000000, -72.68333330), (9, 'Victoria', -38.21666670, -72.33333330),
 
 -- XIV Los Ríos (12)
-(14, 'Valdivia'), (14, 'Corral'), (14, 'Lanco'), (14, 'Los Lagos'),
-(14, 'Máfil'), (14, 'Mariquina'), (14, 'Paillaco'), (14, 'Panguipulli'),
-(14, 'La Unión'), (14, 'Futrono'), (14, 'Lago Ranco'), (14, 'Río Bueno'),
+(14, 'Valdivia', -39.80000000, -73.23333330), (14, 'Corral', -39.86666670, -73.43333330), (14, 'Lanco', -39.43333330, -72.76666670), (14, 'Los Lagos', -39.85000000, -72.83333330),
+(14, 'Máfil', -39.65000000, -72.95000000), (14, 'Mariquina', -39.51666670, -72.96666670), (14, 'Paillaco', -40.06666670, -72.88333330), (14, 'Panguipulli', -39.63333330, -72.33333330),
+(14, 'La Unión', -40.28333330, -73.08333330), (14, 'Futrono', -40.13333330, -72.40000000), (14, 'Lago Ranco', -40.31666670, -72.50000000), (14, 'Río Bueno', -40.31666670, -72.96666670),
 
 -- X Los Lagos (30)
-(10, 'Puerto Montt'), (10, 'Calbuco'), (10, 'Cochamó'), (10, 'Fresia'),
-(10, 'Frutillar'), (10, 'Los Muermos'), (10, 'Llanquihue'), (10, 'Maullín'),
-(10, 'Puerto Varas'),
-(10, 'Castro'), (10, 'Ancud'), (10, 'Chonchi'), (10, 'Curaco de Vélez'),
-(10, 'Dalcahue'), (10, 'Puqueldón'), (10, 'Queilén'), (10, 'Quellón'),
-(10, 'Quemchi'), (10, 'Quinchao'),
-(10, 'Osorno'), (10, 'Puerto Octay'), (10, 'Purranque'), (10, 'Puyehue'),
-(10, 'Río Negro'), (10, 'San Juan de la Costa'), (10, 'San Pablo'),
-(10, 'Chaitén'), (10, 'Futaleufú'), (10, 'Hualaihué'), (10, 'Palena'),
+(10, 'Puerto Montt', -41.46666670, -72.93333330), (10, 'Calbuco', -41.76666670, -73.13333330), (10, 'Cochamó', -41.50000000, -72.31666670), (10, 'Fresia', -41.15000000, -73.45000000),
+(10, 'Frutillar', -41.11666670, -73.10000000), (10, 'Los Muermos', -41.40000000, -73.48333330), (10, 'Llanquihue', -41.25000000, -73.01666670), (10, 'Maullín', -41.61666670, -73.60000000),
+(10, 'Puerto Varas', -41.31666670, -72.98333330),
+(10, 'Castro', -42.46666670, -73.80000000), (10, 'Ancud', -41.86666670, -73.83333330), (10, 'Chonchi', -42.61666670, -73.81666670), (10, 'Curaco de Vélez', -42.43333330, -73.58333330),
+(10, 'Dalcahue', -42.36666670, -73.70000000), (10, 'Puqueldón', -42.58333330, -73.63333330), (10, 'Queilén', -42.86666670, -73.46666670), (10, 'Quellón', -43.10000000, -73.60000000),
+(10, 'Quemchi', -42.13333330, -73.51666670), (10, 'Quinchao', -42.53333330, -73.41666670),
+(10, 'Osorno', -40.56666670, -73.15000000), (10, 'Puerto Octay', -40.96666670, -72.90000000), (10, 'Purranque', -40.91666670, -73.16666670), (10, 'Puyehue', -40.66666670, -72.61666670),
+(10, 'Río Negro', -40.78333330, -73.23333330), (10, 'San Juan de la Costa', -40.51666670, -73.40000000), (10, 'San Pablo', -40.40000000, -73.01666670),
+(10, 'Chaitén', -42.91944440, -72.70888890), (10, 'Futaleufú', -43.16666670, -71.85000000), (10, 'Hualaihué', -42.01666670, -72.68333330), (10, 'Palena', -43.61666670, -71.80000000),
 
 -- XI Aysén (10)
-(11, 'Coyhaique'), (11, 'Lago Verde'), (11, 'Aysén'), (11, 'Cisnes'),
-(11, 'Guaitecas'), (11, 'Cochrane'), (11, 'O''Higgins'), (11, 'Tortel'),
-(11, 'Chile Chico'), (11, 'Río Ibáñez'),
+(11, 'Coyhaique', -45.56666670, -72.06666670), (11, 'Lago Verde', -44.24021470, -71.84927790), (11, 'Aysén', -45.40000000, -72.70000000), (11, 'Cisnes', -44.75000000, -72.70000000),
+(11, 'Guaitecas', -43.88333330, -73.73333330), (11, 'Cochrane', -47.26666670, -72.55000000), (11, 'O''Higgins', -48.46666670, -72.56666670), (11, 'Tortel', -47.83333330, -73.56666670),
+(11, 'Chile Chico', -46.55000000, -71.73333330), (11, 'Río Ibáñez', -46.30000000, -71.93333330),
 
 -- XII Magallanes (11)
-(12, 'Punta Arenas'), (12, 'Laguna Blanca'), (12, 'Río Verde'),
-(12, 'San Gregorio'), (12, 'Cabo de Hornos'), (12, 'Antártica'),
-(12, 'Porvenir'), (12, 'Primavera'), (12, 'Timaukel'),
-(12, 'Natales'), (12, 'Torres del Paine');
+(12, 'Punta Arenas', -53.16694440, -70.93361110), (12, 'Laguna Blanca', -52.25000000, -71.91666670), (12, 'Río Verde', -52.65000000, -71.48333330),
+(12, 'San Gregorio', -52.31666670, -69.68333330), (12, 'Cabo de Hornos', -54.93333330, -67.61666670), (12, 'Antártica', -75.00000000, -71.50000000),
+(12, 'Porvenir', -53.30000000, -70.36666670), (12, 'Primavera', -52.71666670, -69.25000000), (12, 'Timaukel', -53.66666670, -69.90000000),
+(12, 'Natales', -51.73333330, -72.51666670), (12, 'Torres del Paine', -51.26666670, -72.35000000);
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -299,13 +303,15 @@ WHERE c.patente IN ('LRTS45', 'KDPX82');
 -- ==============================================================================
 -- 6. Rutas y puntos de control (con coordenadas para todas las rutas)
 -- ==============================================================================
-INSERT INTO RUTA (id_comuna_origen, id_comuna_destino, distancia_km)
-SELECT o.id_comuna, d.id_comuna, x.km
-FROM (VALUES ('Puerto Montt', 'Osorno',       112.00),
+INSERT INTO RUTA (id_empresa, id_comuna_origen, id_comuna_destino, distancia_km)
+SELECT e.id_empresa, o.id_comuna, d.id_comuna, x.km
+FROM EMPRESA e
+CROSS JOIN (VALUES ('Puerto Montt', 'Osorno',       112.00),
              ('Osorno',       'Puerto Montt', 112.00),
              ('Puerto Montt', 'Temuco',       375.00)) AS x(origen, destino, km)
 JOIN COMUNA o ON o.nombre = x.origen
-JOIN COMUNA d ON d.nombre = x.destino;
+JOIN COMUNA d ON d.nombre = x.destino
+WHERE e.rut = '76.123.456-0';
 
 -- Ruta 1: Puerto Montt -> Osorno
 INSERT INTO PUNTO_CONTROL (id_ruta, nombre, latitud, longitud, orden)

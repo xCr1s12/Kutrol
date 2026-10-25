@@ -10,14 +10,9 @@
 -- ==============================================================================
 \set ON_ERROR_STOP on
 
+SELECT current_database() AS db_name \gset
+ALTER DATABASE :"db_name" RESET search_path;
+
 BEGIN;
-
 DROP SCHEMA IF EXISTS kutrol CASCADE;
-
--- Quita el search_path a nivel de base (lo vuelve a fijar 06_datos_base.sql)
-DO $$
-BEGIN
-    EXECUTE format('ALTER DATABASE %I RESET search_path', current_database());
-END $$;
-
 COMMIT;

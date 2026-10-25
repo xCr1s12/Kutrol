@@ -5,7 +5,11 @@ export async function getRutasByEmpresa(id_empresa, db = pool) {
     SELECT 
       r.id_ruta,
       co.nombre AS comuna_origen,
+      co.latitud AS origen_latitud,
+      co.longitud AS origen_longitud,
       cd.nombre AS comuna_destino,
+      cd.latitud AS destino_latitud,
+      cd.longitud AS destino_longitud,
       r.distancia_km,
       -- Puntos de control ordenados para el mapa
       COALESCE(
@@ -43,6 +47,7 @@ export async function getRutasByEmpresa(id_empresa, db = pool) {
     FROM ruta r
     JOIN comuna co ON co.id_comuna = r.id_comuna_origen
     JOIN comuna cd ON cd.id_comuna = r.id_comuna_destino
+    WHERE r.id_empresa = $1
     ORDER BY r.id_ruta ASC;
   `;
 
@@ -50,13 +55,41 @@ export async function getRutasByEmpresa(id_empresa, db = pool) {
   return rows;
 }
 
-export async function createRuta({ id_comuna_origen, id_comuna_destino, distancia_km }, db = pool) {
+export async function createRuta(
+  {
+    id_empresa,
+    id_comuna_origen,
+    id_comuna_destino,
+    ids_comunas_puntos_control,
+    distancia_km,
+  },
+  db = pool,
+) {
   const queryText = `
-    INSERT INTO ruta (id_comuna_origen, id_comuna_destino, distancia_km)
-    VALUES ($1, $2, $3)
-    RETURNING id_ruta, id_comuna_origen, id_comuna_destino, distancia_km, created_at;
+    WITH ruta_creada AS (
+      INSERT INTO ruta (id_empresa, id_comuna_origen, id_comuna_destino, distancia_km)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id_ruta, id_empresa, id_comuna_origen, id_comuna_destino, distancia_km, created_at
+    ),
+    punto_control_creado AS (
+      INSERT INTO punto_control (id_ruta, nombre, latitud, longitud, orden)
+      SELECT rc.id_ruta, c.nombre, c.latitud, c.longitud, puntos.orden::integer
+      FROM ruta_creada rc
+      CROSS JOIN unnest($5::integer[]) WITH ORDINALITY AS puntos(id_comuna, orden)
+      JOIN comuna c ON c.id_comuna = puntos.id_comuna
+      RETURNING id_ruta
+    )
+    SELECT rc.*
+    FROM ruta_creada rc
+    CROSS JOIN (SELECT count(*) FROM punto_control_creado) AS puntos_insertados;
   `;
 
-  const { rows } = await db.query(queryText, [id_comuna_origen, id_comuna_destino, distancia_km]);
+  const { rows } = await db.query(queryText, [
+    id_empresa,
+    id_comuna_origen,
+    id_comuna_destino,
+    distancia_km,
+    ids_comunas_puntos_control,
+  ]);
   return rows[0];
 }

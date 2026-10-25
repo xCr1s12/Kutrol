@@ -47,6 +47,8 @@ export class ConflictError extends AppError {
 const UNIQUE_MESSAGES = [
   ["rut", "El RUT ya está registrado en otra empresa"],
   ["email", "El correo ya está registrado"],
+  ["conductor_run", "El RUN ya está registrado"],
+  ["conductor_licencia", "El número de licencia ya está registrado"],
   ["usuario", "El nombre de usuario ya existe"],
   ["patente", "La patente ya está en uso por otro camión"],
   ["dispositivo", "Ese dispositivo ya está asignado"],

@@ -22,8 +22,8 @@ export default function MapR({
   coordenadas,
   popupText = "Punto de ruta"
 }) {
-  const [geometriaRuta, setGeometriaRuta] = useState(coordenadas);
-  const [cargandoRuta, setCargandoRuta] = useState(false);
+  const [trazadoResuelto, setTrazadoResuelto] = useState(null);
+  const claveRuta = JSON.stringify(coordenadas);
 
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
@@ -36,46 +36,72 @@ export default function MapR({
 
   // Consultar OSRM para obtener el trazado por carretera
   useEffect(() => {
-    if (!coordenadas || coordenadas.length < 2) {
-      setGeometriaRuta(coordenadas);
-      return;
-    }
+    if (!coordenadas || coordenadas.length < 2) return;
+
+    const controller = new AbortController();
 
     const obtenerRutaCarretera = async () => {
-      setCargandoRuta(true);
       try {
-        const origen = coordenadas[0];
-        const destino = coordenadas[coordenadas.length - 1];
+        // Formato OSRM: lon,lat;lon,lat, incluyendo cada punto de control.
+        const waypoints = coordenadas
+          .map(([latitud, longitud]) => `${longitud},${latitud}`)
+          .join(";");
+        const urlOSRM = `https://router.project-osrm.org/route/v1/driving/${waypoints}?overview=full&geometries=geojson`;
 
-        // Formato OSRM: lon,lat;lon,lat
-        const urlOSRM = `https://router.project-osrm.org/route/v1/driving/${origen[1]},${origen[0]};${destino[1]},${destino[0]}?overview=full&geometries=geojson`;
-
-        const respuesta = await fetch(urlOSRM);
+        const respuesta = await fetch(urlOSRM, { signal: controller.signal });
+        if (!respuesta.ok) {
+          throw new Error(`OSRM respondió con estado ${respuesta.status}`);
+        }
         const data = await respuesta.json();
+        const ruta = data.routes?.[0];
+        const paradasAjustadas = data.waypoints?.map(
+          ({ location }) => [location[1], location[0]],
+        );
 
-        if (data.routes && data.routes[0]) {
-          // OSRM devuelve [lon, lat], lo invertimos para Leaflet [lat, lon]
-          const trazadoCarretera = data.routes[0].geometry.coordinates.map(
+        if (
+          data.code === "Ok" &&
+          ruta?.geometry?.coordinates?.length > 0 &&
+          paradasAjustadas?.length === coordenadas.length &&
+          paradasAjustadas.every((punto) =>
+            punto.every(Number.isFinite),
+          )
+        ) {
+          // OSRM devuelve [lon, lat]; Leaflet necesita [lat, lon].
+          const geometria = ruta.geometry.coordinates.map(
             (coord) => [coord[1], coord[0]]
           );
-          setGeometriaRuta(trazadoCarretera);
+          setTrazadoResuelto({
+            clave: claveRuta,
+            geometria,
+            paradas: paradasAjustadas,
+          });
         } else {
-          setGeometriaRuta(coordenadas);
+          throw new Error("OSRM no devolvió el trazado completo con todos los puntos.");
         }
       } catch (error) {
+        if (error.name === "AbortError") return;
         console.error("Error al obtener la ruta por carretera:", error);
-        setGeometriaRuta(coordenadas);
-      } finally {
-        setCargandoRuta(false);
+        setTrazadoResuelto({
+          clave: claveRuta,
+          geometria: coordenadas,
+          paradas: coordenadas,
+        });
       }
     };
 
     obtenerRutaCarretera();
-  }, [coordenadas]);
+    return () => controller.abort();
+  }, [coordenadas, claveRuta]);
 
   if (!coordenadas || coordenadas.length === 0) {
     return <p className="font-sans text-center text-cream">Cargando mapa...</p>;
   }
+
+  const trazadoActual =
+    trazadoResuelto?.clave === claveRuta ? trazadoResuelto : null;
+  const geometriaDibujada = trazadoActual?.geometria ?? coordenadas;
+  const paradasDibujadas = trazadoActual?.paradas ?? coordenadas;
+  const cargandoRuta = coordenadas.length > 1 && !trazadoActual;
 
   return (
     <div className="relative w-full h-[400px]">
@@ -86,7 +112,7 @@ export default function MapR({
       )}
 
       <MapContainer
-        key={popupText}
+        key={claveRuta}
         center={coordenadas[0]}
         zoom={9}
         style={{ height: '400px', width: '100%', zIndex: 0 }}
@@ -97,16 +123,16 @@ export default function MapR({
         />
 
         <Polyline
-          positions={geometriaRuta}
+          positions={geometriaDibujada}
           color="#3b82f6"
           weight={5}
           opacity={0.85}
         />
 
-        {coordenadas.map((coord, index) => {
-          let etiqueta = "Parada";
+        {paradasDibujadas.map((coord, index) => {
+          let etiqueta = `Punto de control ${index}`;
           if (index === 0) etiqueta = "Origen";
-          else if (index === coordenadas.length - 1) etiqueta = "Destino";
+          else if (index === paradasDibujadas.length - 1) etiqueta = "Destino";
 
           return (
             <Marker key={index} position={coord}>
@@ -120,7 +146,7 @@ export default function MapR({
           );
         })}
 
-        <FitBounds coordenadas={geometriaRuta} />
+        <FitBounds coordenadas={geometriaDibujada} />
       </MapContainer>
     </div>
   );
