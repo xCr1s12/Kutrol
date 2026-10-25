@@ -3,148 +3,274 @@
 
 > **Optimiza cada gota. Reduce tu huella.**
 
-KUTROL es una plataforma de gestión de combustible y telemetría vehicular orientada a flotas de transporte terrestre en la Provincia de Chiloé. Su objetivo es transformar datos operacionales en información estratégica mediante estadísticas, análisis de telemetría y métricas de sostenibilidad ambiental.
+KUTROL es una plataforma web de gestión de combustible y telemetría vehicular para flotas de transporte terrestre de la Provincia de Chiloé. Transforma datos operacionales en información útil mediante estadísticas, análisis de telemetría y métricas de sostenibilidad ambiental.
 
-La plataforma busca identificar ineficiencias en el consumo de combustible, detectar posibles anomalías operacionales y facilitar la toma de decisiones basada en datos, contribuyendo a la reducción de costos y del impacto ambiental de las operaciones de transporte.
+Permite identificar ineficiencias en el consumo, detectar anomalías operacionales y tomar decisiones basadas en datos, con el fin de reducir costos y el impacto ambiental del transporte.
 
 ---
 
-## 📑 Tabla de contenidos
+## Tabla de contenidos
 
-- [Descripción del proyecto](#descripción-del-proyecto)
-- [Funcionalidades principales](#funcionalidades-principales)
+- [Descripción y objetivos](#descripción-y-objetivos)
+- [Ficha técnica y enlaces](#ficha-técnica-y-enlaces)
+- [Funcionalidades](#funcionalidades)
 - [Stack tecnológico](#stack-tecnológico)
-- [Arquitectura del sistema](#arquitectura-del-sistema)
+- [Arquitectura N-Capas y flujo de una petición](#arquitectura-n-capas-y-flujo-de-una-petición)
+- [Modelo de datos (PostgreSQL)](#modelo-de-datos-postgresql)
+- [Contrato de API REST](#contrato-de-api-rest)
 - [Estructura del repositorio](#estructura-del-repositorio)
-- [Equipo de desarrollo](#equipo-de-desarrollo)
+- [Equipo y roles](#equipo-y-roles)
 - [Requisitos previos](#requisitos-previos)
 - [Instalación y ejecución](#instalación-y-ejecución)
-- [Comandos útiles](#comandos-útiles)
-- [Base de datos](#base-de-datos)
+- [Variables de entorno](#variables-de-entorno)
+- [Comandos útiles y pruebas](#comandos-útiles-y-pruebas)
 - [Contribución al proyecto](#contribución-al-proyecto)
 
 ---
 
-## 📌 Descripción del proyecto
+## Descripción y objetivos
 
-La gestión eficiente del combustible es un desafío relevante para las empresas de transporte, especialmente cuando necesitan supervisar múltiples vehículos, controlar sus gastos operacionales y evaluar el desempeño de sus flotas.
+La gestión eficiente del combustible es un desafío para las empresas de transporte, sobre todo cuando deben supervisar varios vehículos, controlar sus gastos y evaluar el desempeño de sus flotas. KUTROL centraliza la información de vehículos, conductores, rutas, viajes, abastecimientos, mantenciones y telemetría, y a partir de ella muestra indicadores, patrones de consumo y eventos que requieren atención.
 
-KUTROL aborda esta problemática mediante una plataforma que centraliza información sobre vehículos, conductores, rutas, viajes, abastecimientos, mantenciones y registros de telemetría.
+- **Optimización operacional:** encontrar oportunidades de mejora en el consumo de combustible.
+- **Control de flota:** centralizar vehículos, conductores, rutas y viajes.
+- **Monitoreo inteligente:** registrar eventos de telemetría y detectar anomalías.
+- **Análisis de datos:** entregar estadísticas e indicadores para decidir con respaldo.
+- **Sostenibilidad ambiental:** seguir el consumo y las emisiones de CO₂.
 
-A partir de estos datos, el sistema permite visualizar indicadores operacionales, analizar patrones de consumo y supervisar eventos que podrían requerir atención.
+---
 
-### Objetivos
+## Ficha técnica y enlaces
 
-- **Optimización operacional:** identificar oportunidades de mejora en el consumo de combustible.
-- **Control de flota:** centralizar información de vehículos, conductores, rutas y viajes.
-- **Monitoreo inteligente:** registrar eventos de telemetría y detectar posibles anomalías.
-- **Análisis de datos:** proporcionar estadísticas e indicadores para apoyar decisiones informadas.
-- **Sostenibilidad ambiental:** facilitar el seguimiento de métricas relacionadas con el consumo y las emisiones de CO₂.
+| Recurso | Detalle |
+|---|---|
+| **Aplicación en producción** | https://kutrol.vercel.app |
+| **API REST en producción** | https://kutrol.vercel.app/api |
+| **Base de datos** | PostgreSQL en Neon |
+| **Visor de datos (NocoDB)** | [Abrir visor](https://app.nocodb.com/invite/oZLF_MGM60xMSs2o31tB_QID008uM-m-1og7d2SDVF8) |
+| **Repositorio** | https://github.com/xCr1s12/Kutrol |
+| **Usuario de prueba** | `admin` |
+| **Contraseña de prueba** | `admin` |
 
-## 🚀 Funcionalidades principales
+El "backend" son las API Routes de Next.js, que se despliegan en el mismo dominio de Vercel que el frontend. La base de datos es externa (Neon).
+
+---
+
+## Funcionalidades
 
 | Módulo | Descripción |
 |---|---|
-| Dashboard ejecutivo | Visualización de indicadores clave de la operación. |
-| Gestión de flota | Administración de flotas, camiones y conductores. |
-| Rutas y viajes | Registro y consulta de recorridos y operaciones logísticas. |
-| Estadísticas | Análisis de consumo, correlaciones y patrones de telemetría. |
-| Alertas | Supervisión de anomalías y eventos que requieren atención. |
-| Sostenibilidad ambiental | Seguimiento de métricas de consumo y emisiones de CO₂. |
-| Configuración | Gestión de parámetros operacionales y de la empresa. |
-| Autenticación | Acceso a las funcionalidades privadas de la plataforma. |
-
-> **Nota:** La disponibilidad de cada funcionalidad depende de su estado de implementación dentro del proyecto.
+| **Dashboard** | Indicadores de consumo, gasto total, rendimiento (km/L) y ranking de conductores. |
+| **Gestión de flota** | Flotas, vehículos, conductores e historiales. |
+| **Rutas** | Registro y consulta de rutas con origen y destino. |
+| **Estadísticas** | Consumo y gasto por período (semanal, mensual y anual). |
+| **Alertas** | Alertas y anomalías con su nivel de severidad. |
+| **Sostenibilidad** | Estimación de CO₂ emitido y mapa de calor ambiental. |
+| **Configuración** | Edición de los datos de la empresa (nombre, contacto, imagen). |
+| **Autenticación** | Sesión con JWT en cookie `httpOnly` y protección de rutas en `proxy.js`. |
 
 ---
 
-## 🛠️ Stack tecnológico
+## Stack tecnológico
 
-La arquitectura utiliza tecnologías web modernas y una base de datos relacional para gestionar la información operacional.
-
-| Capa | Tecnología | Propósito |
-|---|---|---|
-| Frontend | Next.js 16, React 19 | Construcción de la interfaz y navegación. |
-| Enrutamiento | Next.js App Router | Organización de páginas y rutas. |
-| Estilos | Tailwind CSS v4 | Diseño y adaptación de la interfaz. |
-| Componentes UI | Material UI Icons, Lucide React | Iconografía y elementos visuales. |
-| Backend | Next.js API Routes, Node.js | Implementación de endpoints y lógica del servidor. |
-| Base de datos | PostgreSQL 16 | Almacenamiento de información relacional. |
-| Contenedores | Docker, Docker Compose | Configuración y ejecución del entorno de desarrollo. |
-| Simulación de datos | Python | Generación de datos sintéticos de telemetría. |
+| Capa | Tecnología |
+|---|---|
+| **Frontend** | Next.js 16 (App Router), React 19 |
+| **Estilos y visualización** | Tailwind CSS v4, Material UI Icons, Leaflet, Chart.js |
+| **Backend** | Next.js API Routes (Node.js) |
+| **Seguridad y validación** | `jose` (JWT), `bcryptjs`, Zod |
+| **Base de datos** | PostgreSQL 16, driver `pg` con consultas parametrizadas |
+| **Imágenes** | Cloudinary |
+| **Despliegue** | Vercel (aplicación) y Neon (base de datos) |
+| **Desarrollo local** | Docker y Docker Compose |
 
 ---
 
-## 🏗️ Arquitectura del sistema
+## Arquitectura N-Capas y flujo de una petición
 
-KUTROL organiza sus responsabilidades en capas para separar la interfaz, la lógica de negocio y el acceso a los datos.
-
-```text
-┌──────────────────────────────────────┐
-│             PRESENTACIÓN             │
-│       Next.js + React + Tailwind     │
-└──────────────────┬───────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────┐
-│            API Y NEGOCIO             │
-│  API Routes · Controllers · Services │
-└──────────────────┬───────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────┐
-│            ACCESO A DATOS            │
-│       Repositories · Queries         │
-└──────────────────┬───────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────┐
-│              PERSISTENCIA            │
-│            PostgreSQL 16             │
-└──────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A["Presentación<br/>React: src/app, src/components"] -->|"fetch() + cookie kutrol_session"| B["Seguridad<br/>src/proxy.js: valida JWT y pertenencia"]
+    B -->|"NextResponse.next()"| C["Rutas<br/>src/app/api/**/route.js"]
+    C --> D["Controladores<br/>src/controllers: Zod y códigos HTTP"]
+    D --> E["Servicios<br/>src/services/server: reglas de negocio"]
+    E --> F["Repositorios<br/>src/repositories: SQL parametrizado"]
+    F -->|"SQL con $1, $2..."| G[("PostgreSQL 16")]
+    G -->|"filas"| F
+    F --> E
+    E --> D
+    D -->|"JSON + código HTTP"| A
 ```
 
-La plataforma también incorpora scripts SQL para definir el esquema, establecer reglas de negocio, crear índices, configurar auditorías y cargar datos iniciales.
+### Ejemplo paso a paso: `GET /api/data/vehiculos?flota_id=1`
 
-Docker Compose permite ejecutar la aplicación y la base de datos dentro de un entorno coordinado.
+1. **Presentación.** El componente `tablaCamiones.jsx` llama a `fetch` y el navegador envía la cookie `kutrol_session`.
+2. **Seguridad.** `proxy.js` valida el JWT. Si la flota pedida no pertenece a la empresa del usuario, responde `403`.
+3. **Ruta.** `app/api/data/vehiculos/route.js` exporta el manejador `GET` y lo delega en el controlador.
+4. **Controlador.** `vehiculos.controller.js` valida `flota_id` con Zod. Si es inválido responde `400`.
+5. **Servicio.** `vehiculos.service.js` aplica las reglas de negocio.
+6. **Repositorio.** `Vehiculos.repository.js` ejecuta la consulta parametrizada y excluye los registros con `deleted_at` no nulo.
+7. **Respuesta.** Los datos suben por las mismas capas y el controlador responde `200` con JSON.
+
+Los errores no controlados pasan por `toErrorResponse` (`src/utils/errors.js`), que traduce las excepciones a códigos HTTP (400, 401, 403, 404, 409, 500) sin exponer detalles internos.
 
 ---
 
-## 📂 Estructura del repositorio
+## Modelo de datos (PostgreSQL)
 
-La siguiente estructura resume los principales directorios y archivos del proyecto.
+El esquema `kutrol` tiene **27 tablas** en 5 áreas. Los diagramas completos están en [`documents/`](documents/) (`Modelo Relacional.png`).
+
+| Área | Tablas |
+|---|---|
+| **Ubicación** | `region`, `comuna` |
+| **Empresa y personas** | `empresa`, `empresa_email`, `empresa_telefono`, `encargado_empresa`, `nivel_jerarquico`, `conductor`, `conductor_email`, `conductor_telefono` |
+| **Flota y equipamiento** | `tipo_flota`, `flota`, `camion`, `sensor`, `tipo_medicion`, `severidad` |
+| **Operación y logística** | `ruta`, `punto_control`, `viaje`, `carga`, `asignacion`, `abastecimiento` |
+| **Monitoreo y alertas** | `telemetria`, `lectura`, `anomalia`, `alerta`, `mantencion` |
+
+### Relaciones principales
+
+```mermaid
+erDiagram
+    REGION ||--o{ COMUNA : tiene
+    COMUNA ||--o{ EMPRESA : ubica
+    EMPRESA ||--o{ ENCARGADO_EMPRESA : tiene
+    NIVEL_JERARQUICO ||--o{ ENCARGADO_EMPRESA : clasifica
+    EMPRESA ||--o{ CONDUCTOR : emplea
+    EMPRESA ||--o{ FLOTA : posee
+    TIPO_FLOTA ||--o{ FLOTA : clasifica
+    FLOTA ||--o{ CAMION : agrupa
+    CAMION ||--o{ SENSOR : equipa
+    TIPO_MEDICION ||--o{ SENSOR : mide
+    SEVERIDAD ||--o{ TIPO_MEDICION : define
+    RUTA ||--o{ PUNTO_CONTROL : contiene
+    COMUNA ||--o{ RUTA : "origen y destino"
+    EMPRESA ||--o{ VIAJE : realiza
+    CAMION ||--o{ VIAJE : cumple
+    RUTA ||--o{ VIAJE : recorre
+    VIAJE ||--o{ CARGA : transporta
+    VIAJE ||--o{ ASIGNACION : tiene
+    CONDUCTOR ||--o{ ASIGNACION : recibe
+    VIAJE ||--o{ ABASTECIMIENTO : registra
+    CAMION ||--o{ ABASTECIMIENTO : carga
+    CONDUCTOR ||--o{ ABASTECIMIENTO : realiza
+    VIAJE ||--o{ TELEMETRIA : genera
+    CAMION ||--o{ TELEMETRIA : emite
+    TELEMETRIA ||--o{ LECTURA : contiene
+    SENSOR ||--o{ LECTURA : produce
+    LECTURA ||--o{ ANOMALIA : origina
+    SEVERIDAD ||--o{ ANOMALIA : clasifica
+    ANOMALIA ||--o{ ALERTA : dispara
+    ALERTA ||--o{ MANTENCION : deriva
+    CAMION ||--o{ MANTENCION : recibe
+```
+
+### Scripts SQL (`database/sql/`)
+
+| Archivo | Responsabilidad |
+|---|---|
+| `00_kutrol_reset.sql` | Reinicia el esquema (elimina datos y estructuras existentes) |
+| `00_run_all.sql` | Ejecuta los scripts 01 a 06 en orden |
+| `01_base.sql` | Extensiones y esquema `kutrol` |
+| `02_tablas.sql` | Definición de las 27 tablas |
+| `03_indices.sql` | Índices para optimizar consultas |
+| `04_triggers_auditoria.sql` | Triggers de auditoría |
+| `05_reglas_negocio.sql` | Validaciones y reglas en la base de datos |
+| `06_datos_base.sql` | Datos maestros iniciales |
+
+> **Cuidado:** `00_kutrol_reset.sql` borra datos. Ejecútalo solo cuando lo necesites.
+
+### Integridad y optimización
+
+- **Referencial:** `ON DELETE RESTRICT` en las tablas principales y `CASCADE` en teléfonos y correos.
+- **CHECK:** capacidades mayores que 0, latitud entre −90 y 90, estados válidos de vehículo (`DISPONIBLE`, `EN_RUTA`, `MANTENCION`, `FUERA_DE_SERVICIO`) y formatos de texto con expresiones regulares.
+- **UNIQUE:** RUT de empresa, RUN de conductor, patente de vehículo y código de dispositivo.
+- **Borrado lógico:** columna `deleted_at` para conservar el historial.
+- **Particionado:** `telemetria` y `lectura` están particionadas por mes.
+
+---
+
+## Contrato de API REST
+
+Todas las respuestas son JSON. Las rutas privadas exigen la cookie de sesión `kutrol_session` (`httpOnly`, `sameSite=lax`); el cliente no envía encabezados de autorización. Los cuerpos con datos usan `Content-Type: application/json`, salvo la subida de imágenes (`multipart/form-data`).
+
+### Autenticación y datos públicos
+
+| Método | Ruta | Acceso | Descripción | Respuestas |
+|---|---|---|---|---|
+| POST | `/api/auth/register` | Público | Registra empresa, contacto y encargado en una transacción | 201, 400, 409 (RUT o correo repetido) |
+| POST | `/api/auth/login` | Público | Autentica y establece la cookie JWT | 200, 400, 401 |
+| POST | `/api/auth/logout` | Público | Elimina la cookie de sesión | 200, 500 |
+| GET | `/api/auth/session` | Público | Estado de autenticación y datos del usuario | 200, 401 |
+| GET | `/api/regiones` | Público | Lista las regiones de Chile | 200, 500 |
+| GET | `/api/comunas?regionId={id}` | Público | Lista las comunas de una región | 200, 400, 404 |
+
+### Datos de la empresa
+
+| Método | Ruta | Acceso | Descripción | Respuestas |
+|---|---|---|---|---|
+| GET | `/api/data/empresa` | Privado | Datos de la empresa de la sesión | 200, 401, 404 |
+| PUT | `/api/data/empresa` | Privado | Actualiza los datos de la empresa de la sesión | 200, 400, 401, 409 |
+| GET | `/api/flota` | Privado | Flotas de la empresa de la sesión | 200, 401, 403 |
+| POST | `/api/flota` | Privado | Crea una flota | 201, 400, 401 |
+| GET | `/api/tipos-flota` | Privado | Lista los tipos de flota | 200, 401 |
+| GET | `/api/data/vehiculos?flota_id={id}` | Privado | Vehículos activos de una flota | 200, 400, 401, 403 |
+| POST | `/api/data/vehiculos` | Privado | Registra un vehículo (valida patente chilena) | 201, 400, 401, 409 (patente repetida) |
+| GET | `/api/data/rutas` | Privado | Rutas de la empresa | 200, 401, 500 |
+| POST | `/api/data/rutas` | Privado | Registra una ruta | 201, 401, 500 |
+| GET | `/api/alerts` | Privado | Alertas de la empresa | 200, 401, 500 |
+
+### Métricas, estadísticas y sostenibilidad
+
+| Método | Ruta | Acceso | Descripción | Respuestas |
+|---|---|---|---|---|
+| GET | `/api/dashboard/metricas` | Privado | Resumen ejecutivo: vehículos, gasto y km/L | 200, 401, 500 |
+| GET | `/api/ambiente/metricas` | Privado | Emisiones de CO₂ calculadas desde el combustible | 200, 401, 500 |
+| GET | `/api/ambiente/mapa-calor` | Privado | Datos geográficos para el mapa de calor de la empresa | 200, 401, 500 |
+| GET | `/api/estadisticas` | Privado | Métricas avanzadas para la vista de estadísticas | 200, 401, 500 |
+| GET | `/api/consumo?periodo={p}` | Privado | Litros por período: `semanal`, `mensual` o `anual` | 200, 401, 500 |
+
+### Imágenes
+
+| Método | Ruta | Acceso | Descripción | Respuestas |
+|---|---|---|---|---|
+| POST | `/api/upload` | Público | Sube una imagen a Cloudinary (JPG, PNG o WEBP, máx. 5 MB) | 201, 400 |
+| DELETE | `/api/upload` | Privado | Elimina la imagen asociada a la empresa | 200, 401, 404 |
+
+### Ejemplos de respuesta
+
+```json
+// 200 — GET /api/data/vehiculos?flota_id=1
+{ "ok": true, "data": [ { "id_camion": 1, "patente": "ABCD12", "estado": "DISPONIBLE" } ] }
+```
+
+```json
+// 403 — flota de otra empresa
+{ "ok": false, "error": { "code": "FORBIDDEN", "message": "No tienes permiso para acceder a esta flota" } }
+```
+
+---
+
+## Estructura del repositorio
 
 ```text
 Kutrol/
 ├── database/
-│   ├── sql/
-│   │   ├── 00_kutrol_reset.sql
-│   │   ├── 00_run_all.sql
-│   │   ├── 01_base.sql
-│   │   ├── 02_tablas.sql
-│   │   ├── 03_indices.sql
-│   │   ├── 04_triggers_auditoria.sql
-│   │   ├── 05_reglas_negocio.sql
-│   │   └── 06_datos_base.sql
-│   ├── init.sql
-│   └── seed.py
-│
-├── documents/
-│   ├── Mapa de Actores.jpg
-│   ├── Mapa de empatia.pdf
-│   ├── Modelo Relacional.png
-│   └── Paleta_de_colores.html
-│
-├── public/
-│   └── images/
-│       ├── empresa-defecto.svg
-│       ├── logo-kutrol-completo-claro.svg
-│       ├── logo-kutrol-completo.svg
-│       └── logo-kutrol.svg
-│
+│   ├── init.sql                      # Carga el esquema al crear el contenedor
+│   └── sql/
+│       ├── 00_kutrol_reset.sql       # Limpieza completa del esquema
+│       ├── 00_run_all.sql            # Ejecuta los scripts 01 a 06 en orden
+│       ├── 01_base.sql               # Extensiones y esquema kutrol
+│       ├── 02_tablas.sql             # Las 27 tablas
+│       ├── 03_indices.sql            # Índices
+│       ├── 04_triggers_auditoria.sql # Triggers de auditoría
+│       ├── 05_reglas_negocio.sql     # Reglas de negocio y restricciones
+│       └── 06_datos_base.sql         # Datos maestros iniciales
+├── documents/                        # Modelo relacional y material de diseño
+├── public/                           # Logotipos e isotipos (SVG)
 ├── src/
 │   ├── app/
-│   │   ├── (Panel)/
+│   │   ├── (Panel)/                  # Vistas protegidas
 │   │   │   ├── alerts/
 │   │   │   ├── ambiente/
 │   │   │   ├── configPanel/
@@ -153,222 +279,149 @@ Kutrol/
 │   │   │   ├── route/
 │   │   │   └── statistic/
 │   │   ├── acerca_de/
-│   │   ├── api/
-│   │   │   ├── ambiente/metricas/
-│   │   │   ├── auth/
-│   │   │   ├── consumo/
-│   │   │   ├── dashboard/
-│   │   │   ├── data/
-│   │   │   ├── estadisticas/
-│   │   │   └── flota/
+│   │   ├── api/                      # Rutas de la API REST
 │   │   ├── login/
-│   │   ├── register/
-│   │   ├── globals.css
-│   │   ├── layout.js
-│   │   └── page.js
-│   │
-│   ├── components/
-│   │   ├── AboutKutrol/
-│   │   ├── alertas/
-│   │   ├── ambiente/
-│   │   ├── configuracion/
-│   │   ├── dashboard/
-│   │   ├── gestion/
-│   │   ├── home/
-│   │   ├── route/
-│   │   ├── statistic/
-│   │   └── ui/
-│   │
-│   ├── controllers/
-│   ├── hooks/
-│   ├── lib/
-│   ├── repositories/
-│   ├── schema/
-│   ├── services/
-│   └── utils/
-│
-├── .env.example
+│   │   └── register/
+│   ├── components/                   # Componentes de interfaz
+│   ├── controllers/                  # Validación con Zod y códigos HTTP
+│   ├── hooks/                        # Hooks de React
+│   ├── lib/                          # Sesión, JWT y conexión a la base
+│   ├── repositories/                 # Consultas SQL parametrizadas
+│   ├── schema/                       # Esquemas Zod
+│   ├── services/                     # client/ y server/
+│   ├── utils/                        # Manejo de errores (errors.js)
+│   └── proxy.js                      # Middleware de autenticación y autorización
+├── tests/                            # Pruebas automatizadas
+├── .env.example                      # Plantilla de variables de entorno
 ├── docker-compose.yml
 ├── Dockerfile
-├── next.config.mjs
 ├── package.json
 └── README.md
 ```
 
-### Organización de `src/`
+---
 
-- **`app/`**: páginas, layouts y endpoints de la aplicación.
-- **`components/`**: componentes reutilizables de la interfaz, organizados por módulo.
-- **`controllers/`**: coordinación de operaciones y lógica de control.
-- **`hooks/`**: hooks personalizados de React.
-- **`lib/`**: conexiones e infraestructura compartida, incluida la conexión a PostgreSQL.
-- **`repositories/`**: consultas y operaciones de acceso a datos.
-- **`schema/`**: esquemas de validación.
-- **`services/`**: servicios y reglas de negocio.
-- **`utils/`**: funciones auxiliares y de formateo.
+## Equipo y roles
+
+| Integrante | Rol | Responsabilidades |
+|---|---|---|
+| Cristóbal Oñate | Backend | API REST, autenticación JWT, seguridad en `proxy.js` e integración cliente-servidor |
+| Valentina Calderón | Frontend (UI/UX) | Prototipo en Figma, sistema de componentes, vistas de configuración y alertas, portada |
+| Carla Vargas | QA | Pruebas de integración, vistas de sostenibilidad ambiental y estadísticas |
+| Claudio Uribe | Database / DevOps | Modelo de datos, despliegue, evaluación de usabilidad y refactorización de hooks |
 
 ---
 
-## 👥 Equipo de desarrollo
+## Requisitos previos
 
-| Integrante | Responsabilidad |
-|---|---|
-| **Carla Vargas** | Gestión de Requisitos y Relaciones Estratégicas |
-| **Valentina Calderón** | Gestión de Requisitos y Arquitectura Documental |
-| **Claudio Uribe** | Control de Calidad (QA) y Aseguramiento de Datos |
-| **Cristóbal Oñate** | Control de Calidad (QA), Optimización y Frontend |
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) 22 o superior (para ejecutar sin Docker)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (para ejecutar con contenedores)
+- PostgreSQL 16 (solo si no usas Docker)
 
 ---
 
-## 📋 Requisitos previos
+## Instalación y ejecución
 
-Antes de ejecutar el proyecto, asegúrate de contar con las siguientes herramientas:
-
-- [Docker Desktop](https://docs.docker.com/get-docker/): ejecución de contenedores.
-- [Git](https://git-scm.com/): clonación y gestión del repositorio.
-- [Node.js 22 o superior](https://nodejs.org/): necesario para ejecutar el proyecto directamente en el entorno local, fuera de Docker.
-
----
-
-## ⚙️ Instalación y ejecución
-
-### 1. Clonar el repositorio
+### Opción A: Docker Compose (recomendada)
 
 ```bash
 git clone https://github.com/xCr1s12/Kutrol.git
 cd Kutrol
-```
-
-### 2. Configurar las variables de entorno
-
-Revisa el archivo `.env.example` y configura las variables necesarias para tu entorno local, si el proyecto las requiere.
-
-No subas credenciales, contraseñas ni archivos `.env` con información sensible al repositorio.
-
-### 3. Construir e iniciar los servicios
-
-Con Docker Desktop abierto, ejecuta:
-
-```bash
+cp .env.example .env      # luego completa AUTH_SECRET y CLOUDINARY_URL
 docker compose up -d --build
 ```
 
-Este comando construye las imágenes necesarias e inicia los servicios definidos en `docker-compose.yml`.
+Abre http://localhost:3000. Al crear el contenedor, la base se carga sola con `database/init.sql`.
 
-### 4. Acceder a la aplicación
+Los servicios se llaman `postgres` y `nextjs`.
 
-Abre el siguiente enlace en tu navegador:
-
-**[http://localhost:3000](http://localhost:3000)**
-
-Si la aplicación no está disponible inmediatamente, revisa los registros de los contenedores para identificar posibles errores de inicialización.
-
----
-
-## 💻 Comandos útiles
-
-### Docker
-
-| Comando | Descripción |
-|---|---|
-| `docker compose up -d --build` | Construye las imágenes e inicia los servicios en segundo plano. |
-| `docker compose down` | Detiene y elimina los contenedores del proyecto. |
-| `docker compose logs -f app` | Muestra los registros del servicio de la aplicación. |
-| `docker compose logs -f db` | Muestra los registros de PostgreSQL. |
-| `docker compose ps` | Consulta el estado de los servicios. |
-
-### Acceso a PostgreSQL
-
-Para abrir una consola interactiva de PostgreSQL:
+### Opción B: Node.js y PostgreSQL locales
 
 ```bash
-docker compose exec db psql -U postgres -d kutrol
-```
-
-Este comando presupone que el servicio de base de datos se llama `db` y que la base de datos y el usuario están configurados con esos nombres.
-
-### Desarrollo local sin Docker
-
-Si prefieres ejecutar Next.js directamente en tu equipo, instala las dependencias:
-
-```bash
+git clone https://github.com/xCr1s12/Kutrol.git
+cd Kutrol
 npm install
+cp .env.example .env      # apunta DATABASE_URL a tu PostgreSQL local
 ```
 
-Configura las variables de entorno necesarias y asegúrate de que PostgreSQL esté disponible. Después, ejecuta:
+Crea la base y carga el esquema (el script resuelve sus rutas por sí mismo):
+
+```bash
+createdb -U <usuario> bd_grupo1_Kutrol
+psql -U <usuario> -d bd_grupo1_Kutrol -f database/sql/00_run_all.sql
+```
+
+Inicia el servidor:
 
 ```bash
 npm run dev
 ```
 
-Otros comandos útiles:
+Abre http://localhost:3000.
+
+---
+
+## Variables de entorno
+
+Crea un archivo `.env` en la raíz, basado en `.env.example`:
 
 ```bash
-npm run build
-npm run start
+# Conexión a PostgreSQL
+DATABASE_URL="postgresql://USUARIO:CONTRASEÑA@localhost:5432/bd_grupo1_Kutrol"
+
+# Clave para firmar los JWT. Generar con:
+# node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+AUTH_SECRET="reemplazar_por_una_clave_aleatoria"
+
+# Cloudinary: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+CLOUDINARY_URL="cloudinary://API_KEY:API_SECRET@CLOUD_NAME"
 ```
 
-- `npm run dev`: inicia el servidor de desarrollo.
-- `npm run build`: genera la compilación para producción.
-- `npm run start`: inicia la aplicación compilada para producción.
+> El archivo `.env` está en `.gitignore` y no debe subirse al repositorio. En producción, las credenciales se configuran en las variables de entorno de Vercel.
 
 ---
 
-## 🗄️ Base de datos
+## Comandos útiles y pruebas
 
-KUTROL utiliza **PostgreSQL 16** como sistema de gestión de bases de datos relacionales. El esquema contempla 18 tablas organizadas en cuatro niveles funcionales.
-
-| Nivel | Área | Tablas |
-|---|---|---|
-| 1 | Datos maestros | `EMPRESA`, `CONDUCTOR`, `CONDUCTOR_TELEFONO`, `CONDUCTOR_EMAIL` |
-| 2 | Estructura y equipamiento | `TIPO`, `FLOTA`, `CAMION`, `SENSOR` |
-| 3 | Operaciones y logística | `RUTA`, `PUNTO_CONTROL`, `VIAJE`, `CARGA`, `ASIGNACION` |
-| 4 | Eventos y telemetría | `TELEMETRIA`, `ABASTECIMIENTO`, `MANTENCION`, `ANOMALIA`, `ALERTA` |
-
-### Scripts SQL
-
-Los scripts de `database/sql/` permiten organizar la inicialización y configuración del esquema:
-
-| Archivo | Responsabilidad |
+| Comando | Descripción |
 |---|---|
-| `00_kutrol_reset.sql` | Reinicio del esquema de la base de datos. |
-| `00_run_all.sql` | Ejecución consolidada de los scripts. |
-| `01_base.sql` | Extensiones y configuraciones iniciales. |
-| `02_tablas.sql` | Definición de las 18 tablas. |
-| `03_indices.sql` | Creación de índices para optimizar consultas. |
-| `04_triggers_auditoria.sql` | Configuración de triggers y auditoría. |
-| `05_reglas_negocio.sql` | Implementación de validaciones en la base de datos. |
-| `06_datos_base.sql` | Carga de datos iniciales. |
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Compilación para producción |
+| `npm run start` | Ejecuta la compilación |
+| `npm test` | Ejecuta las pruebas de la carpeta `tests/` |
+| `npm run lint` | Revisa el código con ESLint |
 
-El archivo `database/seed.py` se utiliza para la simulación telemétrica.
+### Docker
 
-> **Importante:** el script de reinicio puede eliminar estructuras o datos existentes. Ejecútalo únicamente cuando corresponda y después de verificar sus instrucciones.
+| Comando | Descripción |
+|---|---|
+| `docker compose up -d --build` | Construye y levanta los servicios |
+| `docker compose down` | Detiene y elimina los contenedores |
+| `docker compose logs -f nextjs` | Logs de la aplicación |
+| `docker compose logs -f postgres` | Logs de la base de datos |
+| `docker compose exec postgres psql -U kutrol -d bd_grupo1_Kutrol` | Consola de PostgreSQL |
 
 ---
 
-## 🤝 Contribución al proyecto
+## Contribución al proyecto
 
-Para mantener un desarrollo organizado y facilitar la integración de los cambios del equipo, se recomienda trabajar mediante ramas independientes y solicitudes de integración (*pull requests*).
+Trabajamos con ramas independientes y *pull requests*:
 
-Flujo de trabajo sugerido:
-
-1. Actualizar la rama base del proyecto.
-2. Crear una rama para la funcionalidad o corrección correspondiente.
-3. Implementar los cambios y comprobar su funcionamiento.
-4. Revisar las modificaciones antes de realizar el commit.
+1. Actualizar la rama base.
+2. Crear una rama para la funcionalidad o corrección.
+3. Implementar los cambios y comprobar que funcionan (`npm test`).
+4. Revisar los cambios antes de hacer commit.
 5. Publicar la rama y abrir un *pull request*.
-6. Revisar y validar los cambios antes de integrarlos.
+6. Revisar y validar antes de integrar.
 
-Se recomienda utilizar nombres descriptivos para las ramas, por ejemplo:
+Nombres de rama sugeridos:
 
 ```text
 feature/estadisticas
-feature/metricas-ambiente
 fix/validacion-consumo
 docs/actualizacion-readme
 ```
-
----
 
 <p align="center">
   <strong>KUTROL</strong><br />
