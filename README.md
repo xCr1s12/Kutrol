@@ -241,7 +241,11 @@ cd Kutrol
 
 ### 2. Configurar las variables de entorno
 
-Revisa el archivo `.env.example` y configura las variables necesarias para tu entorno local, si el proyecto las requiere.
+Crea el archivo `.env` a partir de `.env.example` y configura las variables necesarias. Para conectar la aplicación a Neon, define allí la URL de conexión:
+
+```env
+DATABASE_URL=postgresql://...
+```
 
 No subas credenciales, contraseñas ni archivos `.env` con información sensible al repositorio.
 
@@ -273,19 +277,8 @@ Si la aplicación no está disponible inmediatamente, revisa los registros de lo
 |---|---|
 | `docker compose up -d --build` | Construye las imágenes e inicia los servicios en segundo plano. |
 | `docker compose down` | Detiene y elimina los contenedores del proyecto. |
-| `docker compose logs -f app` | Muestra los registros del servicio de la aplicación. |
-| `docker compose logs -f db` | Muestra los registros de PostgreSQL. |
+| `docker compose logs -f nextjs` | Muestra los registros del servicio de la aplicación. |
 | `docker compose ps` | Consulta el estado de los servicios. |
-
-### Acceso a PostgreSQL
-
-Para abrir una consola interactiva de PostgreSQL:
-
-```bash
-docker compose exec db psql -U postgres -d kutrol
-```
-
-Este comando presupone que el servicio de base de datos se llama `db` y que la base de datos y el usuario están configurados con esos nombres.
 
 ### Desarrollo local sin Docker
 

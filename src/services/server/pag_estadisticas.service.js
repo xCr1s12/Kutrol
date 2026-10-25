@@ -1,6 +1,10 @@
 import { estadisticaRepository } from "@/repositories/pag_estadistica.repository";
 
 export const pagEstadisticasService = {
+  async getRankingConductoresByEmpresa(id_empresa) {
+    return estadisticaRepository.getRankingConductoresByEmpresa(id_empresa);
+  },
+
   async getDashboardStats() {
     const stats = await estadisticaRepository.getDashboardStats();
     

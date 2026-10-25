@@ -1,55 +1,116 @@
 "use client";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useEffect, useState } from "react";
 import DropMenu from "../ui/DropMenu";
 
-// Datos de prueba para las alertas
-const AlertsData = [
-  {
-    id: 1,
-    title: "Alerta Consumo Anormal",
-    description:
-      "Se ha detectado un consumo superior al promedio registrado en la ruta Norte. Verifique el estado del vehículo y la presión de neumáticos.",
-  },
-  {
-    id: 2,
-    title: "Alerta Consumo Anormal",
-    description:
-      "El vehículo ID-204 presentó una variación inhabitual durante el turno de la tarde. Se sugiere revisión técnica preventiva.",
-  },
-];
+const estilosEstado = {
+  Leve: "bg-green-100 text-green-800",
+  Moderado: "bg-amber-100 text-amber-800",
+  "Crítico": "bg-red-100 text-red-700",
+};
 
 export default function AlertsSection() {
+  const [alertas, setAlertas] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function cargarAlertas() {
+      try {
+        const respuesta = await fetch("/api/alerts", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+
+        if (!respuesta.ok) {
+          throw new Error("No se pudieron cargar las alertas.");
+        }
+
+        const datos = await respuesta.json();
+        if (!Array.isArray(datos)) {
+          throw new Error("La respuesta de alertas no tiene un formato válido.");
+        }
+
+        setAlertas(datos);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Error cargando alertas del dashboard:", err);
+          setError(err.message);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setCargando(false);
+        }
+      }
+    }
+
+    cargarAlertas();
+    return () => controller.abort();
+  }, []);
+
+  const alertasRecientes = [...alertas]
+    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+    .slice(0, 5);
+
   return (
     <section
-      className="light:bg-card dark:bg-card w-full rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] flex flex-col gap-y-4"
+      className="light:bg-card dark:bg-card flex w-full flex-col gap-y-4 rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]"
       aria-labelledby="alerts-title"
     >
-      <h2 id="alerts-title" className="text-text font-bold text-lg mb-2 light:text-text dark:text-text">
+      <h2 id="alerts-title" className="text-text mb-2 text-lg font-bold light:text-text dark:text-text">
         Alertas
       </h2>
 
-      <ul className="flex flex-col gap-y-3 m-0 p-0 list-none">
-        {AlertsData.map((alert) => (
-          <li
-            key={alert.id}
-            className=" w-full rounded-2xl border-2 p-4 shadow-sm flex justify-between items-start light:bg-background light:border-border dark:bg-background dark:border-border"
-          >
-            <div className="flex flex-col gap-y-1 pr-4">
-              <h3 className="text-text light:text-text dark:text-text font-bold text-sm">
-                {alert.title}
-              </h3>
-              <p className="text-subtext light:text-subtext dark:text-subtext text-xs leading-relaxed">
-                {alert.description}
-              </p>
-            </div>
+      {cargando ? (
+        <p className="text-subtext text-sm" role="status">
+          Cargando alertas...
+        </p>
+      ) : error ? (
+        <p className="text-red-500 text-sm" role="alert">
+          Ocurrió un problema: {error}
+        </p>
+      ) : alertasRecientes.length === 0 ? (
+        <p className="text-subtext text-sm">No hay alertas registradas.</p>
+      ) : (
+        <ul className="m-0 flex list-none flex-col gap-y-3 p-0">
+          {alertasRecientes.map((alerta) => (
+            <li
+              key={alerta.id}
+              className="light:bg-background light:border-border dark:bg-background dark:border-border flex w-full items-start justify-between rounded-2xl border-2 p-4 shadow-sm"
+            >
+              <div className="flex flex-col gap-y-2 pr-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-text text-sm font-bold light:text-text dark:text-text">
+                    Alerta {alerta.estado}
+                  </h3>
+                  <span
+                    className={`rounded-md px-2 py-0.5 text-xs font-semibold ${
+                      estilosEstado[alerta.estado] || "bg-stone-100 text-stone-700"
+                    }`}
+                  >
+                    {alerta.estado}
+                  </span>
+                </div>
+                <p className="text-subtext text-xs leading-relaxed light:text-subtext dark:text-subtext">
+                  {alerta.mensaje}
+                </p>
+                <p className="text-subtext text-xs light:text-subtext dark:text-subtext">
+                  Vehículo: {alerta.vehiculo} ·{" "}
+                  {new Date(alerta.fecha).toLocaleString("es-CL", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}
+                </p>
+              </div>
 
-            <div
-              className="  light:text-text hover:text-text p-1 rounded transition-colors cursor-pointer  dark:text-icon dark:hover:text-text">
-              <DropMenu />
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div className="light:text-text hover:text-text cursor-pointer rounded p-1 transition-colors dark:text-icon dark:hover:text-text">
+                <DropMenu />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

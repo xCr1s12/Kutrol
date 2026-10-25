@@ -1,6 +1,32 @@
 import pool from "@/lib/db";
 
 export const estadisticaRepository = {
+  async getRankingConductoresByEmpresa(id_empresa) {
+    const { rows } = await pool.query(
+      `
+      SELECT
+        c.id_conductor,
+        (c.primer_nombre || ' ' || c.apellidos) AS nombre,
+        ROUND(COALESCE(SUM(r.distancia_km) / NULLIF(SUM(ab.litros), 0), 0), 1) AS rendimiento_kml
+      FROM CONDUCTOR c
+      JOIN ASIGNACION a ON a.id_conductor = c.id_conductor
+      JOIN VIAJE v ON a.id_viaje = v.id_viaje
+        AND v.id_empresa = c.id_empresa
+      JOIN RUTA r ON v.id_ruta = r.id_ruta
+      LEFT JOIN ABASTECIMIENTO ab ON ab.id_camion = v.id_camion
+        AND ab.fecha BETWEEN v.fecha_inicio AND COALESCE(v.fecha_fin, CURRENT_TIMESTAMP)
+      WHERE c.id_empresa = $1
+        AND c.deleted_at IS NULL
+        AND v.estado = 'COMPLETADO'
+      GROUP BY c.id_conductor, c.primer_nombre, c.apellidos
+      ORDER BY rendimiento_kml DESC
+      LIMIT 5
+      `,
+      [id_empresa],
+    );
+    return rows;
+  },
+
   // 1. Obtener resumen general para el dashboard
   async getDashboardStats() {
     // Métricas de Vehículos

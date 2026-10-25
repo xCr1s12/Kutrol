@@ -33,6 +33,30 @@ export async function getVehiculosByFlota(request) {
   }
 }
 
+export async function getConsumoGrafico() {
+  try {
+    const session = await getSession();
+    if (!session?.id_empresa) {
+      return NextResponse.json(
+        { ok: false, error: "No autorizado" },
+        { status: 401, headers: { "Cache-Control": "no-store" } },
+      );
+    }
+
+    const data = await vehiculoService.getConsumoGrafico(session.id_empresa);
+    return NextResponse.json(
+      { ok: true, data },
+      { headers: { "Cache-Control": "no-store" } },
+    );
+  } catch (err) {
+    const { status, body } = toErrorResponse(err);
+    return NextResponse.json(body, {
+      status,
+      headers: { "Cache-Control": "no-store" },
+    });
+  }
+}
+
 export async function createVehiculo(request) {
   try {
     const session = await getSession();
@@ -75,9 +99,16 @@ export async function createVehiculo(request) {
 
       if (valor === undefined || valor === null || valor === "") {
         return NextResponse.json(
-          { mensaje: `Completa el campo ${ETIQUETAS_CAMPO[campo] ?? "requerido"}` },
-          { status: 400 },
-        );
+                {
+                  ok: false,
+                  error: {
+                    code: "VALIDATION_ERROR",
+                    message: "Datos inválidos",
+                    details: [{ campo, mensaje: `El campo '${campo}' es obligatorio` }],
+                  },
+                },
+                { status: 400 },
+              );
       }
     }
 

@@ -1,18 +1,69 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShowChartRoundedIcon from "@mui/icons-material/ShowChartRounded";
-import SpeedRoundedIcon from "@mui/icons-material/SpeedRounded";
 import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
 import BalanceRoundedIcon from "@mui/icons-material/BalanceRounded";
 import AccessTimeRoundedIcon from "@mui/icons-material/AccessTimeRounded";
 
 export default function AnalisisAvanzado({ data }) {
   const [filtroMétrica, setFiltroMétrica] = useState("velocidad");
+  const [metricas, setMetricas] = useState(null);
+  const [cargandoMetricas, setCargandoMetricas] = useState(true);
+  const [errorMetricas, setErrorMetricas] = useState("");
 
   // Extracción de datos con fallbacks
   const litrosTotales = Number(data?.combustible?.litros_totales || 165);
   const rendimientoGlobal = Number(data?.rendimiento || 2.8);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function cargarMetricas() {
+      try {
+        const response = await fetch("/api/data/metricas", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "No se pudieron cargar las métricas.");
+        }
+
+        setMetricas(result.data);
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        setErrorMetricas(
+          error instanceof Error
+            ? error.message
+            : "No se pudieron cargar las métricas.",
+        );
+      } finally {
+        if (!controller.signal.aborted) setCargandoMetricas(false);
+      }
+    }
+
+    cargarMetricas();
+    return () => controller.abort();
+  }, []);
+
+  const formatoNumero = new Intl.NumberFormat("es-CL", {
+    maximumFractionDigits: 2,
+  });
+  const formatoCLP = new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
+    maximumFractionDigits: 0,
+  });
+  const mostrarMetrica = (valor, formato) => {
+    if (cargandoMetricas) return "Cargando...";
+    if (errorMetricas) return "—";
+    if (valor === null || valor === undefined || !Number.isFinite(Number(valor))) {
+      return "Sin datos";
+    }
+    return formato(Number(valor));
+  };
 
   // Muestras sintéticas para el Scatter Plot de Correlación
   const datosScatter = [
@@ -26,13 +77,22 @@ export default function AnalisisAvanzado({ data }) {
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {errorMetricas && (
+          <p role="alert" className="col-span-full text-sm text-red-600">
+            Error al cargar las métricas: {errorMetricas}
+          </p>
+        )}
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-2">
             <span className="text-subtext text-xs font-semibold">Ralentí Innecesario</span>
             <AccessTimeRoundedIcon className="text-icon" fontSize="small" />
           </div>
-          <p className="text-text text-2xl font-bold">14.2 %</p>
-          <p className="text-subtext mt-1 text-xs">~23.4 Horas motor encendido sin marcha</p>
+          <p className="text-text text-2xl font-bold">
+            {mostrarMetrica(metricas?.ralentiInnecesarioPct, (valor) => `${formatoNumero.format(valor)} %`)}
+          </p>
+          <p className="text-subtext mt-1 text-xs">
+            Registros con motor encendido y vehículo detenido (últimos 30 días)
+          </p>
         </div>
 
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
@@ -40,8 +100,12 @@ export default function AnalisisAvanzado({ data }) {
             <span className="text-subtext text-xs font-semibold">Coeficiente de Correlación</span>
             <ShowChartRoundedIcon className="text-icon" fontSize="small" />
           </div>
-          <p className="text-text text-2xl font-bold">- 0.84 r</p>
-          <p className="text-subtext mt-1 text-xs">Velocidad vs. Rendimiento (Fuerte Inversa)</p>
+          <p className="text-text text-2xl font-bold">
+            {mostrarMetrica(metricas?.correlacionVelocidadRendimiento, (valor) => `${formatoNumero.format(valor)} r`)}
+          </p>
+          <p className="text-subtext mt-1 text-xs">
+            Velocidad media vs. rendimiento por viaje completado
+          </p>
         </div>
 
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
@@ -49,8 +113,12 @@ export default function AnalisisAvanzado({ data }) {
             <span className="text-subtext text-xs font-semibold">Desviación Estándar</span>
             <BalanceRoundedIcon className="text-icon" fontSize="small" />
           </div>
-          <p className="text-text text-2xl font-bold">± 0.42 Km/L</p>
-          <p className="text-subtext mt-1 text-xs">Variabilidad de conducción en flota</p>
+          <p className="text-text text-2xl font-bold">
+            {mostrarMetrica(metricas?.desviacionEstandarRendimiento, (valor) => `± ${formatoNumero.format(valor)} Km/L`)}
+          </p>
+          <p className="text-subtext mt-1 text-xs">
+            Variabilidad del rendimiento entre viajes completados
+          </p>
         </div>
 
         <div className="bg-card text-text rounded-xl border border-border p-5 shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
@@ -58,8 +126,12 @@ export default function AnalisisAvanzado({ data }) {
             <span className="text-subtext text-xs font-semibold">Proyección Gasto Mensual</span>
             <AssessmentRoundedIcon className="text-icon" fontSize="small" />
           </div>
-          <p className="text-text text-2xl font-bold">$1.450.000</p>
-          <p className="text-subtext mt-1 text-xs">Estimación basada en regresión lineal</p>
+          <p className="text-text text-2xl font-bold">
+            {mostrarMetrica(metricas?.proyeccionGastoMensual, (valor) => formatoCLP.format(valor))}
+          </p>
+          <p className="text-subtext mt-1 text-xs">
+            Estimación mensual basada en el gasto de los últimos 30 días
+          </p>
         </div>
       </div>
 
