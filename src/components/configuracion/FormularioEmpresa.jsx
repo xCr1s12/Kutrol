@@ -10,7 +10,6 @@ import CampoTelefono from "@/components/ui/CampoTelefono";
 import MultiField from "@/components/ui/MultiField";
 import { LogoEmpresa, icono } from "./VistaEmpresa";
 import { formatearRut } from "./validarEmpresa";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const limiteDescripcion = 255;
 

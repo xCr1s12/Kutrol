@@ -12,6 +12,7 @@ import {
   evaluarPassword,
   fuerzaPassword,
 } from "@/lib/passwordPolicy";
+import { CARGOS } from "@/lib/cargos";
 
 const ArrowRight = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -38,14 +39,6 @@ const VACIO = {
   password: "",
   repeatPassword: "",
 };
-
-const CARGOS = [
-  "Gerente general",
-  "Gerente de operaciones",
-  "Jefe de flota",
-  "Supervisor",
-  "Administrador",
-];
 
 function CampoPassword({ valor, onChange, error }) {
   const [visible, setVisible] = useState(false);

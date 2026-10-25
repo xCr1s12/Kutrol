@@ -1,31 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { SettingsRounded, BusinessRounded } from "@mui/icons-material";
+import { useState, useEffect, useCallback } from "react";
+import { GroupRounded, BusinessRounded } from "@mui/icons-material";
 import { botonAmarillo } from "@/components/configuracion/comun";
-import ParametrosOperativos from "@/components/configuracion/ParametrosOperativos";
 import GestionUsuarios from "@/components/configuracion/GestionUsuarios";
-import AlertasNotificaciones from "@/components/configuracion/AlertasNotificaciones";
 import VistaEmpresa from "@/components/configuracion/VistaEmpresa";
 import FormularioEmpresa from "@/components/configuracion/FormularioEmpresa";
 import { validarEmpresa } from "@/components/configuracion/validarEmpresa";
 import { obtenerComunas, obtenerRegiones } from "@/services/client/ubicacion.service";
 import { useToast } from "@/components/ui/Toasts";
 
-// datos de prueba, despues se reemplazan por los del backend
 const configInicial = {
-  rendimiento: 40,
-  unidadRendimiento: "Km/L",
-  emisiones: 1000,
-  usuarios: [
-    { id: 1, nombre: "Camila Rojas", correo: "camila.rojas@kutrol.cl", rol: "Admin", foto: null },
-    { id: 2, nombre: "Matías Fuentes", correo: "matias.fuentes@kutrol.cl", rol: "Usuario", foto: null },
-    { id: 3, nombre: "Javiera Soto", correo: "javiera.soto@kutrol.cl", rol: "Usuario", foto: null },
-  ],
-  alertas: [
-    { id: "consumo", nombre: "Consumo excesivo", estado: "Moderado", activa: true, valor: 40, unidad: "Km/L", correo: true },
-    { id: "robo", nombre: "Robo", estado: "Crítico", activa: true, valor: 40, unidad: "L", correo: true },
-  ],
   // empresa de ejemplo, se reemplaza por la que llega de la base de datos
   empresa: {
     logo: null,
@@ -41,18 +26,52 @@ const configInicial = {
 };
 
 const pestanas = [
-  { id: "general", nombre: "General", Icono: SettingsRounded },
   { id: "empresa", nombre: "Empresa", Icono: BusinessRounded },
+  { id: "usuarios", nombre: "Usuarios", Icono: GroupRounded },
 ];
 
+// la lista de usuarios siempre sale de la api, nunca de estado local
+async function pedirUsuarios() {
+  const res = await fetch("/api/data/usuarios");
+  const lista = res.ok ? await res.json() : [];
+  return Array.isArray(lista) ? lista : [];
+}
+
 export default function Configuracion() {
-  const [pestana, setPestana] = useState("general");
+  const [pestana, setPestana] = useState("empresa");
   // guardado = lo ultimo que se guardo, config = lo que se esta editando
   const [guardado, setGuardado] = useState(configInicial);
   const [config, setConfig] = useState(configInicial);
   const [editandoEmpresa, setEditandoEmpresa] = useState(false);
   const [guardando, setGuardando] = useState(false);
+  const [usuarios, setUsuarios] = useState([]);
+  const [puedeAdministrar, setPuedeAdministrar] = useState(null);
   const { mostrar } = useToast();
+
+  const recargarUsuarios = useCallback(
+    () =>
+      pedirUsuarios()
+        .then((lista) => setUsuarios(lista))
+        .catch((error) => console.error("no se pudieron cargar los usuarios", error)),
+    []
+  );
+
+  useEffect(() => {
+    recargarUsuarios();
+  }, [recargarUsuarios]);
+
+  useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((datos) => {
+        const nivel = Number(datos?.session?.nivel);
+        if (Number.isFinite(nivel)) setPuedeAdministrar(nivel <= 2);
+      })
+      .catch((error) => {
+        console.error("no se pudo leer la sesión", error);
+        setPuedeAdministrar(true);
+      });
+  }, []);
 
   useEffect(() => {
     fetch("/api/data/empresa")
@@ -79,7 +98,7 @@ export default function Configuracion() {
       .catch((error) => console.error("no se pudo cargar la empresa", error));
   }, []);
 
-  // solo la empresa se puede guardar; usuarios y umbrales aún viven en memoria
+  // solo la empresa tiene endpoint de guardado
   const hayCambios =
     JSON.stringify(config.empresa) !== JSON.stringify(guardado.empresa);
   // la empresa solo se valida mientras el formulario esta abierto
@@ -215,12 +234,13 @@ export default function Configuracion() {
         ))}
       </div>
 
-      {pestana === "general" ? (
-        <div className="flex flex-col gap-5">
-          <ParametrosOperativos config={config} cambiar={cambiar} />
-          <GestionUsuarios usuarios={config.usuarios} cambiar={cambiar} />
-          <AlertasNotificaciones alertas={config.alertas} cambiar={cambiar} />
-        </div>
+      {pestana === "usuarios" ? (
+        <GestionUsuarios
+          usuarios={usuarios}
+          onRecargar={recargarUsuarios}
+          onAviso={mostrar}
+          puedeGestionar={puedeAdministrar === true}
+        />
       ) : editandoEmpresa ? (
         <FormularioEmpresa
           empresa={config.empresa}
@@ -229,7 +249,11 @@ export default function Configuracion() {
           onVolver={cerrarFormulario}
         />
       ) : (
-        <VistaEmpresa empresa={guardado.empresa} onEditar={() => setEditandoEmpresa(true)} />
+        <VistaEmpresa
+          empresa={guardado.empresa}
+          onEditar={() => setEditandoEmpresa(true)}
+          puedeEditar={puedeAdministrar === true}
+        />
       )}
 
       {hayCambios && (

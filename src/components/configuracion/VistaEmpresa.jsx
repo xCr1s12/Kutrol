@@ -34,7 +34,7 @@ function Dato({ titulo, icono, valor, className = "" }) {
 }
 
 // muestra los datos que la empresa dejo al registrarse
-export default function VistaEmpresa({ empresa, onEditar }) {
+export default function VistaEmpresa({ empresa, onEditar, puedeEditar = true }) {
   // por si la base de datos no devuelve nada
   if (!empresa.nombre) {
     return (
@@ -54,10 +54,12 @@ export default function VistaEmpresa({ empresa, onEditar }) {
             <p className="text-sm text-subtext">RUT {empresa.rut}</p>
           </div>
         </div>
-        <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>
-          <EditRounded fontSize="small" aria-hidden="true" />
-          Editar
-        </button>
+        {puedeEditar && (
+          <button className={`${botonAmarillo} shrink-0`} onClick={onEditar}>
+            <EditRounded fontSize="small" aria-hidden="true" />
+            Editar
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
