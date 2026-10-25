@@ -17,7 +17,9 @@ export default async function AmbientePage() {
     obtenerMapaCalorAmbiente(session.id_empresa).catch(() => null),
   ]);
 
-  const cumplimiento = datosAmbiente?.impactoEcologico?.cumplimientoMetaVerde ?? 0;
+  // aca extraemos el valor real, si no existe o es nulo, lo dejamos como indefinido
+  const cumplimientoMetaVerde = datosAmbiente?.impactoEcologico?.cumplimientoMetaVerde;
+  const tieneDatosCumplimiento = cumplimientoMetaVerde !== null && cumplimientoMetaVerde !== undefined;
 
   return (
     <div
@@ -59,40 +61,49 @@ export default async function AmbientePage() {
 
         <section
           id="ambiente-impacto-card"
-          className="w-full h-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] dark:border-0 border border-linen flex flex-col justify-between dark:bg-card"
+          className="w-full h-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] dark:border-0 border border-linen flex flex-col dark:bg-card"
         >
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <PublicRoundedIcon className="text-icon" />
-              <h2 className="text-ink font-bold text-lg dark:text-text">
-                Impacto Ecológico
-              </h2>
-            </div>
-
-            <div className="flex flex-col items-center justify-center my-6">
-              <div className="w-32 h-32 rounded-full bg-linen flex items-center justify-center border-4 border-ink">
-                <ParkRoundedIcon className="text-ink w-14 h-14" />
-              </div>
-              <p className="mt-4 text-2xl font-bold text-ink dark:text-text">
-                {cumplimiento}%
-              </p>
-              <p className="text-xs text-graphite font-medium text-center dark:text-text">
-                Cumplimiento Meta Verde
-              </p>
-            </div>
-
-            <div className="w-full bg-linen h-3 rounded-full overflow-hidden mb-2">
-              <div
-                className="bg-gold h-full transition-all duration-500"
-                style={{ width: `${cumplimiento}%` }}
-              />
-            </div>
-
-            <p className="text-xs text-graphite leading-relaxed mt-4 dark:text-text">
-              Rendimiento y reducción de emisiones calculados a partir de los
-              viajes y abastecimientos de combustible de la flota.
-            </p>
+          <div className="flex items-center gap-2 mb-4">
+            <PublicRoundedIcon className="text-icon" />
+            <h2 className="text-ink font-bold text-lg dark:text-text">
+              Impacto Ecológico
+            </h2>
           </div>
+
+          {tieneDatosCumplimiento ? (
+            <div className="flex flex-col h-full justify-between">
+              <div className="flex flex-col items-center justify-center my-6">
+                <div className="w-32 h-32 rounded-full bg-linen flex items-center justify-center border-4 border-ink">
+                  <ParkRoundedIcon className="text-ink w-14 h-14" />
+                </div>
+                <p className="mt-4 text-2xl font-bold text-ink dark:text-text">
+                  {cumplimientoMetaVerde}%
+                </p>
+                <p className="text-xs text-graphite font-medium text-center dark:text-text">
+                  Cumplimiento Meta Verde
+                </p>
+              </div>
+
+              <div>
+                <div className="w-full bg-linen h-3 rounded-full overflow-hidden mb-2">
+                  <div
+                    className="bg-gold h-full transition-all duration-500"
+                    style={{ width: `${cumplimientoMetaVerde}%` }}
+                  />
+                </div>
+                <p className="text-xs text-graphite leading-relaxed mt-4 dark:text-text">
+                  Rendimiento y reducción de emisiones calculados a partir de los
+                  viajes y abastecimientos de combustible de la flota.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full py-10">
+              <p className="text-sm text-graphite font-medium text-center dark:text-text">
+                No hay datos suficientes registrados en la flota para calcular el impacto ecológico.
+              </p>
+            </div>
+          )}
         </section>
       </div>
     </div>

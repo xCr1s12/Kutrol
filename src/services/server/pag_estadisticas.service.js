@@ -5,8 +5,8 @@ export const pagEstadisticasService = {
     return estadisticaRepository.getRankingConductoresByEmpresa(id_empresa);
   },
 
-  async getDashboardStats() {
-    const stats = await estadisticaRepository.getDashboardStats();
+  async getDashboardStats(id_empresa) {
+    const stats = await estadisticaRepository.getDashboardStats(id_empresa);
     
     return {
       ...stats,
@@ -14,10 +14,10 @@ export const pagEstadisticasService = {
     };
   },
 
-  async getConsumoPorPeriodo(periodo) {
-    const periodosValidos = ["semanal", "mensual", "anual"];
-    const periodoFinal = periodosValidos.includes(periodo) ? periodo : "semanal";
+  async getConsumoPorPeriodo(periodo, id_empresa) {
+    const periodos_validos = ["semanal", "mensual", "anual"];
+    const periodo_final = periodos_validos.includes(periodo) ? periodo : "semanal";
 
-    return await estadisticaRepository.getConsumoPorPeriodo(periodoFinal);
+    return await estadisticaRepository.getConsumoPorPeriodo(periodo_final, id_empresa);
   },
 };

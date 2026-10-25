@@ -37,12 +37,8 @@ export default function MetricasAmbiente() {
 
   const litrosTotales = Number(data?.litros_totales || 0);
   const rendimientoPromedio = Number(data?.km_por_litro || 0).toFixed(2);
-
-  // Factor Diésel: 2.68 kg CO2 por litro
   const emisionesCO2Kg = Math.round(litrosTotales * 2.68);
   const emisionesCO2Ton = (emisionesCO2Kg / 1000).toFixed(2);
-
-  // CO2 evitado por optimización (~12% calculado sobre las cargas reales)
   const co2EvitadoKg = Math.round(emisionesCO2Kg * 0.12);
   const arbolesEquivalentes = Math.round(co2EvitadoKg / 20);
 
