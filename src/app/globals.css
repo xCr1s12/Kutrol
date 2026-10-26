@@ -97,10 +97,6 @@
    `gold`, y sobre superficie del tema va `accent`. Por eso se elimina el bloque y
    los elementos que viven sobre superficie oscura fija usan `gold` explicito. */
 
-.route-form-modal {
-  --background: #EAE5DA;
-}
-
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
 }
