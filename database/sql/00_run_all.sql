@@ -11,6 +11,7 @@
 --   04_triggers_auditoria.sql   triggers de updated_at
 --   05_reglas_negocio.sql       funciones y triggers de negocio
 --   06_datos_base.sql           catálogo de mediciones y search_path de la BD
+--   07_alerta_automatica.sql    cada anomalía nueva genera su alerta
 --
 -- Reiniciar desde cero: ejecutar antes 00_kutrol_reset.sql (BORRA TODO el esquema).
 -- Nota: \ir resuelve la ruta relativa a ESTE archivo (no a la carpeta actual).
@@ -25,5 +26,6 @@ BEGIN;
 \ir 04_triggers_auditoria.sql
 \ir 05_reglas_negocio.sql
 \ir 06_datos_base.sql
+\ir 07_alerta_automatica.sql
 
 COMMIT;
