@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { GroupRounded, BusinessRounded } from "@mui/icons-material";
+import { GroupRounded, BusinessRounded, NotificationsRounded } from "@mui/icons-material";
 import { botonAmarillo } from "@/components/configuracion/comun";
 import GestionUsuarios from "@/components/configuracion/GestionUsuarios";
+import ConfigAlertas from "@/components/configuracion/ConfigAlertas";
 import VistaEmpresa from "@/components/configuracion/VistaEmpresa";
 import FormularioEmpresa from "@/components/configuracion/FormularioEmpresa";
 import { validarEmpresa } from "@/components/configuracion/validarEmpresa";
@@ -11,23 +12,24 @@ import { obtenerComunas, obtenerRegiones } from "@/services/client/ubicacion.ser
 import { useToast } from "@/components/ui/Toasts";
 
 const configInicial = {
-  // empresa de ejemplo, se reemplaza por la que llega de la base de datos
+  // vacia hasta que llegan los datos de la base de datos
   empresa: {
     logo: null,
-    nombre: "Transportes Chiloé SpA",
-    rut: "76.123.456-0",
+    nombre: "",
+    rut: "",
     emails: [],
     telefonos: [],
-    region: "Los Lagos",
-    comuna: "Castro",
-    direccion: "Calle 123, oficina 4",
-    descripcion: "Empresa de transporte de carga en la isla de Chiloé.",
+    region: "",
+    comuna: "",
+    direccion: "",
+    descripcion: "",
   },
 };
 
 const pestanas = [
   { id: "empresa", nombre: "Empresa", Icono: BusinessRounded },
   { id: "usuarios", nombre: "Usuarios", Icono: GroupRounded },
+  { id: "alertas", nombre: "Alertas", Icono: NotificationsRounded },
 ];
 
 // la lista de usuarios siempre sale de la api, nunca de estado local
@@ -234,7 +236,9 @@ export default function Configuracion() {
         ))}
       </div>
 
-      {pestana === "usuarios" ? (
+      {pestana === "alertas" ? (
+        <ConfigAlertas onAviso={mostrar} puedeGestionar={puedeAdministrar === true} />
+      ) : pestana === "usuarios" ? (
         <GestionUsuarios
           usuarios={usuarios}
           onRecargar={recargarUsuarios}
