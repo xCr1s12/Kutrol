@@ -8,6 +8,9 @@ import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RouteIcon from "@mui/icons-material/Route";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import FormRoute from "@/components/route/FormRoute";
 import FormViaje from "@/components/route/FormViaje";
 
@@ -42,6 +45,7 @@ export default function RoutePage() {
   const [formRutaAbierto, setFormRutaAbierto] = useState(false);
   const [formViajeAbierto, setFormViajeAbierto] = useState(false);
   const [errorApi, setErrorApi] = useState("");
+  const [viajeEnProceso, setViajeEnProceso] = useState(null);
 
   useEffect(() => {
     async function cargarRutas() {
@@ -142,6 +146,51 @@ export default function RoutePage() {
     }
   };
 
+  const cambiarEstadoViaje = async (viaje, accion) => {
+    setErrorApi("");
+    setViajeEnProceso(viaje.id);
+    try {
+      const respuesta = await fetch(
+        `/api/data/viajes/${encodeURIComponent(viaje.id)}/${accion}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          ...(accion === "completar" && { body: JSON.stringify({}) }),
+        },
+      );
+      if (!respuesta.ok) {
+        throw new Error(
+          await obtenerMensajeError(
+            respuesta,
+            `No se pudo ${accion} el viaje.`,
+          ),
+        );
+      }
+
+      const recarga = await fetch("/api/data/rutas");
+      if (!recarga.ok) {
+        throw new Error(
+          `El viaje se actualizó, pero no se pudo actualizar la lista: ${await obtenerMensajeError(
+            recarga,
+            "Error al cargar rutas.",
+          )}`,
+        );
+      }
+
+      const actualizadas = await recarga.json();
+      if (!Array.isArray(actualizadas)) {
+        throw new Error("La API devolvió un formato de rutas inválido.");
+      }
+
+      setRutas(actualizadas);
+      setAsignado(actualizadas.find((ruta) => ruta.id === asignado.id) ?? null);
+    } catch (err) {
+      setErrorApi(err.message || `No se pudo ${accion} el viaje.`);
+    } finally {
+      setViajeEnProceso(null);
+    }
+  };
+
   if (cargando) {
     return (
       <div className="flex items-center justify-center min-h-[400px] text-text font-sans">
@@ -215,12 +264,14 @@ export default function RoutePage() {
                 <tr className="text-left text-xs uppercase tracking-wide dark:text-subtext light:text-subtext">
                   <th className="font-medium pb-2">Conductor</th>
                   <th className="font-medium pb-2">Encargado</th>
+                  <th className="font-medium pb-2">Estado</th>
+                  <th className="font-medium pb-2">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {asignado.viajes.length > 0 ? (
-                  asignado.viajes.map((v, i) => (
-                    <tr key={i} className="border-t dark:border-border light:border-border">
+                  asignado.viajes.map((v) => (
+                    <tr key={v.id} className="border-t dark:border-border light:border-border">
                       <td className="py-2">
                         <div className="flex items-center gap-2">
                           <span className="flex items-center justify-center w-7 h-7 rounded-full bg-sand text-xs font-semibold text-ink">
@@ -230,11 +281,52 @@ export default function RoutePage() {
                         </div>
                       </td>
                       <td className="py-2 light:text-text dark:text-text">{v.encargado}</td>
+                      <td className="py-2 light:text-text dark:text-text">{v.estado}</td>
+                      <td className="py-2">
+                        <div className="flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            aria-label={`Iniciar viaje ${v.id}`}
+                            title="Iniciar viaje"
+                            disabled={viajeEnProceso !== null || v.estado !== "PROGRAMADO"}
+                            onClick={() => cambiarEstadoViaje(v, "iniciar")}
+                            className="inline-flex items-center gap-1 rounded-md bg-emerald-600 px-2 py-1 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            <PlayArrowRoundedIcon fontSize="small" aria-hidden="true" />
+                            Iniciar
+                          </button>
+                          <button
+                            type="button"
+                            aria-label={`Completar viaje ${v.id}`}
+                            title="Completar viaje"
+                            disabled={viajeEnProceso !== null || v.estado !== "EN_CURSO"}
+                            onClick={() => cambiarEstadoViaje(v, "completar")}
+                            className="inline-flex items-center gap-1 rounded-md bg-sky-600 px-2 py-1 text-xs font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            <TaskAltRoundedIcon fontSize="small" aria-hidden="true" />
+                            Completar
+                          </button>
+                          <button
+                            type="button"
+                            aria-label={`Cancelar viaje ${v.id}`}
+                            title="Cancelar viaje"
+                            disabled={
+                              viajeEnProceso !== null ||
+                              !["PROGRAMADO", "EN_CURSO"].includes(v.estado)
+                            }
+                            onClick={() => cambiarEstadoViaje(v, "cancelar")}
+                            className="inline-flex items-center gap-1 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            <CancelRoundedIcon fontSize="small" aria-hidden="true" />
+                            Cancelar
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={2} className="py-3 text-center text-xs text-subtext">No hay viajes asignados a esta ruta.</td>
+                    <td colSpan={4} className="py-3 text-center text-xs text-subtext">No hay viajes asignados a esta ruta.</td>
                   </tr>
                 )}
               </tbody>

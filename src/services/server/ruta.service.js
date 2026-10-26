@@ -24,6 +24,8 @@ export async function obtenerRutasFormateadas(id_empresa, db) {
       coordenadas,
       viajes: Array.isArray(r.viajes)
         ? r.viajes.map((v) => ({
+            id: String(v.id_viaje),
+            estado: v.estado,
             conductor: v.conductor?.trim() ? v.conductor : "Sin conductor",
             encargado: v.encargado?.trim() ? v.encargado : "Sin encargado",
           }))

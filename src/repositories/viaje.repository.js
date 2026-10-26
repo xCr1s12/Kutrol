@@ -1,5 +1,12 @@
 import pool from "@/lib/db";
 
+export const TRANSICIONES_VIAJE = {
+  EN_CURSO: ["PROGRAMADO"],
+  COMPLETADO: ["EN_CURSO"],
+  CANCELADO: ["PROGRAMADO", "EN_CURSO"],
+};
+
+
 export async function getOpcionesViaje(id_empresa, db = pool) {
   const [camiones, conductores] = await Promise.all([
     db.query(
@@ -96,3 +103,50 @@ export async function createViajeProgramado(
 
   return viaje;
 }
+
+
+
+
+export async function getEstadoViaje(id_viaje, id_empresa, db = pool) {
+  const { rows } = await db.query(
+    `SELECT estado FROM viaje WHERE id_viaje = $1 AND id_empresa = $2`,
+    [id_viaje, id_empresa],
+  );
+  return rows[0]?.estado ?? null;
+}
+
+
+
+export async function cambiarEstadoViaje(
+  { id_viaje, id_empresa, nuevo_estado, fecha_fin = null },
+  db = pool,
+) {
+  const origenes = TRANSICIONES_VIAJE[nuevo_estado];
+  if (!origenes) {
+    throw new Error(`Estado de viaje inválido: ${nuevo_estado}`);
+  }
+
+  const { rows } = await db.query(
+    `UPDATE viaje
+        SET estado    = $1::varchar,
+            fecha_fin = CASE WHEN $1::varchar = 'COMPLETADO'
+                             THEN COALESCE($4::timestamptz, CURRENT_TIMESTAMP)
+                             ELSE fecha_fin END
+      WHERE id_viaje   = $2
+        AND id_empresa = $3
+        AND estado     = ANY($5::varchar[])
+      RETURNING id_viaje, id_camion, estado, fecha_inicio, fecha_fin_estimada, fecha_fin`,
+    [nuevo_estado, id_viaje, id_empresa, fecha_fin, origenes],
+  );
+  return rows[0] ?? null;
+}
+
+// Atajos legibles para el servicio / las rutas de la API
+export const iniciarViaje = (id_viaje, id_empresa, db = pool) =>
+  cambiarEstadoViaje({ id_viaje, id_empresa, nuevo_estado: "EN_CURSO" }, db);
+
+export const completarViaje = (id_viaje, id_empresa, fecha_fin = null, db = pool) =>
+  cambiarEstadoViaje({ id_viaje, id_empresa, nuevo_estado: "COMPLETADO", fecha_fin }, db);
+
+export const cancelarViaje = (id_viaje, id_empresa, db = pool) =>
+  cambiarEstadoViaje({ id_viaje, id_empresa, nuevo_estado: "CANCELADO" }, db);
