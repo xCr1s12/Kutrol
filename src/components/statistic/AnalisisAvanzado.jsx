@@ -59,6 +59,9 @@ export default function AnalisisAvanzado() {
 
   return (
     <div className="flex flex-col gap-6 w-full">
+      <header>
+        <h1 className="text-text text-2xl font-bold">Estadísticas</h1>
+      </header>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {error_estadisticas && (
           <p role="alert" className="col-span-full text-sm text-red-600">

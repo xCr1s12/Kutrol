@@ -40,4 +40,4 @@ export async function findexist(email, db = pool) {
 export async function findByUsuario(usuario, db = pool) {
   const result = await db.query("SELECT * FROM encargado_empresa WHERE usuario = $1", [usuario]);
   return result.rows[0];
-}
+} 

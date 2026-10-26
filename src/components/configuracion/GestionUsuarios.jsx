@@ -108,7 +108,7 @@ export default function GestionUsuarios({ usuarios, onRecargar, onAviso, puedeGe
                     <span className="font-medium text-text">{u.nombre}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 font-mono text-[11px] text-subtext">{u.usuario}</td>
+                <td className="px-4 py-3 text-[11px] text-subtext">{u.usuario}</td>
                 <td className="px-4 py-3 text-subtext">{u.correo}</td>
                 <td className="px-4 py-3 text-subtext">{u.cargo}</td>
                 <td className="px-4 py-3">

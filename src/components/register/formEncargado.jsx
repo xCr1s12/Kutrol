@@ -14,6 +14,9 @@ import {
 } from "@/lib/passwordPolicy";
 import { CARGOS } from "@/lib/cargos";
 
+// mismo estilo que las etiquetas de Primer nombre, Apellidos y Email
+const ETIQUETA = "text-xs text-subtext font-medium uppercase tracking-wider";
+
 const ArrowRight = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
     <path
@@ -47,7 +50,7 @@ function CampoPassword({ valor, onChange, error }) {
 
   return (
     <div className="flex flex-col gap-2">
-      <FormField label="Contraseña" id="password" required error={error}>
+      <FormField label="Contraseña" id="password" required error={error} labelClassName={ETIQUETA}>
         <div className="relative">
           <input
             id="password"
@@ -201,7 +204,7 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <FormField label="Cargo" id="position" required error={errors.cargo} hint={cargoOk ? "✓ Cargo listo" : undefined}>
+          <FormField label="Cargo" id="position" required labelClassName={ETIQUETA} error={errors.cargo} hint={cargoOk ? "✓ Cargo listo" : undefined}>
             <div className="relative">
               <select
                 id="position"
@@ -243,6 +246,7 @@ const FormEncargado = ({ Submit, errors = {}, defaults = {}, onCambio }) => {
           />
           <FormField
             label="Repetir contraseña"
+            labelClassName={ETIQUETA}
             id="repeat-password"
             required
             error={errors.repeatPassword}

@@ -152,9 +152,12 @@ export default function RoutePage() {
 
   return (
     <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl font-sans" lang="es">
+      <header className="px-6 pt-5">
+        <h1 className="text-text text-2xl font-bold">Rutas</h1>
+      </header>
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch font-sans">
-        <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-white dark:bg-background">
-          <h1 className="font-bold text-lg light:text-text dark:text-text font-sans">Lista de Rutas</h1>
+        <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-background">
+          <h2 className="font-bold text-lg light:text-text dark:text-text font-sans">Lista de Rutas</h2>
           {errorApi && (
             <p role="alert" className="mt-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300">
               {errorApi}
