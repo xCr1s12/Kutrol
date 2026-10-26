@@ -297,10 +297,7 @@ export default function FormRoute({ open, onClose, onSubmit }) {
       size="lg"
       footer={
         <>
-          <BotonSecundario
-            onClick={onClose}
-            className="rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-brand hover:brightness-95"
-          >
+          <BotonSecundario onClick={onClose}>
             Cancelar
           </BotonSecundario>
           <BotonPrimario

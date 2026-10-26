@@ -76,7 +76,7 @@ export default function TablaAlertas({ alertas }) {
                 <td className="px-4 py-3 font-semibold whitespace-nowrap">
                   <span className="inline-flex items-center gap-1.5">
                     {a.vehiculo}
-                    <LocalShippingOutlined className="text-accent-dark" sx={{ fontSize: 16 }} aria-hidden="true" />
+                    <LocalShippingOutlined className="text-icon" sx={{ fontSize: 16 }} aria-hidden="true" />
                   </span>
                 </td>
                 <td className="px-4 py-3 max-w-56">{a.mensaje}</td>
@@ -88,7 +88,7 @@ export default function TablaAlertas({ alertas }) {
             ))}
             {filtradas.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-graphite">
+                <td colSpan={4} className="px-4 py-8 text-center text-subtext">
                   No se encontraron alertas
                 </td>
               </tr>

@@ -11,7 +11,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-poppins);
   --font-mono: var(--font-geist-mono);
   --font-pop: var(--font-poppins);
 
@@ -97,8 +97,9 @@
    `gold`, y sobre superficie del tema va `accent`. Por eso se elimina el bloque y
    los elementos que viven sobre superficie oscura fija usan `gold` explicito. */
 
-.route-form-modal {
-  --background: #EAE5DA;
+/* Leaflet usa Helvetica por defecto: que el mapa use la fuente de la app */
+.leaflet-container {
+  font-family: inherit;
 }
 
 dialog::backdrop {

@@ -32,7 +32,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`h-screen flex flex-col bg-brand transition-all duration-300 ${
+      className={`h-screen flex flex-col bg-brand border-r border-moss transition-all duration-300 ${
         isActive ? "w-64" : "w-16"
       }`}
     >

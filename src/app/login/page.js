@@ -53,7 +53,11 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-background text-text flex flex-col">
       <header className="fixed top-0 left-0 w-full bg-header border-b border-border flex items-center justify-between px-8 py-4 z-50">
-        <Logo fondo={darkMode ? "oscuro" : "claro"} />
+        <div className="flex items-center gap-4">
+          <Logo fondo={darkMode ? "oscuro" : "claro"} />
+          <span className="h-6 w-px bg-border" aria-hidden="true" />
+          <span className="text-lg font-bold text-text tracking-tight">Iniciar sesión</span>
+        </div>
 
         <div className="flex items-center gap-4">
           <button

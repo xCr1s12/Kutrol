@@ -24,16 +24,16 @@ export default async function AmbientePage() {
   return (
     <div
       id="ambiente-resumen"
-      className="flex flex-col w-full bg-cloud dark:bg-background p-6 min-h-screen"
+      className="flex flex-col w-full bg-background p-6 min-h-screen"
     >
       <header id="ambiente-encabezado" className="mb-6">
-        <h1 id="ambiente-titulo" className="text-ink dark:text-text text-2xl font-bold">
+        <h1 id="ambiente-titulo" className="text-text text-2xl font-bold">
           Ambiente y Sostenibilidad de {empresa?.nombre}
         </h1>
 
         <span
           id="ambiente-reloj"
-          className="text-ink dark:text-text text-sm mt-1 flex items-center gap-2"
+          className="text-subtext text-sm mt-1 flex items-center gap-2"
         >
           <Clock className="w-4 h-4" role="timer" />
         </span>
@@ -61,11 +61,11 @@ export default async function AmbientePage() {
 
         <section
           id="ambiente-impacto-card"
-          className="w-full h-full bg-cream rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] dark:border-0 border border-linen flex flex-col dark:bg-card"
+          className="w-full h-full bg-card rounded-xl p-6 shadow-[0px_4px_10px_rgba(0,0,0,0.05)] border border-border flex flex-col"
         >
           <div className="flex items-center gap-2 mb-4">
             <PublicRoundedIcon className="text-icon" />
-            <h2 className="text-ink font-bold text-lg dark:text-text">
+            <h2 className="text-text font-bold text-lg">
               Impacto Ecológico
             </h2>
           </div>
@@ -73,25 +73,25 @@ export default async function AmbientePage() {
           {tieneDatosCumplimiento ? (
             <div className="flex flex-col h-full justify-between">
               <div className="flex flex-col items-center justify-center my-6">
-                <div className="w-32 h-32 rounded-full bg-linen flex items-center justify-center border-4 border-ink">
-                  <ParkRoundedIcon className="text-ink w-14 h-14" />
+                <div className="w-32 h-32 rounded-full bg-background flex items-center justify-center border-4 border-icon">
+                  <ParkRoundedIcon className="text-icon w-14 h-14" />
                 </div>
-                <p className="mt-4 text-2xl font-bold text-ink dark:text-text">
+                <p className="mt-4 text-2xl font-bold text-text">
                   {cumplimientoMetaVerde}%
                 </p>
-                <p className="text-xs text-graphite font-medium text-center dark:text-text">
+                <p className="text-xs text-subtext font-medium text-center">
                   Cumplimiento Meta Verde
                 </p>
               </div>
 
               <div>
-                <div className="w-full bg-linen h-3 rounded-full overflow-hidden mb-2">
+                <div className="w-full bg-background h-3 rounded-full overflow-hidden mb-2">
                   <div
                     className="bg-gold h-full transition-all duration-500"
                     style={{ width: `${cumplimientoMetaVerde}%` }}
                   />
                 </div>
-                <p className="text-xs text-graphite leading-relaxed mt-4 dark:text-text">
+                <p className="text-xs text-subtext leading-relaxed mt-4">
                   Rendimiento y reducción de emisiones calculados a partir de los
                   viajes y abastecimientos de combustible de la flota.
                 </p>
@@ -99,7 +99,7 @@ export default async function AmbientePage() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full py-10">
-              <p className="text-sm text-graphite font-medium text-center dark:text-text">
+              <p className="text-sm text-subtext font-medium text-center">
                 No hay datos suficientes registrados en la flota para calcular el impacto ecológico.
               </p>
             </div>

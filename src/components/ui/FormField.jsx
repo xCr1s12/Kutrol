@@ -9,6 +9,8 @@ export default function FormField({
   error,
   required,
   hint,
+  // opcional: cambia el estilo de la etiqueta cuando se usa con children
+  labelClassName,
   children,
   ...props
 }) {
@@ -20,7 +22,7 @@ export default function FormField({
   if (children) {
     return (
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={id} className="text-xs font-semibold text-text dark:text-ink">
+        <label htmlFor={id} className={labelClassName ?? "text-xs font-semibold text-text dark:text-ink"}>
           {label}
         </label>
         {children}

@@ -236,7 +236,7 @@ const Flota = () => {
   return (
     <div
       lang="es"
-      className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-['Poppins',sans-serif]"
+      className="flex min-h-screen w-full flex-col gap-4 bg-background p-4.5 font-pop"
     >
       {/* Encabezado de la pagina */}
       <header className="mb-1">

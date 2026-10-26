@@ -63,7 +63,7 @@ const Modal = ({
       onClose={onClose}
       onClick={handleClickFondo}
       aria-labelledby="modal-titulo"
-      className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-['Poppins',sans-serif] text-brand shadow-2xl ${className}`}
+      className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-3xl border-0 bg-white p-0 font-pop text-brand shadow-2xl ${className}`}
     >
       {open && (
         <div className="flex max-h-[90vh] flex-col">
@@ -214,11 +214,11 @@ export const Campo = ({ label, id, children }) => (
 );
 
 export const inputClase =
-  "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
+  "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-text placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 export const BotonSecundario = ({
   children,
-  className = "rounded-full border border-icon bg-background px-4 py-1.5 text-xs hover:bg-text",
+  className = "rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-text hover:bg-border",
   ...props
 }) => (
   <button

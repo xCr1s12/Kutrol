@@ -8,8 +8,29 @@ import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RouteIcon from "@mui/icons-material/Route";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import FormRoute from "@/components/route/FormRoute";
 import FormViaje from "@/components/route/FormViaje";
+import Modal, {
+  BotonPrimario,
+  BotonSecundario,
+  Campo,
+  inputClase,
+} from "@/components/ui/Modal";
+
+const TRANSICIONES_VIAJE = {
+  PROGRAMADO: ["EN_CURSO", "CANCELADO"],
+  EN_CURSO: ["COMPLETADO", "CANCELADO"],
+  COMPLETADO: [],
+  CANCELADO: [],
+};
+
+const ACCION_POR_ESTADO = {
+  EN_CURSO: "iniciar",
+  COMPLETADO: "completar",
+  CANCELADO: "cancelar",
+};
 
 async function obtenerMensajeError(respuesta, mensajePredeterminado) {
   const resultado = await respuesta.json().catch(() => ({}));
@@ -42,6 +63,10 @@ export default function RoutePage() {
   const [formRutaAbierto, setFormRutaAbierto] = useState(false);
   const [formViajeAbierto, setFormViajeAbierto] = useState(false);
   const [errorApi, setErrorApi] = useState("");
+  const [viajeEnProceso, setViajeEnProceso] = useState(null);
+  const [viajeEditando, setViajeEditando] = useState(null);
+  const [estadoEditado, setEstadoEditado] = useState("");
+  const [errorEstadoViaje, setErrorEstadoViaje] = useState("");
 
   useEffect(() => {
     async function cargarRutas() {
@@ -142,6 +167,58 @@ export default function RoutePage() {
     }
   };
 
+  const cambiarEstadoViaje = async (viaje, accion) => {
+    setErrorEstadoViaje("");
+    setViajeEnProceso(viaje.id);
+    try {
+      const respuesta = await fetch(
+        `/api/data/viajes/${encodeURIComponent(viaje.id)}/${accion}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          ...(accion === "completar" && { body: JSON.stringify({}) }),
+        },
+      );
+      if (!respuesta.ok) {
+        throw new Error(
+          await obtenerMensajeError(
+            respuesta,
+            `No se pudo ${accion} el viaje.`,
+          ),
+        );
+      }
+
+      const recarga = await fetch("/api/data/rutas");
+      if (!recarga.ok) {
+        throw new Error(
+          `El viaje se actualizó, pero no se pudo actualizar la lista: ${await obtenerMensajeError(
+            recarga,
+            "Error al cargar rutas.",
+          )}`,
+        );
+      }
+
+      const actualizadas = await recarga.json();
+      if (!Array.isArray(actualizadas)) {
+        throw new Error("La API devolvió un formato de rutas inválido.");
+      }
+
+      setRutas(actualizadas);
+      setAsignado(actualizadas.find((ruta) => ruta.id === asignado.id) ?? null);
+      setViajeEditando(null);
+    } catch (err) {
+      setErrorEstadoViaje(err.message || `No se pudo ${accion} el viaje.`);
+    } finally {
+      setViajeEnProceso(null);
+    }
+  };
+
+  const guardarEstadoViaje = () => {
+    if (!viajeEditando || estadoEditado === viajeEditando.estado) return;
+    const accion = ACCION_POR_ESTADO[estadoEditado];
+    if (accion) cambiarEstadoViaje(viajeEditando, accion);
+  };
+
   if (cargando) {
     return (
       <div className="flex items-center justify-center min-h-[400px] text-text font-sans">
@@ -152,9 +229,12 @@ export default function RoutePage() {
 
   return (
     <div className="flex flex-col w-full dark:bg-card light:bg-card rounded-2xl font-sans" lang="es">
+      <header className="px-6 pt-5">
+        <h1 className="text-text text-2xl font-bold">Rutas</h1>
+      </header>
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 py-5 items-stretch font-sans">
-        <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-white dark:bg-background">
-          <h1 className="font-bold text-lg light:text-text dark:text-text font-sans">Lista de Rutas</h1>
+        <div className="lg:col-span-1 border-2 light:border-border dark:border-border p-6 rounded-2xl bg-background">
+          <h2 className="font-bold text-lg light:text-text dark:text-text font-sans">Lista de Rutas</h2>
           {errorApi && (
             <p role="alert" className="mt-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300">
               {errorApi}
@@ -212,12 +292,14 @@ export default function RoutePage() {
                 <tr className="text-left text-xs uppercase tracking-wide dark:text-subtext light:text-subtext">
                   <th className="font-medium pb-2">Conductor</th>
                   <th className="font-medium pb-2">Encargado</th>
+                  <th className="font-medium pb-2">Estado</th>
+                  <th className="font-medium pb-2">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {asignado.viajes.length > 0 ? (
-                  asignado.viajes.map((v, i) => (
-                    <tr key={i} className="border-t dark:border-border light:border-border">
+                  asignado.viajes.map((v) => (
+                    <tr key={v.id} className="border-t dark:border-border light:border-border">
                       <td className="py-2">
                         <div className="flex items-center gap-2">
                           <span className="flex items-center justify-center w-7 h-7 rounded-full bg-sand text-xs font-semibold text-ink">
@@ -227,11 +309,27 @@ export default function RoutePage() {
                         </div>
                       </td>
                       <td className="py-2 light:text-text dark:text-text">{v.encargado}</td>
+                      <td className="py-2 light:text-text dark:text-text">{v.estado}</td>
+                      <td className="py-2">
+                        <button
+                          type="button"
+                          aria-label={`Editar estado del viaje ${v.id}`}
+                          onClick={() => {
+                            setViajeEditando(v);
+                            setEstadoEditado(v.estado);
+                            setErrorEstadoViaje("");
+                          }}
+                          className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-accent px-3 py-2 text-xs font-bold text-brand transition hover:bg-accent-dark light:text-white"
+                        >
+                          <EditRoundedIcon fontSize="small" aria-hidden="true" />
+                          Editar
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={2} className="py-3 text-center text-xs text-subtext">No hay viajes asignados a esta ruta.</td>
+                    <td colSpan={4} className="py-3 text-center text-xs text-subtext">No hay viajes asignados a esta ruta.</td>
                   </tr>
                 )}
               </tbody>
@@ -260,7 +358,7 @@ export default function RoutePage() {
           <InfoCard title="Plan de tiempo" icon={<AccessTimeIcon fontSize="small" />} className="min-w-0 text-center">
             <div className="flex-1 flex flex-col items-center justify-center font-sans">
               <p className="text-4xl font-bold light:text-text dark:text-text">{asignado.tiempoEstimado}</p>
-              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Tiempo estimado</p>
+              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Estimado a 80 km/h</p>
             </div>
           </InfoCard>
 
@@ -281,6 +379,78 @@ export default function RoutePage() {
           rutaNombre={asignado.nombre}
         />
       )}
+
+      <Modal
+        open={Boolean(viajeEditando)}
+        onClose={() => {
+          if (viajeEnProceso === null) setViajeEditando(null);
+        }}
+        title={`Editar viaje ${viajeEditando?.id ?? ""}`}
+        eyebrow="ESTADO DEL VIAJE"
+        icon={<EditRoundedIcon />}
+        footer={
+          <>
+            <BotonSecundario
+              onClick={() => setViajeEditando(null)}
+              disabled={viajeEnProceso !== null}
+            >
+              Cancelar
+            </BotonSecundario>
+            <BotonPrimario
+              onClick={guardarEstadoViaje}
+              disabled={
+                viajeEnProceso !== null ||
+                !viajeEditando ||
+                estadoEditado === viajeEditando.estado ||
+                !ACCION_POR_ESTADO[estadoEditado]
+              }
+            >
+              {viajeEnProceso !== null ? "Guardando..." : "Guardar estado"}
+            </BotonPrimario>
+          </>
+        }
+      >
+        {errorEstadoViaje && (
+          <p role="alert" className="mb-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-700">
+            {errorEstadoViaje}
+          </p>
+        )}
+        <Campo label="Estado" id="viaje-estado">
+          <div className="relative">
+            <select
+              id="viaje-estado"
+              value={estadoEditado}
+              onChange={(event) => setEstadoEditado(event.target.value)}
+              disabled={
+                viajeEnProceso !== null ||
+                !viajeEditando ||
+                TRANSICIONES_VIAJE[viajeEditando.estado]?.length === 0
+              }
+              className={`${inputClase} w-full appearance-none pr-10`}
+            >
+              <option value={viajeEditando?.estado ?? ""}>
+                {viajeEditando?.estado ?? "Selecciona un estado"}
+              </option>
+              {(TRANSICIONES_VIAJE[viajeEditando?.estado] ?? []).map((estado) => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
+            <KeyboardArrowDownRoundedIcon
+              aria-hidden="true"
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-subtext"
+              fontSize="small"
+            />
+          </div>
+        </Campo>
+        {viajeEditando &&
+          TRANSICIONES_VIAJE[viajeEditando.estado]?.length === 0 && (
+            <p className="text-sm text-subtext">
+              Un viaje {viajeEditando.estado.toLowerCase()} no tiene transiciones disponibles.
+            </p>
+          )}
+      </Modal>
 
       <button
         type="button"
