@@ -214,11 +214,11 @@ export const Campo = ({ label, id, children }) => (
 );
 
 export const inputClase =
-  "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-brand placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
+  "rounded-lg border border-icon bg-background px-3 py-2 text-xs text-text placeholder:text-subtext focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 export const BotonSecundario = ({
   children,
-  className = "rounded-full border border-icon bg-background px-4 py-1.5 text-xs hover:bg-text",
+  className = "rounded-full border border-icon bg-background px-4 py-1.5 text-xs text-text hover:bg-border",
   ...props
 }) => (
   <button
@@ -239,4 +239,4 @@ export const BotonPrimario = ({ children, ...props }) => (
   </button>
 );
 
-export default Modal; 
+export default Modal;

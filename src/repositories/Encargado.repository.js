@@ -7,7 +7,7 @@ export async function create(data, db = pool) {
     `INSERT INTO encargado_empresa
        (id_empresa, id_nivel_jerarquico, primer_nombre, apellidos, email, cargo, password_hash)
      VALUES ($1, $2, $3, $4, $5, $6, $7)
-     RETURNING id_encargado, id_empresa, usuario, primer_nombre, apellidos, email, cargo`,
+     RETURNING id_encargado, id_empresa, id_nivel_jerarquico, usuario, primer_nombre, apellidos, email, cargo`,
     [
       data.idEmpresa, data.idNivelJerarquico, data.primer_nombre,
       data.apellidos, data.email, data.cargo, data.passwordHash,
@@ -40,4 +40,4 @@ export async function findexist(email, db = pool) {
 export async function findByUsuario(usuario, db = pool) {
   const result = await db.query("SELECT * FROM encargado_empresa WHERE usuario = $1", [usuario]);
   return result.rows[0];
-} 
+}
