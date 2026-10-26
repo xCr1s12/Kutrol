@@ -5,6 +5,24 @@ import { fromZodError, ValidationError } from "@/utils/errors";
 import { calcularComunasIntermedias } from "@/services/server/comuna.service";
 import { calcularDistanciaKm } from "@/lib/distance";
 
+const VELOCIDAD_PROMEDIO_CARRETERA_KMH = 80;
+
+function calcularTiempoEstimado(distanciaKm) {
+  const distancia = Number(distanciaKm);
+  if (!Number.isFinite(distancia) || distancia <= 0) return "—";
+
+  const minutosTotales = Math.max(
+    1,
+    Math.round((distancia / VELOCIDAD_PROMEDIO_CARRETERA_KMH) * 60),
+  );
+  const horas = Math.floor(minutosTotales / 60);
+  const minutos = minutosTotales % 60;
+
+  if (horas && minutos) return `${horas} h ${minutos} min`;
+  if (horas) return `${horas} h`;
+  return `${minutos} min`;
+}
+
 export async function obtenerRutasFormateadas(id_empresa, db) {
   const rutasBd = await getRutasByEmpresa(id_empresa, db);
 
@@ -35,7 +53,7 @@ export async function obtenerRutasFormateadas(id_empresa, db) {
         rendimiento: "12 km/L",
         ahorro: "15 %",
       },
-      tiempoEstimado: "1 h 10 min",
+      tiempoEstimado: calcularTiempoEstimado(r.distancia_km),
       distanciaTotal: `${r.distancia_km} km`,
     };
   });

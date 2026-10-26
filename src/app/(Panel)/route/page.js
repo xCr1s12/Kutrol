@@ -8,11 +8,29 @@ import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RouteIcon from "@mui/icons-material/Route";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import FormRoute from "@/components/route/FormRoute";
 import FormViaje from "@/components/route/FormViaje";
+import Modal, {
+  BotonPrimario,
+  BotonSecundario,
+  Campo,
+  inputClase,
+} from "@/components/ui/Modal";
+
+const TRANSICIONES_VIAJE = {
+  PROGRAMADO: ["EN_CURSO", "CANCELADO"],
+  EN_CURSO: ["COMPLETADO", "CANCELADO"],
+  COMPLETADO: [],
+  CANCELADO: [],
+};
+
+const ACCION_POR_ESTADO = {
+  EN_CURSO: "iniciar",
+  COMPLETADO: "completar",
+  CANCELADO: "cancelar",
+};
 
 async function obtenerMensajeError(respuesta, mensajePredeterminado) {
   const resultado = await respuesta.json().catch(() => ({}));
@@ -46,6 +64,9 @@ export default function RoutePage() {
   const [formViajeAbierto, setFormViajeAbierto] = useState(false);
   const [errorApi, setErrorApi] = useState("");
   const [viajeEnProceso, setViajeEnProceso] = useState(null);
+  const [viajeEditando, setViajeEditando] = useState(null);
+  const [estadoEditado, setEstadoEditado] = useState("");
+  const [errorEstadoViaje, setErrorEstadoViaje] = useState("");
 
   useEffect(() => {
     async function cargarRutas() {
@@ -147,7 +168,7 @@ export default function RoutePage() {
   };
 
   const cambiarEstadoViaje = async (viaje, accion) => {
-    setErrorApi("");
+    setErrorEstadoViaje("");
     setViajeEnProceso(viaje.id);
     try {
       const respuesta = await fetch(
@@ -184,11 +205,18 @@ export default function RoutePage() {
 
       setRutas(actualizadas);
       setAsignado(actualizadas.find((ruta) => ruta.id === asignado.id) ?? null);
+      setViajeEditando(null);
     } catch (err) {
-      setErrorApi(err.message || `No se pudo ${accion} el viaje.`);
+      setErrorEstadoViaje(err.message || `No se pudo ${accion} el viaje.`);
     } finally {
       setViajeEnProceso(null);
     }
+  };
+
+  const guardarEstadoViaje = () => {
+    if (!viajeEditando || estadoEditado === viajeEditando.estado) return;
+    const accion = ACCION_POR_ESTADO[estadoEditado];
+    if (accion) cambiarEstadoViaje(viajeEditando, accion);
   };
 
   if (cargando) {
@@ -283,44 +311,19 @@ export default function RoutePage() {
                       <td className="py-2 light:text-text dark:text-text">{v.encargado}</td>
                       <td className="py-2 light:text-text dark:text-text">{v.estado}</td>
                       <td className="py-2">
-                        <div className="flex flex-wrap gap-2">
-                          <button
-                            type="button"
-                            aria-label={`Iniciar viaje ${v.id}`}
-                            title="Iniciar viaje"
-                            disabled={viajeEnProceso !== null || v.estado !== "PROGRAMADO"}
-                            onClick={() => cambiarEstadoViaje(v, "iniciar")}
-                            className="inline-flex items-center gap-1 rounded-md bg-emerald-600 px-2 py-1 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
-                          >
-                            <PlayArrowRoundedIcon fontSize="small" aria-hidden="true" />
-                            Iniciar
-                          </button>
-                          <button
-                            type="button"
-                            aria-label={`Completar viaje ${v.id}`}
-                            title="Completar viaje"
-                            disabled={viajeEnProceso !== null || v.estado !== "EN_CURSO"}
-                            onClick={() => cambiarEstadoViaje(v, "completar")}
-                            className="inline-flex items-center gap-1 rounded-md bg-sky-600 px-2 py-1 text-xs font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-40"
-                          >
-                            <TaskAltRoundedIcon fontSize="small" aria-hidden="true" />
-                            Completar
-                          </button>
-                          <button
-                            type="button"
-                            aria-label={`Cancelar viaje ${v.id}`}
-                            title="Cancelar viaje"
-                            disabled={
-                              viajeEnProceso !== null ||
-                              !["PROGRAMADO", "EN_CURSO"].includes(v.estado)
-                            }
-                            onClick={() => cambiarEstadoViaje(v, "cancelar")}
-                            className="inline-flex items-center gap-1 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-40"
-                          >
-                            <CancelRoundedIcon fontSize="small" aria-hidden="true" />
-                            Cancelar
-                          </button>
-                        </div>
+                        <button
+                          type="button"
+                          aria-label={`Editar estado del viaje ${v.id}`}
+                          onClick={() => {
+                            setViajeEditando(v);
+                            setEstadoEditado(v.estado);
+                            setErrorEstadoViaje("");
+                          }}
+                          className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-accent px-3 py-2 text-xs font-bold text-brand transition hover:bg-accent-dark light:text-white"
+                        >
+                          <EditRoundedIcon fontSize="small" aria-hidden="true" />
+                          Editar
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -355,7 +358,7 @@ export default function RoutePage() {
           <InfoCard title="Plan de tiempo" icon={<AccessTimeIcon fontSize="small" />} className="min-w-0 text-center">
             <div className="flex-1 flex flex-col items-center justify-center font-sans">
               <p className="text-4xl font-bold light:text-text dark:text-text">{asignado.tiempoEstimado}</p>
-              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Tiempo estimado</p>
+              <p className="text-sm light:text-subtext dark:text-subtext mt-1">Estimado a 80 km/h</p>
             </div>
           </InfoCard>
 
@@ -376,6 +379,78 @@ export default function RoutePage() {
           rutaNombre={asignado.nombre}
         />
       )}
+
+      <Modal
+        open={Boolean(viajeEditando)}
+        onClose={() => {
+          if (viajeEnProceso === null) setViajeEditando(null);
+        }}
+        title={`Editar viaje ${viajeEditando?.id ?? ""}`}
+        eyebrow="ESTADO DEL VIAJE"
+        icon={<EditRoundedIcon />}
+        footer={
+          <>
+            <BotonSecundario
+              onClick={() => setViajeEditando(null)}
+              disabled={viajeEnProceso !== null}
+            >
+              Cancelar
+            </BotonSecundario>
+            <BotonPrimario
+              onClick={guardarEstadoViaje}
+              disabled={
+                viajeEnProceso !== null ||
+                !viajeEditando ||
+                estadoEditado === viajeEditando.estado ||
+                !ACCION_POR_ESTADO[estadoEditado]
+              }
+            >
+              {viajeEnProceso !== null ? "Guardando..." : "Guardar estado"}
+            </BotonPrimario>
+          </>
+        }
+      >
+        {errorEstadoViaje && (
+          <p role="alert" className="mb-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-700">
+            {errorEstadoViaje}
+          </p>
+        )}
+        <Campo label="Estado" id="viaje-estado">
+          <div className="relative">
+            <select
+              id="viaje-estado"
+              value={estadoEditado}
+              onChange={(event) => setEstadoEditado(event.target.value)}
+              disabled={
+                viajeEnProceso !== null ||
+                !viajeEditando ||
+                TRANSICIONES_VIAJE[viajeEditando.estado]?.length === 0
+              }
+              className={`${inputClase} w-full appearance-none pr-10`}
+            >
+              <option value={viajeEditando?.estado ?? ""}>
+                {viajeEditando?.estado ?? "Selecciona un estado"}
+              </option>
+              {(TRANSICIONES_VIAJE[viajeEditando?.estado] ?? []).map((estado) => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
+            <KeyboardArrowDownRoundedIcon
+              aria-hidden="true"
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-subtext"
+              fontSize="small"
+            />
+          </div>
+        </Campo>
+        {viajeEditando &&
+          TRANSICIONES_VIAJE[viajeEditando.estado]?.length === 0 && (
+            <p className="text-sm text-subtext">
+              Un viaje {viajeEditando.estado.toLowerCase()} no tiene transiciones disponibles.
+            </p>
+          )}
+      </Modal>
 
       <button
         type="button"

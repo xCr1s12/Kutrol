@@ -34,7 +34,12 @@ test("obtenerRutasFormateadas consulta solo la empresa y formatea los datos de B
     destino_longitud: -73.15,
     distancia_km: 112,
     puntos_control: [{ latitud: "-41.3", longitud: "-72.9", orden: 1 }],
-    viajes: [{ conductor: "Ana Pérez", encargado: "Luis Soto" }],
+    viajes: [{
+      id_viaje: 7,
+      estado: "PROGRAMADO",
+      conductor: "Ana Pérez",
+      encargado: "Luis Soto",
+    }],
   };
   const db = fakeDb([ruta]);
 
@@ -50,11 +55,33 @@ test("obtenerRutasFormateadas consulta solo la empresa y formatea los datos de B
       [-41.3, -72.9],
       [-40.5666667, -73.15],
     ],
-    viajes: [{ conductor: "Ana Pérez", encargado: "Luis Soto" }],
+    viajes: [{
+      id: "7",
+      estado: "PROGRAMADO",
+      conductor: "Ana Pérez",
+      encargado: "Luis Soto",
+    }],
     combustible: { consumo: "8,5 L", rendimiento: "12 km/L", ahorro: "15 %" },
-    tiempoEstimado: "1 h 10 min",
+    tiempoEstimado: "1 h 24 min",
     distanciaTotal: "112 km",
   });
+});
+
+test("obtenerRutasFormateadas estima tiempos según la distancia a 80 km/h", async () => {
+  const rutas = [80, 160, 50].map((distancia_km, index) => ({
+    id_ruta: index + 1,
+    comuna_origen: "Origen",
+    comuna_destino: "Destino",
+    distancia_km,
+    viajes: [],
+  }));
+
+  const resultado = await obtenerRutasFormateadas(4, fakeDb(rutas));
+
+  assert.deepEqual(
+    resultado.map((ruta) => ruta.tiempoEstimado),
+    ["1 h", "2 h", "38 min"],
+  );
 });
 
 test("registrarNuevaRuta guarda la ruta con la empresa autenticada", async () => {
